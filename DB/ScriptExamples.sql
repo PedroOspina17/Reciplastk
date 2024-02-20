@@ -72,7 +72,6 @@ DELETE FROM <<TABLE_NAME>> WHERE <<CONDITIONALS>>
 
 DELETE FROM Test 
 WHERE testid = 6
-
 /*
 Delete the entire table 
 DROP TABLE <<TABLE_NAME>>
