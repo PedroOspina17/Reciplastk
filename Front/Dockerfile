@@ -4,10 +4,12 @@
 FROM node:latest as build
 
 # Set the working directory
+
 WORKDIR /app
 
 #Copy package.json and package-lock.json
 COPY package*.json .
+
 
 # Install all the dependencies
 RUN npm install
@@ -25,8 +27,8 @@ RUN npm run build
 FROM nginx:latest
 
 # Copy the build output to replace the default nginx contents.
+
 COPY --from=build /app/dist/reciplastk/browser /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80
-

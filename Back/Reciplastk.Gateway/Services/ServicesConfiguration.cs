@@ -5,6 +5,7 @@
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<IMySimpleService, MySimpleService>();
+            services.AddScoped<SecurityService>();
             return services;
         }
     }
