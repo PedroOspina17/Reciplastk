@@ -1,0 +1,41 @@
+name: build-app
+
+on:
+    workflow_dispatch:
+        inputs:
+            project:
+                description: 'Project you want to build'
+                default: 'front'
+                type: choice
+                options:
+                    - front
+                    - back
+                required: true
+    workflow_call:
+        inputs:
+            project:
+                description: 'Project you want to build'
+                default: 'front'
+                type: string
+                required: true
+jobs:
+    build-push:
+        runs-on: ubuntu-latest
+        steps:
+            - 
+                name: Get code
+                uses: actions/checkout@v3
+            -
+                name: Login Dockerhub
+                uses: docker/login-action@v3
+                with:
+                    username: ${{secrets.DOCKERHUB_USERNAME}}
+                    password: ${{secrets.DOCKERHUB_TOKEN}}
+            -
+                name: Build-Publish
+                uses: docker/build-publish@5
+                with:
+                    context: .
+                    file: ${{inputs.project}}/Dockerfile
+                    push: true
+                    tags: ${{secrets.DOCKERHUB_USERNAME}}/reciplastk-front
