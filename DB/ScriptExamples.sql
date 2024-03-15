@@ -6,7 +6,7 @@ CREATE TABLE <<TABLENAME>>(
 );
 */
 
-CREATE TABLE Test(
+CREATE TABLE Test3(
 	TestId SERIAL PRIMARY KEY, /*To create numeric and autoincrement fields*/
 	Name VARCHAR(50) NOT NULL, /*Not null fields*/
 	LastName VARCHAR(50)
@@ -28,6 +28,7 @@ INSERT INTO Test (Name,LastName) VALUES ('Pedro','Ospina');
 
 INSERT INTO Test (Name,LastName) VALUES ('Pedro','Ospina'); /*use ; to execute multiple commands*/
 INSERT INTO Test (Name,LastName) VALUES ('David','Ossa');
+INSERT INTO Test (Name,LastName) VALUES ('David','Gomez');
 INSERT INTO Test (Name,LastName) VALUES ('Elizabeth','Ospina');
 INSERT INTO Test (Name,LastName) VALUES ('Andrea','Ospina');
 INSERT INTO Test (Name,LastName) VALUES ('Testing','Row');
@@ -41,8 +42,13 @@ SELECT *
 FROM <<TABLE_NAME>>
 WHERE <<CONDITIONALS>>;
 */
-SELECT * FROM Test;
+SELECT * FROM Test
+WHERE name = 'David'
+SELECT * FROM Test
+WHERE id = 2
+
 SELECT * FROM SecondaryTableTest;
+
 
 /*
 Query to change the information from the table: 
@@ -71,9 +77,10 @@ DELETE FROM <<TABLE_NAME>> WHERE <<CONDITIONALS>>
 */
 
 DELETE FROM Test 
-WHERE testid = 6
+WHERE testid = 10
+
 /*
 Delete the entire table 
 DROP TABLE <<TABLE_NAME>>
 */
-DROP TABLE Test ;
+DROP TABLE Test3;
