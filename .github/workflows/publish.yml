@@ -1,0 +1,28 @@
+name: build
+
+on:
+    workflow_dispatch:
+    push:
+        branches: 
+            -"main"
+
+jobs:
+    build-back:
+        runs-on: ubuntu-latest
+        steps:
+            -
+                name: Build and push docker image
+                uses: ./build-push
+                with:
+                    project: back
+    build-front:
+        runs-on: ubuntu-latest
+        steps:
+            -
+                name: Build and push docker image
+                uses: ./build-push
+                with:
+                    project: front
+                    file: ./Front/Reciplastk.Gateway/Dockerfile
+                    push: true
+                    tags: ${{secrets.DOCKERHUB_USERNAME}}/reciplastk-front
