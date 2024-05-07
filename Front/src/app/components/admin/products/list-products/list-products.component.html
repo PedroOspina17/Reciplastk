@@ -1,0 +1,35 @@
+<app-navbar-products></app-navbar-products>
+<div class="container">
+  <div class="titleProduct">
+    <h3>Listado de Productos</h3>
+    <button type="button" class="btn btn-secondary" routerLink="/dashboard/add">Agregar Producto</button>
+  </div>
+  <table class="table table-hover mb-2">
+    <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Descripción</th>
+        <th scope="col">Código</th>
+        <th scope="col">Compra</th>
+        <th scope="col">Venta</th>
+        <th scope="col">gananc</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of listProducts" class="table-active">
+        <!-- <td>{{ item.id}}</td> -->
+        <td>{{ item.name}}</td>
+        <td>{{ item.description }}</td>
+        <td>{{ item.code }}</td>
+        <td>{{ item.buyprice }}</td>
+        <td>{{ item.sellprice }}</td>
+        <td>{{ item.margin }}</td>
+        <td>
+          <button [routerLink]="['/dashboard/edit', item.id]" type="button" class="material-icons editIcon btn btn-outline-info btn-sm ">edit</button>
+          <button type="button" class="material-icons deleteIcon btn btn-outline-danger btn-sm ms-2">delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,18 @@
+.titleProduct{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.deleteIcon{
+  font-size: 20px;
+  cursor: pointer;
+
+}
+
+.editIcon{
+  font-size: 20px;
+  cursor: pointer;
+
+}
