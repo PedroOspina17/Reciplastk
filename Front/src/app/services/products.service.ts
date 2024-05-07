@@ -19,4 +19,20 @@ export class ProductsService {
   GetProduct(id: number): Observable<ProductsModel>{
     return this.htpp.get<ProductsModel>('https://localhost:7131/api/Products/getProductId?id='+id)
   }
+
+  // Metodo para Crear un Producto
+  CreateProduct(infoProduct: ProductsModel): Observable<boolean>{
+    return this.htpp.post<boolean>("https://localhost:7131/api/Products/createProduct", infoProduct)
+
+  }
+
+  // Metodo para modificar un Producto
+  UpdateProduct (infoProduct: ProductsModel): Observable<ProductsModel>{
+    return this.htpp.post<ProductsModel>('https://localhost:7131/api/Products/updateProduct', infoProduct)
+  }
+
+  // Metodo para Eliminar un Producto
+  DeleteProduct(id: number): Observable<boolean>{
+    return this.htpp.delete<boolean>('https://localhost:7131/api/Products/deleteProduct?id='+id )
+  }
 }

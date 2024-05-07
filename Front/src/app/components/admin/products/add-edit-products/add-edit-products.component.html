@@ -1,1 +1,43 @@
-<p>add-edit-products works!</p>
+<div class="row mt-3">
+  <div class="col-lg-4 offset-lg-4">
+    <div class="card text-white bg-info mb-3" style="max-width: 25rem;">
+      <div class="card-header text-center">{{operacion}} Producto</div>
+      <div class="card-body">
+        <form [formGroup]="formProduct"  (ngSubmit)="AddandUpdateProduct()">
+          <input formControlName="name" class="form-control" placeholder="Ingrese Nombre del Producto: ">
+          <span *ngIf="formProduct.get('name')?.hasError('required') && formProduct.get('name')?.touched">
+            El campo nombre es <strong>requerido</strong>
+          </span>
+          <input formControlName="description" type="text" class="form-control mt-2" placeholder="Ingrese Descripción: ">
+          <span *ngIf="formProduct.get('description')?.hasError('required') && formProduct.get('description')?.touched">
+            El campo description es <strong>requerido</strong>
+          </span>
+          <input formControlName="code" type="text" class="form-control mt-2" placeholder="Ingrese Codigo: ">
+          <span *ngIf="formProduct.get('code')?.hasError('required') && formProduct.get('code')?.touched">
+            El campo Código es <strong>requerido</strong>
+          </span>
+          <input formControlName="buyPrice" type="number" class="form-control mt-2" placeholder="Ingrese Precio de Compra: ">
+          <span *ngIf="formProduct.get('buyPrice')?.hasError('required') && formProduct.get('buyPrice')?.touched">
+            El campo Precio de Compra es <strong>requerido</strong>
+          </span>
+          <input formControlName="sellPrice" type="number" class="form-control mt-2" placeholder="Ingrese Precio de Venta: ">
+            <span *ngIf="formProduct.get('sellPrice')?.hasError('required') && formProduct.get('sellPrice')?.touched">
+              El campo Precio de venta es <strong>requerido</strong>
+            </span>
+          <input formControlName="margin"type="number" class="form-control mt-2" placeholder="Ingrese Ganancia: ">
+          <span *ngIf="formProduct.get('margin')?.hasError('required') && formProduct.get('margin')?.touched">
+            El campo ganancia es <strong>requerido</strong>
+          </span>
+          <div class="row mt-2 text-center">
+            <div class="col-lg-6">
+              <button [disabled]="formProduct.invalid" type="submit" class="btn btn-primary">Aceptar</button>
+            </div>
+            <div class="col-lg-6">
+              <button type="button" class="btn btn-secondary" routerLink="/dashboard/products">Volver</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -5,16 +5,18 @@ import { NavbarProductsComponent } from '../navbar-products/navbar-products.comp
 import { RouterLink } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductsService } from '../../../../services/products.service';
+import { LoaderComponent } from '../../../shared/loader/loader.component';
 
 @Component({
   selector: 'app-list-products',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink, NavbarProductsComponent ],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink, NavbarProductsComponent, LoaderComponent ],
   templateUrl: './list-products.component.html',
   styleUrl: './list-products.component.css'
 })
 export class ListProductsComponent {
   listProducts: ProductsModel[] = [];
+  loading: boolean = false;
 
   constructor(private productService: ProductsService) { }
 
@@ -22,13 +24,22 @@ export class ListProductsComponent {
     this.GetProducts();
   };
 
-  GetProducts(): void{
-
+  GetProducts() {
+    this.loading = true;
     this.productService.GetProducts().subscribe(result =>{
       this.listProducts = result;
+      this.loading= false;
     // console.log('info listProducts: ', this.listProducts);
      console.log("informacion de result: ", result);
     })
   };
+
+  DeleteProduct(id: number){
+    this.loading = true;
+    this.productService.DeleteProduct(id).subscribe(()  => {
+    this.GetProducts();
+   })
+
+  }
 
 }

@@ -68,8 +68,43 @@ export class AddEditProductsComponent {
    if(this.id != 0){
     // es modificar
     this.productService
-    
+    .UpdateProduct(product)
+    .subscribe((result)=>{
+      this.toastr.info(
+        'Producto ${product.name} fue Modificado con exito',
+        'Producto Actualizado'
+      );
+      this.router.navigate(['/listProducts'])
+    });
+   } else{
+    this.productService.CreateProduct(product).subscribe((result) => {
+      this.toastr.success(
+        'Producto ${product.name} fue creado Exitosamente',
+        'Producto Creado'
+      );
+      this.router.navigate(['/listProducts'])
+
+    });
    }
   }
+
+  // Metodo para Obtener un Producto por Id
+
+  getProduct(id: number): void {
+    this.productService.GetProduct(id).subscribe((result: ProductsModel) =>{
+      console.log('info de Result: ', result);
+      //setiar o llenar el formulario con setValue para todos los valores o parchValue para algunos
+      this.formProduct.setValue({
+        name: result.name,
+        description: result.description,
+        code: result.description,
+        buyPrice: result.buyprice,
+        sellPrice: result.sellprice,
+        margin: result.margin
+      });
+      console.log('info formProduct: ', this.formProduct.value.Name);
+    });
+  }
+
 }
 
