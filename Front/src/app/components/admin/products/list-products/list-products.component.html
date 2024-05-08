@@ -25,8 +25,8 @@
         <td>{{ item.sellprice }}</td>
         <td>{{ item.margin }}</td>
         <td>
-          <button [routerLink]="['/welcome/edit', item.id]" type="button" class="material-icons editIcon btn btn-outline-info btn-sm ">edit</button>
-          <button (click)="DeleteProduct(item.id!)" type="button" class="material-icons deleteIcon btn btn-outline-danger btn-sm ms-2">delete</button>
+          <button [routerLink]="['/welcome/edit', item.id]" type="button" class="material-icons editIcon ">edit</button>
+          <button (click)="DeleteProduct(item.id!)" type="button" class="material-icons deleteIcon">delete</button>
         </td>
       </tr>
     </tbody>

@@ -6,13 +6,23 @@
 }
 
 .deleteIcon{
-  font-size: 20px;
+  font-size: 30px;
   cursor: pointer;
+  color: #ce4b4b;
+  border-radius: 6px;
+  border: none;
+  hover{
+    font-size: 35px;
+    color: black;
 
+  }
 }
 
+
 .editIcon{
-  font-size: 20px;
+  font-size: 30px;
   cursor: pointer;
+  color: #0dcaf0;
+  border: none;
 
 }
