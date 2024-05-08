@@ -5,12 +5,12 @@ import { NavbarProductsComponent } from '../navbar-products/navbar-products.comp
 import { RouterLink } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductsService } from '../../../../services/products.service';
-import { LoaderComponent } from '../../../shared/loader/loader.component';
+import { ProgressBarComponent } from '../../../shared/progress/progress-bar/progress-bar.component';
 
 @Component({
   selector: 'app-list-products',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink, NavbarProductsComponent, LoaderComponent ],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink, ProgressBarComponent ],
   templateUrl: './list-products.component.html',
   styleUrl: './list-products.component.css'
 })
@@ -29,8 +29,7 @@ export class ListProductsComponent {
     this.productService.GetProducts().subscribe(result =>{
       this.listProducts = result;
       this.loading= false;
-    // console.log('info listProducts: ', this.listProducts);
-     console.log("informacion de result: ", result);
+      console.log('info listProducts: ', this.listProducts);
     })
   };
 

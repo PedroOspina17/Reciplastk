@@ -15,7 +15,7 @@ export class ProductsService {
     return this.htpp.get<Array<ProductsModel>>('https://localhost:7131/api/Products/GetProducts');
   }
 
-  // Metodo para obtener un Procto por id
+  // Metodo para obtener un Producto por id
   GetProduct(id: number): Observable<ProductsModel>{
     return this.htpp.get<ProductsModel>('https://localhost:7131/api/Products/getProductId?id='+id)
   }
@@ -27,7 +27,7 @@ export class ProductsService {
   }
 
   // Metodo para modificar un Producto
-  UpdateProduct (infoProduct: ProductsModel): Observable<ProductsModel>{
+  UpdateProduct (id: number, infoProduct: ProductsModel): Observable<ProductsModel>{
     return this.htpp.post<ProductsModel>('https://localhost:7131/api/Products/updateProduct', infoProduct)
   }
 

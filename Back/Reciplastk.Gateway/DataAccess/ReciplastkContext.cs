@@ -53,8 +53,11 @@ public partial class ReciplastkContext : DbContext
 
         modelBuilder.Entity<Product>(entity =>
         {
+            entity.HasKey(e => e.Id).HasName("products_pkey");
+
             entity.Property(e => e.Creationdate).HasDefaultValueSql("now()");
             entity.Property(e => e.Isactive).HasDefaultValue(true);
+            entity.Property(e => e.Issubtype).HasDefaultValue(true);
             entity.Property(e => e.Updatedate).HasDefaultValueSql("now()");
         });
 

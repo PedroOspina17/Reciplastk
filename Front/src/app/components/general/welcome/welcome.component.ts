@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { ListProductsComponent } from '../../admin/products/list-products/list-products.component';
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { NavbarProductsComponent } from '../../admin/products/navbar-products/navbar-products.component';
 
 @Component({
   selector: 'app-welcome',
   standalone: true,
-  imports: [ListProductsComponent],
+  imports: [RouterOutlet, RouterLink, NavbarProductsComponent],
   templateUrl: './welcome.component.html',
   styleUrl: './welcome.component.css'
 })

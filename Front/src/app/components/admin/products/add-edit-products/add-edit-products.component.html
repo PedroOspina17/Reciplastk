@@ -1,4 +1,5 @@
-<div class="row mt-3">
+<app-progress-bar *ngIf="loading"></app-progress-bar>
+<div *ngIf="!loading" class="row mt-3">
   <div class="col-lg-4 offset-lg-4">
     <div class="card text-white bg-info mb-3" style="max-width: 25rem;">
       <div class="card-header text-center">{{operacion}} Producto</div>
@@ -16,12 +17,12 @@
           <span *ngIf="formProduct.get('code')?.hasError('required') && formProduct.get('code')?.touched">
             El campo Código es <strong>requerido</strong>
           </span>
-          <input formControlName="buyPrice" type="number" class="form-control mt-2" placeholder="Ingrese Precio de Compra: ">
-          <span *ngIf="formProduct.get('buyPrice')?.hasError('required') && formProduct.get('buyPrice')?.touched">
+          <input formControlName="buyprice" type="number" class="form-control mt-2" placeholder="Ingrese Precio de Compra: ">
+          <span *ngIf="formProduct.get('buyprice')?.hasError('required') && formProduct.get('buyprice')?.touched">
             El campo Precio de Compra es <strong>requerido</strong>
           </span>
-          <input formControlName="sellPrice" type="number" class="form-control mt-2" placeholder="Ingrese Precio de Venta: ">
-            <span *ngIf="formProduct.get('sellPrice')?.hasError('required') && formProduct.get('sellPrice')?.touched">
+          <input formControlName="sellprice" type="number" class="form-control mt-2" placeholder="Ingrese Precio de Venta: ">
+            <span *ngIf="formProduct.get('sellprice')?.hasError('required') && formProduct.get('sellPrice')?.touched">
               El campo Precio de venta es <strong>requerido</strong>
             </span>
           <input formControlName="margin"type="number" class="form-control mt-2" placeholder="Ingrese Ganancia: ">
@@ -33,7 +34,7 @@
               <button [disabled]="formProduct.invalid" type="submit" class="btn btn-primary">Aceptar</button>
             </div>
             <div class="col-lg-6">
-              <button type="button" class="btn btn-secondary" routerLink="/dashboard/products">Volver</button>
+              <button type="button" class="btn btn-secondary" routerLink="/welcom">Volver</button>
             </div>
           </div>
         </form>

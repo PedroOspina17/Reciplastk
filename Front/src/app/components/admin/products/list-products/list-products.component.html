@@ -1,9 +1,8 @@
-<app-navbar-products></app-navbar-products>
-<app-loader *ngIf="loading"></app-loader>
+<app-progress-bar *ngIf="loading"></app-progress-bar>
 <div *ngIf="!loading" class="container">
   <div class="titleProduct">
     <h3>Listado de Productos</h3>
-    <button type="button" class="btn btn-secondary" routerLink="/dashboard/add">Agregar Producto</button>
+    <button type="button" class="btn btn-secondary" routerLink="/welcome/addProduct">Agregar Producto</button>
   </div>
   <table class="table table-hover mb-2">
     <thead>
@@ -26,7 +25,7 @@
         <td>{{ item.sellprice }}</td>
         <td>{{ item.margin }}</td>
         <td>
-          <button [routerLink]="['/dashboard/products/edit', item.id]" type="button" class="material-icons editIcon btn btn-outline-info btn-sm ">edit</button>
+          <button [routerLink]="['/welcome/edit', item.id]" type="button" class="material-icons editIcon btn btn-outline-info btn-sm ">edit</button>
           <button (click)="DeleteProduct(item.id!)" type="button" class="material-icons deleteIcon btn btn-outline-danger btn-sm ms-2">delete</button>
         </td>
       </tr>
