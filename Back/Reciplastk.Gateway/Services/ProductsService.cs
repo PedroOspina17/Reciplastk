@@ -1,37 +1,64 @@
-﻿using Reciplastk.Gateway.DataAccess;
+﻿using Azure;
+using Reciplastk.Gateway.DataAccess;
 using Reciplastk.Gateway.Models;
 
 namespace Reciplastk.Gateway.Services
 {
     public class ProductsService
     {
-        public ReciplastkContext dbReciplastk = new ReciplastkContext();
 
-        public List<Product> GetProducts()
+        private readonly ReciplastkContext db;
+
+        public ProductsService( ReciplastkContext dbReciplastk)
         {
-            var allProducts = dbReciplastk.Products.ToList();
-            return allProducts;
+            this.db = dbReciplastk;
         }
-
-        public Product GetProductId(int id)
+        public HttpResponseModel GetProducts()
         {
-            var foundProduct = dbReciplastk.Products.Where(p => p.Id == id).FirstOrDefault();
-            if (foundProduct != null)
+            var productsInfo = db.Products.ToList();
+            var response = new HttpResponseModel();
+            if(productsInfo == null)
             {
-                return foundProduct;
+                response.WasSuccessful = false;
+                response.StatusMessage = "The information provided is not correct.";
             }
             else
             {
-                return null;
+                response.StatusCode = 200;
+                response.WasSuccessful = true;
+                response.StatusMessage = "the product list was found.";
+                response.Data = productsInfo;
             }
+            return response;
         }
 
-        public bool CreateProduct(ProductsModels infoProduct)
+        public HttpResponseModel GetProductId(int id)
         {
-            var existProduct = dbReciplastk.Products.Where(p => p.Name == infoProduct.Name).FirstOrDefault();
-            if (existProduct != null)
+            var productInfo = db.Products.Where(p => p.Id == id).FirstOrDefault();
+            var response = new HttpResponseModel();
+            if (productInfo == null)
             {
-                return false;
+                response.WasSuccessful = false;
+                response.StatusMessage = "The product is not found.";
+            }
+            else
+            {
+                response.StatusCode = 200;
+                response.WasSuccessful = true;
+                response.StatusMessage = "The producto was found.";
+                response.Data = productInfo;
+            }
+                return response;
+        }
+
+        public HttpResponseModel CreateProduct(ProductsModels infoProduct)
+        {
+            var productInfo = db.Products.Where(p => p.Name == infoProduct.Name).FirstOrDefault();
+            var response = new HttpResponseModel();
+            if (productInfo != null)
+            {
+                response.WasSuccessful = false;
+                response.StatusMessage = "The product exists in the database.";
             }
             else
             {
@@ -43,48 +70,63 @@ namespace Reciplastk.Gateway.Services
                 newProduct.Sellprice = infoProduct.SellPrice;
                 newProduct.Margin = infoProduct.Margin;
 
-                dbReciplastk.Products.Add(newProduct);
-                dbReciplastk.SaveChanges();
-                return true;
-            } 
+                db.Products.Add(newProduct);
+                db.SaveChanges();
+                response.StatusCode = 200;
+                response.WasSuccessful = true;
+                response.StatusMessage = "the product was created successfully. ";
+                response.Data = newProduct;
+            }
+            return response;
 
         }
 
-        public Product UpdateProduct (ProductsModels infoProduct)
+        public HttpResponseModel UpdateProduct (ProductsModels infoProduct)
         {
-            var foundProduct = dbReciplastk.Products.Where(p => p.Id == infoProduct.Id).FirstOrDefault();
-            if(foundProduct != null)
-            {
-                foundProduct.Name = infoProduct.Name;
-                foundProduct.Description = infoProduct.Description;
-                foundProduct.Code = infoProduct.Code;
-                foundProduct.Buyprice = infoProduct.BuyPrice;
-                foundProduct.Sellprice= infoProduct.SellPrice;
-                foundProduct.Margin = infoProduct.Margin;
-                dbReciplastk.SaveChanges();
-                var productModify = dbReciplastk.Products.Where(p => p.Name == foundProduct.Name).FirstOrDefault();
+            var productInfo = db.Products.Where(p => p.Id == infoProduct.Id).FirstOrDefault();
+            var response = new HttpResponseModel();
 
-                return productModify;
+            if(productInfo == null)
+            {
+                response.WasSuccessful = false;
+                response.StatusMessage = "The producto was no found. "; 
+            } else {
+                productInfo.Name = infoProduct.Name;
+                productInfo.Description = infoProduct.Description;
+                productInfo.Code = infoProduct.Code;
+                productInfo.Buyprice = infoProduct.BuyPrice;
+                productInfo.Sellprice = infoProduct.SellPrice;
+                productInfo.Margin = infoProduct.Margin;
+                db.SaveChanges();
+                var productModify = db.Products.Where(p => p.Name == infoProduct.Name).FirstOrDefault();
+
+                response.StatusCode = 200;
+                response.WasSuccessful = true;
+                response.StatusMessage = "The Product was modified successfully.";
+                response.Data = productModify;
             }
-            else {
-                return null; 
-            }
+            return response;
 
         }
 
-        public bool DeleteProduct(int id)
+        public HttpResponseModel DeleteProduct(int id)
         {
-            var productFound = dbReciplastk.Products.Where(p => p.Id == id).FirstOrDefault();
-            if (productFound != null)
+            var productFound = db.Products.Where(p => p.Id == id).FirstOrDefault();
+            var response = new HttpResponseModel();
+            if (productFound == null)
             {
-                dbReciplastk.Products.Remove(productFound);
-                dbReciplastk.SaveChanges();
-                return true;
+                response.WasSuccessful = false;
+                response.StatusMessage = "The product was not found.";
+                
+            } else {
+                db.Products.Remove(productFound);
+                db.SaveChanges();
+                response.StatusCode = 200;
+                response.WasSuccessful = true;
+                response.StatusMessage = "The product was deleted successfully.";
+                response.Data = productFound;
             }
-            else
-            {
-                return false;
-            }
+            return response;
         }
 
     }

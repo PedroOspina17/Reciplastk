@@ -10,38 +10,44 @@ namespace Reciplastk.Gateway.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        public ProductsService productsService = new ProductsService();
+       
+        private readonly ProductsService productsService;
+
+        public ProductsController( ProductsService productsService)
+        {
+            this.productsService = productsService;
+        }
 
         [HttpGet("getProducts")]
 
-        public List<Product> GetProducts()
+        public HttpResponseModel GetProducts()
         {
             return productsService.GetProducts();
         }
 
         [HttpGet("getProductId")]
 
-        public Product GetProduct(int id)
+        public HttpResponseModel GetProduct(int id)
         {
             return productsService.GetProductId(id);
         }
 
         [HttpPost("createProduct")]
 
-        public bool CreateProduct(ProductsModels infoProducts)
+        public HttpResponseModel CreateProduct(ProductsModels infoProducts)
         {
             return productsService.CreateProduct(infoProducts);
         }
 
         [HttpPost("updateProduct")]
 
-        public Product UpdateProduct(ProductsModels infoProducts)
+        public HttpResponseModel UpdateProduct(ProductsModels infoProducts)
         {
             return productsService.UpdateProduct(infoProducts);
         }
 
         [HttpDelete("deleteProduct")]
-        public bool DeleteProduct(int id)
+        public HttpResponseModel DeleteProduct(int id)
         {
             return productsService.DeleteProduct(id);
         }

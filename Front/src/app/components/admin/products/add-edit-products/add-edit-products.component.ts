@@ -52,12 +52,31 @@ export class AddEditProductsComponent {
     }
   }
 
+  // Metodo para Obtener un Producto por Id
+
+  GetProduct(id: number): void {
+    this.productService.GetProduct(id).subscribe(result =>{
+      console.log("result GetProduct: ", result);
+      if (result.wasSuccessful == true) {
+        //setiar o llenar el formulario con setValue para todos los valores o parchValue para algunos
+        this.formProduct.setValue({
+          name: result.data.name,
+          description: result.data.description,
+          code: result.data.code,
+          buyprice: result.data.buyprice,
+          sellprice: result.data.sellprice,
+          margin: result.data.margin
+        });
+        console.log('info formProduct: ', this.formProduct.value.name);
+      } else {
+        console.log("informacion incorrecta");
+      }
+    });
+  }
+
   // Metodo para Crear Producto y Modificar Informacion del Producto
   AddandUpdateProduct() {
-    /* OBTENER EL VALOR DE LAS PROPIEDADES
-      console.log(this.formProduct.value.name)
-      console.log(this.formProduct.get('name')?.value)
-    */
+
    const product: ProductsModel = {
     name: this.formProduct.value.name,
     description: this.formProduct.value.description,
@@ -73,49 +92,33 @@ export class AddEditProductsComponent {
 
     // es editar
     product.id = this.id;
-    this.productService.UpdateProduct(this.id, product).subscribe(()=>{
-      console.log('informacion product.name: ', product.name);
-      this.toastr.success(
-        'El producto ${product.name} fue actualizado con exito',
-        'Producto Actualizado'
-      );
-      this.loading = false;
-      this.router.navigate(['/welcom'])
+    this.productService.UpdateProduct(this.id, product).subscribe(result =>{
+      if (result.wasSuccessful == true) {
+        this.toastr.success(`El producto ${product.name} fue actualizado con exito`, `Producto Actualizado.`);
+        this.loading = false;
+        this.router.navigate(['/admin/dashboard/products'])
+      } else {
+        this.toastr.error(`El producto no pudo ser modificado`, `Error.`)
+        this.loading = false;
+        this.router.navigate(['/admin/dashboard/products'])
+      }
     });
    } else{
     // Es agregar
 
-    this.productService.CreateProduct(product).subscribe(() => {
-
-      console.log(product.name);
-
-      this.toastr.success(
-        'El producto ${product.name} fue creado Exitosamente',
-        'Producto Creado'
-      );
-      this.loading = false;
-      this.router.navigate(['/welcom'])
+    this.productService.CreateProduct(product).subscribe(result => {
+      console.log("result CreateProducts: ", result);
+      if (result.wasSuccessful == true) {
+        this.toastr.success(`El producto ${product.name} fue creado Exitosamente`, `Producto Creado`);
+        this.loading = false;
+        this.router.navigate(['/admin/dashboard/products'])
+      } else {
+        this.toastr.error(`El producto ${product.name}`,`Error.`);
+        this.loading = false;
+        this.router.navigate(['/admin/dashboard/products'])
+      }
     });
    }
   }
-
-  // Metodo para Obtener un Producto por Id
-
-  GetProduct(id: number): void {
-    this.productService.GetProduct(id).subscribe((result: ProductsModel) =>{
-
-      //setiar o llenar el formulario con setValue para todos los valores o parchValue para algunos
-      this.formProduct.setValue({
-        name: result.name,
-        description: result.description,
-        code: result.code,
-        buyprice: result.buyprice,
-        sellprice: result.sellprice,
-        margin: result.margin
-      });
-      console.log('info formProduct: ', this.formProduct.value.Name);
-    });
-  }
-
 }
 

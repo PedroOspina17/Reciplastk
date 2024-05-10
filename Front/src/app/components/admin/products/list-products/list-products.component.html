@@ -2,7 +2,7 @@
 <div *ngIf="!loading" class="container">
   <div class="titleProduct">
     <h3>Listado de Productos</h3>
-    <button type="button" class="btn btn-secondary" routerLink="/welcome/addProduct">Agregar Producto</button>
+    <button type="button" class="btn btn-secondary" routerLink="/admin/dashboard/add">Agregar Producto</button>
   </div>
   <table class="table table-hover mb-2">
     <thead>
@@ -25,7 +25,7 @@
         <td>{{ item.sellprice }}</td>
         <td>{{ item.margin }}</td>
         <td>
-          <button [routerLink]="['/welcome/edit', item.id]" type="button" class="material-icons editIcon ">edit</button>
+          <button [routerLink]="['/admin/dashboard/edit', item.id]" type="button" class="material-icons editIcon ">edit</button>
           <button (click)="DeleteProduct(item.id!)" type="button" class="material-icons deleteIcon">delete</button>
         </td>
       </tr>
