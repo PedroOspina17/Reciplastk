@@ -43,7 +43,7 @@ namespace Reciplastk.Gateway.Services
             var customer = db.Customers.FirstOrDefault(x => x.Customerid == customerId);
             return customer;
         }
-        private Customer CustomerByNit(String customerNit)
+        private Customer GetCustomerByNit(String customerNit)
         {
             var customer = db.Customers.FirstOrDefault(x => x.Nit == customerNit);
             return customer;
@@ -51,7 +51,7 @@ namespace Reciplastk.Gateway.Services
         public HttpResponseModel CreateCustomer(CustomerViewModel customerViewModel)
         {
             var response = new HttpResponseModel();
-            var customer = CustomerByNit(customerViewModel.Nit);
+            var customer = GetCustomerByNit(customerViewModel.Nit);
             if (customer == null ) {
                 var newCustomer = new Customer(); // se hace instancia cuando no hay datos en la db
                 newCustomer.Nit = customerViewModel.Nit;
