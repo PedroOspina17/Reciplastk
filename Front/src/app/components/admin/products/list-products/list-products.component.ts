@@ -17,6 +17,7 @@ import { ProgressBarComponent } from '../../../shared/progress/progress-bar/prog
 export class ListProductsComponent {
   listProducts: ProductsModel[] = [];
   loading: boolean = false;
+  expandedArea: boolean = false;
 
   constructor(
     private productService: ProductsService,
@@ -39,10 +40,10 @@ export class ListProductsComponent {
     })
   };
 
-  DeleteProduct(id: number){
+  DeleteProduct(productid: number){
     this.loading = true;
-    console.log("id product: ", id);
-    this.productService.DeleteProduct(id).subscribe(result  => {
+    console.log("id product delete: ", productid);
+    this.productService.DeleteProduct(productid).subscribe(result  => {
       if(result.wasSuccessful == true){
         this.toastr.info(`El producto ${result.data.name} fue eliminado con exito`, `Producto Eliminado.`)
       }else {
@@ -50,7 +51,12 @@ export class ListProductsComponent {
       }
     this.GetProducts();
    })
+  }
 
+  ExpandArea(productid: number){
+    this.loading = true;
+    console.log("id product expandArea: ", productid);
+    this.expandedArea = true;
   }
 
 }

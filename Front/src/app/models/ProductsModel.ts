@@ -1,9 +1,10 @@
 export class ProductsModel{
-  id?: number;
-  name?: string;
-  description?: string;
-  code?: string;
-  buyprice?: number;
-  sellprice?: number;
-  margin?: number;
+  productid?: number;
+  shortname: string = "";
+  name: string = "";
+  description: string = "";
+  code: string = "";
+  buyprice: number = 0;
+  sellprice?: number = 0;
+  margin: number = 0;
 }

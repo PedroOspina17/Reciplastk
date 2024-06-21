@@ -18,7 +18,7 @@ export class AddEditProductsComponent {
 
   formProduct: FormGroup;
   id: number;
-  operacion: string = "Agregar ";
+  operacion: string = "";
   loading: boolean = false;
 
   constructor(
@@ -29,6 +29,7 @@ export class AddEditProductsComponent {
     private aRoute: ActivatedRoute
   ){
     this.formProduct = this.fb.group({
+      shortname: ['', [Validators.required, Validators.maxLength(20)]],
       name: ['', [Validators.required, Validators.maxLength(20)]],
       description: ['', [Validators.required, Validators.maxLength(20)]],
       code: ['', [Validators.required, Validators.maxLength(20)]],
@@ -38,7 +39,7 @@ export class AddEditProductsComponent {
     });
     // Obtener el id de la URL - inyecta la dependencia ActiveRoute y luego lo llama con snapshot.paramMap
     this.id = Number(aRoute.snapshot.paramMap.get('id')); // Se parsea para que no salga error Number( lo que se quire cambiar)
-    console.log('info id: ', this.id)
+
   }
 
   // Metodo para cargar los productos al momento de ingresar al componente
@@ -46,20 +47,26 @@ export class AddEditProductsComponent {
 
     if (this.id != 0){
       // Es editar
-      this.operacion = 'Editar ';
+      this.operacion = 'Editar';
       this.GetProduct(this.id)
+      this.loading = false;
+    }else{
+      // es Agregar
+      console.log("info id ngOnInit: ", this.id);
+      this.operacion = 'Agregar';
       this.loading = false;
     }
   }
 
   // Metodo para Obtener un Producto por Id
 
-  GetProduct(id: number): void {
-    this.productService.GetProduct(id).subscribe(result =>{
+  GetProduct(productid: number): void {
+    this.productService.GetProduct(productid).subscribe(result =>{
       console.log("result GetProduct: ", result);
       if (result.wasSuccessful == true) {
         //setiar o llenar el formulario con setValue para todos los valores o parchValue para algunos
         this.formProduct.setValue({
+          shortname: result.data.shortname,
           name: result.data.name,
           description: result.data.description,
           code: result.data.code,
@@ -78,6 +85,7 @@ export class AddEditProductsComponent {
   AddandUpdateProduct() {
 
    const product: ProductsModel = {
+    shortname: this.formProduct.value.shortname,
     name: this.formProduct.value.name,
     description: this.formProduct.value.description,
     code: this.formProduct.value.code,
@@ -86,25 +94,30 @@ export class AddEditProductsComponent {
     margin: this.formProduct.value.margin
    };
 
-   product.id = this.id;
+   product.productid = this.id;
    this.loading = true;
-   if(this.id !== 0){
+   if(this.id != 0){
 
     // es editar
-    product.id = this.id;
+    product.productid = this.id;
+    console.log("info product.productid metodo addedit: ", product.productid);
+    console.log("info id en addedit: ", this.id);
+
     this.productService.UpdateProduct(this.id, product).subscribe(result =>{
       if (result.wasSuccessful == true) {
         this.toastr.success(`El producto ${product.name} fue actualizado con exito`, `Producto Actualizado.`);
         this.loading = false;
-        this.router.navigate(['/admin/dashboard/products'])
+        this.router.navigate(['/admin/products'])
       } else {
         this.toastr.error(`El producto no pudo ser modificado`, `Error.`)
         this.loading = false;
-        this.router.navigate(['/admin/dashboard/products'])
+        this.router.navigate(['/admin/products'])
       }
     });
    } else{
     // Es agregar
+    console.log("info product.productid metodo addedit: ", product.productid);
+    console.log("info id en addedit: ", this.id);
 
     this.productService.CreateProduct(product).subscribe(result => {
       console.log("result CreateProducts: ", result);

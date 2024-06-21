@@ -10,8 +10,13 @@ namespace Reciplastk.Gateway.DataAccess;
 public partial class Product
 {
     [Key]
-    [Column("id")]
-    public int Id { get; set; }
+    [Column("productid")]
+    public int Productid { get; set; }
+
+    [Required]
+    [Column("shortname")]
+    [StringLength(20)]
+    public string Shortname { get; set; }
 
     [Required]
     [Column("name")]
@@ -20,7 +25,7 @@ public partial class Product
 
     [Required]
     [Column("description")]
-    [StringLength(50)]
+    [StringLength(150)]
     public string Description { get; set; }
 
     [Required]
@@ -48,4 +53,7 @@ public partial class Product
 
     [Column("isactive")]
     public bool Isactive { get; set; }
+
+    [Column("parentid")]
+    public int? Parentid { get; set; }
 }

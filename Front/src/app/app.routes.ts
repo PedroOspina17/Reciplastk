@@ -9,18 +9,17 @@ import { ListProductsComponent } from './components/admin/products/list-products
 
 export const routes: Routes = [
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
-  { path: 'welcome', component: WelcomeComponent},
+  { path: 'welcome', component: WelcomeComponent },
   { path: 'aboutus', component: AboutusComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   {
     path: 'admin',
     children: [
-      { path: 'dashboard', component: DashboardComponent, children:[
-        { path: 'products', component: ListProductsComponent},
-        { path: 'add', component: AddEditProductsComponent},
-        { path: 'edit/:id', component: AddEditProductsComponent}
-      ]},
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'products', component: ListProductsComponent },
+      { path: 'addProduct', component: AddEditProductsComponent },
+      { path: 'editProduct/:id', component: AddEditProductsComponent },
       { path: 'roles', redirectTo: '/dashboard' },
     ],
   },

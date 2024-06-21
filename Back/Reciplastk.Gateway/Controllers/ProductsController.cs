@@ -32,16 +32,23 @@ namespace Reciplastk.Gateway.Controllers
             return productsService.GetProductId(id);
         }
 
+        [HttpGet("getProductbyParentid")]
+
+        public HttpResponseModel GetProductsbyParentid(int id)
+        {
+            return productsService.GetProductsbyParentid(id);
+        }
+
         [HttpPost("createProduct")]
 
-        public HttpResponseModel CreateProduct(ProductsModels infoProducts)
+        public HttpResponseModel CreateProduct(ProductsViewModel infoProducts)
         {
             return productsService.CreateProduct(infoProducts);
         }
 
         [HttpPost("updateProduct")]
 
-        public HttpResponseModel UpdateProduct(ProductsModels infoProducts)
+        public HttpResponseModel UpdateProduct(ProductsViewModel infoProducts)
         {
             return productsService.UpdateProduct(infoProducts);
         }

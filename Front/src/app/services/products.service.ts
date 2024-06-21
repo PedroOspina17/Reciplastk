@@ -30,12 +30,12 @@ export class ProductsService {
   }
 
   // Metodo para modificar un Producto
-  UpdateProduct (id: number, infoProduct: ProductsModel): Observable<HttpResponseModel>{
+  UpdateProduct (productid: number, infoProduct: ProductsModel): Observable<HttpResponseModel>{
     return this.htpp.post<HttpResponseModel>(this.ServiceEndpoint+'/api/Products/updateProduct', infoProduct)
   }
 
   // Metodo para Eliminar un Producto
-  DeleteProduct(id: number): Observable<HttpResponseModel>{
-    return this.htpp.delete<HttpResponseModel>(this.ServiceEndpoint+'/api/Products/deleteProduct?id='+id )
+  DeleteProduct(productid: number): Observable<HttpResponseModel>{
+    return this.htpp.delete<HttpResponseModel>(this.ServiceEndpoint+'/api/Products/deleteProduct?id='+productid )
   }
 }

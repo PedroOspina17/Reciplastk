@@ -1,28 +1,46 @@
-.titleProduct{
+.titleProduct {
   margin-top: 10px;
   margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
 }
 
-.deleteIcon{
-  font-size: 30px;
+.deleteIconProduct {
+  color: #dc3545;
+  border-color: #dc3545;
+  border-radius: 4px;
+  font-size: 28px;
   cursor: pointer;
-  color: #ce4b4b;
-  border-radius: 6px;
-  border: none;
-  hover{
-    font-size: 35px;
-    color: black;
-
-  }
+  background-color: none;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left-color: #e9ecef;
+}
+.deleteIconProduct:hover {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+  border-radius: 5px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
-
-.editIcon{
-  font-size: 30px;
+.editIconProducts {
+  color: #ffc107;
+  border-color: #ffc107;
+  border-radius: 4px;
+  font-size: 28px;
   cursor: pointer;
-  color: #0dcaf0;
-  border: none;
-
+  background-color: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right-color: none;
+}
+.editIconProducts:hover {
+  color: #fff;
+  background-color: #ffc107;
+  border-color: #ffc107;
+  border-radius: 5px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
