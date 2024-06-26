@@ -25,8 +25,8 @@ export class ProductsService {
   }
 
   // Metodo para Crear un Producto
-  CreateProduct(infoProduct: ProductsModel): Observable<HttpResponseModel>{
-    return this.htpp.post<HttpResponseModel>(this.ServiceEndpoint+"/api/Products/createProduct", infoProduct)
+  CreateProduct(productModel: ProductsModel): Observable<HttpResponseModel>{
+    return this.htpp.post<HttpResponseModel>(this.ServiceEndpoint+"/api/Products/createProduct", productModel)
   }
 
   // Metodo para modificar un Producto

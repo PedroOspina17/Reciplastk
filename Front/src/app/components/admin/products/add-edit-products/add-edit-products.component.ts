@@ -23,10 +23,10 @@ export class AddEditProductsComponent {
 
   constructor(
     private fb: FormBuilder,
-    private toastr: ToastrService,
-    private router: Router,
     private productService: ProductsService,
-    private aRoute: ActivatedRoute
+    private aRoute: ActivatedRoute,
+    private router: Router,
+    private toastr: ToastrService
   ){
     this.formProduct = this.fb.group({
       shortname: ['', [Validators.required, Validators.maxLength(20)]],
@@ -36,6 +36,7 @@ export class AddEditProductsComponent {
       buyprice: [null, Validators.required],
       sellprice: [null, Validators.required],
       margin: [null, Validators.required],
+      issubtype: [false]
     });
     // Obtener el id de la URL - inyecta la dependencia ActiveRoute y luego lo llama con snapshot.paramMap
     this.id = Number(aRoute.snapshot.paramMap.get('id')); // Se parsea para que no salga error Number( lo que se quire cambiar)
@@ -58,6 +59,10 @@ export class AddEditProductsComponent {
     }
   }
 
+  // toggleSubtype(value: boolean) {
+  //   this.formProduct.get('issubtype').patchValue(value);  // Actualiza el valor de issubtype en el formulario
+  // }
+
   // Metodo para Obtener un Producto por Id
 
   GetProduct(productid: number): void {
@@ -72,7 +77,8 @@ export class AddEditProductsComponent {
           code: result.data.code,
           buyprice: result.data.buyprice,
           sellprice: result.data.sellprice,
-          margin: result.data.margin
+          margin: result.data.margin,
+          issubtype: result.data.issubtype
         });
         console.log('info formProduct: ', this.formProduct.value.name);
       } else {
@@ -91,7 +97,8 @@ export class AddEditProductsComponent {
     code: this.formProduct.value.code,
     buyprice: this.formProduct.value.buyprice,
     sellprice: this.formProduct.value.sellprice,
-    margin: this.formProduct.value.margin
+    margin: this.formProduct.value.margin,
+    issubtype: this.formProduct.value.issubtype
    };
 
    product.productid = this.id;
@@ -122,6 +129,7 @@ export class AddEditProductsComponent {
     this.productService.CreateProduct(product).subscribe(result => {
       console.log("result CreateProducts: ", result);
       if (result.wasSuccessful == true) {
+        console.log("informacion de product en agregar: ", product);
         this.toastr.success(`El producto ${product.name} fue creado Exitosamente`, `Producto Creado`);
         this.loading = false;
         this.router.navigate(['/admin/dashboard/products'])

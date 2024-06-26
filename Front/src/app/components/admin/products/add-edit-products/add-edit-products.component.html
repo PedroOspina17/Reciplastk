@@ -174,7 +174,8 @@
                 type="radio"
                 name="isSubtype"
                 id="isSubtypeFalse"
-                checked
+                [checked]="!formProduct.get('issubtype')?.value"
+                
               />
               <label class="form-check-label me-4" for="isSubtypeTrue">
                 No
@@ -186,11 +187,12 @@
                 name="isSubtype"
                 id="isSubtypeTrue"
                 formControlName="isSubtype"
+
               />
               <label class="form-check-label" for="isSubtypeTrue"> Si </label>
             </div>
           </div>
-          <div class="row mt-2">
+          <div class="row mt-2" id="subtipos" *ngIf="formProduct.get('issubtype')?.value">
             <h3 class="mb-4 mt-4 text-center"> Sub-Producto</h3>
             <div class="col-md-4">
               <label class="control-label" for="Name"
