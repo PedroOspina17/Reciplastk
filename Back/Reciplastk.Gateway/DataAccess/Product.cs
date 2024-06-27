@@ -56,4 +56,7 @@ public partial class Product
 
     [Column("parentid")]
     public int? Parentid { get; set; }
+
+    [InverseProperty("Product")]
+    public virtual ICollection<Weightcontrol> Weightcontrols { get; set; } = new List<Weightcontrol>();
 }
