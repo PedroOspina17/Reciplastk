@@ -6,10 +6,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Reciplastk.Gateway.DataAccess;
 
-[Keyless]
 [Table("products")]
 public partial class Product
 {
+    [Key]
+    [Column("productid")]
+    public int Productid { get; set; }
+
+    [Required]
+    [Column("shortname")]
+    [StringLength(20)]
+    public string Shortname { get; set; }
+
     [Required]
     [Column("name")]
     [StringLength(50)]
@@ -17,7 +25,7 @@ public partial class Product
 
     [Required]
     [Column("description")]
-    [StringLength(50)]
+    [StringLength(150)]
     public string Description { get; set; }
 
     [Required]
@@ -45,4 +53,10 @@ public partial class Product
 
     [Column("isactive")]
     public bool Isactive { get; set; }
+
+    [Column("parentid")]
+    public int? Parentid { get; set; }
+
+    [InverseProperty("Product")]
+    public virtual ICollection<Weightcontrol> Weightcontrols { get; set; } = new List<Weightcontrol>();
 }
