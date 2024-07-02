@@ -49,4 +49,7 @@ public partial class Customer
 
     [Column("isactive")]
     public bool? Isactive { get; set; }
+
+    [InverseProperty("Customer")]
+    public virtual ICollection<Shipment> Shipments { get; set; } = new List<Shipment>();
 }

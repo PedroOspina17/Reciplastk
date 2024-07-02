@@ -48,4 +48,10 @@ public partial class Employee
     [ForeignKey("Roleid")]
     [InverseProperty("Employees")]
     public virtual Rol Role { get; set; }
+
+    [InverseProperty("Employee")]
+    public virtual ICollection<Shipment> Shipments { get; set; } = new List<Shipment>();
+
+    [InverseProperty("Employee")]
+    public virtual ICollection<Weightcontrol> Weightcontrols { get; set; } = new List<Weightcontrol>();
 }
