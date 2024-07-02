@@ -32,7 +32,7 @@ public partial class Customer
     public string Address { get; set; }
 
     [Column("cell")]
-    [StringLength(10)]
+    [StringLength(20)]
     public string Cell { get; set; }
 
     [Column("clientsince", TypeName = "timestamp without time zone")]

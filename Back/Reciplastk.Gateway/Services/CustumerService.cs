@@ -1,6 +1,7 @@
 ﻿using Azure;
 using Reciplastk.Gateway.DataAccess;
 using Reciplastk.Gateway.Models;
+using System;
 using System.Linq;
 
 namespace Reciplastk.Gateway.Services
@@ -51,47 +52,50 @@ namespace Reciplastk.Gateway.Services
         public HttpResponseModel CreateCustomer(CustomerViewModel customerViewModel)
         {
             var response = new HttpResponseModel();
-            var customer = GetCustomerByNit(customerViewModel.Nit);
+            var customer = GetCustomerByNit(customerViewModel.nit);
             if (customer == null ) {
                 var newCustomer = new Customer(); // se hace instancia cuando no hay datos en la db
-                newCustomer.Nit = customerViewModel.Nit;
-                newCustomer.Name = customerViewModel.Name;
-                newCustomer.Lastname = customerViewModel.LastName;
-                newCustomer.Address = customerViewModel.Address;
-                newCustomer.Cell = customerViewModel.Cell;
-                newCustomer.Clientsince = customerViewModel.Clientsince;
-                newCustomer.Needspickup = customerViewModel.Needspickup;
+                newCustomer.Nit = customerViewModel.nit;
+                newCustomer.Name = customerViewModel.name;
+                newCustomer.Lastname = customerViewModel.lastname;
+                newCustomer.Address = customerViewModel.address;
+                newCustomer.Cell = customerViewModel.cell;
+                newCustomer.Needspickup = customerViewModel.needspickup;
+                newCustomer.Clientsince = DateTime.Now;
                 db.Customers.Add( newCustomer );
                 db.SaveChanges();
                 response.WasSuccessful = true;
                 response.Data = newCustomer;
-            }else
+                response.StatusMessage = "El cliente fue creado exitosamente";
+            }
+            else
             {
                 response.WasSuccessful = false;
-                response.StatusMessage = "The customer was not created";
+                response.StatusMessage = "Ya existe otro cliente con el NIT indicado";
             }
             return response;
         }   
         public HttpResponseModel EditCustomer(CustomerViewModel customerViewModel) {
             var response = new HttpResponseModel();
-            var customer = CustomerById(customerViewModel.Id);
+            var customer = CustomerById(customerViewModel.customerid);
             if (customer != null)
             {
-                customer.Nit = customerViewModel.Nit; 
-                customer.Name = customerViewModel.Name;
-                customer.Lastname = customerViewModel.LastName;
-                customer.Address = customerViewModel.Address;
-                customer.Cell = customerViewModel.Cell;
-                customer.Clientsince = customerViewModel.Clientsince;
-                customer.Needspickup = customerViewModel.Needspickup;
+                customer.Nit = customerViewModel.nit; 
+                customer.Name = customerViewModel.name;
+                customer.Lastname = customerViewModel.lastname;
+                customer.Address = customerViewModel.address;
+                customer.Cell = customerViewModel.cell;
+                customer.Clientsince = DateTime.Now;
+                customer.Needspickup = customerViewModel.needspickup;
                 db.SaveChanges();
                 response.WasSuccessful = true;
                 response.Data = customer;
+                response.StatusMessage = "El cliente fue editado exitosamente";
             }
             else
             {
                 response.WasSuccessful = false;
-                response.StatusMessage = "The customer was not found";
+                response.StatusMessage = "No existe ningun cliente con el Id especificado";
             }
             return response;
         }
@@ -102,12 +106,12 @@ namespace Reciplastk.Gateway.Services
                 db.Remove(customer);
                 db.SaveChanges();
                 response.WasSuccessful = true;
-                response.StatusMessage = "The customer was deleted successfully";
+                response.StatusMessage = "El cliente fue eliminado exitosamente";
             }
             else
             {
                 response.WasSuccessful = false;
-                response.StatusMessage = "The customer was not deleted";
+                response.StatusMessage = "No se encontró ningún cliente con el Id especificado";
             }
             return response;
         }

@@ -1,10 +1,9 @@
 export class CustomerViewModel{
-    id?: number = 0;
+    customerid?: number;
     nit: String = "";
     name: String = "";
-    lastName: String = "";
-    adress: String = "";
+    lastname: String = "";
+    address: String = "";
     cell: String = "";
-    clientSince?: Date;
-    needsPickup?: boolean = false;
+    needspickup?: boolean = false;
 }
