@@ -4,6 +4,7 @@ import { RegisterComponent } from './components/security/register/register.compo
 import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
 import { AboutusComponent } from './components/general/aboutus/aboutus.component';
 import { WelcomeComponent } from './components/general/welcome/welcome.component';
+import { ShipmentComponent } from './components/admin/shipment/shipment.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
@@ -16,6 +17,7 @@ export const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'roles', redirectTo: '/dashboard' },
+      { path: 'shipment', component: ShipmentComponent}                                      
     ],
   },
   { path: '**', redirectTo: '/welcome', pathMatch: 'full' },
