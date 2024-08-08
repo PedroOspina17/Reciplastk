@@ -52,7 +52,6 @@ namespace Reciplastk.Gateway.Services
                 newShipmentType.Description = shipmentTypeViewModel.description;
                 newShipmentType.Creationdate = DateTime.Now;
                 newShipmentType.Isactive = true;
-                db.Shipmenttypes.Add(newShipmentType);
                 db.SaveChanges();
                 response.WasSuccessful = true;
                 response.Data = newShipmentType;

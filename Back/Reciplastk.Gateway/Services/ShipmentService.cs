@@ -80,7 +80,6 @@ namespace Reciplastk.Gateway.Services
                 shipment.Ispaid = shipmentViewModel.ispaid;
                 shipment.Iscomplete = shipmentViewModel.iscomplete;
                 shipment.Isactive = shipmentViewModel.isactive;
-                db.Shipments.Add(shipment);
                 db.SaveChanges();
                 response.WasSuccessful = true;
                 response.Data = shipment;
