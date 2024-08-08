@@ -54,7 +54,7 @@ namespace Reciplastk.Gateway.Services
                 newShipment.Shipmentstartend = DateTime.Now;
                 newShipment.Ispaid = shipmentViewModel.ispaid;
                 newShipment.Iscomplete = shipmentViewModel.iscomplete;
-                newShipment.Isactive = shipmentViewModel.isactive;
+                newShipment.Isactive = true;
                 db.Shipments.Add(newShipment);
                 db.SaveChanges();
                 response.WasSuccessful = true;
@@ -99,7 +99,7 @@ namespace Reciplastk.Gateway.Services
             var shipment = FindShipmentById(shipmentid);
             if (shipment != null)
             {
-                db.Remove(shipment);
+                shipment.Isactive = false;
                 db.SaveChanges();
                 response.WasSuccessful = true;
                 response.StatusMessage = "El cargamento se elimino correctamente";
