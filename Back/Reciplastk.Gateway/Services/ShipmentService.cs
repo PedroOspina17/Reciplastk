@@ -12,7 +12,7 @@ namespace Reciplastk.Gateway.Services
         }
         public HttpResponseModel ShowAllShipment()
         {
-            var shipment = db.Shipments.ToList();  
+            var shipment = db.Shipments.Where(p=> p.Isactive).ToList();  
             var response = new HttpResponseModel();
             response.WasSuccessful = true;
             response.Data = shipment;   
@@ -20,7 +20,7 @@ namespace Reciplastk.Gateway.Services
         }
         public HttpResponseModel ShowShipment(int shipmentid)
         {
-            var shipment = db.Shipments.Where(x => x.Shipmentid == shipmentid).FirstOrDefault();
+            var shipment = db.Shipments.Where(x => x.Shipmentid == shipmentid && x.Isactive).FirstOrDefault();
             var response = new HttpResponseModel();
             if (shipment != null)
             {
@@ -37,7 +37,7 @@ namespace Reciplastk.Gateway.Services
         }
         private Shipment FindShipmentById(int? shipmentid)
         {
-            var shipment = db.Shipments.Where(x => x.Shipmentid == shipmentid).FirstOrDefault();
+            var shipment = db.Shipments.Where(x => x.Shipmentid == shipmentid && x.Isactive).FirstOrDefault();
             return shipment;
         }
         public HttpResponseModel CreateShipment(ShipmentViewModel shipmentViewModel)
@@ -48,10 +48,10 @@ namespace Reciplastk.Gateway.Services
             {
                 var newShipment = new Shipment();
                 newShipment.Customerid = shipmentViewModel.cutomerid;
-                newShipment.Employeeid = shipmentViewModel.employyeid;
+                newShipment.Employeeid = shipmentViewModel.employeeid;
                 newShipment.Shipmenttypeid = shipmentViewModel.shipmenttypeid;
                 newShipment.Shipmentstartdate = DateTime.Now;
-                newShipment.Shipmentstartend = DateTime.Now;
+                newShipment.Shipmentenddate = DateTime.Now;
                 newShipment.Ispaid = shipmentViewModel.ispaid;
                 newShipment.Iscomplete = shipmentViewModel.iscomplete;
                 newShipment.Isactive = true;
@@ -75,7 +75,7 @@ namespace Reciplastk.Gateway.Services
             if (shipment != null) 
             {
                 shipment.Customerid = shipmentViewModel.cutomerid;
-                shipment.Employeeid = shipmentViewModel.employyeid;
+                shipment.Employeeid = shipmentViewModel.employeeid;
                 shipment.Shipmenttypeid = shipmentViewModel.shipmenttypeid;
                 shipment.Ispaid = shipmentViewModel.ispaid;
                 shipment.Iscomplete = shipmentViewModel.iscomplete;

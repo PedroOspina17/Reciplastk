@@ -21,7 +21,7 @@ namespace Reciplastk.Gateway.Services
         public HttpResponseModel ShowShipmentType (int shipmenttypeid)
         {
             var response = new HttpResponseModel();
-            var shipmentType = db.Shipmenttypes.Where(x => x.Shipmenttypeid == shipmenttypeid && x.Isactive == true).FirstOrDefault();
+            var shipmentType = FindShipmentById(shipmenttypeid);
             if (shipmentType != null)
             {
                 response.WasSuccessful = true;
@@ -52,6 +52,7 @@ namespace Reciplastk.Gateway.Services
                 newShipmentType.Description = shipmentTypeViewModel.description;
                 newShipmentType.Creationdate = DateTime.Now;
                 newShipmentType.Isactive = true;
+                db.Shipmenttypes.Add(newShipmentType);
                 db.SaveChanges();
                 response.WasSuccessful = true;
                 response.Data = newShipmentType;
@@ -75,7 +76,6 @@ namespace Reciplastk.Gateway.Services
                 shipmentType.Description = shipmentTypeViewModel.description;
                 shipmentType.Updatedate = DateTime.Now;
                 shipmentType.Isactive = true;
-                db.Shipmenttypes.Add(shipmentType);
                 db.SaveChanges();
                 response.WasSuccessful = true;
                 response.Data = shipmentType;

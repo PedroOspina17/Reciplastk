@@ -1,7 +1,7 @@
 export class ShipmentViewModel {
     shipmentid?: number;
     customerid: number = 0;
-    employyeid: number = 0;
+    employeeid: number = 0;
     shipmenttypeid: number = 0;
     ispaid: boolean = false;
     iscomplete: boolean = false;
