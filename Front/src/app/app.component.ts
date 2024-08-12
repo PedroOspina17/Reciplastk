@@ -14,7 +14,7 @@ import { MenuComponent } from './components/shared/menu/menu.component';
 export class AppComponent {
   title = 'Reciplastk';
   constructor(private toastr: ToastrService) {
-    
+
   }
   ShowAlert():void{
     this.toastr.success('Hello world!', 'Toastr fun!');
