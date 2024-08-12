@@ -1,4 +1,5 @@
-﻿using Reciplastk.Gateway.DataAccess;
+﻿using Microsoft.EntityFrameworkCore;
+using Reciplastk.Gateway.DataAccess;
 using Reciplastk.Gateway.Models;
 
 namespace Reciplastk.Gateway.Services
