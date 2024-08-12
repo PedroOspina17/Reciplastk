@@ -10,17 +10,17 @@ namespace Reciplastk.Gateway.Services
         {
             this.db = db;
         }
-        public HttpResponseModel ShowAllShipment()
+        public HttpResponseModel GetAll()
         {
-            var shipment = db.Shipments.ToList();  
+            var shipment = db.Shipments.Where(x => x.Isactive).ToList();  
             var response = new HttpResponseModel();
             response.WasSuccessful = true;
             response.Data = shipment;   
             return response;
         }
-        public HttpResponseModel ShowShipment(int shipmentid)
+        public HttpResponseModel GetById(int shipmentid)
         {
-            var shipment = db.Shipments.Where(x => x.Shipmentid == shipmentid).FirstOrDefault();
+            var shipment = db.Shipments.Where(x => x.Shipmentid == shipmentid && x.Isactive).FirstOrDefault();
             var response = new HttpResponseModel();
             if (shipment != null)
             {
@@ -35,15 +35,15 @@ namespace Reciplastk.Gateway.Services
             }
             return response;
         }
-        private Shipment FindShipmentById(int? shipmentid)
+        private Shipment GetByid(int? shipmentid)
         {
-            var shipment = db.Shipments.Where(x => x.Shipmentid == shipmentid).FirstOrDefault();
+            var shipment = db.Shipments.Where(x => x.Shipmentid == shipmentid && x.Isactive).FirstOrDefault();
             return shipment;
         }
-        public HttpResponseModel CreateShipment(ShipmentViewModel shipmentViewModel)
+        public HttpResponseModel Create(ShipmentViewModel shipmentViewModel)
         {
             var response = new HttpResponseModel();
-            var shipment = FindShipmentById(shipmentViewModel.shipmentid);
+            var shipment = GetByid(shipmentViewModel.shipmentid);
             if (shipment == null)
             {
                 var newShipment = new Shipment();
@@ -68,38 +68,30 @@ namespace Reciplastk.Gateway.Services
             }
             return response;
         }
-        public HttpResponseModel EditShipment(ShipmentViewModel shipmentViewModel)
+        public HttpResponseModel Update(ShipmentViewModel shipmentViewModel)
         {
             var response = new HttpResponseModel();
-            var shipment = FindShipmentById(shipmentViewModel.shipmentid);
-            if (shipment != null) 
-            {
-                shipment.Customerid = shipmentViewModel.cutomerid;
-                shipment.Employeeid = shipmentViewModel.employyeid;
-                shipment.Shipmenttypeid = shipmentViewModel.shipmenttypeid;
-                shipment.Ispaid = shipmentViewModel.ispaid;
-                shipment.Iscomplete = shipmentViewModel.iscomplete;
-                shipment.Isactive = shipmentViewModel.isactive;
-                db.Shipments.Add(shipment);
-                db.SaveChanges();
-                response.WasSuccessful = true;
-                response.Data = shipment;
-                response.StatusMessage = "El cargamento se edito exitosamnete";
-            }
-            else
-            {
-                response.WasSuccessful = false;
-                response.StatusMessage = "No se encontro ningun cargamento con el id indicado";
-            }
+            var shipment = GetByid(shipmentViewModel.shipmentid);
+            
+            shipment.Customerid = shipmentViewModel.cutomerid;
+            shipment.Employeeid = shipmentViewModel.employyeid;
+            shipment.Shipmenttypeid = shipmentViewModel.shipmenttypeid;
+            shipment.Ispaid = shipmentViewModel.ispaid;
+            shipment.Iscomplete = shipmentViewModel.iscomplete;
+            shipment.Isactive = shipmentViewModel.isactive;
+            db.SaveChanges();
+            response.WasSuccessful = true;
+            response.Data = shipment;
+            response.StatusMessage = "El cargamento se edito exitosamnete";
             return response;
         }
-        public HttpResponseModel DeleteShipment(int shipmentid)
+        public HttpResponseModel Delete(int shipmentid)
         {
             var response = new HttpResponseModel();
-            var shipment = FindShipmentById(shipmentid);
+            var shipment = GetByid(shipmentid);
             if (shipment != null)
             {
-                db.Remove(shipment);
+                shipment.Isactive = false;
                 db.SaveChanges();
                 response.WasSuccessful = true;
                 response.StatusMessage = "El cargamento se elimino correctamente";
