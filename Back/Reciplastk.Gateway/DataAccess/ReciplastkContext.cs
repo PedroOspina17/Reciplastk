@@ -25,13 +25,21 @@ public partial class ReciplastkContext : DbContext
 
     public virtual DbSet<Secondarytabletest> Secondarytabletests { get; set; }
 
+    public virtual DbSet<Shipment> Shipments { get; set; }
+
+    public virtual DbSet<Shipmentdetail> Shipmentdetails { get; set; }
+
+    public virtual DbSet<Shipmenttype> Shipmenttypes { get; set; }
+
     public virtual DbSet<Test> Tests { get; set; }
 
     public virtual DbSet<Weightcontrol> Weightcontrols { get; set; }
 
+    public virtual DbSet<Weightcontroldetail> Weightcontroldetails { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseNpgsql("Host=reciplastk.cty0a2ewmeb5.us-east-1.rds.amazonaws.com;Database=Reciplastk;Username=postgres;Password=Admin123");
+        => optionsBuilder.UseNpgsql("Host=localhost;Database=Reciplastk;Username=postgres;Password=Admin123");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -81,6 +89,47 @@ public partial class ReciplastkContext : DbContext
             entity.HasOne(d => d.Test).WithMany(p => p.Secondarytabletests).HasConstraintName("secondarytabletest_testid_fkey");
         });
 
+        modelBuilder.Entity<Shipment>(entity =>
+        {
+            entity.HasKey(e => e.Shipmentid).HasName("shipment_pkey");
+
+            entity.Property(e => e.Creationdate).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            entity.Property(e => e.Updatedate).HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+            entity.HasOne(d => d.Customer).WithMany(p => p.Shipments)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("shipment_customerid_fkey");
+
+            entity.HasOne(d => d.Employee).WithMany(p => p.Shipments)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("shipment_employeeid_fkey");
+
+            entity.HasOne(d => d.Shipmenttype).WithMany(p => p.Shipments)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("shipment_shipmenttypeid_fkey");
+        });
+
+        modelBuilder.Entity<Shipmentdetail>(entity =>
+        {
+            entity.HasKey(e => e.Shipmentdetailid).HasName("shipmentdetail_pkey");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.Shipmentdetails)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("shipmentdetail_productid_fkey");
+
+            entity.HasOne(d => d.Shipment).WithMany(p => p.Shipmentdetails)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("shipmentdetail_shipmentid_fkey");
+        });
+
+        modelBuilder.Entity<Shipmenttype>(entity =>
+        {
+            entity.HasKey(e => e.Shipmenttypeid).HasName("shipmenttype_pkey");
+
+            entity.Property(e => e.Creationdate).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            entity.Property(e => e.Updatedate).HasDefaultValueSql("CURRENT_TIMESTAMP");
+        });
+
         modelBuilder.Entity<Test>(entity =>
         {
             entity.HasKey(e => e.Testid).HasName("test_pkey");
@@ -88,10 +137,11 @@ public partial class ReciplastkContext : DbContext
 
         modelBuilder.Entity<Weightcontrol>(entity =>
         {
-            entity.HasKey(e => e.Wiegthcontrolid).HasName("weightcontrol_pkey");
+            entity.HasKey(e => e.Weightcontrolid).HasName("weightcontrol_pkey");
 
             entity.Property(e => e.Creationdate).HasDefaultValueSql("now()");
-            entity.Property(e => e.Date).HasDefaultValueSql("now()");
+            entity.Property(e => e.Dateend).HasDefaultValueSql("now()");
+            entity.Property(e => e.Datestart).HasDefaultValueSql("now()");
             entity.Property(e => e.Isactive).HasDefaultValue(true);
             entity.Property(e => e.Ispaid).HasDefaultValue(false);
             entity.Property(e => e.Updatedate).HasDefaultValueSql("now()");
@@ -103,6 +153,19 @@ public partial class ReciplastkContext : DbContext
             entity.HasOne(d => d.Product).WithMany(p => p.Weightcontrols)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("weightcontrol_productid_fkey");
+        });
+
+        modelBuilder.Entity<Weightcontroldetail>(entity =>
+        {
+            entity.HasKey(e => e.Weightcontroldetailid).HasName("weightcontroldetail_pkey");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.Weightcontroldetails)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("weightcontroldetail_productid_fkey");
+
+            entity.HasOne(d => d.Weightcontrol).WithMany(p => p.Weightcontroldetails)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("weightcontroldetail_weightcontrolid_fkey");
         });
 
         OnModelCreatingPartial(modelBuilder);
