@@ -36,7 +36,7 @@
                         <input type="text" class="form-control mt-2" placeholder="Apellido" id="Apellido" formControlName="lastname">
                         <div>
                             <span *ngIf="
-                            formCustomer.get('lastNsame')?.hasError('required') && 
+                            formCustomer.get('lastName')?.hasError('required') && 
                             formCustomer.get('lastNsame')?.touched"
                             class="form-text m-2 text-danger"> El teléfono es<strong> requerido </strong> </span>
                         </div>

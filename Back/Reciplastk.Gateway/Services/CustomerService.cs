@@ -6,26 +6,26 @@ using System.Linq;
 
 namespace Reciplastk.Gateway.Services
 {
-    public class CustumerService
+    public class CustomerService
     {
         private readonly ReciplastkContext db;
         
-        public CustumerService(ReciplastkContext db)
+        public CustomerService(ReciplastkContext db)
         {
             this.db = db;
 
         }
-        public HttpResponseModel ShowAllCustomers()
+        public HttpResponseModel GetAll()
         {
-            var customer = db.Customers.ToList();
+            var customer = db.Customers.Where(x=>x.Isactive == true).ToList();
             var response = new HttpResponseModel();
             response.WasSuccessful = true;
             response.Data = customer;
             return response;
         }
-        public HttpResponseModel ShowCustomer(int customerid)
+        public HttpResponseModel GetById(int customerid)
         {
-            var customer = db.Customers.Where(x => x.Customerid == customerid).FirstOrDefault();
+            var customer = GetById((int?)customerid);
             var response = new HttpResponseModel();
             if (customer != null)
             {
@@ -39,45 +39,41 @@ namespace Reciplastk.Gateway.Services
             }
             return response;
         }
-        private Customer CustomerById(int? customerId)
+        private Customer GetById(int? customerId)
         {
-            var customer = db.Customers.FirstOrDefault(x => x.Customerid == customerId);
+            var customer = db.Customers.FirstOrDefault(x => x.Customerid == customerId && x.Isactive == true);
             return customer;
         }
-        private Customer GetCustomerByNit(String customerNit)
+        private Customer GetByNit(String customerNit)
         {
-            var customer = db.Customers.FirstOrDefault(x => x.Nit == customerNit);
+            var customer = db.Customers.FirstOrDefault(x => x.Nit == customerNit && x.Isactive == true);
             return customer;
         }
-        public HttpResponseModel CreateCustomer(CustomerViewModel customerViewModel)
+        public HttpResponseModel Create(CustomerViewModel customerViewModel)
         {
             var response = new HttpResponseModel();
-            var customer = GetCustomerByNit(customerViewModel.nit);
-            if (customer == null ) {
-                var newCustomer = new Customer(); // se hace instancia cuando no hay datos en la db
-                newCustomer.Nit = customerViewModel.nit;
-                newCustomer.Name = customerViewModel.name;
-                newCustomer.Lastname = customerViewModel.lastname;
-                newCustomer.Address = customerViewModel.address;
-                newCustomer.Cell = customerViewModel.cell;
-                newCustomer.Needspickup = customerViewModel.needspickup;
-                newCustomer.Clientsince = DateTime.Now;
-                db.Customers.Add( newCustomer );
-                db.SaveChanges();
-                response.WasSuccessful = true;
-                response.Data = newCustomer;
-                response.StatusMessage = "El cliente fue creado exitosamente";
-            }
-            else
-            {
-                response.WasSuccessful = false;
-                response.StatusMessage = "Ya existe otro cliente con el NIT indicado";
-            }
+            var customer = GetByNit(customerViewModel.nit);
+            
+            var newCustomer = new Customer(); // se hace instancia cuando no hay datos en la db
+            newCustomer.Nit = customerViewModel.nit;
+            newCustomer.Name = customerViewModel.name;
+            newCustomer.Lastname = customerViewModel.lastname;
+            newCustomer.Address = customerViewModel.address;
+            newCustomer.Cell = customerViewModel.cell;
+            newCustomer.Needspickup = customerViewModel.needspickup;
+            newCustomer.Clientsince = DateTime.Now;
+            newCustomer.Createddate = DateTime.Now;
+            db.Customers.Add( newCustomer );
+            db.SaveChanges();
+            response.WasSuccessful = true;
+            response.Data = newCustomer;
+            response.StatusMessage = "El cliente fue creado exitosamente";
+
             return response;
         }   
-        public HttpResponseModel EditCustomer(CustomerViewModel customerViewModel) {
+        public HttpResponseModel Update(CustomerViewModel customerViewModel) {
             var response = new HttpResponseModel();
-            var customer = CustomerById(customerViewModel.customerid);
+            var customer = GetById(customerViewModel.customerid);
             if (customer != null)
             {
                 customer.Nit = customerViewModel.nit; 
@@ -87,6 +83,7 @@ namespace Reciplastk.Gateway.Services
                 customer.Cell = customerViewModel.cell;
                 customer.Clientsince = DateTime.Now;
                 customer.Needspickup = customerViewModel.needspickup;
+                customer.Updateddate = DateTime.Now;
                 db.SaveChanges();
                 response.WasSuccessful = true;
                 response.Data = customer;
@@ -99,11 +96,11 @@ namespace Reciplastk.Gateway.Services
             }
             return response;
         }
-        public HttpResponseModel DeleteCustomer(int customerId) {
+        public HttpResponseModel Delete(int customerId) {
             var response = new HttpResponseModel();
-            var customer = CustomerById(customerId);
+            var customer = GetById((int?)customerId);
             if (customer != null) {
-                db.Remove(customer);
+                customer.Isactive = false;
                 db.SaveChanges();
                 response.WasSuccessful = true;
                 response.StatusMessage = "El cliente fue eliminado exitosamente";

@@ -12,26 +12,25 @@ export class CustomerService {
 
   constructor(private http: HttpClient) { }
   
-  ServiceEndpoint: string = `${AppConfig.API_URL}`;
-
+  ServiceEndpoint: string = `${AppConfig.API_URL}/api/Customer`;
   ShowAllCustomers(): Observable<HttpResponseModel> {
-    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'/api/Customer/ShowAllCustomers')
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'/ShowAllCustomers')
   }
 
   ShowCustomer(id: number): Observable<HttpResponseModel> {
-    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'/api/Customer/Find?id='+id)
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'/Find?id='+id)
   }
 
   CreateCustomer(customerModel: CustomerViewModel): Observable<HttpResponseModel> {
-    return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/api/Customer/Create', customerModel)
+    return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/Create', customerModel)
   }
 
   EditCustomer(customerModel: CustomerViewModel, customerId: number): Observable<HttpResponseModel> {
-    return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/api/Customer/Edit',customerModel)
+    return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/Edit',customerModel)
   }
 
   DeleteCustomer(id: number): Observable<HttpResponseModel> {
-    return this.http.delete<HttpResponseModel>(this.ServiceEndpoint+'/api/Customer/Delete?id='+id)
+    return this.http.delete<HttpResponseModel>(this.ServiceEndpoint+'/Delete?id='+id)
   }
 
 }

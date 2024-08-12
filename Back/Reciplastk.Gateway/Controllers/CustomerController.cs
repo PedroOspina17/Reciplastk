@@ -9,46 +9,44 @@ namespace Reciplastk.Gateway.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        private readonly CustumerService custumerService;
+        private readonly CustomerService customerService;
 
-        public CustomerController(CustumerService custumerService)
+        public CustomerController(CustomerService custumerService)
         {
-            this.custumerService = custumerService;
+            this.customerService = custumerService;
         }
 
-        [HttpGet("ShowAllCustomers")]
-        public HttpResponseModel ShowAllCustomers() {
-            var response = custumerService.ShowAllCustomers();
+        [HttpGet("GetAll")]
+        public HttpResponseModel GetAll() {
+            var response = customerService.GetAll();
             return response;
         }
 
-        [HttpGet("Find")]
-        public HttpResponseModel ShowCustomer(int id)
+        [HttpGet("GetById")]
+        public HttpResponseModel GetById(int id)
         {
-            var response = custumerService.ShowCustomer(id);
+            var response = customerService.GetById(id);
             return response;
         }
         
         [HttpPost("Create")]
-        public HttpResponseModel CreateCustomer(CustomerViewModel customerViewModel)
+        public HttpResponseModel Create(CustomerViewModel customerViewModel)
         {
-            var response = custumerService.CreateCustomer(customerViewModel);
+            var response = customerService.Create(customerViewModel);
             return response;
         }
 
-        [HttpPost("Edit")]
-        public HttpResponseModel EditCustomer(CustomerViewModel customerViewModel)
+        [HttpPost("Update")]
+        public HttpResponseModel Update(CustomerViewModel customerViewModel)
         {
-            var response = custumerService.EditCustomer(customerViewModel);
+            var response = customerService.Update(customerViewModel);
             return response;
         }
 
         [HttpDelete("Delete")]
-        public HttpResponseModel DeleteCustomer(int id) { 
-            var response = custumerService.DeleteCustomer(id);
+        public HttpResponseModel Delete(int id) { 
+            var response = customerService.Delete(id);
             return response;
         }
-
-
     }
 }

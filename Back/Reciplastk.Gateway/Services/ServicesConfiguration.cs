@@ -6,7 +6,7 @@
         {
             services.AddScoped<IMySimpleService, MySimpleService>();
             services.AddScoped<SecurityService>();
-            services.AddScoped<CustumerService>();  
+            services.AddScoped<CustomerService>();  
             return services;
         }
     }
