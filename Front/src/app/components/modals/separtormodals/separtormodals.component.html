@@ -1,1 +1,26 @@
-<p>separtormodals works!</p>
+<h2  mat-dialog-title>{{titleAction}}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="formWeightControl">
+    <mat-grid-list col="1" rowHeight="80px">
+
+      <mat-grid-tile>
+        <mat-form-field appearance = "outline">
+          <mat-label>Peso</mat-label>
+          <input matInput autocomplete="off" formControlName="weight">
+          <mat-icon matSuffix>account-box</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field appearance = "outline">
+          <mat-label> Total Peso</mat-label>
+          <input matInput autocomplete="off" formControlName="totalPack">
+          <mat-icon matSuffix>account-box</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      
+    </mat-grid-list>
+
+  </form>
+</mat-dialog-content>
