@@ -22,7 +22,7 @@ namespace Reciplastk.Gateway.Services
         }
         public HttpResponseModel GetAll()
         {
-            var weightControl = db.Weightcontrols.Where(p=>p.Isactive == true).ToList();
+            var weightControl = db.Weightcontrols.Where(p=>p.Isactive == true).Include(x=>x.Product).Include(x=>x.Employee).ToList();
             var response = new HttpResponseModel();
             response.WasSuccessful = true;
             response.Data = weightControl;
