@@ -10,7 +10,7 @@ namespace Reciplastk.Gateway.Services
        {
             this.db = db;
        }
-        public HttpResponseModel ShowAllShipmentTypes()
+        public HttpResponseModel GetAll()
         {
             var shipmentType = db.Shipmenttypes.Where(x => x.Isactive == true).ToList();
             var response = new HttpResponseModel();
@@ -18,10 +18,10 @@ namespace Reciplastk.Gateway.Services
             response.Data = shipmentType;
             return response;
         }
-        public HttpResponseModel ShowShipmentType (int shipmenttypeid)
+        public HttpResponseModel GetById (int shipmenttypeid)
         {
             var response = new HttpResponseModel();
-            var shipmentType = FindShipmentById(shipmenttypeid);
+            var shipmentType = GetByid(shipmenttypeid);
             if (shipmentType != null)
             {
                 response.WasSuccessful = true;
@@ -35,40 +35,32 @@ namespace Reciplastk.Gateway.Services
             }
             return response;
         }
-        private Shipmenttype FindShipmentById(int shipmenttypeid)
+        private Shipmenttype GetByid(int shipmenttypeid)
         {
             var shipmentType = db.Shipmenttypes.Where(x => x.Shipmenttypeid == shipmenttypeid && x.Isactive == true).FirstOrDefault();
             return shipmentType;
         }
-        public HttpResponseModel CreateShipmentType(ShipmentTypeViewModel shipmentTypeViewModel)
+        public HttpResponseModel Create(ShipmentTypeViewModel shipmentTypeViewModel)
         {
             var response = new HttpResponseModel();
-            var shipmentType = FindShipmentById(shipmentTypeViewModel.shipmenttypeid);
-            if (shipmentType == null)
-            {
-                var newShipmentType = new Shipmenttype();
-                newShipmentType.Shipmenttypeid = shipmentTypeViewModel.shipmenttypeid;
-                newShipmentType.Name = shipmentTypeViewModel.name;
-                newShipmentType.Description = shipmentTypeViewModel.description;
-                newShipmentType.Creationdate = DateTime.Now;
-                newShipmentType.Isactive = true;
-                db.Shipmenttypes.Add(newShipmentType);
-                db.SaveChanges();
-                response.WasSuccessful = true;
-                response.Data = newShipmentType;
-                response.StatusMessage = "El tipo de cargamento se creo exitosamente";
-            }
-            else
-            {
-                response.WasSuccessful = false;
-                response.StatusMessage = "Ya existe un tipo de cargamento con el id indicado";
-            }
+            var shipmentType = GetByid(shipmentTypeViewModel.shipmenttypeid);
+            
+            var newShipmentType = new Shipmenttype();
+            newShipmentType.Name = shipmentTypeViewModel.name;
+            newShipmentType.Description = shipmentTypeViewModel.description;
+            newShipmentType.Creationdate = DateTime.Now;
+            newShipmentType.Isactive = true;
+            db.Shipmenttypes.Add(newShipmentType);
+            db.SaveChanges();
+            response.WasSuccessful = true;
+            response.Data = newShipmentType;
+            response.StatusMessage = "El tipo de cargamento se creo exitosamente";
             return response;
         }
-        public HttpResponseModel EditShipmentType(ShipmentTypeViewModel shipmentTypeViewModel)
+        public HttpResponseModel Update(ShipmentTypeViewModel shipmentTypeViewModel)
         {
             var response = new HttpResponseModel();
-            var shipmentType = FindShipmentById(shipmentTypeViewModel.shipmenttypeid);
+            var shipmentType = GetByid(shipmentTypeViewModel.shipmenttypeid);
             if (shipmentType != null)
             {
                 shipmentType.Shipmenttypeid = shipmentTypeViewModel.shipmenttypeid;
@@ -88,10 +80,10 @@ namespace Reciplastk.Gateway.Services
             }
             return response;
         }
-        public HttpResponseModel DeleteShipmentType (int shipmentTypeId)
+        public HttpResponseModel Delete (int shipmentTypeId)
         {
             var response = new HttpResponseModel();
-            var shipmentType = FindShipmentById(shipmentTypeId);
+            var shipmentType = GetByid(shipmentTypeId);
             if (shipmentType != null)
             {
                 shipmentType.Isactive = false;

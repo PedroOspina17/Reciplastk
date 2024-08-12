@@ -14,34 +14,34 @@ namespace Reciplastk.Gateway.Controllers
         {
             this.shipmentTypeService = shipmentTypeService;
         }
-        [HttpGet("ShowAllShipmentTypes")]
-        public HttpResponseModel ShowAllShipmentTypes() 
+        [HttpGet("GetAll")]
+        public HttpResponseModel GetAll() 
         {
-            var response = shipmentTypeService.ShowAllShipmentTypes();
+            var response = shipmentTypeService.GetAll();
             return response;
         }
-        [HttpGet("ShowShipmentType")]
-        public HttpResponseModel ShowShipmentType(int shipmentTypeId)
+        [HttpGet("GetById")]
+        public HttpResponseModel GetById(int shipmentTypeId)
         {
-            var response = shipmentTypeService.ShowShipmentType(shipmentTypeId);
+            var response = shipmentTypeService.GetById(shipmentTypeId);
             return response;
         }
-        [HttpPost("CreateShipmentType")]
-        public HttpResponseModel CreateShipmentType(ShipmentTypeViewModel shipmentTypeViewModel)
+        [HttpPost("Create")]
+        public HttpResponseModel Create(ShipmentTypeViewModel shipmentTypeViewModel)
         {
-            var response = shipmentTypeService.CreateShipmentType(shipmentTypeViewModel);
+            var response = shipmentTypeService.Create(shipmentTypeViewModel);
             return response;
         }
-        [HttpPost("EditShipmentType")
-        public HttpResponseModel EditShipmentType(ShipmentTypeViewModel shipmentTypeViewModel)
+        [HttpPost("Update")]
+        public HttpResponseModel Update(ShipmentTypeViewModel shipmentTypeViewModel)
         {
-            var response = shipmentTypeService.EditShipmentType(shipmentTypeViewModel);
+            var response = shipmentTypeService.Update(shipmentTypeViewModel);
             return response;
         }
-        [HttpDelete("DeleteShipmentType")]
-        public HttpResponseModel DeleteShipmentType(int shipmentTypeId)
+        [HttpDelete("Delete")]
+        public HttpResponseModel Delete(int shipmentTypeId)
         {
-            var response = shipmentTypeService.DeleteShipmentType(shipmentTypeId);
+            var response = shipmentTypeService.Delete(shipmentTypeId);
             return response;
         }
     }
