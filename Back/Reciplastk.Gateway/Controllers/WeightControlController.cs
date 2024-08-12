@@ -23,10 +23,10 @@ namespace Reciplastk.Gateway.Controllers
             return weightControlService.GetAll();
         }
 
-        [HttpGet("GetOne")]
+        [HttpGet("GetById")]
         public HttpResponseModel GetOne(int id)
         {
-            return weightControlService.GetOne(id);
+            return weightControlService.GetById(id);
         }
 
         [HttpPost("Create")]

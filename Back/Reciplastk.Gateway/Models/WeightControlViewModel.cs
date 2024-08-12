@@ -5,12 +5,10 @@ namespace Reciplastk.Gateway.Models
     public class WeightControlViewModel
     {
         public int? Weightcontrolid {  get; set; }
-
-        public int? Employeeid { get; set; }
-        public int? Productid { get; set; }
-        public int? Alternateid { get; set; }
-        public DateTime? Datestart { get; set; }
-        public DateTime? Dateend { get; set;}
+        public WeightControlProductsViewModel Product { get; set; }
+        public WeightControlEmployeeViewModel Employee { get; set; }
+        public DateTime Datestart { get; set; }
+        public DateTime Dateend { get; set;}
         public decimal Weight {  get; set; }    
         public int Totalpack {  get; set; }
         public Boolean Isactive { get; set; }

@@ -13,7 +13,7 @@ namespace Reciplastk.Gateway.Services
             this.db = db;
         }
 
-        private Weightcontrol GetById(int? id)
+        private Weightcontrol FindById(int? id)
         {
             var weightcontrol = db.Weightcontrols.Where(p=>p.Isactive == true && p.Weightcontrolid == id).FirstOrDefault();
             return weightcontrol;
@@ -28,9 +28,9 @@ namespace Reciplastk.Gateway.Services
             return response;
         }
 
-        public HttpResponseModel GetOne(int? id)
+        public HttpResponseModel GetById(int? id)
         {
-            var weightcontrol = GetById(id);
+            var weightcontrol = FindById(id);
             var response = new HttpResponseModel();
             if(weightcontrol != null)
             {
@@ -40,29 +40,31 @@ namespace Reciplastk.Gateway.Services
             else
             {
                 response.WasSuccessful= false;
-                response.StatusMessage = "No se encontro el id buscado";
+                response.StatusMessage = "No se encontro el Registro con el id buscado";
             }
             return response;
         }
 
         public HttpResponseModel Create(WeightControlViewModel model)
         {
-            var weightcontrol = GetById(model.Weightcontrolid);
+            var weightcontrol = FindById(model.Weightcontrolid);
             var response = new HttpResponseModel();
             if (weightcontrol != null)
             {
                 response.WasSuccessful = false;
-                response.StatusMessage = "ya existe ese id";
+                response.StatusMessage = "El registro ya existe";
             }
             else
             {
                 var newWeightControl = new Weightcontrol();
-                newWeightControl.Alternateid = model.Alternateid;
+                newWeightControl.Productid = model.Product.Productid;
+                newWeightControl.Employeeid = model.Employee.Employeeid;
                 newWeightControl.Weight = model.Weight;
                 newWeightControl.Totalpack = model.Totalpack;
-                //newWeightControl.Datestart = model.Datastart;
-                //newWeightControl.Dateend = model.Dataend;
+                newWeightControl.Datestart = model.Datestart;
+                newWeightControl.Dateend = model.Dateend;
                 newWeightControl.Ispaid = model.Ispaid;
+                newWeightControl.Isactive = true;
                 db.Weightcontrols.Add(newWeightControl);
                 db.SaveChanges();
                 response.WasSuccessful = true;
@@ -75,17 +77,18 @@ namespace Reciplastk.Gateway.Services
         }
         public HttpResponseModel Update(WeightControlViewModel model)
         {
-            var weightcontrol = GetById(model.Weightcontrolid);
+            var weightcontrol = FindById(model.Weightcontrolid);
             var response = new HttpResponseModel();
             if (weightcontrol != null)
             {
-                weightcontrol.Alternateid = model.Alternateid;
+                weightcontrol.Employeeid = model.Employee.Employeeid;
+                weightcontrol.Productid = model.Product.Productid;
                 weightcontrol.Weight = model.Weight;
                 weightcontrol.Totalpack = model.Totalpack;
                 weightcontrol.Ispaid = model.Ispaid;
-                //weightcontrol.Datestart = model.Datestart;
-                //weightcontrol.Dateend = model.Dateend;
-
+                weightcontrol.Datestart = model.Datestart;
+                weightcontrol.Dateend = model.Dateend;
+                weightcontrol.Isactive = model.Isactive;    
                 db.SaveChanges();
                 response.WasSuccessful = true;
                 response.Data = weightcontrol;
@@ -100,7 +103,7 @@ namespace Reciplastk.Gateway.Services
 
         public HttpResponseModel Delete(int id)
         {
-            var weightcontrol = GetById(id);
+            var weightcontrol = FindById(id);
             var response = new HttpResponseModel();
             if(weightcontrol == null)
             {
