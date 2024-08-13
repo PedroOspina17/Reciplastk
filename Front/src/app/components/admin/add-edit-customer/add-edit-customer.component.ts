@@ -103,10 +103,7 @@ export class AddEditCustomerComponent {
             this.router.navigate(['/admin/customer']);
           } else {
             this.loader = false;
-            this.toastr.error(
-              result.statusMessage,
-              'Error'
-            );
+            this.toastr.error(result.statusMessage, 'Error');
             this.router.navigate(['/admin/customer']);
           }
         });
@@ -116,17 +113,11 @@ export class AddEditCustomerComponent {
       this.customerServises.CreateCustomer(customer).subscribe((result) => {
         if (result.wasSuccessful) {
           this.loader = false;
-          this.toastr.success(
-            result.statusMessage,
-            'Felicitaciones'
-          );
+          this.toastr.success(result.statusMessage, 'Felicitaciones');
           this.router.navigate(['/admin/customer']);
         } else {
           this.loader = false;
-          this.toastr.error(
-            result.statusMessage,
-            'Error'
-          );
+          this.toastr.error(result.statusMessage, 'Error');
           this.router.navigate(['/admin/customer']);
         }
       });

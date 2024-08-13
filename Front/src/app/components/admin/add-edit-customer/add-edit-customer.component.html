@@ -1,7 +1,7 @@
 <app-loader *ngIf="loader"></app-loader>
 <div class="container-sm">
     <main class="pb-3">
-        <div class="row h-50">
+        <div class="row h-50 ">
             <h3 class="mb-4 mt-4 text-center">{{operacion}} Cliente</h3>
             <div class="col-md-12 mb-3">
                 <form 
@@ -81,8 +81,8 @@
                         <button 
                         [disabled]="formCustomer.invalid"
                         type = "submit"
-                        class="btn btn-outline-success w-25">Aceptar</button>
-                        <button class="btn btn-outline-secondary w-25 ms-2" type="button" routerLink="/admin/customer">Volver</button>
+                        class="btn btn-success w-25">Aceptar</button>
+                        <button class="btn btn-secondary w-25 ms-2" type="button" routerLink="/admin/customer">Volver</button>
                     </div>
 
                 </form>    
