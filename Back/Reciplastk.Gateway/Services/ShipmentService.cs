@@ -10,7 +10,7 @@ namespace Reciplastk.Gateway.Services
         {
             this.db = db;
         }
-        public HttpResponseModel ShowAllShipment()
+        public HttpResponseModel GetAll()
         {
             var shipment = db.Shipments.Where(p=> p.Isactive).ToList();  
             var response = new HttpResponseModel();
@@ -18,9 +18,9 @@ namespace Reciplastk.Gateway.Services
             response.Data = shipment;   
             return response;
         }
-        public HttpResponseModel ShowShipment(int shipmentid)
+        public HttpResponseModel GetById(int shipmentid)
         {
-            var shipment = db.Shipments.Where(x => x.Shipmentid == shipmentid && x.Isactive).FirstOrDefault();
+            var shipment = GetById(shipmentid);
             var response = new HttpResponseModel();
             if (shipment != null)
             {
@@ -35,19 +35,19 @@ namespace Reciplastk.Gateway.Services
             }
             return response;
         }
-        private Shipment FindShipmentById(int? shipmentid)
+        private Shipment GetById(int? shipmentid)
         {
             var shipment = db.Shipments.Where(x => x.Shipmentid == shipmentid && x.Isactive).FirstOrDefault();
             return shipment;
         }
-        public HttpResponseModel CreateShipment(ShipmentViewModel shipmentViewModel)
+        public HttpResponseModel Create(ShipmentViewModel shipmentViewModel)
         {
             var response = new HttpResponseModel();
-            var shipment = FindShipmentById(shipmentViewModel.shipmentid);
+            var shipment = GetById(shipmentViewModel.shipmentid);
             if (shipment == null)
             {
                 var newShipment = new Shipment();
-                newShipment.Customerid = shipmentViewModel.cutomerid;
+                newShipment.Customerid = shipmentViewModel.customerid;
                 newShipment.Employeeid = shipmentViewModel.employeeid;
                 newShipment.Shipmenttypeid = shipmentViewModel.shipmenttypeid;
                 newShipment.Shipmentstartdate = DateTime.Now;
@@ -68,13 +68,13 @@ namespace Reciplastk.Gateway.Services
             }
             return response;
         }
-        public HttpResponseModel EditShipment(ShipmentViewModel shipmentViewModel)
+        public HttpResponseModel Update(ShipmentViewModel shipmentViewModel)
         {
             var response = new HttpResponseModel();
-            var shipment = FindShipmentById(shipmentViewModel.shipmentid);
+            var shipment = GetById(shipmentViewModel.shipmentid);
             if (shipment != null) 
             {
-                shipment.Customerid = shipmentViewModel.cutomerid;
+                shipment.Customerid = shipmentViewModel.customerid;
                 shipment.Employeeid = shipmentViewModel.employeeid;
                 shipment.Shipmenttypeid = shipmentViewModel.shipmenttypeid;
                 shipment.Ispaid = shipmentViewModel.ispaid;
@@ -92,10 +92,10 @@ namespace Reciplastk.Gateway.Services
             }
             return response;
         }
-        public HttpResponseModel DeleteShipment(int shipmentid)
+        public HttpResponseModel Delete(int shipmentid)
         {
             var response = new HttpResponseModel();
-            var shipment = FindShipmentById(shipmentid);
+            var shipment = GetById((int?)shipmentid);
             if (shipment != null)
             {
                 shipment.Isactive = false;

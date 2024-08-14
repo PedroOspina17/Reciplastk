@@ -14,23 +14,23 @@ export class ShipmentService {
   ServiceEndpoint: string = `${AppConfig.API_URL}/api/Shipment`;
 
   ShowAllShipment(): Observable<HttpResponseModel>{
-    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'/ShowAllShipment')
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'/GetAll')
   }
 
   ShowShipment(id: number): Observable<HttpResponseModel>{
-    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'/ShowShipment?shipmentid='+id)
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'/GetById?shipmentid='+id)
   }
 
   CreateShipment(shipmentModel: ShipmentViewModel):Observable<HttpResponseModel>{
-    return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/CreateShipment', shipmentModel)
+    return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/Create', shipmentModel)
   }
 
   EditShipment(shipmentModel: ShipmentViewModel):Observable<HttpResponseModel>{
-    return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/EditShipment', shipmentModel)
+    return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/Update', shipmentModel)
   }
 
   DeleteShipment(id: number):Observable<HttpResponseModel>{
-    return this.http.delete<HttpResponseModel>(this.ServiceEndpoint+'/DeleteShipment?shipmentid='+id)
+    return this.http.delete<HttpResponseModel>(this.ServiceEndpoint+'/Delete?shipmentid='+id)
   }
 
 }

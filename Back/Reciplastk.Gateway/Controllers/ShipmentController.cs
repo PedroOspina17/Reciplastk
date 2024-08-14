@@ -14,34 +14,34 @@ namespace Reciplastk.Gateway.Controllers
         {
             this.shipmentService = shipmentService;
         }
-        [HttpGet("ShowAllShipment")]
-        public HttpResponseModel ShowAllShipment()
+        [HttpGet("GetAll")]
+        public HttpResponseModel GetAll()
         {
-            var response = shipmentService.ShowAllShipment();
+            var response = shipmentService.GetAll();
             return response;
         }
-        [HttpGet("ShowShipment")]
-        public HttpResponseModel ShowShipment(int shipmentid)
+        [HttpGet("GetById")]
+        public HttpResponseModel GetById(int shipmentid)
         {
-            var response = shipmentService.ShowShipment(shipmentid);
+            var response = shipmentService.GetById(shipmentid);
             return response;
         }
-        [HttpPost("CreateShipment")]
-        public HttpResponseModel CreateShipment(ShipmentViewModel shipmentViewModel)
+        [HttpPost("Create")]
+        public HttpResponseModel Create(ShipmentViewModel shipmentViewModel)
         {
-            var response = shipmentService.CreateShipment(shipmentViewModel);
+            var response = shipmentService.Create(shipmentViewModel);
             return response;
         }
-        [HttpPost("EditShipment")]
-        public HttpResponseModel EditShipment(ShipmentViewModel shipmentViewModel)
+        [HttpPost("Update")]
+        public HttpResponseModel Update(ShipmentViewModel shipmentViewModel)
         {
-            var response = shipmentService.EditShipment(shipmentViewModel);
+            var response = shipmentService.Update(shipmentViewModel);
             return response;
         }
-        [HttpDelete("DeleteShipment")]
-        public HttpResponseModel DeleteShipment(int shipmentid)
+        [HttpDelete("Delete")]
+        public HttpResponseModel Delete(int shipmentid)
         {
-            var response = shipmentService.DeleteShipment(shipmentid);
+            var response = shipmentService.Delete(shipmentid);
             return response;
         }
     }
