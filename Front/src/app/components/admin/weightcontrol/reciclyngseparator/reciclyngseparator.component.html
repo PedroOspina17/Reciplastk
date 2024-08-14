@@ -1,1 +1,27 @@
-<p>reciclyngseparator works!</p>
+<!-- <app-progress-bar *ngIf="loading"></app-progress-bar> -->
+<div *ngIf="!loading" class="container">
+  <main role="main" class="pb-3">
+    <div class="row h-25">
+      <h2 class="mb-4 mt-4 text-center"> <strong>Registro de Separación de material</strong></h2>
+      <div class="col-md-4 mt-4 mb-3">
+        <form class="mt-2 row g-3">
+          <div class="mb-2 d-flex justify-content-between">
+            <h4 class="form-text m-2" for="nameEmployee">Empleado</h4>
+            <select  class="form-select mb-3" aria-label="Large select example">
+              <option selected>Lista Empleados</option>
+              <option *ngFor="let item of listEmployee" value="1">{{item.nombre}}</option>
+            </select>
+          </div>
+          <div class="mb-2 d-flex ">
+            <select (click)="NewRegister()"
+              class="col-2 form-select mb-3" aria-label="Large select example">
+              <option  selected>Lista Productos</option>
+              <option
+              *ngFor="let item of listProducts" value="1">{{item.nombre}}</option>
+            </select>
+          </div>
+        </form>
+	</div>
+</div>
+</main>
+</div>

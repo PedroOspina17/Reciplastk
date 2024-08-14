@@ -1,13 +1,14 @@
-import { WeightcontrolService } from './../../../services/weightcontrol.service';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
-import {MatGridListModule} from '@angular/material/grid-list';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import { MatGridListModule} from '@angular/material/grid-list';
+import { MatFormFieldModule} from '@angular/material/form-field';
 import { WeightControlModel } from '../../../models/WeightControlModel';
+import { WeightcontrolService } from './../../../services/weightcontrol.service';
 import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-separtormodals',
   standalone: true,
@@ -18,15 +19,17 @@ import { ToastrService } from 'ngx-toastr';
 export class SepartormodalsComponent implements OnInit{
 
   formWeightControl: FormGroup;
-  hidePassword: boolean = true;
+  loading: boolean = false;
+  hideDiv: boolean = true;
   titleAction: string = "Agregar";
-  buttonAction: string = "Guardar";
   id: number;
-  // listProducts: Products[] = [];
-  listProducts: Array<any>= [{nombre:"pp", descripcion:"xxxxx"},
-    {nombre:"soplado", descripcion:"yyyyy"},
-    {nombre:"ps",descripcion:"zzzzzz"},
-    {nombre:"pasta", descripcion:"aaaaaa"}];
+
+  listProducts = [
+    { id: 1, nombre: 'pp', peso: 15 },
+    { id: 2, nombre: 'soplado', peso: 4 },
+    { id: 3, nombre: 'ps', peso: 3},
+    { id: 4, nombre: 'pasta', peso: 15 },
+  ];
 
   constructor(
     private fb: FormBuilder,
@@ -46,34 +49,30 @@ export class SepartormodalsComponent implements OnInit{
     this.id = Number(aRoute.snapshot.paramMap.get('id'));
     if(this.id != 0){
       this.titleAction = "Editar";
-      this.buttonAction = "Actualizar";
-
     }
   }
 
-  ngOnInit(): void {
+  ngOnInit(){
     if(this.dateWeightcontrol != null){
       this.formWeightControl.patchValue({
-        weight: this.dateWeightcontrol.weight,
-        totalPack:  this.dateWeightcontrol.totalpack ,
-        isActive :  this.dateWeightcontrol.isactive,
-      })
+        Weight: this.dateWeightcontrol.Weight,
+        TotalPack:  this.dateWeightcontrol.Totalpack ,
+        })
     }
 
   }
 
-  AddAndEditWeightControl(): void{
+  AddWeightControl(){
 
     const weightControl: WeightControlModel = {
 
-      alternateid: this.formWeightControl.value.alternateid,
-      weight: this.formWeightControl.value.weight,
-      totalpack: this.formWeightControl.value.totalPack,
-      ispaid: this.formWeightControl.value.ispaid ,
-      isactive: this.formWeightControl.value.isactive,
+      Weight: this.formWeightControl.value.weight,
+      Totalpack: this.formWeightControl.value.totalPack,
+      Ispaid: this.formWeightControl.value.Ispaid ,
+      Isactive: this.formWeightControl.value.Isactive,
     }
 
-    weightControl.weightcontrolid = this.id;
+    weightControl.Weightcontrolid = this.id;
     if(this.id !=0){
       this.weightControlService.Update(weightControl).subscribe((result)=>{
         if(result.wasSuccessful){

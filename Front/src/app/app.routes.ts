@@ -14,13 +14,14 @@ export const routes: Routes = [
   { path: 'aboutus', component: AboutusComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'separator', component: ReciclyngseparatorComponent},
   {
     path: 'admin',
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'roles', redirectTo: '/dashboard' },
       { path: 'miller', component: MillerComponent},
-      { path: 'separator', component: ReciclyngseparatorComponent},
+      // { path: 'separator', component: ReciclyngseparatorComponent},
       { path: 'historySeparator', component: SeparatedmaterialhistoryComponent},
     ],
   },

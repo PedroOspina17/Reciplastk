@@ -13,26 +13,19 @@ export class WeightcontrolService {
   constructor(private http:HttpClient) { }
   serviceEndpoint: string = `${AppConfig.API_URL}/api/WeightControl`;
 
-  ShowById(request: WeightControlModel):Observable<HttpResponseModel>{
-    return this.http.get<HttpResponseModel>(`${this.serviceEndpoint}/ShowById`+ request)
+  GetAll():Observable<HttpResponseModel>{
+    return this.http.get<HttpResponseModel>(`${this.serviceEndpoint}/GetAll`)
   }
-
-  ShowAll():Observable<HttpResponseModel>{
-    return this.http.get<HttpResponseModel>(`${this.serviceEndpoint}/ShowAll`)
+  GetById(id: number):Observable<HttpResponseModel>{
+    return this.http.get<HttpResponseModel>(`${this.serviceEndpoint}/GetById`+ id)
   }
-
-  Create(request: WeightControlModel):Observable<HttpResponseModel>{
-    return this.http.post<HttpResponseModel>(`${this.serviceEndpoint}/Create`,request)
+  Create(weightControl: WeightControlModel):Observable<HttpResponseModel>{
+    return this.http.post<HttpResponseModel>(`${this.serviceEndpoint}/Create`, weightControl)
   }
-  Update(request: WeightControlModel):Observable<HttpResponseModel>{
-    return this.http.put<HttpResponseModel>(`${this.serviceEndpoint}/Update`,request)
+  Update(weightControl: WeightControlModel):Observable<HttpResponseModel>{
+    return this.http.put<HttpResponseModel>(`${this.serviceEndpoint}/Update`, weightControl)
   }
-
   Delete(id: number):Observable<HttpResponseModel>{
     return this.http.delete<HttpResponseModel>(`${this.serviceEndpoint}/Delete/${id}`)
   }
-
-
-
-
 }

@@ -1,26 +1,90 @@
-<h2  mat-dialog-title>{{titleAction}}</h2>
+<div *ngIf="!loading" class="container-sm">
+  <main role="main" class="pb-3">
+    <div class="row h-50">
+      <h3 class="mb-4 mt-4 text-center">Agregar Registro</h3>
+      <div class="col-md-12 mb-3">
+        <form
+          [formGroup]="formWeightControl"
+          (ngSubmit)="AddWeightControl()"
+          class="row g-3"
+        >
+          <div class="mb-2 d-flex justify-content-between">
+            <h4 class="form-text m-2" for="nameEmployee">Empleado</h4>
+            <h2 class="form-text m-2" for="nameEmployee">Pedro</h2>
+            <button
+              [routerLink]="['/separator']"
+              type="button"
+              class="material-icons editIcon btn btn-outline-info btn-sm"
+            >
+              edit
+            </button>
+          </div>
+          <div class="mb-2 d-flex justify-content-between">
+            <h4 class="form-text m-2" for="nameEmployee">Producto</h4>
+            <h2 class="form-text m-2" for="nameEmployee">Pasta</h2>
+          </div>
+          <div class="row mb-2 d-flex justify-content-between">
+            <div class="mb-2 d-flex">
+              <h4 class="form-text m-2">Producto</h4>
+              <select
+                class="col-2 form-select mb-3"
+                aria-label="Large select example"
+              >
+                <option selected>Lista Productos</option>
+                <option *ngFor="let item of listProducts" value="1">
+                  {{ item.nombre }}
+                </option>
+              </select>
+            </div>
+            <div class="col-md-5 mb-2">
+              <label class="control-label" for="inputWwight">Peso</label>
+              <input
+                id="inputMarginProduct"
+                formControlName="margin"
+                type="number"
+                class="form-control mt-2"
+                placeholder="Ingrese Ganancia: "
+              />
+              <span
+                  class="form-text m-2"
+                  *ngIf="
+                    formWeightControl.get('weight')?.hasError('required') &&
+                    formWeightControl.get('weight')?.touched
+                  "
+                >
+                  El campo Peso es <strong>requerido</strong>
+                </span>
+                <button
+                [disabled]="formWeightControl.invalid"
+                type="button"
+                class="btn btn-success w-25"
+              >
+                Agregar
+              </button>
+            </div>
+            <table class="table table-hover mb-2">
+              <thead>
+                <tr>
+                  <th scope="col">Producto</th>
+                  <th scope="col">Peso</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of listProducts" class="table-active">
+                  <!-- <td>{{ item.id}}</td> -->
+                  <td>{{ item.nombre}}</td>
+                  <td>{{ item.peso }}</td>
+                  <td>
+                    <button type="button" class="material-icons deleteIcon btn btn-outline-danger btn-sm ms-2">delete</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
 
-<mat-dialog-content>
-  <form [formGroup]="formWeightControl">
-    <mat-grid-list col="1" rowHeight="80px">
 
-      <mat-grid-tile>
-        <mat-form-field appearance = "outline">
-          <mat-label>Peso</mat-label>
-          <input matInput autocomplete="off" formControlName="weight">
-          <mat-icon matSuffix>account-box</mat-icon>
-        </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-form-field appearance = "outline">
-          <mat-label> Total Peso</mat-label>
-          <input matInput autocomplete="off" formControlName="totalPack">
-          <mat-icon matSuffix>account-box</mat-icon>
-        </mat-form-field>
-      </mat-grid-tile>
-
-      
-    </mat-grid-list>
-
-  </form>
-</mat-dialog-content>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+</div>
