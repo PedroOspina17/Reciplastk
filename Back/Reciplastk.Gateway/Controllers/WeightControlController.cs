@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Reciplastk.Gateway.Models;
 using Reciplastk.Gateway.Services;
@@ -24,7 +25,7 @@ namespace Reciplastk.Gateway.Controllers
         }
 
         [HttpGet("GetById")]
-        public HttpResponseModel GetOne(int id)
+        public HttpResponseModel GetById(int id)
         {
             return weightControlService.GetById(id);
         }

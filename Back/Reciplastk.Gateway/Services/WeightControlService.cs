@@ -8,12 +8,10 @@ namespace Reciplastk.Gateway.Services
     {
 
         private readonly ReciplastkContext db;
-
         public WeightControlService(ReciplastkContext db)
         {
             this.db = db;
         }
-
         private Weightcontrol FindById(int? id)
         {
             var weightcontrol = db.Weightcontrols.Where(p=>p.Isactive == true && p.Weightcontrolid == id).FirstOrDefault();
@@ -22,7 +20,7 @@ namespace Reciplastk.Gateway.Services
         }
         public HttpResponseModel GetAll()
         {
-            var weightControl = db.Weightcontrols.Where(p=>p.Isactive == true).Include(x=>x.Product).Include(x=>x.Employee).ToList();
+            var weightControl = db.Weightcontrols.Where(p=>p.Isactive == true).ToList();
             var response = new HttpResponseModel();
             response.WasSuccessful = true;
             response.Data = weightControl;
@@ -58,12 +56,14 @@ namespace Reciplastk.Gateway.Services
             else
             {
                 var newWeightControl = new Weightcontrol();
-                newWeightControl.Productid = model.Product.Productid;
-                newWeightControl.Employeeid = model.Employee.Employeeid;
+                newWeightControl.Productid = model.Productid;
+                newWeightControl.Employeeid = model.Employeeid;
+                //newWeightControl.Productid = model.Product.Productid;
+                //newWeightControl.Employeeid = model.Employee.Employeeid;
                 newWeightControl.Weight = model.Weight;
                 newWeightControl.Totalpack = model.Totalpack;
-                newWeightControl.Datestart = model.Datestart;
-                newWeightControl.Dateend = model.Dateend;
+                //newWeightControl.Datestart = model.Datestart;
+                //newWeightControl.Dateend = model.Dateend;
                 newWeightControl.Ispaid = model.Ispaid;
                 newWeightControl.Isactive = true;
                 db.Weightcontrols.Add(newWeightControl);
@@ -82,13 +82,15 @@ namespace Reciplastk.Gateway.Services
             var response = new HttpResponseModel();
             if (weightcontrol != null)
             {
-                weightcontrol.Employeeid = model.Employee.Employeeid;
-                weightcontrol.Productid = model.Product.Productid;
+                weightcontrol.Employeeid = model.Employeeid;
+                weightcontrol.Productid = model.Productid;
+                //weightcontrol.Employeeid = model.Employee.Employeeid;
+                //weightcontrol.Productid = model.Product.Productid;
                 weightcontrol.Weight = model.Weight;
                 weightcontrol.Totalpack = model.Totalpack;
                 weightcontrol.Ispaid = model.Ispaid;
-                weightcontrol.Datestart = model.Datestart;
-                weightcontrol.Dateend = model.Dateend;
+                //weightcontrol.Datestart = model.Datestart;
+                //weightcontrol.Dateend = model.Dateend;
                 weightcontrol.Isactive = model.Isactive;    
                 db.SaveChanges();
                 response.WasSuccessful = true;
@@ -110,7 +112,6 @@ namespace Reciplastk.Gateway.Services
             {
                 response.WasSuccessful= false;
                 response.StatusMessage = "No pudo ser eliminado";
-
             }
             else
             {
