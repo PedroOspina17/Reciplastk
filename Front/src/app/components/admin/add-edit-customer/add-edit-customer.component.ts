@@ -47,6 +47,7 @@ export class AddEditCustomerComponent {
       address: ['', [Validators.required, Validators.maxLength(50)]],
       cell: ['', [Validators.required, Validators.maxLength(20)]],
       needspickup: [false, Validators.required],
+      clientsince: [null,Validators.required ]
     });
     this.id = Number(this.aRoute.snapshot.paramMap.get('id'));
   }
@@ -70,7 +71,9 @@ export class AddEditCustomerComponent {
           address: result.data.address,
           cell: result.data.cell,
           needspickup: result.data.needspickup,
+          clientsince: result.data.clientsince
         });
+        
       } else {
         console.log('Informacion incorrecta');
       }
@@ -86,10 +89,10 @@ export class AddEditCustomerComponent {
       address: this.formCustomer.value.address,
       cell: this.formCustomer.value.cell,
       needspickup: this.formCustomer.value.needspickup,
+      clientsince: this.formCustomer.value.clientsince
     };
     if (this.id != 0) {
       // Llamar metodo modificar
-      debugger;
       customer.customerid = this.id;
       this.customerServises
         .EditCustomer(customer, this.id)
@@ -111,6 +114,7 @@ export class AddEditCustomerComponent {
       debugger;
       // Llmar metodo Agregar
       this.customerServises.CreateCustomer(customer).subscribe((result) => {
+        console.log('Crear', customer,result)
         if (result.wasSuccessful) {
           this.loader = false;
           this.toastr.success(result.statusMessage, 'Felicitaciones');

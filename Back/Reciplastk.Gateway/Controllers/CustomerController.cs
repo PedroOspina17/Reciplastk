@@ -25,7 +25,7 @@ namespace Reciplastk.Gateway.Controllers
         [HttpGet("GetById")]
         public HttpResponseModel GetById(int id)
         {
-            var response = customerService.GetById(id);
+            var response = customerService.Get(id);
             return response;
         }
         

@@ -4,6 +4,7 @@ export class CustomerViewModel{
     name: String = "";
     lastname: String = "";
     address: String = "";
-    cell: String = "";
+    cell: String = "";  
+    clientsince?: Date;
     needspickup?: boolean = false;
 }
