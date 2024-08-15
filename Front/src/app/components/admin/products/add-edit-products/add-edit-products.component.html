@@ -6,7 +6,7 @@
       <div class="col-md-12 mb-3">
         <form
           [formGroup]="formProduct"
-          (ngSubmit)="AddandUpdateProduct()"
+          (ngSubmit)="AddandUpdate()"
           class="row g-3"
         >
           <div class="col-md-4 mb-2">
@@ -170,30 +170,32 @@
             >
             <div class="mb-2">
               <input
+                (change) = "ShowHidden($event)"
                 class="form-check-input me-2"
                 type="radio"
-                name="isSubtype"
                 id="isSubtypeFalse"
-                [checked]="!formProduct.get('issubtype')?.value"
-                
+                [value] = "false"
+                name = "issubtype"
+                formControlName="issubtype"
               />
               <label class="form-check-label me-4" for="isSubtypeTrue">
                 No
               </label>
 
               <input
+                (change) = "ShowHidden($event)"
                 class="form-check-input me-2"
                 type="radio"
-                name="isSubtype"
                 id="isSubtypeTrue"
-                formControlName="isSubtype"
-
+                [value] = "true"
+                name = "issubtype"
+                formControlName="issubtype"
               />
               <label class="form-check-label" for="isSubtypeTrue"> Si </label>
             </div>
           </div>
-          <div class="row mt-2" id="subtipos" *ngIf="formProduct.get('issubtype')?.value">
-            <h3 class="mb-4 mt-4 text-center"> Sub-Producto</h3>
+          <div class="row mt-2" id="subtipos" *ngIf="showDiv">
+            <h3 class="mb-4 mt-4 text-center">Sub-Producto</h3>
             <div class="col-md-4">
               <label class="control-label" for="Name"
                 >Nombre del SubProducto</label

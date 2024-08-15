@@ -2,7 +2,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ProductsModel } from './../../../../models/ProductsModel';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterLink} from '@angular/router';
+import { ActivatedRoute, RouterLink} from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductsService } from '../../../../services/products.service';
 import { ProgressBarComponent } from '../../../shared/progress/progress-bar/progress-bar.component';
@@ -16,21 +16,26 @@ import { ProgressBarComponent } from '../../../shared/progress/progress-bar/prog
 })
 export class ListProductsComponent {
   listProducts: ProductsModel[] = [];
+  subProductsList: ProductsModel [] =[];
   loading: boolean = false;
-  expandedArea: boolean = false;
+  expandedArea: boolean = true;
+  id: number;
 
   constructor(
     private productService: ProductsService,
-    private toastr: ToastrService
-  ) { }
+    private toastr: ToastrService,
+    private aRoute: ActivatedRoute,
+  ) {
+    this.id = Number(aRoute.snapshot.paramMap.get('id'));
+   }
 
-  ngOnInit(): void{
-    this.GetProducts();
+  ngOnInit(id: number){
+    this.GetAll();
   };
 
-  GetProducts() {
+  GetAll() {
     this.loading = true;
-    this.productService.GetProducts().subscribe(result =>{
+    this.productService.GetAll().subscribe(result =>{
       if (result.wasSuccessful == true) {
         this.listProducts = result.data;
         this.loading= false;
@@ -40,23 +45,40 @@ export class ListProductsComponent {
     })
   };
 
-  DeleteProduct(productid: number){
+  GetByParentid(id: number){
+    this.loading
+    this.productService.GetByParentId(id).subscribe(result=> {
+      if(result.wasSuccessful == true){
+        this.subProductsList = result.data;
+        console.log("getByparentid:", this.subProductsList);
+      }
+    })
+  }
+
+  Delete(id: number){
     this.loading = true;
-    console.log("id product delete: ", productid);
-    this.productService.DeleteProduct(productid).subscribe(result  => {
+    this.productService.Delete(id).subscribe(result  => {
       if(result.wasSuccessful == true){
         this.toastr.info(`El producto ${result.data.name} fue eliminado con exito`, `Producto Eliminado.`)
       }else {
         this.toastr.error('El producto no fue eliminado.', 'Error.');
       }
-    this.GetProducts();
+    this.GetAll();
    })
   }
 
-  ExpandArea(productid: number){
+  ExpandArea(id: number){
     this.loading = true;
-    console.log("id product expandArea: ", productid);
-    this.expandedArea = true;
+
+   
+    this.productService.GetByParentId(id).subscribe(result =>{
+      if(result.wasSuccessful == true){
+        this.expandedArea = true;
+        this.subProductsList = result.data;
+        console.log("data product expandArea: ", this.subProductsList);
+      }
+    })
+
   }
 
 }

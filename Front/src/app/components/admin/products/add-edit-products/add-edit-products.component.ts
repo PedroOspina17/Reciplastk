@@ -20,6 +20,8 @@ export class AddEditProductsComponent {
   id: number;
   operacion: string = "";
   loading: boolean = false;
+  showDiv: boolean = false;
+  isChecked: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -40,33 +42,31 @@ export class AddEditProductsComponent {
     });
     // Obtener el id de la URL - inyecta la dependencia ActiveRoute y luego lo llama con snapshot.paramMap
     this.id = Number(aRoute.snapshot.paramMap.get('id')); // Se parsea para que no salga error Number( lo que se quire cambiar)
-
   }
 
-  // Metodo para cargar los productos al momento de ingresar al componente
-  ngOnInit(): void {
-
+  ngOnInit(){
     if (this.id != 0){
       // Es editar
       this.operacion = 'Editar';
-      this.GetProduct(this.id)
+      this.GetById(this.id)
       this.loading = false;
     }else{
       // es Agregar
       console.log("info id ngOnInit: ", this.id);
       this.operacion = 'Agregar';
       this.loading = false;
-    }
+    };
+    // Suscribirse a los cambios en el control isSubtype
+    this.formProduct.get('issubtype')?.valueChanges.subscribe(value => {
+      this.showDiv = value === true;
+    });
+
+    // Inicializar showDiv basado en el valor actual de isSubtype
+    this.showDiv = this.formProduct.get('issubtype')?.value === true;
   }
 
-  // toggleSubtype(value: boolean) {
-  //   this.formProduct.get('issubtype').patchValue(value);  // Actualiza el valor de issubtype en el formulario
-  // }
-
-  // Metodo para Obtener un Producto por Id
-
-  GetProduct(productid: number): void {
-    this.productService.GetProduct(productid).subscribe(result =>{
+  GetById(id: number): void {
+    this.productService.GetById(id).subscribe(result =>{
       console.log("result GetProduct: ", result);
       if (result.wasSuccessful == true) {
         //setiar o llenar el formulario con setValue para todos los valores o parchValue para algunos
@@ -78,8 +78,9 @@ export class AddEditProductsComponent {
           buyprice: result.data.buyprice,
           sellprice: result.data.sellprice,
           margin: result.data.margin,
-          issubtype: result.data.issubtype
+          issubtype: result.data.issubtype === false,
         });
+        console.log('info formProduct: ', this.formProduct.value.name);
         console.log('info formProduct: ', this.formProduct.value.name);
       } else {
         console.log("informacion incorrecta");
@@ -87,8 +88,7 @@ export class AddEditProductsComponent {
     });
   }
 
-  // Metodo para Crear Producto y Modificar Informacion del Producto
-  AddandUpdateProduct() {
+  AddandUpdate() {
 
    const product: ProductsModel = {
     shortname: this.formProduct.value.shortname,
@@ -98,19 +98,16 @@ export class AddEditProductsComponent {
     buyprice: this.formProduct.value.buyprice,
     sellprice: this.formProduct.value.sellprice,
     margin: this.formProduct.value.margin,
-    issubtype: this.formProduct.value.issubtype
+    issubtype: this.formProduct.value.issubtype,
    };
-
+   console.log(" info product AddUpdte", product);
+   
    product.productid = this.id;
    this.loading = true;
    if(this.id != 0){
-
     // es editar
-    product.productid = this.id;
-    console.log("info product.productid metodo addedit: ", product.productid);
-    console.log("info id en addedit: ", this.id);
 
-    this.productService.UpdateProduct(this.id, product).subscribe(result =>{
+    this.productService.Update(this.id, product).subscribe(result =>{
       if (result.wasSuccessful == true) {
         this.toastr.success(`El producto ${product.name} fue actualizado con exito`, `Producto Actualizado.`);
         this.loading = false;
@@ -123,23 +120,34 @@ export class AddEditProductsComponent {
     });
    } else{
     // Es agregar
-    console.log("info product.productid metodo addedit: ", product.productid);
-    console.log("info id en addedit: ", this.id);
-
-    this.productService.CreateProduct(product).subscribe(result => {
+    this.productService.Create(product).subscribe(result => {
       console.log("result CreateProducts: ", result);
+      debugger;
       if (result.wasSuccessful == true) {
         console.log("informacion de product en agregar: ", product);
         this.toastr.success(`El producto ${product.name} fue creado Exitosamente`, `Producto Creado`);
         this.loading = false;
-        this.router.navigate(['/admin/dashboard/products'])
+        this.router.navigate(['/admin/products'])
       } else {
         this.toastr.error(`El producto ${product.name}`,`Error.`);
         this.loading = false;
-        this.router.navigate(['/admin/dashboard/products'])
+        this.router.navigate(['/admin/products'])
       }
     });
    }
   }
+
+  
+  ShowHidden(event: Event){
+    const showInputElement = event.target as HTMLInputElement;
+
+    if(showInputElement.value === 'true'){
+      this.showDiv = true;
+    }else{
+      this.showDiv = false;
+    }
+
+  }
+
 }
 

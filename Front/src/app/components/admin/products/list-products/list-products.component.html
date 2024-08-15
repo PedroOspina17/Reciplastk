@@ -27,10 +27,10 @@
               <th>Acciones</th>
             </tr>
           </thead>
-          <tbody>
-            <tr *ngFor="let item of listProducts" data-toggle="collapse" data-target="#demo1" class="accordion-toggle" (click)="ExpandArea(item.productid!)">
+          <tbody >
+            <tr *ngFor="let item of listProducts" data-toggle="collapse" data-target="#demo1" class="accordion-toggle">
               <td>
-                <button class="btn btn-default btn-xs">
+                <button class="btn btn-default btn-xs " >
                   <span class="material-icons">visibility</span>
                 </button>
               </td>
@@ -44,14 +44,16 @@
               <td>
                 <button [routerLink]="['/admin/editProduct', item.productid]" type="button"
                   class="material-icons editIconProducts">edit</button>
-                <button (click)="DeleteProduct(item.productid!)" type="button"
-                  class="material-icons deleteIconProduct">delete</button>
+                <button 
+                (click)="Delete(item.productid!)" 
+                type="button"
+                class="material-icons deleteIconProduct">delete</button>
               </td>
             </tr>
             <tr>
               <td colspan="12" class="hiddenRow">
                 <div class="accordian-body collapse" id="demo1">
-                  <table class="table table-striped">
+                  <table class="table table-striped" *ngIf="expandedArea">
                     <thead>
                       <tr class="info">
                         <th>Nombre</th>

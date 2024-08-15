@@ -12,30 +12,34 @@ export class ProductsService {
 
   constructor(private htpp: HttpClient) { }
 
-  ServiceEndpoint: string = `${AppConfig.API_URL}`;
+  ServiceEndpoint: string = `${AppConfig.API_URL}/api/Products/`;
 
   // Metodo para obtener todos los productos
-  GetProducts(): Observable<HttpResponseModel>{
-    return this.htpp.get<HttpResponseModel>(this.ServiceEndpoint+'/api/Products/GetProducts');
+  GetAll(): Observable<HttpResponseModel>{
+    return this.htpp.get<HttpResponseModel>(this.ServiceEndpoint+'GetAll');
   }
 
   // Metodo para obtener un Producto por id
-  GetProduct(id: number): Observable<HttpResponseModel>{
-    return this.htpp.get<HttpResponseModel>(this.ServiceEndpoint+'/api/Products/getProductId?id='+id)
+  GetById(id: number): Observable<HttpResponseModel>{
+    return this.htpp.get<HttpResponseModel>(this.ServiceEndpoint+'GetById?id='+id)
+  }
+  // Metodo para obtener un Producto por parentid
+  GetByParentId(id: number): Observable<HttpResponseModel>{
+    return this.htpp.get<HttpResponseModel>(this.ServiceEndpoint+'GetParentId?id='+id)
   }
 
   // Metodo para Crear un Producto
-  CreateProduct(productModel: ProductsModel): Observable<HttpResponseModel>{
-    return this.htpp.post<HttpResponseModel>(this.ServiceEndpoint+"/api/Products/createProduct", productModel)
+  Create(productModel: ProductsModel): Observable<HttpResponseModel>{
+    return this.htpp.post<HttpResponseModel>(this.ServiceEndpoint+"Create", productModel)
   }
 
   // Metodo para modificar un Producto
-  UpdateProduct (productid: number, infoProduct: ProductsModel): Observable<HttpResponseModel>{
-    return this.htpp.post<HttpResponseModel>(this.ServiceEndpoint+'/api/Products/updateProduct', infoProduct)
+  Update (productid: number, productModel: ProductsModel): Observable<HttpResponseModel>{
+    return this.htpp.put<HttpResponseModel>(this.ServiceEndpoint+'Update', productModel)
   }
 
   // Metodo para Eliminar un Producto
-  DeleteProduct(productid: number): Observable<HttpResponseModel>{
-    return this.htpp.delete<HttpResponseModel>(this.ServiceEndpoint+'/api/Products/deleteProduct?id='+productid )
+  Delete(id: number): Observable<HttpResponseModel>{
+    return this.htpp.delete<HttpResponseModel>(this.ServiceEndpoint+'Delete?id='+id )
   }
 }
