@@ -18,45 +18,45 @@ namespace Reciplastk.Gateway.Controllers
             this.productsService = productsService;
         }
 
-        [HttpGet("getProducts")]
+        [HttpGet("GetAll")]
 
-        public HttpResponseModel GetProducts()
+        public HttpResponseModel GetAll()
         {
-            return productsService.GetProducts();
+            return productsService.GetAll();
         }
 
-        [HttpGet("getProductId")]
+        [HttpGet("GetById")]
 
-        public HttpResponseModel GetProduct(int id)
+        public HttpResponseModel GetById(int id)
         {
-            return productsService.GetProductId(id);
+            return productsService.GetById(id);
         }
 
-        [HttpGet("getProductbyParentid")]
+        [HttpGet("GetByParentid")]
 
-        public HttpResponseModel GetProductsbyParentid(int id)
+        public HttpResponseModel GetByParentid(int id)
         {
-            return productsService.GetProductsbyParentid(id);
+            return productsService.GetByParentid(id);
         }
 
-        [HttpPost("createProduct")]
+        [HttpPost("Create")]
 
-        public HttpResponseModel CreateProduct(ProductsViewModel infoProducts)
+        public HttpResponseModel Create(ProductsViewModel productModel)
         {
-            return productsService.CreateProduct(infoProducts);
+            return productsService.Create(productModel);
         }
 
-        [HttpPost("updateProduct")]
+        [HttpPut("Update")]
 
-        public HttpResponseModel UpdateProduct(ProductsViewModel infoProducts)
+        public HttpResponseModel Update(ProductsViewModel productModel)
         {
-            return productsService.UpdateProduct(infoProducts);
+            return productsService.Update(productModel);
         }
 
-        [HttpDelete("deleteProduct")]
-        public HttpResponseModel DeleteProduct(int id)
+        [HttpDelete("Delete")]
+        public HttpResponseModel Delete(int id)
         {
-            return productsService.DeleteProduct(id);
+            return productsService.Delete(id);
         }
 
 
