@@ -19,7 +19,6 @@ export const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'roles', redirectTo: '/dashboard' },
       { path: 'shipment', component: ShipmentComponent},
-                                       
     ],
   },
   { path: 'shipmenttype', component: ShipmentTypeComponent},
