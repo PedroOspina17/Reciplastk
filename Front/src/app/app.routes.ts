@@ -4,6 +4,8 @@ import { RegisterComponent } from './components/security/register/register.compo
 import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
 import { AboutusComponent } from './components/general/aboutus/aboutus.component';
 import { WelcomeComponent } from './components/general/welcome/welcome.component';
+import { CustomerListComponent } from './components/admin/customer-list/customer-list.component';
+import { AddEditCustomerComponent } from './components/admin/add-edit-customer/add-edit-customer.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
@@ -16,6 +18,9 @@ export const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'roles', redirectTo: '/dashboard' },
+      { path: 'customer', component: CustomerListComponent },
+      { path: 'addCustomer', component: AddEditCustomerComponent },
+      { path: 'editCustomer/:id', component: AddEditCustomerComponent }
     ],
   },
   { path: '**', redirectTo: '/welcome', pathMatch: 'full' },
