@@ -1,6 +1,37 @@
 <app-loader **ngIf="loader"></app-loader>
-<div class="container">
-  <div>
-    <h3>Tipo de cargamentos</h3>
-  </div>          
+<div class="container panel panel-default">
+  <div class="d-flex pt-4 pb-4">
+    <h3 class="me-auto">Tipo de cargamentos</h3>
+    <button type="button" class="btn btn-outline-success">
+      Agregar cliente
+    </button>
+  </div>
+  <div class="row">
+    <table class="border table table-condensed table-striped">
+      <thead>
+        <tr>
+          <th class="col-3">Nombre</th>
+          <th class="col-auto">Descripción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <input class="rounded-1 w-100" type="text" name="" id="">
+          </td>
+          <td>
+            <input class="rounded-1 w-100" type="text" name="" id="">
+          </td>
+          <td>
+            <button type="button w-100" class="material-icons editIconCustomer">
+              edit
+            </button>
+            <button type="button w-100" class="material-icons deleteIconCustomer">
+              delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
