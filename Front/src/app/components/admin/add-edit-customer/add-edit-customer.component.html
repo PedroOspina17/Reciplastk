@@ -65,25 +65,28 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4 mb-3 row">
-                        <div class="col-auto">
-                            <label for="needspickup" class="control-label">Recoger</label>
-                            <br>
-                            <div class="radio-group mt-3 ms-1">
-                                <input type="radio" id="needspickupYes" formControlName="needspickup" name="needspickup"
-                                    [value]="true">
-                                <label for="needspickupYes">Sí</label>
+                    <div class="col-md-4 mb-3 ">
+                        <div class="row">
 
-                                <input class="ms-4" type="radio" id="needspickupNo" formControlName="needspickup"
-                                    name="needspickup" [value]="false">
-                                <label for="needspickupNo">No</label>
+                            <div class="col-7">
+                                <div class="form-group">
+                                    <label for="clientsince" class="pb-2">Fecha de Cliente Desde:</label>
+                                    <input type="date" class="form-control" id="clientsince" formControlName="clientsince">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-auto">
-                            <div class="form-group">
-                                <label for="clientsince" class="pb-2">Fecha de Cliente Desde:</label>
-                                <input type="date" class="form-control" id="clientsince" formControlName="clientsince">
-                              </div>
+                            <div class="col-auto">
+                                <label for="needspickup" class="control-label">Recoger</label>
+                                <br>
+                                <div class="radio-group mt-3 ms-1">
+                                    <input type="radio" id="needspickupYes" formControlName="needspickup" name="needspickup"
+                                    [value]="true">
+                                    <label for="needspickupYes">Sí</label>
+                                    
+                                    <input class="ms-4" type="radio" id="needspickupNo" formControlName="needspickup"
+                                    name="needspickup" [value]="false">
+                                    <label for="needspickupNo">No</label>
+                                </div>
+                            </div>
                         </div>
 
                     </div>

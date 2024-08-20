@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { CommonModule, formatDate } from '@angular/common';
+import { Component, Inject, LOCALE_ID } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -38,7 +38,8 @@ export class AddEditCustomerComponent {
     private customerServises: CustomerService,
     private router: Router,
     private aRoute: ActivatedRoute, //
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    @Inject(LOCALE_ID) public locale: string
   ) {
     this.formCustomer = this.fb.group({
       nit: ['', [Validators.required, Validators.maxLength(50)]],
@@ -71,9 +72,9 @@ export class AddEditCustomerComponent {
           address: result.data.address,
           cell: result.data.cell,
           needspickup: result.data.needspickup,
-          clientsince: result.data.clientsince
+          clientsince: formatDate(result.data.clientsince, 'yyyy-MM-dd',this.locale)
         });
-        
+
       } else {
         console.log('Informacion incorrecta');
       }

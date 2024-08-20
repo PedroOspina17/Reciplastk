@@ -25,7 +25,7 @@ namespace Reciplastk.Gateway.Services
         }
         public HttpResponseModel Get(int customerid)
         {
-            var customer = GetById((int)customerid);
+            var customer = GetById(customerid);
             var response = new HttpResponseModel();
             if (customer != null)
             {
@@ -62,7 +62,7 @@ namespace Reciplastk.Gateway.Services
                 newCustomer.Address = customerViewModel.address;
                 newCustomer.Cell = customerViewModel.cell;
                 newCustomer.Needspickup = customerViewModel.needspickup;
-                newCustomer.Clientsince = DateTime.SpecifyKind(customerViewModel.clientsince, DateTimeKind.Unspecified);
+                newCustomer.Clientsince = customerViewModel.clientsince;
                 newCustomer.Createddate = DateTime.Now;
                 db.Customers.Add(newCustomer);
                 db.SaveChanges();
@@ -89,7 +89,7 @@ namespace Reciplastk.Gateway.Services
                 customer.Lastname = customerViewModel.lastname;
                 customer.Address = customerViewModel.address;
                 customer.Cell = customerViewModel.cell;
-                customer.Clientsince = DateTime.Now;
+                customer.Clientsince = customerViewModel.clientsince;
                 customer.Needspickup = customerViewModel.needspickup;
                 customer.Updateddate = DateTime.Now;
                 db.SaveChanges();

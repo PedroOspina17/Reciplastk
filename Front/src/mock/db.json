@@ -1,0 +1,40 @@
+{
+  "ShipmentType": [
+    {
+      "Name": "Test 1",
+      "Desceription": "Desc 1",
+      "id": "285b"
+    },
+    {
+      "Name": "Test 2",
+      "Desceription": "Desc 2",
+      "id": "af1d"
+    },
+    {
+      "Name": "Test 3",
+      "Desceription": "Desc 3",
+      "id": "efd6"
+    },
+    {
+      "Name": "Test 4",
+      "Desceription": "Desc 4",
+      "id": "8ff0"
+    },
+    {
+      "Name": "Test 11",
+      "Desceription": "Desc 11",
+      "id": "2bcf"
+    }
+  ],
+
+  "Test":[
+    {
+      "Prop1":"test",
+      "Prop2":"test"
+    },
+    {
+      "Prop1":"test2",
+      "Prop2":"test2"
+    }
+  ]
+}
