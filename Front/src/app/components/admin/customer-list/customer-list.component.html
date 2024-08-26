@@ -1,0 +1,62 @@
+<app-loader *ngIf="loader"></app-loader>
+<div class="container">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading tittleCustomer">
+        <h3>Clientes</h3>
+        <button
+          type="button"
+          class="btn btn-outline-success"
+          routerLink="/admin/addCustomer"
+        >
+          Agregar cliente
+        </button>
+      </div>
+      <div class="panel-body">
+        <table class="table table-condensed table-striped">
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>Nit</th>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>Dirección</th>
+              <th>Celular</th>
+              <th>Recoger</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of CustomerList">
+              <td>{{ item.customerid }}</td>
+              <td>{{ item.nit }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.lastname }}</td>
+              <td>{{ item.address }}</td>
+              <td>{{ item.cell }}</td>
+              <td>
+                <span *ngIf="item.needspickup; else noPickup">Sí</span>
+                <ng-template #noPickup>No</ng-template>
+              </td>
+              <td>
+                <button
+                  type="button"
+                  class="material-icons editIconCustomer"
+                  routerLink="/admin/editCustomer/{{ item.customerid }}"
+                >
+                  edit
+                </button>
+                <button
+                  type="button"
+                  class="material-icons deleteIconCustomer"
+                  (click)="DeleteCustomer(item.customerid!)"
+                >
+                  delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
