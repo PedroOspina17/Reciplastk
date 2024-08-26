@@ -4,7 +4,8 @@ import { RegisterComponent } from './components/security/register/register.compo
 import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
 import { AboutusComponent } from './components/general/aboutus/aboutus.component';
 import { WelcomeComponent } from './components/general/welcome/welcome.component';
-import { ShipmentComponent } from './components/admin/shipment/shipment.component';
+import { ShipmentDetailComponent } from './components/general/shipment-detail/shipment-detail.component';
+import { ShipmentCustomerSelectionComponent } from './components/general/shipment-customer-selection/shipment-customer-selection.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
@@ -16,9 +17,10 @@ export const routes: Routes = [
     path: 'admin',
     children: [
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'roles', redirectTo: '/dashboard' },
-      { path: 'shipment', component: ShipmentComponent}                                      
+      { path: 'roles', redirectTo: '/dashboard' },                                      
     ],
   },
+  { path: 'shipmentDetail', component: ShipmentDetailComponent},
+  { path: 'ShipmentCustomerSelection', component: ShipmentCustomerSelectionComponent},
   { path: '**', redirectTo: '/welcome', pathMatch: 'full' },
 ];

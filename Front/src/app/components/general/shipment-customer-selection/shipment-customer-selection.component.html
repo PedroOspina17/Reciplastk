@@ -1,0 +1,86 @@
+<!-- Botón para abrir el modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#shipmentModal">
+    Abrir Modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="shipmentModal" tabindex="-1" aria-labelledby="shipmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="shipmentModalLabel">Tipo de Despacho</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulario para agregar productos -->
+                <div class="mb-3">
+                    <label for="provider" class="form-label">Proveedor</label>
+                    <div class="d-flex align-items-center">
+                        <h5 class="mb-0 me-2">Proveedor XYZ</h5>
+                        <button type="button" class="btn btn-light btn-sm">
+                            <i class="bi bi-pencil"></i> <!-- Icono de Bootstrap para editar -->
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="d-flex mb-3">
+                    <div class="me-3">
+                        <label for="product" class="form-label">Producto</label>
+                        <select class="form-select" id="product">
+                            <option>Productos</option>
+                            <!-- Agrega más opciones según sea necesario -->
+                        </select>
+                    </div>
+                    <div class="me-3">
+                        <label for="weight" class="form-label">Peso (KG)</label>
+                        <input type="number" class="form-control" id="weight" placeholder="0">
+                    </div>
+                    <button type="button" class="btn btn-success align-self-end">Agregar</button>
+                </div>
+
+                <!-- Tabla de productos -->
+                <table class="table table-bordered text-center">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Prod</th>
+                            <th>Peso/unidades</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Producto 1</td>
+                            <td>12</td>
+                            <td>
+                                <button type="button" class="btn btn-danger btn-sm">Eliminar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Producto 2</td>
+                            <td>5</td>
+                            <td>
+                                <button type="button" class="btn btn-danger btn-sm">Eliminar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Producto 3</td>
+                            <td>7</td>
+                            <td>
+                                <button type="button" class="btn btn-danger btn-sm">Eliminar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Botones de acción -->
+                <div class="d-flex justify-content-between mt-3">
+                    <button type="button" class="btn btn-danger">Cancelar</button>
+                    <div>
+                        <button type="button" class="btn btn-success me-2">Guardar</button>
+                        <button type="button" class="btn btn-warning">Generar factura</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
