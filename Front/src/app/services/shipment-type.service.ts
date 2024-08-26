@@ -26,12 +26,12 @@ export class ShipmentTypeService {
     return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/Create', shipmenTypetModel)
   }
 
-  Update(shipmenTypetModel: ShipmentTypeViewModel):Observable<HttpResponseModel>{
+  Update(shipmenTypetModel: ShipmentTypeViewModel, id: number):Observable<HttpResponseModel>{
     return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/Update', shipmenTypetModel)
   }
 
   Delete(id: number):Observable<HttpResponseModel>{
-    return this.http.delete<HttpResponseModel>(this.ServiceEndpoint+'/Delete?shipmentid='+id)
+    return this.http.delete<HttpResponseModel>(this.ServiceEndpoint+'/Delete?shipmentTypeId='+id)
   }
 
 }

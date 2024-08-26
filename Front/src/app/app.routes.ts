@@ -5,6 +5,7 @@ import { DashboardComponent } from './components/admin/dashboard/dashboard.compo
 import { AboutusComponent } from './components/general/aboutus/aboutus.component';
 import { WelcomeComponent } from './components/general/welcome/welcome.component';
 import { ShipmentTypeComponent } from './components/general/shipmentType/shipment-type.component';
+import { AddEditShipmentTypeComponent } from './components/general/add-edit-shipment-type/add-edit-shipment-type.component';
 
 
 export const routes: Routes = [
@@ -21,5 +22,7 @@ export const routes: Routes = [
     ],
   },
   { path: 'shipmenttype', component: ShipmentTypeComponent},
+  { path: 'addshipmenttype', component: AddEditShipmentTypeComponent},
+  { path: 'editshipmenttype/:id', component: AddEditShipmentTypeComponent},
   { path: '**', redirectTo: '/welcome', pathMatch: 'full' }, 
 ];
