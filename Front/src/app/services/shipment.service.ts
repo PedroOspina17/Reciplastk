@@ -32,5 +32,7 @@ export class ShipmentService {
   DeleteShipment(id: number):Observable<HttpResponseModel>{
     return this.http.delete<HttpResponseModel>(this.ServiceEndpoint+'/api/Shipment/DeleteShipment?shipmentid='+id)
   }
-
+  ShowAllProviders():Observable<HttpResponseModel>{
+    return this.http.get<HttpResponseModel>('http://localhost:8765/Providers')
+  }
 }

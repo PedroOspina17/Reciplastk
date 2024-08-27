@@ -1,4 +1,3 @@
-
 <div class="d-flex justify-content-center align-items-center pt-5">
     <div class="container">
         <div class="row rounded-3  p-4" style="width: 40%;">
@@ -7,27 +6,38 @@
                     <h5 class="text-dark">Tipo de despacho</h5>
                 </div>
                 <div class="col-6">
-                    <button class="btn btn-outline-ligth border-dark dropdown-toggle" type="button" id="Menu" data-bs-toggle="dropdown" aria-expanded="false">
-                        Lista de Objetos
+                    <button class="btn dropdown-toggle" type="button" id="Menu"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ ShowProvider ? 'Ingreso' : 'Salida' }}
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="Menu">
-                        <li><a class="dropdown-item" href="#">Ingreso</a></li>
-                        <li><a class="dropdown-item" href="#">Salida</a></li>
+                        <li>
+                            <button class="dropdown-item" (click)="CustomerProviderSelect('Ingreso')">Ingreso</button>
+                        </li>
+                        <li>
+                            <button class="dropdown-item" (click)="CustomerProviderSelect('Salida')">Salida</button>
+                        </li>
                     </ul>
                 </div>
             </div>
             <div class="row">
                 <div class="col-6">
-                    <h5>Proveedor</h5>
+                    <h5 *ngIf="ShowProvider == true">Ingreso</h5>
+                    <h5 *ngIf="ShowProvider == false">Clientes</h5>
                 </div>
                 <div class="col-6">
-                    <button class="btn btn-outline-ligth border-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                        Lista de Objetos
+                    <button *ngIf="ShowProvider == true" class="btn btn-outline-ligth dropdown-toggle" type="button"
+                        id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        Lista de proveedores
+                    </button>
+                    <button *ngIf="ShowProvider == false" class="btn btn-outline-ligth dropdown-toggle" type="button"
+                        id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        Lista de clientes
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="#"></a></li>
-                        <li><a class="dropdown-item" href="#"></a></li>
-                        <li><a class="dropdown-item" href="#"></a></li>
+                        <li *ngFor="let i of ShowProvider ? ProviderList:CustomerList">
+                            <a class="dropdown-item" routerLink="/ShipmentCustomerSelection">{{i.name}}</a>
+                        </li>
                     </ul>
                 </div>
             </div>
