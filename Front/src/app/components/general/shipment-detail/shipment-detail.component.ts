@@ -6,20 +6,22 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { from } from 'rxjs';
 import { CustomerViewModel } from '../../../models/CustomerViewModel';
 import { CustomerService } from '../../../services/customer.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShipmentService } from '../../../services/shipment.service';
 import { ToastrService } from 'ngx-toastr';
+import { ShipmentCustomerSelectionComponent } from "../shipment-customer-selection/shipment-customer-selection.component";
 
 @Component({
   selector: 'app-shipment-detail',
   standalone: true,
-  imports: [RouterLink, LoaderComponent, CommonModule, HttpClientModule],
+  imports: [RouterLink, LoaderComponent, CommonModule, HttpClientModule, ReactiveFormsModule, FormsModule, ShipmentCustomerSelectionComponent],
   templateUrl: './shipment-detail.component.html',
   styleUrl: './shipment-detail.component.css',
 })
 export class ShipmentDetailComponent {
   ShowProvider: boolean = true;
   id: number = -1;
+  type: number = 1;
   loader: boolean = false;
   CustomerList: CustomerViewModel[] = [];
   ProviderList: any[] = [];
@@ -31,28 +33,33 @@ export class ShipmentDetailComponent {
     private shipmentService: ShipmentService,
     private toastr: ToastrService
   ) {}
-
-  CustomerProviderSelect(ingreso: string) {
-    if (ingreso == 'Ingreso') {
+  ngOnInit(): void {
+    this.CustomerProviderSelect('Ingreso');
+  }
+  CustomerProviderSelect(value: any) {
+    this.loader = true;
+    if (this.type == 1) {
       this.ShowProvider = true;
       this.shipmentService.ShowAllProviders().subscribe((resultProvider) => {
         if (resultProvider.wasSuccessful == true) {
           this.ProviderList = resultProvider.data;
-          console.log('ProviderList: ', resultProvider.data);
         } else {
           this.toastr.info('No se encontro ningun proveedor');
         }
       });
-    } else if (ingreso == 'Salida') {
+    } else if (this.type == 2) {
       this.ShowProvider = false;
       this.customerService.ShowAllCustomers().subscribe((resultCustomer) => {
         if (resultCustomer.wasSuccessful == true) {
           this.CustomerList = resultCustomer.data;
-          console.log('CustomerList: ', resultCustomer.data);
         } else {
           this.toastr.info('No se encontron ningun customer');
         }
       });
     }
+    this.loader = false;
+  }
+  onProviderChange(value:any){
+    console.log(this.id)
   }
 }

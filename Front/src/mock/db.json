@@ -4,11 +4,41 @@
     "wasSuccessful": true,
     "statusMessage": "Exito",
     "data": [
-      { "name": "David" },
-      { "name": "Alejandro" },
-      { "name": "Andrea" },
-      { "name": "Pedro" },
-      { "name": "Eli" }
+      {"id": 1, "name": "David" },
+      {"id": 2, "name": "Alejandro" },
+      {"id": 3, "name": "Andrea" },
+      {"id": 4, "name": "Pedro" },
+      {"id": 5, "name": "David" },
+      {"id": 6, "name": "Alejandro" },
+      {"id": 7, "name": "Andrea" },
+      {"id": 8, "name": "Pedro" },
+      {"id": 9, "name": "David" }
+    ]
+  },
+  "GeneralProduct": {
+    "statusCode": 200,
+    "wasSuccessful": true,
+    "statusMessage": "Exito",
+    "data": [
+      { "product": "PPBaja" },
+      { "product": "PPAlta" },
+      { "product": "Pasta" },
+      { "product": "Plastico" },
+      { "product": "PET" },
+      { "product": "Vidrio" }
+    ]
+  },
+  "SpesificProduct": {
+    "statusCode": 200,
+    "wasSuccessful": true,
+    "statusMessage": "Exito",
+    "data": [
+      { "product": "PPBaja" },
+      { "product": "PPAlta" },
+      { "product": "Pasta" },
+      { "product": "Plastico" },
+      { "product": "PET" },
+      { "product": "Vidrio" }
     ]
   }
 }
