@@ -1,0 +1,32 @@
+<div class="d-flex justify-content-center align-items-center">
+    <div class="container">
+        <div class="row rounded-3  p-4" style="width: 40%;">
+            <div class="row mb-3">
+                <div class="col-6">
+                    <h5 class="text-dark">Tipo de despacho</h5>
+                </div>
+                <div class="col-6">
+                    <select [(ngModel)]="type" (change)="CustomerProviderSelect($event)" class="form-select"
+                        name="ddltype" id="ddltype">
+                        <option value="1">Ingreso</option>
+                        <option value="2">Salida</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <h5 *ngIf="ShowProvider == true">Proveedores</h5>
+                    <h5 *ngIf="ShowProvider == false">Clientes</h5>
+                </div>
+                <div class="col-6">
+                    <select [(ngModel)]="id" (change)="onProviderChange($event)" class="form-select" name="ddlprovider"
+                        id="ddlprovider">
+                        <option value="-1">Lista de {{ShowProvider ? "Proveedores":"Clientes"}}</option>
+                        <option *ngFor="let i of ShowProvider ? ProviderList:CustomerList"
+                            value="{{ ShowProvider ? i.id : i.customerid }}">{{i.name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

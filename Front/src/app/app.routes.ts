@@ -4,10 +4,10 @@ import { RegisterComponent } from './components/security/register/register.compo
 import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
 import { AboutusComponent } from './components/general/aboutus/aboutus.component';
 import { WelcomeComponent } from './components/general/welcome/welcome.component';
-import { ShipmentDetailComponent } from './components/general/shipment-detail/shipment-detail.component';
-import { ShipmentCustomerSelectionComponent } from './components/general/shipment-customer-selection/shipment-customer-selection.component';
 import { CustomerListComponent } from './components/admin/customer-list/customer-list.component';
 import { AddEditCustomerComponent } from './components/admin/add-edit-customer/add-edit-customer.component';
+import { ProviderCustomerSelectionComponent } from './components/general/provider-customer-selection/provider-customer-selection.component';
+import { ShipmentDetailComponent } from './components/general/shipment-detail/shipment-detail.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
@@ -25,7 +25,7 @@ export const routes: Routes = [
       { path: 'editCustomer/:id', component: AddEditCustomerComponent }
     ],
   },
-  { path: 'shipmentDetail', component: ShipmentDetailComponent},
-  { path: 'ShipmentCustomerSelection', component: ShipmentCustomerSelectionComponent},
+  { path: 'ShipmentDetailComponent', component: ShipmentDetailComponent},
+  { path: 'ProviderCustomerSelectionComponent', component: ProviderCustomerSelectionComponent},
   { path: '**', redirectTo: '/welcome', pathMatch: 'full' },
 ];
