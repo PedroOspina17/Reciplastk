@@ -38,7 +38,7 @@ export class ShipmentDetailComponent {
   loader: boolean = false;
   GeneralProductsList: SelectionListModel[] = [];
   SpecificProductsList: SelectionListModel[] = [];
-
+  shipmentid: number = -1;
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -54,7 +54,16 @@ export class ShipmentDetailComponent {
   }
   SaveWeight() {
     this.loader = true;
+      if (this.type == '1') {
+        this.shipmentid = 1;
+      } else {
+        this.shipmentid = 2;
+      }
+    
+    console.log("type",this.type)
+    console.log(this.shipmentid)
     const shipmentDetail: ShipmentDetail = {
+      shipmentid: this.shipmentid,
       productid: this.formShipment.value.productid,
       productname: this.getProductName(this.formShipment.value.productid),
       weight: this.formShipment.value.weight,
@@ -64,9 +73,7 @@ export class ShipmentDetailComponent {
       productid: ['-1', [Validators.required, Validators.min(0)]],
       weight: ['', [Validators.required]],
     });
-    console.log('shipmentDetailList', this.shipmentDetailList);
-    console.log('shipmentDetail', shipmentDetail);
-    //this.loader = false;
+   this.loader = false;
   }
   getProductName(id: number): string {
     if (this.type == '1') {
@@ -74,7 +81,6 @@ export class ShipmentDetailComponent {
     } else {
       return this.SpecificProductsList.find((p) => p.id == id)?.name ?? '';
     }
-    return '';
   }
   ngOnInit(): void {
     this.ShowProducts();
@@ -85,20 +91,14 @@ export class ShipmentDetailComponent {
       this.shipmentService.ShowGeneralProducts().subscribe((GeneralResult) => {
         if (GeneralResult.wasSuccessful == true) {
           this.GeneralProductsList = GeneralResult.data;
-          //console.log('RESULTADO productos generales: ', GeneralResult);
-          //console.log('productos generales: ', this.GeneralProductsList);
         } else {
           this.toastr.info('No se encontro ningun producto general');
         }
       });
     } else if (this.type == '2') {
-      this.shipmentService
-        .ShowSpesificProducts()
-        .subscribe((SpecificResult) => {
+      this.shipmentService.ShowSpecificProducts().subscribe((SpecificResult) => {
           if (SpecificResult.wasSuccessful == true) {
             this.SpecificProductsList = SpecificResult.data;
-            //console.log('RESULTADO productos espesificos: ', SpecificResult);
-            //console.log('productos espesificos: ', this.SpecificProductsList);
           } else {
             this.toastr.info('No se encontraron productos espesificos');
           }
@@ -116,7 +116,5 @@ export class ShipmentDetailComponent {
     }
     this.loader = false;
   }
-  EditButton() {
-    
-  }
+  EditButton() {}
 }

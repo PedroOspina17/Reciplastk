@@ -43,8 +43,7 @@ export class ShipmentService {
   ShowGeneralProducts():Observable<HttpResponseModel>{
     return this.http.get<HttpResponseModel>('http://localhost:8765/GeneralProduct')
   }
-  ShowSpesificProducts():Observable<HttpResponseModel>{
-    return this.http.get<HttpResponseModel>('http://localhost:8765/SpesificProduct')
+  ShowSpecificProducts():Observable<HttpResponseModel>{
+    return this.http.get<HttpResponseModel>('http://localhost:8765/SpecificProduct')
   }
-
 }

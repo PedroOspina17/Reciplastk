@@ -33,7 +33,7 @@
     "wasSuccessful": true,
     "statusMessage": "Exito",
     "data": [
-      {"id":17, "name": "PPBaja-negro" },
+      {"id":10, "name": "PPBaja-negro" },
       {"id":11, "name": "PPBaja-rojo" },
       {"id":12, "name": "PPBaja-amarillo" },
       {"id":13, "name": "PPBaja-verde" },
@@ -67,6 +67,15 @@
     
       {"id":50, "name": "PET"},
       {"id":60, "name": "Vidrio" }
+    ]
+  },
+  "ShipmentType": {
+    "statusCode": 200,
+    "wasSuccessful": true,
+    "statusMessage": "Exito",
+    "data": [
+      {"shipmenttypeid":1, "name":"Entrada", "description": "Ingreso de material", "isactive": true},
+      {"shipmenttypeid":2, "name":"Salida", "description": "Venta o salida de material", "isactive": true}
     ]
   }
 }
