@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CustomerService } from '../../../services/customer.service';
-import { CustomerViewModel } from '../../../models/CustomerViewModel';
+import { CustomerViewModel } from '../../../models/CustomerModel';
 import { LoaderComponent } from "../../shared/loader/loader.component";
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
@@ -37,7 +37,6 @@ export class CustomerListComponent {
   DeleteCustomer(customerId:number){
     this.loader=true
     this.customerService.DeleteCustomer(customerId).subscribe(result=>{
-      debugger;
       if (result.wasSuccessful) {
         this.loader=false
         this.toastr.info(result.statusMessage,"Cliente eliminado")

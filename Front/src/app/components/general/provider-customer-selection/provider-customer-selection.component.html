@@ -15,8 +15,7 @@
             </div>
             <div class="row">
                 <div class="col-6">
-                    <h5 *ngIf="ShowProvider == true">Proveedores</h5>
-                    <h5 *ngIf="ShowProvider == false">Clientes</h5>
+                    <h5>{{ShowProvider == true? 'Proveedores':'Clientes'}}</h5>
                 </div>
                 <div class="col-6">
                     <select [(ngModel)]="id" (change)="onProviderChange($event)" class="form-select" name="ddlprovider"
@@ -30,3 +29,4 @@
         </div>
     </div>
 </div>
+<app-shipment-detail *ngIf="showShipmentDetail" id="ShipmentDetailComponent" type="{{type}}" personname="{{personname}}" personid="{{id}}"></app-shipment-detail>

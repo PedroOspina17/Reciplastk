@@ -20,25 +20,53 @@
     "wasSuccessful": true,
     "statusMessage": "Exito",
     "data": [
-      { "product": "PPBaja" },
-      { "product": "PPAlta" },
-      { "product": "Pasta" },
-      { "product": "Plastico" },
-      { "product": "PET" },
-      { "product": "Vidrio" }
+      {"id":1, "name": "PPBaja" },
+      {"id":2, "name": "PPAlta" },
+      {"id":3, "name": "Pasta" },
+      {"id":4, "name": "Plastico" },
+      {"id":5, "name": "PET" },
+      {"id":6, "name": "Vidrio" }
     ]
   },
-  "SpesificProduct": {
+  "SpecificProduct": {
     "statusCode": 200,
     "wasSuccessful": true,
     "statusMessage": "Exito",
     "data": [
-      { "product": "PPBaja" },
-      { "product": "PPAlta" },
-      { "product": "Pasta" },
-      { "product": "Plastico" },
-      { "product": "PET" },
-      { "product": "Vidrio" }
+      {"id":17, "name": "PPBaja-negro" },
+      {"id":11, "name": "PPBaja-rojo" },
+      {"id":12, "name": "PPBaja-amarillo" },
+      {"id":13, "name": "PPBaja-verde" },
+      {"id":14, "name": "PPBaja-azul" },
+      {"id":15, "name": "PPBaja-morado" },
+      {"id":16, "name": "PPBaja-blanco" },
+
+      {"id":20, "name": "PPAlta-negro" },
+      {"id":21, "name": "PPAlta-rojo" },
+      {"id":22, "name": "PPAlta-amarillo" },
+      {"id":23, "name": "PPAlta-verde" },
+      {"id":24, "name": "PPAlta-azul" },
+      {"id":25, "name": "PPAlta-morado" },
+      {"id":26, "name": "PPAlta-blanco" },
+
+      {"id":30, "name": "Pasta-negro" },
+      {"id":31, "name": "Pasta-rojo" },
+      {"id":32, "name": "Pasta-amarillo" },
+      {"id":33, "name": "Pasta-verde" },
+      {"id":34, "name": "Pasta-azul" },
+      {"id":35, "name": "Pasta-morado" },
+      {"id":36, "name": "Pasta-blanco" },
+    
+      {"id":40, "name": "Plastico-negro" },
+      {"id":41, "name": "Plastico-rojo" },
+      {"id":42, "name": "Plastico-amarillo" },
+      {"id":43, "name": "Plastico-verde" },
+      {"id":44, "name": "Plastico-azul" },
+      {"id":45, "name": "Plastico-morado" },
+      {"id":46, "name": "Plastico-blanco" },
+    
+      {"id":50, "name": "PET"},
+      {"id":60, "name": "Vidrio" }
     ]
   }
 }

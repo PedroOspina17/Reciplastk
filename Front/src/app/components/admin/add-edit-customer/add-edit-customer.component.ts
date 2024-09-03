@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CustomerService } from '../../../services/customer.service';
-import { CustomerViewModel } from '../../../models/CustomerViewModel';
+import { CustomerViewModel } from '../../../models/CustomerModel';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { Subscriber } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';

@@ -6,6 +6,7 @@ export class ShipmentViewModel {
     ispaid: boolean = false;
     iscomplete: boolean = false;
     isactive: boolean = false;
+    
 }
     // customer: Customer;
     // employee: Employee;

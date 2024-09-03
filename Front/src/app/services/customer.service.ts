@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CustomerViewModel } from '../models/CustomerViewModel';
+import { CustomerViewModel } from '../models/CustomerModel';
 import { Observable } from 'rxjs';
 import { HttpResponseModel } from '../models/HttpResponseModel';
 import { AppConfig } from '../common/app-config';

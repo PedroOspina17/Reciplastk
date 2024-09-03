@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { AppConfig } from '../common/app-config';
 import { Observable } from 'rxjs';
 import { HttpResponseModel } from '../models/HttpResponseModel';
-import { ShipmentViewModel } from '../models/shipmentViewModel';
+import { ShipmentViewModel } from '../models/ShipmentModel';
+import { ShipmentDetail } from '../models/ShipmentDetail';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,10 @@ export class ShipmentService {
     return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/api/Shipment/CreateShipment', shipmentModel)
   }
 
+  CreateShipmentDetail(shipmentModel: ShipmentViewModel):Observable<HttpResponseModel>{
+    return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/api/Shipment/CreateShipment', ShipmentDetail)
+  }
+
   EditShipment(shipmentModel: ShipmentViewModel):Observable<HttpResponseModel>{
     return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/api/Shipment/EditShipment', shipmentModel)
   }
@@ -35,4 +40,11 @@ export class ShipmentService {
   ShowAllProviders():Observable<HttpResponseModel>{
     return this.http.get<HttpResponseModel>('http://localhost:8765/Providers')
   }
+  ShowGeneralProducts():Observable<HttpResponseModel>{
+    return this.http.get<HttpResponseModel>('http://localhost:8765/GeneralProduct')
+  }
+  ShowSpesificProducts():Observable<HttpResponseModel>{
+    return this.http.get<HttpResponseModel>('http://localhost:8765/SpesificProduct')
+  }
+
 }

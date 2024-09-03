@@ -68,6 +68,13 @@ namespace Reciplastk.Gateway.Services
             }
             return response;
         }
+        public HttpResponseModel CreateDetail(ShipmentDetailViewModel shipmentDetailViewModel)
+        {
+            var response = new HttpResponseModel();
+            response.Data = shipmentDetailViewModel;
+
+            return response;
+        }
         public HttpResponseModel Update(ShipmentViewModel shipmentViewModel)
         {
             var response = new HttpResponseModel();
