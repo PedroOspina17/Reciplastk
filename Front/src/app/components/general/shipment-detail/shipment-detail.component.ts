@@ -1,5 +1,5 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -12,8 +12,9 @@ import { LoaderComponent } from '../../shared/loader/loader.component';
 import { CommonModule } from '@angular/common';
 import { ProviderCustomerSelectionComponent } from '../provider-customer-selection/provider-customer-selection.component';
 import { ShipmentService } from '../../../services/shipment.service';
-import { ShipmentDetail } from '../../../models/ShipmentDetail';
+import { ShipmentDetailModel } from '../../../models/ShipmentDetailModel';
 import { SelectionListModel } from '../../../models/SelectionListModel';
+import { ShipmentModel } from '../../../models/ShipmentModel';
 
 @Component({
   selector: 'app-shipment-detail',
@@ -33,12 +34,13 @@ export class ShipmentDetailComponent {
   @Input() type = '1';
   @Input() personname = '';
   @Input() personid: string = '';
-  shipmentDetailList: ShipmentDetail[] = [];
+  @Output() onComplete = new EventEmitter();
+  shipmentDetailList: ShipmentDetailModel[] = [];
   formShipment: FormGroup;
   loader: boolean = false;
   GeneralProductsList: SelectionListModel[] = [];
   SpecificProductsList: SelectionListModel[] = [];
-  shipmentid: number = -1;
+  shipmenttypeid: number = -1;
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -54,26 +56,24 @@ export class ShipmentDetailComponent {
   }
   SaveWeight() {
     this.loader = true;
-      if (this.type == '1') {
-        this.shipmentid = 1;
-      } else {
-        this.shipmentid = 2;
-      }
-    
-    console.log("type",this.type)
-    console.log(this.shipmentid)
-    const shipmentDetail: ShipmentDetail = {
-      shipmentid: this.shipmentid,
+    if (this.type == '1') {
+      this.shipmenttypeid = 1;
+    } else {
+      this.shipmenttypeid = 2;
+    }
+    const shipmentDetail: ShipmentDetailModel = {
+      shipmenttypeid: this.shipmenttypeid,
       productid: this.formShipment.value.productid,
       productname: this.getProductName(this.formShipment.value.productid),
       weight: this.formShipment.value.weight,
     };
-    this.shipmentDetailList.push(shipmentDetail);
+    console.log(shipmentDetail);
+    this.shipmentDetailList.unshift(shipmentDetail);
     this.formShipment = this.fb.group({
       productid: ['-1', [Validators.required, Validators.min(0)]],
       weight: ['', [Validators.required]],
     });
-   this.loader = false;
+    this.loader = false;
   }
   getProductName(id: number): string {
     if (this.type == '1') {
@@ -96,7 +96,9 @@ export class ShipmentDetailComponent {
         }
       });
     } else if (this.type == '2') {
-      this.shipmentService.ShowSpecificProducts().subscribe((SpecificResult) => {
+      this.shipmentService
+        .ShowSpecificProducts()
+        .subscribe((SpecificResult) => {
           if (SpecificResult.wasSuccessful == true) {
             this.SpecificProductsList = SpecificResult.data;
           } else {
@@ -116,5 +118,26 @@ export class ShipmentDetailComponent {
     }
     this.loader = false;
   }
-  EditButton() {}
+  Save() {
+    const shipment: ShipmentModel = {
+      shipmenttypeid: this.shipmenttypeid,
+      customerid: Number(this.personid),
+      details: this.shipmentDetailList,
+    };
+    console.log('shipmentDetail', shipment);
+    this.shipmentService.CreateShipment(shipment).subscribe((result) => {
+      if (result.wasSuccessful == true) {
+        this.loader = false;
+        this.toastr.success(result.statusMessage, 'Felicitaciones');
+        this.shipmentDetailList = [];
+        this.onComplete.emit();
+      } else {
+        this.loader = false;
+        this.toastr.error('Ocurrio un error', 'Error');
+      }
+    });
+  }
+  cancelDetil() {
+    this.onComplete.emit()
+  }
 }

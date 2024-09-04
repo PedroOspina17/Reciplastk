@@ -112,8 +112,6 @@ export class AddEditCustomerComponent {
           }
         });
     } else {
-      debugger;
-      // Llmar metodo Agregar
       this.customerServises.CreateCustomer(customer).subscribe((result) => {
         console.log('Crear', customer,result)
         if (result.wasSuccessful) {

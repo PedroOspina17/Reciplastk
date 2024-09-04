@@ -35,63 +35,63 @@ namespace Reciplastk.Gateway.Services
             }
             return response;
         }
-        private Shipment GetByid(int? shipmentid)
+        private Shipment GetByid(int shipmentid)
         {
             var shipment = db.Shipments.Where(x => x.Shipmentid == shipmentid && x.Isactive).FirstOrDefault();
             return shipment;
         }
+        private Shipmentdetail GetDetailById (int? shipmentDetail)
+        {
+            var detail = db.Shipmentdetails.Where(p => p.Shipmentdetailid == shipmentDetail).FirstOrDefault();
+            return detail;
+        }
         public HttpResponseModel Create(ShipmentViewModel shipmentViewModel)
         {
-            var response = new HttpResponseModel();
-            var shipment = GetByid(shipmentViewModel.shipmentid);
-            if (shipment == null)
-            {
+            var response = new HttpResponseModel();    
+            
                 var newShipment = new Shipment();
-                newShipment.Customerid = shipmentViewModel.cutomerid;
-                newShipment.Employeeid = shipmentViewModel.employyeid;
+                newShipment.Customerid = shipmentViewModel.customerid;
+                newShipment.Employeeid = 29; // to do: obtener de usuario logeado
                 newShipment.Shipmenttypeid = shipmentViewModel.shipmenttypeid;
                 newShipment.Shipmentstartdate = DateTime.Now;
                 newShipment.Shipmentstartend = DateTime.Now;
-                newShipment.Ispaid = shipmentViewModel.ispaid;
-                newShipment.Iscomplete = shipmentViewModel.iscomplete;
-                newShipment.Isactive = shipmentViewModel.isactive;
+                newShipment.Ispaid = false;
+                newShipment.Iscomplete = false;
+                newShipment.Isactive = true;
                 db.Shipments.Add(newShipment);
+                foreach (var i in shipmentViewModel.details)
+                {
+                    var detail = new Shipmentdetail();
+                    detail.Shipment = newShipment;
+                    detail.Productid = i.productid;
+                    detail.Weight = i.weight;
+                    detail.Shipmentdate = DateTime.Now;
+                    db.Shipmentdetails.Add(detail);
+                }
                 db.SaveChanges();
                 response.WasSuccessful = true;
                 response.Data = newShipment;
                 response.StatusMessage = "El cargamento se creo exitosamnete";
-            }
-            else
-            {
-                response.WasSuccessful = false;
-                response.StatusMessage = "Ya existe otro cargamento con el id indicado";
-            }
-            return response;
-        }
-        public HttpResponseModel CreateDetail(ShipmentDetailViewModel shipmentDetailViewModel)
-        {
-            var response = new HttpResponseModel();
-            response.Data = shipmentDetailViewModel;
-
-            return response;
-        }
-        public HttpResponseModel Update(ShipmentViewModel shipmentViewModel)
-        {
-            var response = new HttpResponseModel();
-            var shipment = GetByid(shipmentViewModel.shipmentid);
             
-            shipment.Customerid = shipmentViewModel.cutomerid;
-            shipment.Employeeid = shipmentViewModel.employyeid;
-            shipment.Shipmenttypeid = shipmentViewModel.shipmenttypeid;
-            shipment.Ispaid = shipmentViewModel.ispaid;
-            shipment.Iscomplete = shipmentViewModel.iscomplete;
-            shipment.Isactive = shipmentViewModel.isactive;
-            db.SaveChanges();
-            response.WasSuccessful = true;
-            response.Data = shipment;
-            response.StatusMessage = "El cargamento se edito exitosamnete";
             return response;
         }
+        //public HttpResponseModel Update(ShipmentViewModel shipmentViewModel)
+        //{
+        //    var response = new HttpResponseModel();
+        //    var shipment = GetByid(shipmentViewModel.shipmentid);
+            
+        //    shipment.Customerid = shipmentViewModel.customerid;
+        //    shipment.Employeeid = shipmentViewModel.employyeid;
+        //    shipment.Shipmenttypeid = shipmentViewModel.shipmenttypeid;
+        //    shipment.Ispaid = shipmentViewModel.ispaid;
+        //    shipment.Iscomplete = shipmentViewModel.iscomplete;
+        //    shipment.Isactive = shipmentViewModel.isactive;
+        //    db.SaveChanges();
+        //    response.WasSuccessful = true;
+        //    response.Data = shipment;
+        //    response.StatusMessage = "El cargamento se edito exitosamnete";
+        //    return response;
+        //}
         public HttpResponseModel Delete(int shipmentid)
         {
             var response = new HttpResponseModel();

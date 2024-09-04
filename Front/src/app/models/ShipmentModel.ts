@@ -1,13 +1,12 @@
-export class ShipmentViewModel {
-    shipmentid?: number;
-    customerid: number = 0;
-    employyeid: number = 0;
-    shipmenttypeid: number = 0;
-    ispaid: boolean = false;
-    iscomplete: boolean = false;
-    isactive: boolean = false;
-    
+import { ShipmentDetailModel } from './ShipmentDetailModel';
+
+export class ShipmentModel {
+  shipmentid?: number;
+  customerid: number = 0;  
+  shipmenttypeid: number = 0;
+  details: ShipmentDetailModel[] = [];
 }
-    // customer: Customer;
-    // employee: Employee;
-    // shipmenttype: Shipmenttype;
+
+// customer: Customer;
+// employee: Employee;
+// shipmenttype: Shipmenttype;

@@ -29,4 +29,4 @@
         </div>
     </div>
 </div>
-<app-shipment-detail *ngIf="showShipmentDetail" id="ShipmentDetailComponent" type="{{type}}" personname="{{personname}}" personid="{{id}}"></app-shipment-detail>
+<app-shipment-detail *ngIf="showShipmentDetail" id="ShipmentDetailComponent" type="{{type}}" personname="{{personname}}" personid="{{id}}" (onComplete)="onSave()"></app-shipment-detail>

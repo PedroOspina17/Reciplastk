@@ -78,9 +78,12 @@ export class ProviderCustomerSelectionComponent {
     }
     if (this.id != -1) {
       this.showShipmentDetail = true;
-    } else{
+    } else {
       this.showShipmentDetail = false;
     }
-    
+  }
+  onSave() {
+    this.id = -1;
+    this.showShipmentDetail = false;
   }
 }

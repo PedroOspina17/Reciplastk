@@ -3,8 +3,7 @@ import { Injectable } from '@angular/core';
 import { AppConfig } from '../common/app-config';
 import { Observable } from 'rxjs';
 import { HttpResponseModel } from '../models/HttpResponseModel';
-import { ShipmentViewModel } from '../models/ShipmentModel';
-import { ShipmentDetail } from '../models/ShipmentDetail';
+import { ShipmentModel } from '../models/ShipmentModel';
 
 @Injectable({
   providedIn: 'root'
@@ -22,15 +21,11 @@ export class ShipmentService {
     return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'/api/Shipment/ShowShipment?shipmentid='+id)
   }
 
-  CreateShipment(shipmentModel: ShipmentViewModel):Observable<HttpResponseModel>{
-    return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/api/Shipment/CreateShipment', shipmentModel)
+  CreateShipment(shipmentModel: ShipmentModel):Observable<HttpResponseModel>{
+    return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/api/Shipment/Create', shipmentModel)
   }
 
-  CreateShipmentDetail(shipmentModel: ShipmentViewModel):Observable<HttpResponseModel>{
-    return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/api/Shipment/CreateShipment', ShipmentDetail)
-  }
-
-  EditShipment(shipmentModel: ShipmentViewModel):Observable<HttpResponseModel>{
+  EditShipment(shipmentModel: ShipmentModel):Observable<HttpResponseModel>{
     return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/api/Shipment/EditShipment', shipmentModel)
   }
 
