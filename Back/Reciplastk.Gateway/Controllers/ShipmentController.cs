@@ -32,14 +32,7 @@ namespace Reciplastk.Gateway.Controllers
             var response = shipmentService.Create(shipmentViewModel);
             return response;
         }
-
-        //[HttpPost("Update")]
-        //public HttpResponseModel Update(ShipmentViewModel shipmentViewModel)
-        //{
-        //    var response = shipmentService.Update(shipmentViewModel);
-        //    return response;
-        //}
-
+        
         [HttpDelete("Delete")]
         public HttpResponseModel Delete(int shipmentid)
         {

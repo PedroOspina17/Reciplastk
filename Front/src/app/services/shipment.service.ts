@@ -11,26 +11,26 @@ import { ShipmentModel } from '../models/ShipmentModel';
 export class ShipmentService {
 
   constructor(private http: HttpClient) { }
-  ServiceEndpoint: string = `${AppConfig.API_URL}`;
+  ServiceEndpoint: string = `${AppConfig.API_URL}/api/Shipment`;
 
   ShowAllShipment(): Observable<HttpResponseModel>{
-    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'/api/Shipment/ShowAllShipment')
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'/ShowAllShipment')
   }
 
   ShowShipment(id: number): Observable<HttpResponseModel>{
-    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'/api/Shipment/ShowShipment?shipmentid='+id)
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'/ShowShipment?shipmentid='+id)
   }
 
   CreateShipment(shipmentModel: ShipmentModel):Observable<HttpResponseModel>{
-    return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/api/Shipment/Create', shipmentModel)
+    return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/Create', shipmentModel)
   }
 
   EditShipment(shipmentModel: ShipmentModel):Observable<HttpResponseModel>{
-    return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/api/Shipment/EditShipment', shipmentModel)
+    return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/EditShipment', shipmentModel)
   }
 
   DeleteShipment(id: number):Observable<HttpResponseModel>{
-    return this.http.delete<HttpResponseModel>(this.ServiceEndpoint+'/api/Shipment/DeleteShipment?shipmentid='+id)
+    return this.http.delete<HttpResponseModel>(this.ServiceEndpoint+'/DeleteShipment?shipmentid='+id)
   }
   ShowAllProviders():Observable<HttpResponseModel>{
     return this.http.get<HttpResponseModel>('http://localhost:8765/Providers')
