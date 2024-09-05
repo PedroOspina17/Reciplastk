@@ -1,9 +1,9 @@
-<div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title">Detalle de {{type=='1'? 'Ingreso':'Salida'}}</h5>
+<div class="container mt-3">
+    <div class="px-4">
+        <div class="">
+            <h5>Detalle de {{type=='1'? 'Ingreso':'Salida'}}</h5>
         </div>
-        <div class="modal-body">
+        <div>
             <div class="mb-3 d-flex pt-3">
                 <label for="provider" class="pt-1">{{personname}}</label>
                 <!-- <button (click)="EditButton()" type="button" class="btn btn-light btn-sm">
@@ -49,9 +49,9 @@
                     </tbody>
                 </table>
                 <div class="d-flex justify-content-between mt-3">
-                    <button (click)="cancelDetil()" type="button" class="btn btn-danger">Cancelar</button>
+                    <button (click)="cancelDetil()" type="button" class="btn btn-secondary">Cancelar</button>
                     <div>
-                        <button (click)="Save()" type="button" class="btn btn-primary me-2">Guardar</button>
+                        <button (click)="Save()" type="button" class="btn btn-success me-2">Guardar</button>
                         <button type="button" class="btn btn-primary">Generar factura</button>
                     </div>
                 </div>
