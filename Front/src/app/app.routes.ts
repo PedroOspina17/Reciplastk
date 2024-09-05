@@ -4,8 +4,11 @@ import { RegisterComponent } from './components/security/register/register.compo
 import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
 import { AboutusComponent } from './components/general/aboutus/aboutus.component';
 import { WelcomeComponent } from './components/general/welcome/welcome.component';
+import { ShipmentTypeComponent } from './components/general/shipmentType/shipment-type.component';
+import { AddEditShipmentTypeComponent } from './components/general/add-edit-shipment-type/add-edit-shipment-type.component';
 import { CustomerListComponent } from './components/admin/customer-list/customer-list.component';
 import { AddEditCustomerComponent } from './components/admin/add-edit-customer/add-edit-customer.component';
+
 
 export const routes: Routes = [
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
@@ -23,5 +26,8 @@ export const routes: Routes = [
       { path: 'editCustomer/:id', component: AddEditCustomerComponent }
     ],
   },
-  { path: '**', redirectTo: '/welcome', pathMatch: 'full' },
+  { path: 'shipmenttype', component: ShipmentTypeComponent},
+  { path: 'addshipmenttype', component: AddEditShipmentTypeComponent},
+  { path: 'editshipmenttype/:id', component: AddEditShipmentTypeComponent},
+  { path: '**', redirectTo: '/welcome', pathMatch: 'full' }, 
 ];
