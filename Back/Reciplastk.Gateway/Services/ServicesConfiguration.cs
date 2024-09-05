@@ -8,6 +8,7 @@
             services.AddScoped<SecurityService>();
             services.AddScoped<ShipmentService>();
             services.AddScoped<ShipmentTypeService>();
+            services.AddScoped<CustomerService>();  
             return services;
         }
     }

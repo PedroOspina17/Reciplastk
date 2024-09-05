@@ -1,0 +1,13 @@
+.radio-group {
+    display: flex;
+    align-items: center;
+  }
+  
+  .radio-group label {
+    margin-right: 15px;
+  }
+  
+  .radio-group input[type="radio"] {
+    margin-right: 5px;
+  }
+  
