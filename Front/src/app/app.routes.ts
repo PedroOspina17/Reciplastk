@@ -8,6 +8,8 @@ import { ShipmentTypeComponent } from './components/general/shipmentType/shipmen
 import { AddEditShipmentTypeComponent } from './components/general/add-edit-shipment-type/add-edit-shipment-type.component';
 import { CustomerListComponent } from './components/admin/customer-list/customer-list.component';
 import { AddEditCustomerComponent } from './components/admin/add-edit-customer/add-edit-customer.component';
+import { ProviderCustomerSelectionComponent } from './components/general/provider-customer-selection/provider-customer-selection.component';
+import { ShipmentDetailComponent } from './components/general/shipment-detail/shipment-detail.component';
 
 
 export const routes: Routes = [
@@ -26,6 +28,8 @@ export const routes: Routes = [
       { path: 'editCustomer/:id', component: AddEditCustomerComponent }
     ],
   },
+  { path: 'ShipmentDetailComponent', component: ShipmentDetailComponent},
+  { path: 'ProviderCustomerSelectionComponent', component: ProviderCustomerSelectionComponent},
   { path: 'shipmenttype', component: ShipmentTypeComponent},
   { path: 'addshipmenttype', component: AddEditShipmentTypeComponent},
   { path: 'editshipmenttype/:id', component: AddEditShipmentTypeComponent},

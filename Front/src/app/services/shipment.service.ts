@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AppConfig } from '../common/app-config';
 import { Observable } from 'rxjs';
 import { HttpResponseModel } from '../models/HttpResponseModel';
-import { ShipmentViewModel } from '../models/shipmentViewModel';
+import { ShipmentModel } from '../models/ShipmentModel';
 
 @Injectable({
   providedIn: 'root'
@@ -14,23 +14,31 @@ export class ShipmentService {
   ServiceEndpoint: string = `${AppConfig.API_URL}/api/Shipment`;
 
   ShowAllShipment(): Observable<HttpResponseModel>{
-    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'/GetAll')
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'/ShowAllShipment')
   }
 
   ShowShipment(id: number): Observable<HttpResponseModel>{
-    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'/GetById?shipmentid='+id)
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'/ShowShipment?shipmentid='+id)
   }
 
-  CreateShipment(shipmentModel: ShipmentViewModel):Observable<HttpResponseModel>{
+  CreateShipment(shipmentModel: ShipmentModel):Observable<HttpResponseModel>{
     return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/Create', shipmentModel)
   }
 
-  EditShipment(shipmentModel: ShipmentViewModel):Observable<HttpResponseModel>{
-    return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/Update', shipmentModel)
+  EditShipment(shipmentModel: ShipmentModel):Observable<HttpResponseModel>{
+    return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/EditShipment', shipmentModel)
   }
 
   DeleteShipment(id: number):Observable<HttpResponseModel>{
-    return this.http.delete<HttpResponseModel>(this.ServiceEndpoint+'/Delete?shipmentid='+id)
+    return this.http.delete<HttpResponseModel>(this.ServiceEndpoint+'/DeleteShipment?shipmentid='+id)
   }
-
+  ShowAllProviders():Observable<HttpResponseModel>{
+    return this.http.get<HttpResponseModel>('http://localhost:8765/Providers')
+  }
+  ShowGeneralProducts():Observable<HttpResponseModel>{
+    return this.http.get<HttpResponseModel>('http://localhost:8765/GeneralProduct')
+  }
+  ShowSpecificProducts():Observable<HttpResponseModel>{
+    return this.http.get<HttpResponseModel>('http://localhost:8765/SpecificProduct')
+  }
 }

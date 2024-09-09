@@ -16,5 +16,6 @@ namespace Reciplastk.Gateway.Models
         public Boolean ispaid { get; set; }
         public Boolean iscomplete { get; set; }
         public Boolean isactive { get; set; }
+        public List<ShipmentDetailViewModel> details { get; set; }
     }
 }
