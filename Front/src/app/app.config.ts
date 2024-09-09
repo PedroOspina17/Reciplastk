@@ -7,8 +7,8 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
 import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
-import { MatNativeDateModule, provideNativeDateAdapter } from '@angular/material/core';
+/* import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
+import { MatNativeDateModule, provideNativeDateAdapter } from '@angular/material/core'; */
 
 export const appConfig: ApplicationConfig = {
   providers: [
