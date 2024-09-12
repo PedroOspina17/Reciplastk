@@ -158,8 +158,6 @@ public partial class ReciplastkContext : DbContext
         modelBuilder.Entity<Weightcontroltype>(entity =>
         {
             entity.HasKey(e => e.Weightcontroltypeid).HasName("weightcontroltype_pkey");
-
-            entity.Property(e => e.Weightcontroltypeid).ValueGeneratedNever();
         });
 
         OnModelCreatingPartial(modelBuilder);

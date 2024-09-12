@@ -25,9 +25,9 @@ namespace Reciplastk.Gateway.Controllers
             return response;
         }
         [HttpPost("Create")]
-        public HttpResponseModel Create(WeightControlTypeViewModel weightControlTypeViewModel)
+        public HttpResponseModel Create(WeightControlTypeViewModel weightControlTypeModel)
         {
-            var response = weightControlTypeService.Create(weightControlTypeViewModel);
+            var response = weightControlTypeService.Create(weightControlTypeModel);
             return response;
         }
         [HttpPost("Update")]

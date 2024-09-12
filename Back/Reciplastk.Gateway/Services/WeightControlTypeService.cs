@@ -38,8 +38,7 @@ namespace Reciplastk.Gateway.Services
         }
         public HttpResponseModel Create(WeightControlTypeViewModel weightControlTypeViewModel)
         {
-            var controltype = ById(weightControlTypeViewModel.weightcontroltypeid);
-            var response = new HttpResponseModel();           
+            var response = new HttpResponseModel();
             var newcontroltype = new Weightcontroltype();
             newcontroltype.Name = weightControlTypeViewModel.name;
             newcontroltype.Description = weightControlTypeViewModel.description;
@@ -48,9 +47,10 @@ namespace Reciplastk.Gateway.Services
             db.Weightcontroltypes.Add(newcontroltype);
             db.SaveChanges();
             response.WasSuccessful = true;
-            response.StatusMessage = "El tipo de control de peso se creo exitosamente";
+            response.StatusMessage = "El tipo de control de peso se creó exitosamente";
             return response;
         }
+
         public HttpResponseModel Update(WeightControlTypeViewModel weightControlTypeViewModel)
         {
             var controltype = ById(weightControlTypeViewModel.weightcontroltypeid);
