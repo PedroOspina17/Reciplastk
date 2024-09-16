@@ -58,11 +58,12 @@ namespace Reciplastk.Gateway.Services
             if (controltype != null)
             {
                 controltype.Name = weightControlTypeViewModel.name;
-                controltype.Description = weightControlTypeViewModel.description;   
+                controltype.Description = weightControlTypeViewModel.description;
+                controltype.Isactive = weightControlTypeViewModel.isactive;
                 controltype.Updatedate = DateTime.Now;
                 db.SaveChanges();
                 response.WasSuccessful = true;
-                response.StatusMessage = "El tipo de control de peso se creo exitosamente";
+                response.StatusMessage = "El tipo de control de peso se actualizo exitosamente";
             }
             else
             {
