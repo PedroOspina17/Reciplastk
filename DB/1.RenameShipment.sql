@@ -1,0 +1,1 @@
+ALTER TABLE shipment RENAME COLUMN shipmentstartend to shipmentenddate

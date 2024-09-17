@@ -25,7 +25,7 @@ public partial class Shipment
     [Column("shipmentstartdate", TypeName = "timestamp without time zone")]
     public DateTime Shipmentstartdate { get; set; }
 
-    [Column("shipmentstartend", TypeName = "timestamp without time zone")]
+    [Column("shipmentenddate", TypeName = "timestamp without time zone")]
     public DateTime Shipmentenddate { get; set; }
 
     [Column("ispaid")]

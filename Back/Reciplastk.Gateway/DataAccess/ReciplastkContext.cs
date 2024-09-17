@@ -35,10 +35,11 @@ public partial class ReciplastkContext : DbContext
 
     public virtual DbSet<Weightcontrol> Weightcontrols { get; set; }
 
+    public virtual DbSet<Weightcontroltype> Weightcontroltypes { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseNpgsql("Host=Localhost;Database=Reciplastk;Username=postgres;Password=Admin123");
-
+        => optionsBuilder.UseNpgsql("Host=localhost;Database=Reciplastk;Username=postgres;Password=Admin123");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -136,8 +137,9 @@ public partial class ReciplastkContext : DbContext
 
         modelBuilder.Entity<Weightcontrol>(entity =>
         {
-            entity.HasKey(e => e.Wiegthcontrolid).HasName("weightcontrol_pkey");
+            entity.HasKey(e => e.Weightcontrolid).HasName("weightcontrol_pkey");
 
+            entity.Property(e => e.Weightcontrolid).HasDefaultValueSql("nextval('weightcontrol_wiegthcontrolid_seq'::regclass)");
             entity.Property(e => e.Creationdate).HasDefaultValueSql("now()");
             entity.Property(e => e.Date).HasDefaultValueSql("now()");
             entity.Property(e => e.Isactive).HasDefaultValue(true);
@@ -151,6 +153,11 @@ public partial class ReciplastkContext : DbContext
             entity.HasOne(d => d.Product).WithMany(p => p.Weightcontrols)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("weightcontrol_productid_fkey");
+        });
+
+        modelBuilder.Entity<Weightcontroltype>(entity =>
+        {
+            entity.HasKey(e => e.Weightcontroltypeid).HasName("weightcontroltype_pkey");
         });
 
         OnModelCreatingPartial(modelBuilder);

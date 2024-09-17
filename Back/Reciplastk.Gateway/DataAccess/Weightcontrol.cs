@@ -10,8 +10,8 @@ namespace Reciplastk.Gateway.DataAccess;
 public partial class Weightcontrol
 {
     [Key]
-    [Column("wiegthcontrolid")]
-    public int Wiegthcontrolid { get; set; }
+    [Column("weightcontrolid")]
+    public int Weightcontrolid { get; set; }
 
     [Column("employeeid")]
     public int Employeeid { get; set; }
