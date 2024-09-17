@@ -56,15 +56,11 @@ namespace Reciplastk.Gateway.Services
             else
             {
                 var newWeightControl = new Weightcontrol();
-                newWeightControl.Productid = model.Productid;
                 newWeightControl.Employeeid = model.Employeeid;
-                //newWeightControl.Productid = model.Product.Productid;
-                //newWeightControl.Employeeid = model.Employee.Employeeid;
-                newWeightControl.Weight = model.Weight;
-                newWeightControl.Totalpack = model.Totalpack;
-                //newWeightControl.Datestart = model.Datestart;
-                //newWeightControl.Dateend = model.Dateend;
+                newWeightControl.Weightcontroltypeid = model.WeightControlTypeId;
+                newWeightControl.Datestart = model.DateStart;
                 newWeightControl.Ispaid = model.Ispaid;
+                newWeightControl.Creationdate = model.CreationDate;
                 newWeightControl.Isactive = true;
                 db.Weightcontrols.Add(newWeightControl);
                 db.SaveChanges();
@@ -83,14 +79,9 @@ namespace Reciplastk.Gateway.Services
             if (weightcontrol != null)
             {
                 weightcontrol.Employeeid = model.Employeeid;
-                weightcontrol.Productid = model.Productid;
-                //weightcontrol.Employeeid = model.Employee.Employeeid;
-                //weightcontrol.Productid = model.Product.Productid;
-                weightcontrol.Weight = model.Weight;
-                weightcontrol.Totalpack = model.Totalpack;
+                weightcontrol.Weightcontroltypeid = model.WeightControlTypeId;
                 weightcontrol.Ispaid = model.Ispaid;
-                //weightcontrol.Datestart = model.Datestart;
-                //weightcontrol.Dateend = model.Dateend;
+                weightcontrol.Updatedate = model.UpdateDate;
                 weightcontrol.Isactive = model.Isactive;    
                 db.SaveChanges();
                 response.WasSuccessful = true;
@@ -115,6 +106,7 @@ namespace Reciplastk.Gateway.Services
             }
             else
             {
+                weightcontrol.Dateend = DateTime.Now;
                 weightcontrol.Isactive = false;
                 db.SaveChanges();
                 response.WasSuccessful = true;
