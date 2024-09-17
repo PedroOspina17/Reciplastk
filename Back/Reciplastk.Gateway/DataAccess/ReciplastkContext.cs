@@ -37,6 +37,8 @@ public partial class ReciplastkContext : DbContext
 
     public virtual DbSet<Weightcontroldetail> Weightcontroldetails { get; set; }
 
+    public virtual DbSet<Weightcontroltype> Weightcontroltypes { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseNpgsql("Host=localhost;Database=Reciplastk;Username=postgres;Password=Admin123");
@@ -140,32 +142,27 @@ public partial class ReciplastkContext : DbContext
             entity.HasKey(e => e.Weightcontrolid).HasName("weightcontrol_pkey");
 
             entity.Property(e => e.Creationdate).HasDefaultValueSql("now()");
-            entity.Property(e => e.Dateend).HasDefaultValueSql("now()");
-            entity.Property(e => e.Datestart).HasDefaultValueSql("now()");
             entity.Property(e => e.Isactive).HasDefaultValue(true);
             entity.Property(e => e.Ispaid).HasDefaultValue(false);
             entity.Property(e => e.Updatedate).HasDefaultValueSql("now()");
 
-            entity.HasOne(d => d.Employee).WithMany(p => p.Weightcontrols)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("weightcontrol_employeeid_fkey");
+            entity.HasOne(d => d.Employee).WithMany(p => p.Weightcontrols).HasConstraintName("weightcontrol_employeeid_fkey");
 
-            entity.HasOne(d => d.Product).WithMany(p => p.Weightcontrols)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("weightcontrol_productid_fkey");
+            entity.HasOne(d => d.Weightcontroltype).WithMany(p => p.Weightcontrols).HasConstraintName("weightcontrol_weightcontroltypeid_fkey");
         });
 
         modelBuilder.Entity<Weightcontroldetail>(entity =>
         {
             entity.HasKey(e => e.Weightcontroldetailid).HasName("weightcontroldetail_pkey");
 
-            entity.HasOne(d => d.Product).WithMany(p => p.Weightcontroldetails)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("weightcontroldetail_productid_fkey");
+            entity.HasOne(d => d.Product).WithMany(p => p.Weightcontroldetails).HasConstraintName("weightcontroldetail_productid_fkey");
 
-            entity.HasOne(d => d.Weightcontrol).WithMany(p => p.Weightcontroldetails)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("weightcontroldetail_weightcontrolid_fkey");
+            entity.HasOne(d => d.Weightcontrol).WithMany(p => p.Weightcontroldetails).HasConstraintName("weightcontroldetail_weightcontrolid_fkey");
+        });
+
+        modelBuilder.Entity<Weightcontroltype>(entity =>
+        {
+            entity.HasKey(e => e.Weightcontroltypeid).HasName("weightcontroltype_pkey");
         });
 
         OnModelCreatingPartial(modelBuilder);
