@@ -58,10 +58,11 @@ namespace Reciplastk.Gateway.Services
                 var newWeightControl = new Weightcontrol();
                 newWeightControl.Employeeid = model.Employeeid;
                 newWeightControl.Weightcontroltypeid = model.WeightControlTypeId;
-                newWeightControl.Datestart = DateTime.Now;
+                newWeightControl.Datestart = model.Datestart;
+                newWeightControl.Dateend = model.Dateend;
                 newWeightControl.Ispaid = model.Ispaid;
                 newWeightControl.Creationdate = DateTime.Now;
-                newWeightControl.Isactive = true;
+                newWeightControl.Isactive = model.Isactive;
                 db.Weightcontrols.Add(newWeightControl);
                 db.SaveChanges();
                 response.WasSuccessful = true;
@@ -80,6 +81,8 @@ namespace Reciplastk.Gateway.Services
             {
                 weightcontrol.Employeeid = model.Employeeid;
                 weightcontrol.Weightcontroltypeid = model.WeightControlTypeId;
+                weightcontrol.Datestart = model.Datestart;
+                weightcontrol.Dateend = model.Dateend;
                 weightcontrol.Ispaid = model.Ispaid;
                 weightcontrol.Updatedate = DateTime.Now;
                 weightcontrol.Isactive = model.Isactive;
