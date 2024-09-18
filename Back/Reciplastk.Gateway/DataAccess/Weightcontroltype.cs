@@ -30,4 +30,7 @@ public partial class Weightcontroltype
 
     [Column("isactive")]
     public bool Isactive { get; set; }
+
+    [InverseProperty("Weightcontroltype")]
+    public virtual ICollection<Weightcontrol> Weightcontrols { get; set; } = new List<Weightcontrol>();
 }

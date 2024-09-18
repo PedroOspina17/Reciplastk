@@ -35,6 +35,8 @@ public partial class ReciplastkContext : DbContext
 
     public virtual DbSet<Weightcontrol> Weightcontrols { get; set; }
 
+    public virtual DbSet<Weightcontroldetail> Weightcontroldetails { get; set; }
+
     public virtual DbSet<Weightcontroltype> Weightcontroltypes { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -139,20 +141,23 @@ public partial class ReciplastkContext : DbContext
         {
             entity.HasKey(e => e.Weightcontrolid).HasName("weightcontrol_pkey");
 
-            entity.Property(e => e.Weightcontrolid).HasDefaultValueSql("nextval('weightcontrol_wiegthcontrolid_seq'::regclass)");
             entity.Property(e => e.Creationdate).HasDefaultValueSql("now()");
-            entity.Property(e => e.Date).HasDefaultValueSql("now()");
             entity.Property(e => e.Isactive).HasDefaultValue(true);
             entity.Property(e => e.Ispaid).HasDefaultValue(false);
             entity.Property(e => e.Updatedate).HasDefaultValueSql("now()");
 
-            entity.HasOne(d => d.Employee).WithMany(p => p.Weightcontrols)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("weightcontrol_employeeid_fkey");
+            entity.HasOne(d => d.Employee).WithMany(p => p.Weightcontrols).HasConstraintName("weightcontrol_employeeid_fkey");
 
-            entity.HasOne(d => d.Product).WithMany(p => p.Weightcontrols)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("weightcontrol_productid_fkey");
+            entity.HasOne(d => d.Weightcontroltype).WithMany(p => p.Weightcontrols).HasConstraintName("weightcontrol_weightcontroltypeid_fkey");
+        });
+
+        modelBuilder.Entity<Weightcontroldetail>(entity =>
+        {
+            entity.HasKey(e => e.Weightcontroldetailid).HasName("weightcontroldetail_pkey");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.Weightcontroldetails).HasConstraintName("weightcontroldetail_productid_fkey");
+
+            entity.HasOne(d => d.Weightcontrol).WithMany(p => p.Weightcontroldetails).HasConstraintName("weightcontroldetail_weightcontrolid_fkey");
         });
 
         modelBuilder.Entity<Weightcontroltype>(entity =>
