@@ -10,8 +10,9 @@ import { CustomerListComponent } from './components/admin/customer-list/customer
 import { AddEditCustomerComponent } from './components/admin/add-edit-customer/add-edit-customer.component';
 import { ProviderCustomerSelectionComponent } from './components/general/provider-customer-selection/provider-customer-selection.component';
 import { ShipmentDetailComponent } from './components/general/shipment-detail/shipment-detail.component';
-import { WeightControlTypeComponent } from './components/general/weight-control-type/weight-control-type.component';
-import { AddEditWeightControlTypeComponent } from './components/general/add-weight-control-type/add-edit-weight-control-type.component';
+import { WeightControlTypeComponent } from './components/admin/weight-control-type/weight-control-type.component';
+import { AddEditWeightControlTypeComponent } from './components/admin/add-weight-control-type/add-edit-weight-control-type.component';
+import { WeightControlComponent } from './components/admin/weight-control/weight-control.component';
 
 
 export const routes: Routes = [
@@ -27,12 +28,13 @@ export const routes: Routes = [
       { path: 'roles', redirectTo: '/dashboard' },
       { path: 'customer', component: CustomerListComponent },
       { path: 'addCustomer', component: AddEditCustomerComponent },
-      { path: 'editCustomer/:id', component: AddEditCustomerComponent }
+      { path: 'editCustomer/:id', component: AddEditCustomerComponent },
+      { path: 'EditWeightControlTypeComponent/:id',component: AddEditWeightControlTypeComponent },
+      { path: 'AddWeightControlTypeComponent',component: AddEditWeightControlTypeComponent },
+      { path: 'WeightControlTypeComponent',component: WeightControlTypeComponent },
+      { path: 'WeightControlComponent', component: WeightControlComponent }
     ],
   },
-  { path: 'EditWeightControlTypeComponent/:id',component: AddEditWeightControlTypeComponent },
-  { path: 'AddWeightControlTypeComponent',component: AddEditWeightControlTypeComponent },
-  { path: 'WeightControlTypeComponent',component: WeightControlTypeComponent },
   { path: 'ShipmentDetailComponent', component: ShipmentDetailComponent},
   { path: 'ProviderCustomerSelectionComponent', component: ProviderCustomerSelectionComponent},
   { path: 'shipmenttype', component: ShipmentTypeComponent},
