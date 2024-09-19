@@ -13,7 +13,8 @@ import { Router, RouterLink } from '@angular/router';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { ToastrService } from 'ngx-toastr';
 import { WeightControlService } from '../../../services/weight-control-service';
-import { SelectionListModel } from '../../../models/SelectionListModel';
+import { ProductsModel } from '../../../models/ProductsModel';
+import { ProductsService } from '../../../services/products.service';
 
 @Component({
   selector: 'app-weight-control',
@@ -35,24 +36,33 @@ export class WeightControlComponent {
     private router: Router,
     private http: HttpClient,
     private toastr: ToastrService,
-    private weightControlService: WeightControlService
+    private weightControlService: WeightControlService,
+    private productsService: ProductsService
   ) {}
   employeeList: any[] = [];
-  generalProductList: SelectionListModel[] = [];
+  generalProductList: ProductsModel[] = [];
   ngOnInit(): void {
     this.GetEmployyes();
+    this.GetGeneralProducts();
   }
   GetEmployyes() {
     this.weightControlService.GetEmployee().subscribe((r) => {
       if (r.wasSuccessful == true) {
         this.employeeList = r.data;
-        console.log(this.employeeList);
+        console.log("Empleados: ",this.employeeList);
       } else {
         this.toastr.info('No se encontro ningun empleado');
       }
     });
   }
   GetGeneralProducts(){
-    
+    this.productsService.GetGeneralProducts().subscribe(r=>{
+      if (r.wasSuccessful == true) {
+        this.generalProductList = r.data
+        console.log("Productos generales: ",this.generalProductList)
+      } else {
+        this.toastr.info('No se encontro ningun producto general');
+      }
+    })
   }
 }

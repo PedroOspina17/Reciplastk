@@ -14,7 +14,6 @@
                         <option value="-1">Lista de empleado</option>
                         <option *ngFor="let i of employeeList"  value="{{i.employeeid}}">{{i.name}}</option>
                     </select>
-
                     <!-- <div class="ms-lg-1">
                         <button  type="button"
                             class="material-icons editIconShipment">
@@ -31,8 +30,8 @@
                 </div>
                 <div class="col-7">
                     <select class="form-select" id="GeneralProduct">
-                        <option></option>
-                        <option ></option>
+                        <option value="-1">Productos generales</option>
+                        <option *ngFor="let i of generalProductList"  value="{{i.id}}">{{i.name}}</option>
                     </select>
                 </div>
             </div>
