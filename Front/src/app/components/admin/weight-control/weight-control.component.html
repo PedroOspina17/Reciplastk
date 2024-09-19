@@ -1,1 +1,42 @@
-<p>weight-control works!</p>
+<div class="d-flex justify-content-center align-items-center">
+    <div class="container">
+
+        <div class="row rounded-3  p-4" style="width: 50%;">
+            <div class="row mb-3">
+                <div class="col-5">
+                    <label for="Employee">
+                        <h5>Empleado</h5>
+                    </label>
+                </div>
+                <div class="col-7 d-flex">
+
+                    <select class="form-select" id="Employee">
+                        <option value="-1">Lista de empleado</option>
+                        <option *ngFor="let i of employeeList"  value="{{i.employeeid}}">{{i.name}}</option>
+                    </select>
+
+                    <!-- <div class="ms-lg-1">
+                        <button  type="button"
+                            class="material-icons editIconShipment">
+                            edit
+                        </button>
+                    </div> -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5">
+                    <label for="GeneralProduct">
+                        <h5>Producto general</h5>
+                    </label>
+                </div>
+                <div class="col-7">
+                    <select class="form-select" id="GeneralProduct">
+                        <option></option>
+                        <option ></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

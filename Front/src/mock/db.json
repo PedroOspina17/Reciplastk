@@ -77,5 +77,16 @@
       {"shipmenttypeid":1, "name":"Entrada", "description": "Ingreso de material", "isactive": true},
       {"shipmenttypeid":2, "name":"Salida", "description": "Venta o salida de material", "isactive": true}
     ]
+  },
+  "Employee":{
+    "statusCode": 200,
+    "wasSuccessful": true,
+    "statusMessage": "Exito",
+    "data": [
+      {"employeeid":29, "roleid":1, "name": "David", "lastname": "Ossa", "username": "Davidossa", "isactive": true},
+      {"employeeid":28, "roleid":1, "name": "Alejandro", "lastname": "Ossa", "username": "Davidossa", "isactive": true},
+      {"employeeid":27, "roleid":1, "name": "Ossa", "lastname": "Ossa", "username": "Davidossa", "isactive": true}
+
+    ]
   }
 }

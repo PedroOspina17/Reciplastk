@@ -8,7 +8,7 @@ import { WeightControlModel } from '../models/WeightControlModel';
 @Injectable({
   providedIn: 'root'
 })
-export class WeightControlServiceService {
+export class WeightControlService {
 
   constructor(private http: HttpClient) { }
   ServiceEndpoint: string = `${AppConfig.API_URL}/api/WeightControl/`;
@@ -28,4 +28,7 @@ export class WeightControlServiceService {
   Delete(id: number):Observable<HttpResponseModel>{
     return this.http.delete<HttpResponseModel>(this.ServiceEndpoint+'/Delete?id='+id);
   }  
+  GetEmployee():Observable<HttpResponseModel>{
+    return this.http.get<HttpResponseModel>('http://localhost:8765/Employee');
+  }
 }
