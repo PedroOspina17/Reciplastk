@@ -7,11 +7,7 @@ namespace Reciplastk.Gateway.Models
         public int? Weightcontrolid { get; set; }
         public int Employeeid { get; set; }
         public int WeightControlTypeId { get; set; } 
-        public DateTime Datestart { get; set; }
-        public DateTime Dateend { get; set; }
-        public Boolean Ispaid { get; set; }
-        public Boolean Isactive { get; set; }
 
-
+        public List<WeightControlDetailViewModel> weightdetail { get; set;}
     }
 }

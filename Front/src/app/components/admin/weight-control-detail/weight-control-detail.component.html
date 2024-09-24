@@ -1,0 +1,63 @@
+<div class="container mt-3">
+    <div class="px-4">
+        <div class="d-flex">
+            <label for="">Empelado</label>
+            <div class="ps-3">
+                <h5>{{employeename}}</h5>
+            </div>
+        </div>
+        <form [formGroup]="weightDetailForm">
+            <div class="d-flex">
+                <label for="">Producto</label>
+                <div class="ps-3">
+                    <h5>{{productname}}</h5>
+                </div>
+            </div>
+            <div class="pt-4">
+                <form>
+                    <div class="d-flex mb-3">
+                        <div class="me-3">
+                            <label for="product" class="form-label">Producto</label>
+                            <select formControlName="productid" class="form-select" id="productid">
+                                <option value="-1">Producto especifico</option>
+                                <option *ngFor="let i of filterProducts " value="{{i.id}}" >{{i.name}}</option>
+                            </select>
+                        </div>
+                        <div class="me-3">
+                            <label for="weight" class="form-label">Peso (KG)</label>
+                            <input formControlName="weight" type="number" class="form-control" id="weight"
+                                placeholder="0">
+                        </div>
+                        <button [disabled]="weightDetailForm.invalid" (click)="SaveDetail()" type="submit" class="btn btn-primary align-self-end">Agregar</button>
+                    </div>
+                    <table class="table table-bordered text-center">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Producto</th>
+                                <th>Peso</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let i of weightcontroldetaillist">
+                                <td>{{i.name}}</td>
+                                <td>{{i.weight}}</td>
+                                <td>
+                                    <button type="button" (click)="Detele(i.productid)" class="material-icons deleteIconShipment">
+                                        delete
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="d-flex justify-content-between mt-3">
+                        <button (click)="cancelDetail()" type="button" class="btn btn-secondary">Cancelar</button>
+                        <div>
+                            <button (click)="SaveAll()" type="button" class="btn btn-success me-2">Guardar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </form>
+    </div>
+</div>

@@ -7,6 +7,4 @@ export class ShipmentModel {
   details: ShipmentDetailModel[] = [];
 }
 
-// customer: Customer;
-// employee: Employee;
-// shipmenttype: Shipmenttype;
+

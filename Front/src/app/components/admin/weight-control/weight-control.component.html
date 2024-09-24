@@ -1,6 +1,5 @@
 <div class="d-flex justify-content-center align-items-center">
     <div class="container">
-
         <div class="row rounded-3  p-4" style="width: 50%;">
             <div class="row mb-3">
                 <div class="col-5">
@@ -9,17 +8,16 @@
                     </label>
                 </div>
                 <div class="col-7 d-flex">
-
-                    <select class="form-select" id="Employee">
+                    <select [disabled]="showDetail" [(ngModel)]="employeeid" (change)="onEmployeChange($event)"
+                        class="form-select" id="Employee">
                         <option value="-1">Lista de empleado</option>
-                        <option *ngFor="let i of employeeList"  value="{{i.employeeid}}">{{i.name}}</option>
+                        <option *ngFor="let i of employeeList" value="{{i.employeeid}}">{{i.name}}</option>
                     </select>
-                    <!-- <div class="ms-lg-1">
-                        <button  type="button"
-                            class="material-icons editIconShipment">
+                    <div *ngIf="showDetail" class="ms-lg-1">
+                        <button (click)="edittype()" type="button" class="material-icons editIconShipment">
                             edit
                         </button>
-                    </div> -->
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -29,13 +27,16 @@
                     </label>
                 </div>
                 <div class="col-7">
-                    <select class="form-select" id="GeneralProduct">
+                    <select [disabled]="employeeid == -1 || showDetail" class="form-select" id="GeneralProduct"
+                        [(ngModel)]="productid" (change)="onProductChange($event)">
                         <option value="-1">Productos generales</option>
-                        <option *ngFor="let i of generalProductList"  value="{{i.id}}">{{i.name}}</option>
+                        <option *ngFor="let i of generalProductList" value="{{i.id}}">{{i.name}}</option>
                     </select>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
+
+<app-weight-control-detail *ngIf="showDetail" [productid]="productid" [productname]="productname"
+    [employeename]="employeename" [employeeid]="employeeid" (onComplete)="Clear()"></app-weight-control-detail>

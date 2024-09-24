@@ -46,30 +46,29 @@ namespace Reciplastk.Gateway.Services
 
         public HttpResponseModel Create(WeightControlViewModel model)
         {
-            var weightcontrol = FindById(model.Weightcontrolid);
             var response = new HttpResponseModel();
-            if (weightcontrol != null)
+           
+            var newWeightControl = new Weightcontrol();
+            newWeightControl.Employeeid = model.Employeeid;
+            newWeightControl.Weightcontroltypeid = model.WeightControlTypeId;
+            newWeightControl.Datestart = DateTime.Now;
+            newWeightControl.Ispaid = false;
+            newWeightControl.Creationdate = DateTime.Now;
+            newWeightControl.Isactive = false;
+            db.Weightcontrols.Add(newWeightControl);
+            foreach (var i in model.weightdetail)
             {
-                response.WasSuccessful = false;
-                response.StatusMessage = "El registro ya existe";
+                var detail = new Weightcontroldetail();
+                detail.Weightcontrol = newWeightControl;
+                detail.Productid = i.ProductId;
+                detail.Weight = i.Weight;
+                db.Weightcontroldetails.Add(detail);
             }
-            else
-            {
-                var newWeightControl = new Weightcontrol();
-                newWeightControl.Employeeid = model.Employeeid;
-                newWeightControl.Weightcontroltypeid = model.WeightControlTypeId;
-                newWeightControl.Datestart = model.Datestart;
-                newWeightControl.Dateend = model.Dateend;
-                newWeightControl.Ispaid = model.Ispaid;
-                newWeightControl.Creationdate = DateTime.Now;
-                newWeightControl.Isactive = model.Isactive;
-                db.Weightcontrols.Add(newWeightControl);
-                db.SaveChanges();
-                response.WasSuccessful = true;
-                response.Data = weightcontrol;
-                response.StatusMessage = "El dato fue agregado correctamente";
+            db.SaveChanges();
+            response.WasSuccessful = true;
+            response.StatusMessage = "El dato fue agregado correctamente";
 
-            }
+      
             return response;
 
         }
@@ -81,11 +80,9 @@ namespace Reciplastk.Gateway.Services
             {
                 weightcontrol.Employeeid = model.Employeeid;
                 weightcontrol.Weightcontroltypeid = model.WeightControlTypeId;
-                weightcontrol.Datestart = model.Datestart;
-                weightcontrol.Dateend = model.Dateend;
-                weightcontrol.Ispaid = model.Ispaid;
+                weightcontrol.Ispaid = false;
                 weightcontrol.Updatedate = DateTime.Now;
-                weightcontrol.Isactive = model.Isactive;
+                weightcontrol.Isactive = false;
                 db.SaveChanges();
                 response.WasSuccessful = true;
                 response.Data = weightcontrol;
@@ -105,7 +102,7 @@ namespace Reciplastk.Gateway.Services
             if (weightcontrol == null)
             {
                 response.WasSuccessful = false;
-                response.StatusMessage = "No pudo ser eliminado";
+                response.StatusMessage = "El control de peso no pudo ser eliminado";
             }
             else
             {
