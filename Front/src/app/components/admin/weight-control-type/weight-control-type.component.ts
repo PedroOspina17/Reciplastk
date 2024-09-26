@@ -6,6 +6,7 @@ import { FormBuilder } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { LoaderComponent } from '../../shared/loader/loader.component';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-weight-control-type',
@@ -18,7 +19,8 @@ export class WeightControlTypeComponent {
   constructor(
     private fb: FormBuilder,
     private controlType: WeightCotrolTypeService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private httplcient: HttpClient
   ) {}
   controlTypeList: WeightControlTypeModel[] = [];
   loader: boolean = false;

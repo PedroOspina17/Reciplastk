@@ -42,6 +42,9 @@ public partial class Weightcontrol
     public virtual Employee Employee { get; set; }
 
     [InverseProperty("Weightcontrol")]
+    public virtual ICollection<Remaining> Remainings { get; set; } = new List<Remaining>();
+
+    [InverseProperty("Weightcontrol")]
     public virtual ICollection<Weightcontroldetail> Weightcontroldetails { get; set; } = new List<Weightcontroldetail>();
 
     [ForeignKey("Weightcontroltypeid")]

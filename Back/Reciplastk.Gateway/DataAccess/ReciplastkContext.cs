@@ -21,6 +21,8 @@ public partial class ReciplastkContext : DbContext
 
     public virtual DbSet<Product> Products { get; set; }
 
+    public virtual DbSet<Remaining> Remainings { get; set; }
+
     public virtual DbSet<Rol> Rols { get; set; }
 
     public virtual DbSet<Secondarytabletest> Secondarytabletests { get; set; }
@@ -71,6 +73,13 @@ public partial class ReciplastkContext : DbContext
             entity.Property(e => e.Isactive).HasDefaultValue(true);
             entity.Property(e => e.Issubtype).HasDefaultValue(false);
             entity.Property(e => e.Updatedate).HasDefaultValueSql("now()");
+        });
+
+        modelBuilder.Entity<Remaining>(entity =>
+        {
+            entity.HasKey(e => e.Remainingid).HasName("remainings_pkey");
+
+            entity.HasOne(d => d.Weightcontrol).WithMany(p => p.Remainings).HasConstraintName("remainings_weightcontrolid_fkey");
         });
 
         modelBuilder.Entity<Rol>(entity =>

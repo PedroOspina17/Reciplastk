@@ -20,7 +20,7 @@ export class WeightControlService {
     return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'GetById?id='+id);
   }
   Create(Model: WeightControlModel):Observable<HttpResponseModel>{
-    return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'Create',Model);
+    return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'CreateSeparation',Model);
   }
   Update(Model: WeightControlModel):Observable<HttpResponseModel>{
     return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'Update',Model);

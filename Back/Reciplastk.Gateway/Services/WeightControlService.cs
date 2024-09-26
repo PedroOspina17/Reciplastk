@@ -44,17 +44,17 @@ namespace Reciplastk.Gateway.Services
             return response;
         }
 
-        public HttpResponseModel Create(WeightControlViewModel model)
+        public HttpResponseModel CreateSeparation(WeightControlViewModel model)
         {
             var response = new HttpResponseModel();
-           
+
             var newWeightControl = new Weightcontrol();
             newWeightControl.Employeeid = model.Employeeid;
             newWeightControl.Weightcontroltypeid = model.WeightControlTypeId;
             newWeightControl.Datestart = DateTime.Now;
             newWeightControl.Ispaid = false;
             newWeightControl.Creationdate = DateTime.Now;
-            newWeightControl.Isactive = false;
+            newWeightControl.Isactive = true;
             db.Weightcontrols.Add(newWeightControl);
             foreach (var i in model.weightdetail)
             {
@@ -67,10 +67,38 @@ namespace Reciplastk.Gateway.Services
             db.SaveChanges();
             response.WasSuccessful = true;
             response.StatusMessage = "El dato fue agregado correctamente";
-
-      
             return response;
+        }
+        public HttpResponseModel CreateGrinding(GrindingViewModel model)
+        {
+            var response = new HttpResponseModel();
+            var newWeightControl = new Weightcontrol();
+            newWeightControl.Employeeid = 29; // To do: replace with confing value
+            newWeightControl.Weightcontroltypeid = 2; // To do: replace with confing value
+            newWeightControl.Datestart = DateTime.Now;
+            newWeightControl.Ispaid = false;
+            newWeightControl.Creationdate = DateTime.Now;
+            newWeightControl.Isactive = true;
+            db.Weightcontrols.Add(newWeightControl);
 
+            var detail = new Weightcontroldetail();
+            detail.Weightcontrol = newWeightControl;
+            detail.Weight = model.PackageCount * 25; // To do: replace with confing value
+            detail.Productid = model.ProductId;
+            db.Weightcontroldetails.Add(detail);
+
+            var remainig = new Remaining();
+            remainig.Weightcontrol = newWeightControl;
+            remainig.Productid = model.ProductId;
+            remainig.Weight = model.Remainig;
+            remainig.Creationdate = DateTime.Now;
+            remainig.Isactive = true;
+            db.Remainings.Add(remainig);
+
+            db.SaveChanges();
+            response.WasSuccessful = true;
+            response.StatusMessage = "El dato fue agregado correctamente";
+            return response;
         }
         public HttpResponseModel Update(WeightControlViewModel model)
         {
@@ -115,7 +143,21 @@ namespace Reciplastk.Gateway.Services
             return response;
         }
 
-
-
+        public HttpResponseModel GetGroundProducts()
+        {
+            var response = new HttpResponseModel();
+            var ProductosOfToday = db.Weightcontrols.Where(p => p.Creationdate.Date == DateTime.Today).ToList();
+            if (ProductosOfToday != null && ProductosOfToday.Count > 0)
+            {
+                response.WasSuccessful = true;
+                response.Data = ProductosOfToday;
+            }
+            else
+            {
+                response.WasSuccessful = false;
+                response.StatusMessage = "No se encontraron productos creados el dia de hoy";
+            }
+            return response;
+        }
     }
 }

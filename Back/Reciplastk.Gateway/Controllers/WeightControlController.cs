@@ -30,15 +30,20 @@ namespace Reciplastk.Gateway.Controllers
             return weightControlService.GetById(id);
         }
 
-        [HttpPost("Create")]
+        [HttpPost("CreateSeparation")]
 
         public HttpResponseModel Create(WeightControlViewModel viewModel)
         {
-            return weightControlService.Create(viewModel);
+            return weightControlService.CreateSeparation(viewModel);
+        }
+
+        [HttpPost("CreateGrinding")]
+        public HttpResponseModel CreateGrinding(GrindingViewModel grindingViewModel)
+        {
+            return weightControlService.CreateGrinding(grindingViewModel);
         }
 
         [HttpPost("Update")]
-
         public HttpResponseModel Update(WeightControlViewModel viewModel)
         {
             return weightControlService.Update(viewModel);
@@ -50,7 +55,10 @@ namespace Reciplastk.Gateway.Controllers
             return weightControlService.Delete(id);
         }
 
-
-
+        [HttpGet("GetGroundProducts")]
+        public HttpResponseModel GetGroundProducts()
+        {
+            return weightControlService.GetGroundProducts();
+        }
     }
 }
