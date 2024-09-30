@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ProductsModel } from '../models/ProductsModel';
+import { ProductModel } from '../models/ProductModel';
 import { HttpResponseModel } from '../models/HttpResponseModel';
 import { AppConfig } from '../common/app-config';
 
@@ -29,12 +29,12 @@ export class ProductsService {
   }
 
   // Metodo para Crear un Producto
-  Create(productModel: ProductsModel): Observable<HttpResponseModel>{
+  Create(productModel: ProductModel): Observable<HttpResponseModel>{
     return this.htpp.post<HttpResponseModel>(this.ServiceEndpoint+"Create", productModel)
   }
 
   // Metodo para modificar un Producto
-  Update (productid: number, productModel: ProductsModel): Observable<HttpResponseModel>{
+  Update (productid: number, productModel: ProductModel): Observable<HttpResponseModel>{
     return this.htpp.put<HttpResponseModel>(this.ServiceEndpoint+'Update', productModel)
   }
 

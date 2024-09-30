@@ -1,5 +1,5 @@
 import { ToastrService } from 'ngx-toastr';
-import { ProductsModel } from './../../../../models/ProductsModel';
+import { ProductModel } from '../../../../models/ProductModel';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute, RouterLink} from '@angular/router';
@@ -15,8 +15,8 @@ import { ProgressBarComponent } from '../../../shared/progress/progress-bar/prog
   styleUrl: './list-products.component.css'
 })
 export class ListProductsComponent {
-  listProducts: ProductsModel[] = [];
-  subProductsList: ProductsModel [] =[];
+  listProducts: ProductModel[] = [];
+  subProductsList: ProductModel [] =[];
   loading: boolean = false;
   expandedArea: boolean = true;
   id: number;

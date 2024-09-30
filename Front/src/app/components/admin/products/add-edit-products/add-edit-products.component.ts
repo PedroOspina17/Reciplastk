@@ -1,10 +1,10 @@
+import { ProductModel } from './../../../../models/ProductModel';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ProductsService } from '../../../../services/products.service';
-import { ProductsModel } from '../../../../models/ProductsModel';
 import { ProgressBarComponent } from '../../../shared/progress/progress-bar/progress-bar.component';
 
 @Component({
@@ -17,11 +17,12 @@ import { ProgressBarComponent } from '../../../shared/progress/progress-bar/prog
 export class AddEditProductsComponent {
 
   formProduct: FormGroup;
+  formSubproduct: FormGroup;
   id: number;
   operacion: string = "";
   loading: boolean = false;
-  showDiv: boolean = false;
-  isChecked: boolean = false;
+  listSubproduct: ProductModel[] = [];
+  // subproduct:  = {};
 
   constructor(
     private fb: FormBuilder,
@@ -40,6 +41,11 @@ export class AddEditProductsComponent {
       margin: [null, Validators.required],
       issubtype: [false]
     });
+
+    this.formSubproduct = this.fb.group({
+      nameSubproduct: ['', [Validators.required, Validators.maxLength(20)]],
+      sellpriceSubproduct: [null, Validators.required],
+    })
     // Obtener el id de la URL - inyecta la dependencia ActiveRoute y luego lo llama con snapshot.paramMap
     this.id = Number(aRoute.snapshot.paramMap.get('id')); // Se parsea para que no salga error Number( lo que se quire cambiar)
   }
@@ -56,13 +62,7 @@ export class AddEditProductsComponent {
       this.operacion = 'Agregar';
       this.loading = false;
     };
-    // Suscribirse a los cambios en el control isSubtype
-    this.formProduct.get('issubtype')?.valueChanges.subscribe(value => {
-      this.showDiv = value === true;
-    });
 
-    // Inicializar showDiv basado en el valor actual de isSubtype
-    this.showDiv = this.formProduct.get('issubtype')?.value === true;
   }
 
   GetById(id: number): void {
@@ -78,7 +78,10 @@ export class AddEditProductsComponent {
           buyprice: result.data.buyprice,
           sellprice: result.data.sellprice,
           margin: result.data.margin,
-          issubtype: result.data.issubtype === false,
+          issubtype: result.data.issubtype,
+          nameSubproduct: result.data.name,
+          sellpriceSubproduct: result.data.sellprice,
+          marginSubproduct: result.data.margin
         });
         console.log('info formProduct: ', this.formProduct.value.name);
         console.log('info formProduct: ', this.formProduct.value.name);
@@ -88,26 +91,26 @@ export class AddEditProductsComponent {
     });
   }
 
-  AddandUpdate() {
+    AddandUpdate() {
 
-   const product: ProductsModel = {
+   const product: ProductModel = {
     shortname: this.formProduct.value.shortname,
     name: this.formProduct.value.name,
     description: this.formProduct.value.description,
     code: this.formProduct.value.code,
-    buyprice: this.formProduct.value.buyprice,
-    sellprice: this.formProduct.value.sellprice,
-    margin: this.formProduct.value.margin,
     issubtype: this.formProduct.value.issubtype,
+    SubtypeProductList: this.listSubproduct
    };
    console.log(" info product AddUpdte", product);
-   
+
    product.productid = this.id;
    this.loading = true;
+
    if(this.id != 0){
     // es editar
 
     this.productService.Update(this.id, product).subscribe(result =>{
+
       if (result.wasSuccessful == true) {
         this.toastr.success(`El producto ${product.name} fue actualizado con exito`, `Producto Actualizado.`);
         this.loading = false;
@@ -136,17 +139,25 @@ export class AddEditProductsComponent {
     });
    }
   }
+  AddSubproduct(){
+    const subproduct =
+      {
+        shortname: this.formProduct.value.shortname + " " + this.formSubproduct.value.nameSubproduct,
+        name: this.formProduct.value.name + " " + this.formSubproduct.value.nameSubproduct,
+        description: this.formProduct.value.description + " " + this.formSubproduct.value.nameSubproduct,
+        code: this.formProduct.value.code,
+        issubtype: false,
+      }
+      console.log("subproducto: ", subproduct);
+      this.listSubproduct.push(subproduct);
+      console.log("lista de subp: ", this.listSubproduct);
+      this.formSubproduct.value.shorname = "";
+      this.formSubproduct.value.sellprice = "";
+  }
 
-  
-  ShowHidden(event: Event){
-    const showInputElement = event.target as HTMLInputElement;
-
-    if(showInputElement.value === 'true'){
-      this.showDiv = true;
-    }else{
-      this.showDiv = false;
-    }
-
+  DeleteSubproduct(index: number){
+    this.listSubproduct.splice(index,1);
+    this.toastr.info(`El producto ${this.listSubproduct[index]} fue eliminado`, `Producto Eliminado.`)
   }
 
 }

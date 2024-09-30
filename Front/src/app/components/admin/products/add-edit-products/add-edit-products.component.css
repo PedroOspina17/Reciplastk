@@ -4,3 +4,33 @@
   display: flex;
   justify-content: space-between;
 }
+
+.addSubproducts {
+  color: #332dac;
+  border-color: #332dac;
+  border-radius: 5px;
+  font-size: 26px;
+  cursor: pointer;
+}
+.addSubproducts:hover {
+  color: #fff;
+  background-color: #332dac;
+  border-color: #332dac;
+  border-radius: 5px;
+}
+
+.buttonDeleteSubproduct {
+  color: #dc3545;
+  border-color: #dc3545;
+  border-radius: 4px;
+  font-size: 25px;
+  cursor: pointer;
+  background-color: none;
+
+}
+.buttonDeleteSubproduct {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+  border-radius: 5px;
+}
