@@ -14,10 +14,10 @@ public partial class Weightcontroldetail
     public int Weightcontroldetailid { get; set; }
 
     [Column("weightcontrolid")]
-    public int? Weightcontrolid { get; set; }
+    public int Weightcontrolid { get; set; }
 
     [Column("productid")]
-    public int? Productid { get; set; }
+    public int Productid { get; set; }
 
     [Column("weight")]
     public double Weight { get; set; }

@@ -81,30 +81,21 @@ export class WeightControlDetailComponent {
       weight: this.weightDetailForm.value.weight,
     };
     this.weightcontroldetaillist.unshift(WeightDetail);
-    this.weightDetailForm = this.fb.group({
-      productid: ['-1', [Validators.required, Validators.min(0)]],
-      weight: ['', Validators.required],
-    });
+    this.weightDetailForm.reset();
   }
   cancelDetail() {
     this.onComplete.emit();
   }
-  Detele(id: number) {
-    const index = this.weightcontroldetaillist.findIndex(
-      (p) => p.productid == id
-    );
-    if (index !== -1) {
-      this.weightcontroldetaillist.splice(index, 1);
+  Detele(Index: number) {
+      this.weightcontroldetaillist.splice(Index,1);
       this.toastr.info('Producto eliminado con éxito');
-    }
   }
   SaveAll() {
     const weightcontrol: WeightControlModel = {
       Employeeid: this.employeeid,
-      WeightControlTypeId: 2,
       weightdetail: this.weightcontroldetaillist,
     };
-    this.weightControlService.Create(weightcontrol).subscribe((r) => {
+    this.weightControlService.CreateSeparation(weightcontrol).subscribe((r) => {
       if (r.wasSuccessful == true) {
         this.toastr.success(r.statusMessage);
         this.weightcontroldetaillist = [];

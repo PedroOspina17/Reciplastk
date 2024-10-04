@@ -49,7 +49,7 @@ namespace Reciplastk.Gateway.Controllers
             return weightControlService.Update(viewModel);
         }
 
-        [HttpPost("Delete")]
+        [HttpDelete("Delete")]
         public HttpResponseModel Delete(int id)
         {
             return weightControlService.Delete(id);

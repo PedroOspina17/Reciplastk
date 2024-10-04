@@ -39,11 +39,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let i of weightcontroldetaillist">
+                            <tr *ngFor="let i of weightcontroldetaillist; index as index">
                                 <td>{{i.name}}</td>
                                 <td>{{i.weight}}</td>
                                 <td>
-                                    <button type="button" (click)="Detele(i.productid)" class="material-icons deleteIconShipment">
+                                    <button type="button" (click)="Detele(index)" class="material-icons deleteIconShipment">
                                         delete
                                     </button>
                                 </td>

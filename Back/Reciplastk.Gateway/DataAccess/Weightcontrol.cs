@@ -14,10 +14,10 @@ public partial class Weightcontrol
     public int Weightcontrolid { get; set; }
 
     [Column("employeeid")]
-    public int? Employeeid { get; set; }
+    public int Employeeid { get; set; }
 
     [Column("weightcontroltypeid")]
-    public int? Weightcontroltypeid { get; set; }
+    public int Weightcontroltypeid { get; set; }
 
     [Column("ispaid")]
     public bool Ispaid { get; set; }

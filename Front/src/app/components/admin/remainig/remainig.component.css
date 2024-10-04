@@ -1,0 +1,35 @@
+.tittle{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.editIcon{
+    color: #ffc107;
+    border-color: #ffc107;
+    border-radius: 4px;
+    font-size: 28px;
+    cursor: pointer;
+    background-color: none;
+    border-right-color: none;
+}
+.editIcon:hover{
+    color: #fff;
+    background-color: #ffc107;
+    border-color: #ffc107;
+    border-radius: 5px;
+}
+.deleteIcon{
+    color: #dc3545;
+    border-color: #dc3545;
+    border-radius: 4px;
+    font-size: 28px;
+    cursor: pointer;
+    background-color: none;
+}
+.deleteIcon:hover{
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+    border-radius: 5px;
+}

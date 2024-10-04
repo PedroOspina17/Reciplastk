@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure;
+using Microsoft.EntityFrameworkCore;
 using Reciplastk.Gateway.DataAccess;
 using Reciplastk.Gateway.Models;
 
@@ -50,7 +51,7 @@ namespace Reciplastk.Gateway.Services
 
             var newWeightControl = new Weightcontrol();
             newWeightControl.Employeeid = model.Employeeid;
-            newWeightControl.Weightcontroltypeid = model.WeightControlTypeId;
+            newWeightControl.Weightcontroltypeid = 1; // To do: Change to config value.
             newWeightControl.Datestart = DateTime.Now;
             newWeightControl.Ispaid = false;
             newWeightControl.Creationdate = DateTime.Now;
@@ -107,7 +108,6 @@ namespace Reciplastk.Gateway.Services
             if (weightcontrol != null)
             {
                 weightcontrol.Employeeid = model.Employeeid;
-                weightcontrol.Weightcontroltypeid = model.WeightControlTypeId;
                 weightcontrol.Ispaid = false;
                 weightcontrol.Updatedate = DateTime.Now;
                 weightcontrol.Isactive = false;
@@ -146,17 +146,22 @@ namespace Reciplastk.Gateway.Services
         public HttpResponseModel GetGroundProducts()
         {
             var response = new HttpResponseModel();
-            var ProductosOfToday = db.Weightcontrols.Where(p => p.Creationdate.Date == DateTime.Today).ToList();
-            if (ProductosOfToday != null && ProductosOfToday.Count > 0)
-            {
-                response.WasSuccessful = true;
-                response.Data = ProductosOfToday;
-            }
-            else
-            {
-                response.WasSuccessful = false;
-                response.StatusMessage = "No se encontraron productos creados el dia de hoy";
-            }
+            var query = db.Weightcontroldetails
+                .Where(w => w.Weightcontrol.Isactive && w.Weightcontrol.Weightcontroltypeid == 2 && w.Weightcontrol.Datestart > DateTime.Today && w.Weightcontrol.Datestart < DateTime.Today.AddDays(1))
+                .Select(w => new GroundProductViewModel()
+                {
+                    detailId = w.Weightcontroldetailid,
+                    controlId = w.Weightcontrolid,
+                    Weight = w.Weight,
+                    ProductName = w.Product.Name,
+                    DateStart = w.Weightcontrol.Datestart,
+                    Remaining = (w.Weightcontrol.Remainings.Count <= 0 ? 0 : w.Weightcontrol.Remainings.FirstOrDefault().Weight),
+                })
+            .OrderByDescending(w => w.detailId)
+            .ToList();
+
+            response.WasSuccessful = true;
+            response.Data = query;
             return response;
         }
     }

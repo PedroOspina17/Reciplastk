@@ -1,0 +1,101 @@
+<div class="w-75 mx-auto">
+    <form [formGroup]="FormSelection" class="d-flex">
+        <div class="row rounded-3  p-4" style="width: 50%;">
+            <div class="row mb-3">
+                <div class="col-5">
+                    <h5 class="text-dark">Producto</h5>
+                </div>
+                <div class="col-7 d-flex">
+                    <select formControlName="ProductSelection" class="form-select" id="ProductSelection" (change)="onProductChange($event)">
+                        <option value="-1">Selecione un producto</option>
+                        <option *ngFor="let i of generalProductList" value="{{i.id}}">{{i.name}}</option>
+                    </select>
+                    <!-- <div class="ms-lg-1">
+                        <button class="material-icons editIconShipment">
+                            edit
+                        </button>
+                    </div> -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5">
+                    <h5>Color</h5>
+                </div>
+                <div class="col-7">
+                    <select formControlName="ColorSelection" class="form-select" name="ColorSelection" id="ColorSelection" (change)="onColorChange($event)">
+                        <option value="-1">Selecione el producto especifico</option>
+                        <option *ngFor="let i of filterProductList" value="{{i.id}}">{{i.name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row rounded-3 text-center p-4" style="width: 50%;">
+            <h6>{{formattedDate}}</h6>
+            <h6>Total (Kg)</h6>
+            <h6>{{totalweight}}</h6>
+        </div>
+    </form>
+
+    <form *ngIf="isVisible" [formGroup]="FormRemaining">
+        <div  class="container w-50 pb-5 pt-4">
+            <div class="row border-bottom">
+                <div class="col-6 text-center">
+                    <h6>Productos:</h6>
+                </div>
+                <div class="col-6 text-center">
+                    <h5>{{productName}}</h5>
+                </div>
+            </div>
+            <div class="row pt-2">
+                <div class="col-6 text-center">
+                    <h6>Cantidad de bultos</h6>
+                    <h6>(Unidades)</h6>
+                </div>
+                <div class="col-6 text-center">
+                    <h5 class="m-2">Restante (KG)</h5>
+                </div>
+            </div>
+            <div class="row pb-3">
+                <div class="col-6">
+                    <input formControlName="Package" class="form-control" type="text" placeholder="Ingrese los bultos">
+                </div>
+                <div class="col-6">
+                    <input formControlName="Spare" class="form-control" type="text" placeholder="Ingrese el cunchito">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <input (click)="CancelRemaining()" class="btn btn-danger w-100" type="button" value="Cancelar">
+                </div>
+                <div class="col-6">
+                    <input (click)="SaveRemainig()" [disabled]="FormRemaining.invalid" class="btn btn-success w-100" type="button" value="Guardar">
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="row m-0 offset-2 text-center">
+        <table class="border table table-condensed table-striped">
+            <thead>
+                <tr>
+                    <th class="col-2">Producto</th>
+                    <th class="col-2">Bultos</th>
+                    <th class="col-2">Restantes</th>
+                    <th class="col-2">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let i of todaysProductList">
+                    <td class="col-2">{{i.productName}}</td>
+                    <td class="col-2">{{i.weight/25}}</td> <!-- to do: replace with default configuration -->
+                    <td class="col-2">{{i.remaining}}</td>
+                    <td class="col-2">
+                        <button (click)="DeleteRemaining(i.controlId)" type="button" class="material-icons deleteIcon">
+                            delete
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
