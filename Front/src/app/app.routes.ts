@@ -12,6 +12,7 @@ import { ProviderCustomerSelectionComponent } from './components/general/provide
 import { ShipmentDetailComponent } from './components/general/shipment-detail/shipment-detail.component';
 import { WeightControlTypeComponent } from './components/general/weight-control-type/weight-control-type.component';
 import { AddEditWeightControlTypeComponent } from './components/general/add-weight-control-type/add-edit-weight-control-type.component';
+import { QuerieWeightControlComponent } from './components/admin/querie-weight-control/querie-weight-control.component';
 
 
 export const routes: Routes = [
@@ -26,8 +27,9 @@ export const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'roles', redirectTo: '/dashboard' },
       { path: 'customer', component: CustomerListComponent },
-      { path: 'addCustomer', component: AddEditCustomerComponent },
-      { path: 'editCustomer/:id', component: AddEditCustomerComponent }
+      { path: 'addCustomer', component: AddEditCustomerComponent }, 
+      { path: 'editCustomer/:id', component: AddEditCustomerComponent },
+      { path: 'QuerieWeightControlComponent', component: QuerieWeightControlComponent }
     ],
   },
   { path: 'EditWeightControlTypeComponent/:id',component: AddEditWeightControlTypeComponent },
