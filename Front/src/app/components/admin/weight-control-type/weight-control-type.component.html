@@ -1,7 +1,8 @@
 <div class="container">
     <div class="d-flex pt-4 pb-4">
         <h3 class="me-auto">Tipo de control de peso</h3>
-        <button type="button" routerLink="/admin/AddWeightControlTypeComponent" class="btn btn-outline-success">Agregar tipo
+        <button type="button" routerLink="/admin/AddWeightControlTypeComponent" class="btn btn-outline-success">Agregar
+            tipo
             de control de peso</button>
     </div>
     <div class="row">
@@ -17,13 +18,14 @@
                 <tr *ngFor="let i of controlTypeList">
                     <td>{{i.name}}</td>
                     <td>{{i.description}}</td>
-                    <td class="col-2 text-center">
-                        <button routerLink="/admin/EditWeightControlTypeComponent/{{i.weightcontroltypeid}}" type="button w-100" class="material-icons editIcon">
-                            edit
+                    <td class="col-2 text-center btn-group">
+                        <button routerLink="/admin/EditWeightControlTypeComponent/{{i.weightcontroltypeid}}"
+                            type="button w-100" class="btn btn-outline-warning">
+                            <i class="bi bi-pencil fs-6"></i>
                         </button>
                         <button (click)="Delete(i.weightcontroltypeid ?? -1)" type="button w-100"
-                            class="material-icons deleteIcon">
-                            delete
+                            class="btn btn-outline-danger">
+                            <i class="bi bi-trash fs-6"></i>
                         </button>
                     </td>
                 </tr>

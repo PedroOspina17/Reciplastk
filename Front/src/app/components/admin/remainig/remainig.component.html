@@ -86,8 +86,8 @@
                     <td class="col-2">{{i.weight/25}}</td> <!-- to do: replace with default configuration -->
                     <td class="col-2">{{i.remaining}}</td>
                     <td class="col-2">
-                        <button (click)="DeleteRemaining(i.controlId)" type="button" class="material-icons deleteIcon">
-                            delete
+                        <button (click)="DeleteRemaining(i.controlId)" type="button" class="btn btn-outline-danger">
+                            <i class="bi bi-trash fs-6"></i>
                         </button>
                     </td>
                 </tr>

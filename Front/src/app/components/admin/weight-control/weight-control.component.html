@@ -14,8 +14,8 @@
                         <option *ngFor="let i of employeeList" value="{{i.employeeid}}">{{i.name}}</option>
                     </select>
                     <div *ngIf="showDetail" class="ms-lg-1">
-                        <button (click)="edittype()" type="button" class="material-icons editIconShipment">
-                            edit
+                        <button (click)="edittype()" type="button" class="btn btn-outline-warning">
+                            <i class="bi bi-pencil fs-6"></i>
                         </button>
                     </div>
                 </div>
