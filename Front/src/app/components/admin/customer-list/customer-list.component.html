@@ -9,7 +9,7 @@
         </button>
       </div>
       <div class="panel-body">
-        <table class="table table-condensed table-striped">
+        <table class="table table-condensed table-striped align-middle">
           <thead>
             <tr>
               <th>id</th>
@@ -36,13 +36,13 @@
               </td>
               <td>
                 <div class="btn-group">
-                  <button type="button" class=" btn btn-outline-warnig editIcon"
+                  <button type="button" class="btn btn-outline-warning"
                     routerLink="/admin/editCustomer/{{ item.customerid }}">
-                    <i class="bi bi-pencil"></i>
+                    <i class="bi bi-pencil fs-6"></i>
                   </button>
-                  <button type="button" class="material-icons deleteIcon btn btn-outline-danger"
+                  <button type="button" class="btn btn-outline-danger"
                     (click)="DeleteCustomer(item.customerid!)">
-                    <i class="bi bi-trash"></i>
+                    <i class="bi bi-trash fs-6"></i>
                   </button>
                 </div>
               </td>
