@@ -6,21 +6,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Reciplastk.Gateway.DataAccess;
 
-[Table("weightcontroltype")]
-public partial class Weightcontroltype
+[Table("remainings")]
+public partial class Remaining
 {
     [Key]
-    [Column("weightcontroltypeid")]
-    public int Weightcontroltypeid { get; set; }
+    [Column("remainingid")]
+    public int Remainingid { get; set; }
 
-    [Required]
-    [Column("name")]
-    [StringLength(50)]
-    public string Name { get; set; }
+    [Column("weightcontrolid")]
+    public int Weightcontrolid { get; set; }
 
-    [Column("description")]
-    [StringLength(50)]
-    public string Description { get; set; }
+    [Column("productid")]
+    public int Productid { get; set; }
+
+    [Column("weight")]
+    public double Weight { get; set; }
 
     [Column("creationdate", TypeName = "timestamp without time zone")]
     public DateTime Creationdate { get; set; }
@@ -31,6 +31,7 @@ public partial class Weightcontroltype
     [Column("isactive")]
     public bool Isactive { get; set; }
 
-    [InverseProperty("Weightcontroltype")]
-    public virtual ICollection<Weightcontrol> Weightcontrols { get; set; } = new List<Weightcontrol>();
+    [ForeignKey("Weightcontrolid")]
+    [InverseProperty("Remainings")]
+    public virtual Weightcontrol Weightcontrol { get; set; }
 }

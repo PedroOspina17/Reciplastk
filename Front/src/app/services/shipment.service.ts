@@ -35,10 +35,5 @@ export class ShipmentService {
   ShowAllProviders():Observable<HttpResponseModel>{
     return this.http.get<HttpResponseModel>('http://localhost:8765/Providers')
   }
-  ShowGeneralProducts():Observable<HttpResponseModel>{
-    return this.http.get<HttpResponseModel>('http://localhost:8765/GeneralProduct')
-  }
-  ShowSpecificProducts():Observable<HttpResponseModel>{
-    return this.http.get<HttpResponseModel>('http://localhost:8765/SpecificProduct')
-  }
+  
 }
