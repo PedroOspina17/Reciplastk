@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { WeightControlTypeModel } from '../../../models/WeightControlTypeModel';
 import { WeightCotrolTypeService } from '../../../services/weight-cotrol-type.service';
 import { ToastrService } from 'ngx-toastr';
-import { FormBuilder } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { LoaderComponent } from '../../shared/loader/loader.component';
@@ -16,7 +15,6 @@ import { LoaderComponent } from '../../shared/loader/loader.component';
 })
 export class WeightControlTypeComponent {
   constructor(
-    private fb: FormBuilder,
     private controlType: WeightCotrolTypeService,
     private toastr: ToastrService
   ) {}

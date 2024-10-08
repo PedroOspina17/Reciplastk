@@ -13,8 +13,9 @@ import { CommonModule } from '@angular/common';
 import { ProviderCustomerSelectionComponent } from '../provider-customer-selection/provider-customer-selection.component';
 import { ShipmentService } from '../../../services/shipment.service';
 import { ShipmentDetailModel } from '../../../models/ShipmentDetailModel';
-import { SelectionListModel } from '../../../models/SelectionListModel';
+import { ProductsModel } from '../../../models/ProductsModel';
 import { ShipmentModel } from '../../../models/ShipmentModel';
+import { ProductsService } from '../../../services/products.service';
 
 @Component({
   selector: 'app-shipment-detail',
@@ -38,8 +39,8 @@ export class ShipmentDetailComponent {
   shipmentDetailList: ShipmentDetailModel[] = [];
   formShipment: FormGroup;
   loader: boolean = false;
-  GeneralProductsList: SelectionListModel[] = [];
-  SpecificProductsList: SelectionListModel[] = [];
+  GeneralProductsList: ProductsModel[] = [];
+  SpecificProductsList: ProductsModel[] = [];
   shipmenttypeid: number = -1;
   constructor(
     private fb: FormBuilder,
@@ -47,7 +48,8 @@ export class ShipmentDetailComponent {
     private http: HttpClient,
     private toastr: ToastrService,
     private aRoute: ActivatedRoute,
-    private shipmentService: ShipmentService
+    private shipmentService: ShipmentService,
+    private productsService: ProductsService
   ) {
     this.formShipment = this.fb.group({
       productid: ['-1', [Validators.required, Validators.min(0)]],
@@ -88,7 +90,7 @@ export class ShipmentDetailComponent {
   ShowProducts() {
     this.loader = true;
     if (this.type == '1') {
-      this.shipmentService.ShowGeneralProducts().subscribe((GeneralResult) => {
+      this.productsService.GetGeneralProducts().subscribe((GeneralResult) => {
         if (GeneralResult.wasSuccessful == true) {
           this.GeneralProductsList = GeneralResult.data;
         } else {
@@ -96,9 +98,7 @@ export class ShipmentDetailComponent {
         }
       });
     } else if (this.type == '2') {
-      this.shipmentService
-        .ShowSpecificProducts()
-        .subscribe((SpecificResult) => {
+      this.productsService.GetSpecificProducts().subscribe((SpecificResult) => {
           if (SpecificResult.wasSuccessful == true) {
             this.SpecificProductsList = SpecificResult.data;
           } else {

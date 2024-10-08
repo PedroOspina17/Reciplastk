@@ -21,6 +21,8 @@ public partial class ReciplastkContext : DbContext
 
     public virtual DbSet<Product> Products { get; set; }
 
+    public virtual DbSet<Remaining> Remainings { get; set; }
+
     public virtual DbSet<Rol> Rols { get; set; }
 
     public virtual DbSet<Secondarytabletest> Secondarytabletests { get; set; }
@@ -34,6 +36,8 @@ public partial class ReciplastkContext : DbContext
     public virtual DbSet<Test> Tests { get; set; }
 
     public virtual DbSet<Weightcontrol> Weightcontrols { get; set; }
+
+    public virtual DbSet<Weightcontroldetail> Weightcontroldetails { get; set; }
 
     public virtual DbSet<Weightcontroltype> Weightcontroltypes { get; set; }
 
@@ -69,6 +73,15 @@ public partial class ReciplastkContext : DbContext
             entity.Property(e => e.Isactive).HasDefaultValue(true);
             entity.Property(e => e.Issubtype).HasDefaultValue(false);
             entity.Property(e => e.Updatedate).HasDefaultValueSql("now()");
+        });
+
+        modelBuilder.Entity<Remaining>(entity =>
+        {
+            entity.HasKey(e => e.Remainingid).HasName("remainings_pkey");
+
+            entity.HasOne(d => d.Weightcontrol).WithMany(p => p.Remainings)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("remainings_weightcontrolid_fkey");
         });
 
         modelBuilder.Entity<Rol>(entity =>
@@ -139,9 +152,7 @@ public partial class ReciplastkContext : DbContext
         {
             entity.HasKey(e => e.Weightcontrolid).HasName("weightcontrol_pkey");
 
-            entity.Property(e => e.Weightcontrolid).HasDefaultValueSql("nextval('weightcontrol_wiegthcontrolid_seq'::regclass)");
             entity.Property(e => e.Creationdate).HasDefaultValueSql("now()");
-            entity.Property(e => e.Date).HasDefaultValueSql("now()");
             entity.Property(e => e.Isactive).HasDefaultValue(true);
             entity.Property(e => e.Ispaid).HasDefaultValue(false);
             entity.Property(e => e.Updatedate).HasDefaultValueSql("now()");
@@ -150,9 +161,22 @@ public partial class ReciplastkContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("weightcontrol_employeeid_fkey");
 
-            entity.HasOne(d => d.Product).WithMany(p => p.Weightcontrols)
+            entity.HasOne(d => d.Weightcontroltype).WithMany(p => p.Weightcontrols)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("weightcontrol_productid_fkey");
+                .HasConstraintName("weightcontrol_weightcontroltypeid_fkey");
+        });
+
+        modelBuilder.Entity<Weightcontroldetail>(entity =>
+        {
+            entity.HasKey(e => e.Weightcontroldetailid).HasName("weightcontroldetail_pkey");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.Weightcontroldetails)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("weightcontroldetail_productid_fkey");
+
+            entity.HasOne(d => d.Weightcontrol).WithMany(p => p.Weightcontroldetails)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("weightcontroldetail_weightcontrolid_fkey");
         });
 
         modelBuilder.Entity<Weightcontroltype>(entity =>

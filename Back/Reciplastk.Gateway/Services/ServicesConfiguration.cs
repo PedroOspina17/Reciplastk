@@ -10,6 +10,7 @@
             services.AddScoped<ShipmentTypeService>();
             services.AddScoped<CustomerService>();
             services.AddScoped<WeightControlTypeService>();
+            services.AddScoped<WeightControlService>();
             return services;
         }
     }

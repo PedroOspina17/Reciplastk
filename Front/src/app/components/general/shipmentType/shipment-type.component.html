@@ -19,12 +19,12 @@
         <tr *ngFor="let i of ShipmentTypeList">
           <td>{{i.name}}</td>
           <td>{{i.description}}</td>
-          <td class="col-2 text-center">
-            <button routerLink="/editshipmenttype/{{i.shipmenttypeid}}" type="button w-100" class="material-icons editIcon">
-              edit
+          <td class="col-2 text-center btn-group">
+            <button routerLink="/editshipmenttype/{{i.shipmenttypeid}}" type="button w-100" class="btn btn-outline-warning">
+              <i class="bi bi-pencil fs-6"></i>
             </button>
-            <button type="button w-100" class="material-icons deleteIcon" (click)="Delete(i.shipmenttypeid!)">
-              delete
+            <button type="button w-100" class="btn btn-outline-danger" (click)="Delete(i.shipmenttypeid!)">
+              <i class="bi bi-trash fs-6"></i>
             </button>
           </td>
         </tr>
