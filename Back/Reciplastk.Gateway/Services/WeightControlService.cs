@@ -13,7 +13,7 @@ namespace Reciplastk.Gateway.Services
         {
             this.db = db;
         }
-        private Weightcontrol FindById(int? id)
+        private Weightcontrol FindById(int id)
         {
             var weightcontrol = db.Weightcontrols.Where(p => p.Isactive == true && p.Weightcontrolid == id).FirstOrDefault();
             return weightcontrol;
@@ -28,7 +28,7 @@ namespace Reciplastk.Gateway.Services
             return response;
         }
 
-        public HttpResponseModel GetById(int? id)
+        public HttpResponseModel GetById(int id)
         {
             var weightcontrol = FindById(id);
             var response = new HttpResponseModel();
@@ -103,7 +103,7 @@ namespace Reciplastk.Gateway.Services
         }
         public HttpResponseModel Update(WeightControlViewModel model)
         {
-            var weightcontrol = FindById(model.Weightcontrolid);
+            var weightcontrol = FindById(model.Weightcontrolid ?? -1);
             var response = new HttpResponseModel();
             if (weightcontrol != null)
             {
@@ -118,7 +118,7 @@ namespace Reciplastk.Gateway.Services
             else
             {
                 response.WasSuccessful = false;
-                response.StatusMessage = "No pudo ser modificado";
+                response.StatusMessage = "El control de peso indicado no existe";
             }
             return response;
         }

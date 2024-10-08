@@ -4,11 +4,7 @@
     <div class="panel panel-default">
       <div class="panel-heading tittleCustomer">
         <h3>Clientes</h3>
-        <button
-          type="button"
-          class="btn btn-outline-success"
-          routerLink="/admin/addCustomer"
-        >
+        <button type="button" class="btn btn-outline-success" routerLink="/admin/addCustomer">
           Agregar cliente
         </button>
       </div>
@@ -23,6 +19,7 @@
               <th>Dirección</th>
               <th>Celular</th>
               <th>Recoger</th>
+              <th>Acciones </th>
             </tr>
           </thead>
           <tbody>
@@ -38,20 +35,16 @@
                 <ng-template #noPickup>No</ng-template>
               </td>
               <td>
-                <button
-                  type="button"
-                  class="material-icons editIconCustomer"
-                  routerLink="/admin/editCustomer/{{ item.customerid }}"
-                >
-                  edit
-                </button>
-                <button
-                  type="button"
-                  class="material-icons deleteIconCustomer"
-                  (click)="DeleteCustomer(item.customerid!)"
-                >
-                  delete
-                </button>
+                <div class="btn-group">
+                  <button type="button" class=" btn btn-outline-warnig editIcon"
+                    routerLink="/admin/editCustomer/{{ item.customerid }}">
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                  <button type="button" class="material-icons deleteIcon btn btn-outline-danger"
+                    (click)="DeleteCustomer(item.customerid!)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
               </td>
             </tr>
           </tbody>

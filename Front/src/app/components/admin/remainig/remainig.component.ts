@@ -52,7 +52,7 @@ export class RemainigComponent {
   weightControlId: number = -1;
   totalweight: number = 0;
   productid: number = -1;
-  productName: string = "";
+  productName: string = '';
   specificproductid: number = -1;
   showRemaining: boolean = false;
   isVisible: boolean = false;
@@ -66,7 +66,6 @@ export class RemainigComponent {
   ngOnInit(): void {
     this.getProducts();
     this.GetTodaysDetails();
-    // this.onColorChange(-1);
   }
   onProductChange(value: any) {
     const selectElement = value.target;
@@ -81,7 +80,7 @@ export class RemainigComponent {
     this.specificproductid = selectElement.value;
     this.productName = selectElement.options[selectElement.selectedIndex].text;
     this.isVisible = false;
-    if (value.target.value != -1) {
+    if (this.specificproductid != -1) {
       this.isVisible = true;
     }
   }
@@ -94,32 +93,22 @@ export class RemainigComponent {
     this.weightControlService.CreateGrinding(remainingModel).subscribe((p) => {
       if (p.wasSuccessful == true) {
         this.toastr.success(p.statusMessage);
-        this.FormRemaining.reset();
-        this.FormSelection = this.fb.group({
-          ProductSelection: ['-1', Validators.required],
-          ColorSelection: [
-            { value: '-1', disabled: true },
-            Validators.required,
-          ],
-        });
+        this.ClearForm();
         this.GetTodaysDetails();
-        console.log('Productos:',this.todaysProductList)
+        console.log('Productos:', this.todaysProductList);
       } else {
         this.toastr.error('No se puedo crear el producto');
       }
       this.isVisible = false;
     });
   }
-  CancelRemaining() {
+  ClearForm() {
     this.isVisible = false;
     this.FormSelection = this.fb.group({
       ProductSelection: ['-1', Validators.required],
       ColorSelection: [{ value: '-1', disabled: true }, Validators.required],
     });
-    this.FormRemaining = this.fb.group({
-      Package: ['', Validators.required],
-      Spare: ['', Validators.required],
-    });
+    this.FormRemaining.reset();
   }
   getProducts() {
     this.products.GetGeneralProducts().subscribe((r) => {
@@ -151,7 +140,7 @@ export class RemainigComponent {
     });
   }
   DeleteRemaining(id: number) {
-    console.log('id: ',id)
+    console.log('id: ', id);
     this.weightControlService.Delete(id).subscribe((r) => {
       if (r.wasSuccessful == true) {
         this.toastr.info('Elemento eliminado con exito');

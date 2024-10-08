@@ -14,7 +14,7 @@ public partial class Remaining
     public int Remainingid { get; set; }
 
     [Column("weightcontrolid")]
-    public int? Weightcontrolid { get; set; }
+    public int Weightcontrolid { get; set; }
 
     [Column("productid")]
     public int Productid { get; set; }
