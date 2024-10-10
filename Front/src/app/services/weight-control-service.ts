@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { HttpResponseModel } from '../models/HttpResponseModel';
 import { WeightControlModel } from '../models/WeightControlModel';
 import { RemainingModel } from '../models/RemainigModel';
+import { WeightControlReportParams } from '../models/WeightControlReportParams';
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +38,8 @@ export class WeightControlService {
   }
   GetGroundProducts():Observable<HttpResponseModel>{
     return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'GetGroundProducts');
+  }
+  Filter(Model: WeightControlReportParams):Observable<HttpResponseModel>{
+    return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'Filter',Model);
   }
 }

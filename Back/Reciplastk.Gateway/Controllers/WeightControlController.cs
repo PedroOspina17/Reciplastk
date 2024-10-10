@@ -60,5 +60,11 @@ namespace Reciplastk.Gateway.Controllers
         {
             return weightControlService.GetGroundProducts();
         }
+
+        [HttpPost("Filter")]
+        public HttpResponseModel Filter(WeightControlReportParams weightControlReportParams)
+        {
+            return weightControlService.Filter(weightControlReportParams);
+        }
     }
 }

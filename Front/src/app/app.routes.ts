@@ -14,6 +14,7 @@ import { WeightControlTypeComponent } from './components/admin/weight-control-ty
 import { AddEditWeightControlTypeComponent } from './components/admin/add-weight-control-type/add-edit-weight-control-type.component';
 import { WeightControlComponent } from './components/admin/weight-control/weight-control.component';
 import { RemainigComponent } from './components/admin/remainig/remainig.component';
+import { WeightControlReportsComponent } from './components/admin/weight-control-reports/weight-control-reports.component';
 
 
 export const routes: Routes = [
@@ -34,7 +35,9 @@ export const routes: Routes = [
       { path: 'AddWeightControlTypeComponent',component: AddEditWeightControlTypeComponent },
       { path: 'WeightControlTypeComponent',component: WeightControlTypeComponent },
       { path: 'WeightControlComponent', component: WeightControlComponent }, 
-      { path: 'RemainigComponent', component: RemainigComponent }
+      { path: 'RemainigComponent', component: RemainigComponent },
+      { path: 'WeightControlReportsComponent', component: WeightControlReportsComponent }
+
     ],
   },
   { path: 'ShipmentDetailComponent', component: ShipmentDetailComponent},
