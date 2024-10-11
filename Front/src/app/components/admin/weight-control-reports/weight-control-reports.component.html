@@ -5,7 +5,7 @@
             <div class="row pb-4">
                 <div class="col-6">
                     <label for="StartDate">
-                        Fecha inicio
+                        Fecha desde:
                     </label>
                     <div class="pt-1">
                         <input formControlName="StartDate" class="w-75" type="date" name="StartDate" id="StartDate">
@@ -13,7 +13,7 @@
                 </div>
                 <div class="col-6">
                     <label for="EndtDate">
-                        Fecha fin
+                        Fecha hasta:
                     </label>
                     <div class="pt-1">
                         <input formControlName="EndDate" class="w-75" type="date" name="EndtDate" id="EndtDate">
@@ -26,7 +26,7 @@
                         Empleado
                     </label>
                     <div>
-                        <select formControlName="Employeeid" class="form-select w-75" id="EmployeeList">
+                        <select formControlName="Employeeid" class="form-select w-75 mt-1" id="EmployeeList">
                             <option value="-1" id="">Seleccione un empleado</option>
                             <option *ngFor="let i of EmployeeList" value="{{i.employeeid}}" id="{{i.employeeid}}">{{i.name}}</option>                            
                         </select>
@@ -37,14 +37,14 @@
                         Producto
                     </label>
                     <div>
-                        <select formControlName="Productsid" class="form-select w-75" id="ProductsList">
+                        <select formControlName="Productsid" class="form-select w-75 mt-1" id="ProductsList">
                             <option value="-1" id="">Seleccione un producto</option>
                             <option *ngFor="let i of ProductList" value="{{i.id}}" id="{{i.id}}">{{i.name}}</option>                   
                         </select>
                     </div>
                 </div>
             </div>
-            <div class="row pb-3">
+            <div class="row pb-4">
                 <div class="col-6">
                     <label for="ispaid">
                         Esta pago

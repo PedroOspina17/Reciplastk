@@ -7,15 +7,13 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { Router, ActivatedRoute, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { CustomerService } from '../../../services/customer.service';
 import { CommonModule } from '@angular/common';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { WeightControlService } from '../../../services/weight-control-service';
 import { ProductsModel } from '../../../models/ProductsModel';
 import { ProductsService } from '../../../services/products.service';
-import { ShipmentTypeService } from '../../../services/shipment-type.service';
 import { WeightCotrolTypeService } from '../../../services/weight-cotrol-type.service';
 import { WeightControlReport } from '../../../models/WeightControlReport';
 
@@ -35,9 +33,6 @@ import { WeightControlReport } from '../../../models/WeightControlReport';
 export class WeightControlReportsComponent {
   constructor(
     private fb: FormBuilder,
-    private customerServises: CustomerService,
-    private router: Router,
-    private aRoute: ActivatedRoute,
     private toastr: ToastrService,
     private weightControlService: WeightControlService,
     private productsService: ProductsService,
