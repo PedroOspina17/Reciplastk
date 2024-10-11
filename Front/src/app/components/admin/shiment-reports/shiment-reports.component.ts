@@ -14,6 +14,7 @@ import { WeightControlService } from '../../../services/weight-control-service';
 import { ProductsService } from '../../../services/products.service';
 import { ShipmentTypeService } from '../../../services/shipment-type.service';
 import { ShipmentReports } from '../../../models/ShipmentReports';
+import { ShipmentService } from '../../../services/shipment.service';
 
 @Component({
   selector: 'app-shiment-reports',
@@ -34,7 +35,8 @@ export class ShimentReportsComponent {
     private toastr: ToastrService,
     private weightControlService: WeightControlService,
     private productService: ProductsService,
-    private shipmentTypeService: ShipmentTypeService
+    private shipmentTypeService: ShipmentTypeService,
+    private shipmentService: ShipmentService
   ) {
     this.FormShipment = this.fb.group({
       StartDate: [],
@@ -60,6 +62,14 @@ export class ShimentReportsComponent {
       Type: this.FormShipment.value.TypeId,
     };
     console.log(Model);
+    this.shipmentService.Filter(Model).subscribe((r) => {
+      if (r.wasSuccessful) {
+        this.ShipmentReports = r.data;
+        console.log('ShipmentReports:',this.ShipmentReports)
+      } else {
+        this.toastr.error('No se encontraron los detalles con los filtros aplicado')
+      }
+    });
   }
   ngOnInit(): void {
     this.GetInfo();

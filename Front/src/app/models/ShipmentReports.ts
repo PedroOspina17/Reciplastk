@@ -1,6 +1,6 @@
 export class ShipmentReports {
-  ProductName: string = '';
-  EmployeeName: string = '';
-  Weight: number = 0;
-  Type: string = '';
+  productName: string = '';
+  employeeName: string = '';
+  weight: number = 0;
+  type: string = '';
 }
