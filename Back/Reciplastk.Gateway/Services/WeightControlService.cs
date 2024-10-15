@@ -168,7 +168,7 @@ namespace Reciplastk.Gateway.Services
         public HttpResponseModel Filter(WeightControlReportParams viewModel)
         {
             var response = new HttpResponseModel();
-            var query = db.Weightcontroldetails.Where(p=> p.Weightcontrol.Isactive == true);
+            var query = db.Weightcontroldetails.Where(p => p.Weightcontrol.Isactive == true);
             if (viewModel.ProductId != null && viewModel.ProductId != -1)
             {
                 query = query.Where(p => p.Productid == viewModel.ProductId);
@@ -181,7 +181,7 @@ namespace Reciplastk.Gateway.Services
             {
                 query = query.Where(p => p.Weightcontrol.Datestart >= viewModel.StartDate);
             }
-            if ( viewModel.EndDate != null)
+            if (viewModel.EndDate != null)
             {
                 query = query.Where(p => p.Weightcontrol.Datestart <= viewModel.EndDate);
             }
@@ -193,8 +193,8 @@ namespace Reciplastk.Gateway.Services
             {
                 query = query.Where(p => p.Weightcontrol.Weightcontroltypeid == viewModel.Type);
             }
-            var result = query.Select(p => new WeightControlReport 
-            { 
+            var result = query.Select(p => new WeightControlReport
+            {
                 productName = p.Product.Name,
                 employeeName = p.Weightcontrol.Employee.Name,
                 weight = p.Weight,
@@ -205,5 +205,28 @@ namespace Reciplastk.Gateway.Services
 
             return response;
         }
+
+        public HttpResponseModel Remainings(bool ViewAll)
+        {
+            var response = new HttpResponseModel();
+            List<Remaining> query = new List<Remaining>();
+            if (ViewAll)
+            {
+                query = db.Remainings.Include(p=> p.Product).OrderByDescending(p => p.Creationdate).ToList();
+            }
+            else
+            {
+                var groupedInfo = db.Remainings.Include(p=> p.Product).GroupBy(p => p.Productid);
+                query = groupedInfo.Select(p => p.OrderByDescending(x => x.Creationdate).FirstOrDefault()).ToList();
+            }
+            var result = query.Select(p => new RemainigResponse
+            {
+                productName = p.Product.Name,
+                weight = p.Weight,
+            }).ToList();
+            response.Data = result;
+            return response;
+        }
+
     }
 }

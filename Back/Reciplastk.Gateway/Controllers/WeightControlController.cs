@@ -66,5 +66,11 @@ namespace Reciplastk.Gateway.Controllers
         {
             return weightControlService.Filter(weightControlReportParams);
         }
+
+        [HttpGet("Remainings")]
+        public HttpResponseModel Remainings (bool ViewAll)
+        {
+            return weightControlService.Remainings(ViewAll);
+        }
     }
 }

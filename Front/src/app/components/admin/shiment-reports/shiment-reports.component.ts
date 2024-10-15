@@ -47,6 +47,7 @@ export class ShimentReportsComponent {
       TypeId: [-1],
     });
   }
+  isVisible: boolean = false;
   FormShipment: FormGroup;
   EmployeeList: any[] = [];
   ProductList: any[] = [];
@@ -65,11 +66,14 @@ export class ShimentReportsComponent {
     this.shipmentService.Filter(Model).subscribe((r) => {
       if (r.wasSuccessful) {
         this.ShipmentReports = r.data;
-        console.log('ShipmentReports:',this.ShipmentReports)
+        console.log('ShipmentReports:', this.ShipmentReports);
       } else {
-        this.toastr.error('No se encontraron los detalles con los filtros aplicado')
+        this.toastr.error(
+          'No se encontraron los detalles con los filtros aplicado'
+        );
       }
     });
+    this.isVisible = true;
   }
   ngOnInit(): void {
     this.GetInfo();
