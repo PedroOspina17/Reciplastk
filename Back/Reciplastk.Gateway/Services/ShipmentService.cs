@@ -1,5 +1,6 @@
 ﻿using Reciplastk.Gateway.DataAccess;
 using Reciplastk.Gateway.Models;
+using System.IO.Compression;
 
 namespace Reciplastk.Gateway.Services
 {
@@ -87,6 +88,39 @@ namespace Reciplastk.Gateway.Services
                 response.WasSuccessful = false;
                 response.StatusMessage = "No se encontro ningun cargamento con el id indicado";
             }
+            return response;
+        }
+
+        public HttpResponseModel Filter(ShipmentReportParamsViewModel viewModel)
+        {
+            var response = new HttpResponseModel();
+            var query = db.Shipmentdetails.Where(p=> p.Shipment.Isactive == true);
+            if (viewModel.StartDate != null) {
+                query = query.Where(p => p.Shipment.Shipmentstartdate >= viewModel.StartDate);
+            }
+            if (viewModel.EndDate != null) {
+                query = query.Where(p => p.Shipment.Shipmentstartdate <= viewModel.EndDate);
+            }
+            if (viewModel.EmployeeId != null && viewModel.EmployeeId != -1) { 
+                query = query.Where(p=> p.Shipment.Employeeid == viewModel.EmployeeId);
+            }
+            if (viewModel.ProductId != null && viewModel.ProductId != -1) {
+                query = query.Where(p => p.Productid == viewModel.ProductId);
+            }
+            if (viewModel.IsPaid != null) {
+                query = query.Where(p => p.Shipment.Ispaid == viewModel.IsPaid);
+            }
+            if (viewModel.Type != null && viewModel.Type != -1) {
+                query = query.Where(p => p.Shipment.Shipmenttypeid == viewModel.Type);
+            }
+            var result = query.Select(p => new ShipmentReports
+            {
+                ProductName = p.Product.Name,
+                EmployeeName = p.Shipment.Employee.Name,
+                Weight = p.Weight,
+                Type = p.Shipment.Shipmenttype.Name,
+            });
+            response.Data = result;
             return response;
         }
     }

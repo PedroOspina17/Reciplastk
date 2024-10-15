@@ -31,6 +31,10 @@ public partial class Remaining
     [Column("isactive")]
     public bool Isactive { get; set; }
 
+    [ForeignKey("Productid")]
+    [InverseProperty("Remainings")]
+    public virtual Product Product { get; set; }
+
     [ForeignKey("Weightcontrolid")]
     [InverseProperty("Remainings")]
     public virtual Weightcontrol Weightcontrol { get; set; }

@@ -79,6 +79,10 @@ public partial class ReciplastkContext : DbContext
         {
             entity.HasKey(e => e.Remainingid).HasName("remainings_pkey");
 
+            entity.HasOne(d => d.Product).WithMany(p => p.Remainings)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("remainings_productid_fkey");
+
             entity.HasOne(d => d.Weightcontrol).WithMany(p => p.Remainings)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("remainings_weightcontrolid_fkey");

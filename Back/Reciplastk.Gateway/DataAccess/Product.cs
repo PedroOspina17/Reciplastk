@@ -58,6 +58,9 @@ public partial class Product
     public int? Parentid { get; set; }
 
     [InverseProperty("Product")]
+    public virtual ICollection<Remaining> Remainings { get; set; } = new List<Remaining>();
+
+    [InverseProperty("Product")]
     public virtual ICollection<Shipmentdetail> Shipmentdetails { get; set; } = new List<Shipmentdetail>();
 
     [InverseProperty("Product")]

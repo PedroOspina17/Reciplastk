@@ -4,6 +4,8 @@ import { AppConfig } from '../common/app-config';
 import { Observable } from 'rxjs';
 import { HttpResponseModel } from '../models/HttpResponseModel';
 import { ShipmentModel } from '../models/ShipmentModel';
+import { ShipmentReports } from '../models/ShipmentReports';
+import { ShipmentReportParamsModel } from '../models/ShipmentReportParamsModel';
 
 @Injectable({
   providedIn: 'root'
@@ -35,5 +37,8 @@ export class ShipmentService {
   ShowAllProviders():Observable<HttpResponseModel>{
     return this.http.get<HttpResponseModel>('http://localhost:8765/Providers')
   }
-  
+  Filter(model: ShipmentReportParamsModel):Observable<HttpResponseModel>{
+    return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/Filter', model)
+  }
+
 }
