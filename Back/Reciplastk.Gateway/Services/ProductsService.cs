@@ -13,29 +13,95 @@ namespace Reciplastk.Gateway.Services
         {
             this.db = dbReciplastk;
         }
-        private Product FindbyId(int id)
+        private Product FindById(int id)
         {
-            var product = db.Products.Where(p => p.Productid == id && p.Isactive  == true ).FirstOrDefault();
+            var product = db.Products.Where(p => p.Productid == id && p.Isactive).FirstOrDefault();
 
             return product;
         }
+
+        private HttpResponseModel Validate(ProductsViewModel ProductsModel)
+        {
+            var response = new HttpResponseModel();
+
+            if (ProductsModel.Name == null)
+            {
+                response.WasSuccessful = false;
+                response.StatusMessage = " El nombre es requerido.";
+                return response;
+
+            } else
+            {
+                var product = db.Products.Where(p => p.Name.ToLower().Trim() == ProductsModel.Name.ToLower().Trim()).FirstOrDefault();
+
+                if (product != null)
+                {
+                    response.WasSuccessful = false;
+                    response.StatusMessage = " El producto ya existe.";
+                    return response;
+                }
+            }
+
+            if (ProductsModel.Code  == null)
+            {
+                response.WasSuccessful = false;
+                response.StatusMessage = "El códgio es requerido.";
+                return response;
+
+            } else
+            {
+                var product = db.Products.Where(p => p.Code.ToLower().Trim() == ProductsModel.Code.ToLower().Trim()).FirstOrDefault();
+                if (product != null) {
+
+                    response.WasSuccessful = false;
+                    response.StatusMessage = " Ya existe un producto con el mismo código en la base de datos.";
+                    return response;
+                }
+            } 
+
+            if (ProductsModel.Issubtype && ProductsModel != null && ProductsModel.SubtypeProductList.Count > 0)
+            {
+                foreach (var product in ProductsModel.SubtypeProductList)
+                {
+                    response = Validate(product);
+                    if (response.WasSuccessful == false)
+                    {
+                        return response;
+                    } 
+                    
+                }
+            }
+
+            response.WasSuccessful = true;
+            return response;
+
+        }
         public HttpResponseModel GetAll()
         {
-            var productsInfo = db.Products.Where(p => p.Isactive == true).ToList();
+            var productsInfo = db.Products.Where(p => p.Isactive).ToList();
             var response = new HttpResponseModel();
             response.WasSuccessful = true;
             response.Data = productsInfo;
            
             return response;
         }
+
+        public HttpResponseModel GetMain()
+        {
+            var productsMain = db.Products.Where(p => p.Isactive && p.Issubtype == false ).ToList();
+            var response = new HttpResponseModel();
+            response.WasSuccessful = true;
+            response.Data = productsMain;
+            return response;
+        }
         public HttpResponseModel GetById(int id)
         {
-            var productInfo = FindbyId(id);
+            var productInfo = FindById(id);
             var response = new HttpResponseModel();
             if (productInfo == null)
             {
                 response.WasSuccessful = false;
-                response.StatusMessage = "The product is not found.";
+                response.StatusMessage = "El producto con el Id enviado, no fue encontrado.";
             }
             else
             {
@@ -47,7 +113,7 @@ namespace Reciplastk.Gateway.Services
 
         public HttpResponseModel GetByParentid (int id)
         {
-            var productInfo = db.Products.Where(p => p.Parentid == id && p.Isactive == true).ToList();
+            var productInfo = db.Products.Where(p => p.Parentid == id && p.Isactive).ToList();
             var response = new HttpResponseModel();
 
             response.WasSuccessful = true;
@@ -58,74 +124,57 @@ namespace Reciplastk.Gateway.Services
 
         public HttpResponseModel Create(ProductsViewModel ProductsModel)
         {
-            var product = db.Products.Where(p => p.Name.ToLower().Trim() == ProductsModel.Name.ToLower().Trim()).FirstOrDefault();
-            var response = new HttpResponseModel();
-            if (product != null)
-            {
-                response.WasSuccessful = false;
-                response.StatusMessage = "El producto no puede ser creado, ya existe en la Base de Datos.";
-            }
-            else
+            var response = Validate(ProductsModel);
+            
+            if (response.WasSuccessful)
             {
                 var parentProduct = new Product();
                 parentProduct.Shortname = ProductsModel.Shortname;
                 parentProduct.Name = ProductsModel.Name;
                 parentProduct.Description = ProductsModel.Description;
                 parentProduct.Code = ProductsModel.Code;
-                parentProduct.Buyprice = ProductsModel.Buyprice;
-                parentProduct.Sellprice = ProductsModel.Sellprice;
-                parentProduct.Margin = ProductsModel.Margin;
-                parentProduct.Issubtype = ProductsModel.Issubtype;
-                parentProduct.Parentid = 0;
+                parentProduct.Issubtype = false;
                 parentProduct.Isactive = true;
         
                 db.Products.Add(parentProduct);
-              
+               
                 if (ProductsModel.Issubtype == true) {
-                    
-                    var codeSubtype = 0;
-                    codeSubtype += 1;
+                   
                     foreach (var subproduct in ProductsModel.SubtypeProductList)
                     {
                         var newSubproduct = new Product();
-                        newSubproduct.Name = parentProduct.Name + " - " + ProductsModel.Name;
-                        newSubproduct.Shortname = parentProduct.Shortname + " - " + ProductsModel.Name;
-                        newSubproduct.Description = parentProduct.Description;
-                        newSubproduct.Code = parentProduct.Code + codeSubtype; 
-                        newSubproduct.Buyprice = parentProduct.Buyprice;
-                        newSubproduct.Sellprice = ProductsModel.Sellprice;
-                        newSubproduct.Margin = parentProduct.Margin;
-                        newSubproduct.Parentid = parentProduct.Productid;
+                        newSubproduct.Parent = parentProduct;
+                        newSubproduct.Name = subproduct.Name;
+                        newSubproduct.Shortname = subproduct.Shortname;
+                        newSubproduct.Description =subproduct.Description;
+                        newSubproduct.Code = subproduct.Code; 
+                        newSubproduct.Isactive = true;
+                        newSubproduct.Issubtype = subproduct.Issubtype;
                         db.Products.Add(newSubproduct);
                     }
                 }
                 db.SaveChanges();
                 response.WasSuccessful = true;
                 response.StatusMessage = "El producto fue Creado exitosamente. ";
-
             }
             return response;
-
         }
 
         public HttpResponseModel Update(ProductsViewModel ProductsModel)
-        {
-            var productInfo = FindbyId(ProductsModel.Productid);
-
+        {      
+            var id = ProductsModel.Productid ?? -1; 
+            var productInfo = FindById(id);
             var response = new HttpResponseModel();
 
             if(productInfo == null)
             {
                 response.WasSuccessful = false;
-                response.StatusMessage = "El producto no fue encontrado en la base de datos. "; 
+                response.StatusMessage = "El producto con el id enviado, no fue encontrado en la base de datos. "; 
             } else {
                 productInfo.Shortname = ProductsModel.Shortname;
                 productInfo.Name = ProductsModel.Name;
                 productInfo.Description = ProductsModel.Description;
                 productInfo.Code = ProductsModel.Code;
-                productInfo.Buyprice = ProductsModel.Buyprice;
-                productInfo.Sellprice = ProductsModel.Sellprice;
-                productInfo.Margin = ProductsModel.Margin;
                 productInfo.Issubtype = ProductsModel.Issubtype;
                                
                 db.SaveChanges();
@@ -134,13 +183,12 @@ namespace Reciplastk.Gateway.Services
                 response.StatusMessage = "El producto fue modificado exitosamente. ";
             }
             return response;
-
         }
 
         public HttpResponseModel Delete(int id)
         {
             var response = new HttpResponseModel();
-            var productFound = FindbyId(id);
+            var productFound = FindById(id);
            
             if (productFound != null)
             {

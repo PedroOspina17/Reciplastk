@@ -30,12 +30,12 @@ export class ListProductsComponent {
    }
 
   ngOnInit(id: number){
-    this.GetAll();
+    this.GetMain();
   };
 
-  GetAll() {
+  GetMain() {
     this.loading = true;
-    this.productService.GetAll().subscribe(result =>{
+    this.productService.GetMain().subscribe(result =>{
       if (result.wasSuccessful == true) {
         this.listProducts = result.data;
         this.loading= false;
@@ -63,14 +63,14 @@ export class ListProductsComponent {
       }else {
         this.toastr.error('El producto no fue eliminado.', 'Error.');
       }
-    this.GetAll();
+    this.GetMain();
    })
   }
 
   ExpandArea(id: number){
     this.loading = true;
 
-   
+
     this.productService.GetByParentId(id).subscribe(result =>{
       if(result.wasSuccessful == true){
         this.expandedArea = true;

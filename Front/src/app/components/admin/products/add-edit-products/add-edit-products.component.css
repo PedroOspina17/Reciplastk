@@ -10,7 +10,6 @@
   border-color: #332dac;
   border-radius: 5px;
   font-size: 26px;
-  cursor: pointer;
 }
 .addSubproducts:hover {
   color: #fff;
@@ -19,16 +18,17 @@
   border-radius: 5px;
 }
 
-.buttonDeleteSubproduct {
+.deleteIconShipment{
   color: #dc3545;
   border-color: #dc3545;
   border-radius: 4px;
-  font-size: 25px;
+  font-size: 28px;
   cursor: pointer;
   background-color: none;
+  border-radius: 5px;
 
 }
-.buttonDeleteSubproduct {
+.deleteIconShipment:hover{
   color: #fff;
   background-color: #dc3545;
   border-color: #dc3545;

@@ -18,6 +18,10 @@ export class ProductsService {
   GetAll(): Observable<HttpResponseModel>{
     return this.htpp.get<HttpResponseModel>(this.ServiceEndpoint+'GetAll');
   }
+  // Metodo para obtener los productos principales
+  GetMain(): Observable<HttpResponseModel>{
+    return this.htpp.get<HttpResponseModel>(this.ServiceEndpoint+'GetMain');
+  }
 
   // Metodo para obtener un Producto por id
   GetById(id: number): Observable<HttpResponseModel>{

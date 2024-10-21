@@ -38,14 +38,14 @@ export class AddEditProductsComponent {
       code: ['', [Validators.required, Validators.maxLength(20)]],
       buyprice: [null, Validators.required],
       sellprice: [null, Validators.required],
-      margin: [null, Validators.required],
       issubtype: [false]
     });
 
     this.formSubproduct = this.fb.group({
       nameSubproduct: ['', [Validators.required, Validators.maxLength(20)]],
       sellpriceSubproduct: [null, Validators.required],
-    })
+    });
+
     // Obtener el id de la URL - inyecta la dependencia ActiveRoute y luego lo llama con snapshot.paramMap
     this.id = Number(aRoute.snapshot.paramMap.get('id')); // Se parsea para que no salga error Number( lo que se quire cambiar)
   }
@@ -66,25 +66,22 @@ export class AddEditProductsComponent {
   }
 
   GetById(id: number): void {
+
     this.productService.GetById(id).subscribe(result =>{
       console.log("result GetProduct: ", result);
       if (result.wasSuccessful == true) {
         //setiar o llenar el formulario con setValue para todos los valores o parchValue para algunos
+
         this.formProduct.setValue({
           shortname: result.data.shortname,
           name: result.data.name,
           description: result.data.description,
           code: result.data.code,
-          buyprice: result.data.buyprice,
-          sellprice: result.data.sellprice,
-          margin: result.data.margin,
           issubtype: result.data.issubtype,
-          nameSubproduct: result.data.name,
-          sellpriceSubproduct: result.data.sellprice,
-          marginSubproduct: result.data.margin
+          buyprice: 100,
+          sellprice: 200.
+
         });
-        console.log('info formProduct: ', this.formProduct.value.name);
-        console.log('info formProduct: ', this.formProduct.value.name);
       } else {
         console.log("informacion incorrecta");
       }
@@ -104,7 +101,7 @@ export class AddEditProductsComponent {
    console.log(" info product AddUpdte", product);
 
    product.productid = this.id;
-   this.loading = true;
+  //  this.loading = true;
 
    if(this.id != 0){
     // es editar
@@ -125,34 +122,31 @@ export class AddEditProductsComponent {
     // Es agregar
     this.productService.Create(product).subscribe(result => {
       console.log("result CreateProducts: ", result);
-      debugger;
       if (result.wasSuccessful == true) {
         console.log("informacion de product en agregar: ", product);
         this.toastr.success(`El producto ${product.name} fue creado Exitosamente`, `Producto Creado`);
-        this.loading = false;
         this.router.navigate(['/admin/products'])
       } else {
-        this.toastr.error(`El producto ${product.name}`,`Error.`);
-        this.loading = false;
-        this.router.navigate(['/admin/products'])
+        this.toastr.error(result.statusMessage,`Error.`);
+        // this.router.navigate(['/admin/products'])
       }
+      this.loading = false;
     });
    }
   }
   AddSubproduct(){
     const subproduct =
       {
-        shortname: this.formProduct.value.shortname + " " + this.formSubproduct.value.nameSubproduct,
+        shortname: this.formProduct.value.shortname + " - " + this.formSubproduct.value.nameSubproduct,
         name: this.formProduct.value.name + " " + this.formSubproduct.value.nameSubproduct,
         description: this.formProduct.value.description + " " + this.formSubproduct.value.nameSubproduct,
-        code: this.formProduct.value.code,
-        issubtype: false,
+        code: this.formProduct.value.code + (this.listSubproduct.length+1),
+        issubtype: true,
       }
       console.log("subproducto: ", subproduct);
       this.listSubproduct.push(subproduct);
       console.log("lista de subp: ", this.listSubproduct);
-      this.formSubproduct.value.shorname = "";
-      this.formSubproduct.value.sellprice = "";
+      this.formSubproduct.reset();
   }
 
   DeleteSubproduct(index: number){

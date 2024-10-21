@@ -177,20 +177,19 @@
           <h3 class="mb-2 text-center">Sub-Producto</h3>
         </div>
         <div class="row-cols-1 mt-2 w-75">
-          <form
-            [formGroup]="formSubproduct"
-          >
+          <form [formGroup]="formSubproduct">
             <div class="row d-flex align-items-end">
               <div class="col-5">
                 <label class="control-label" for="Name"
                   >Nombre del SubProducto</label
                 >
-                <input
-                  formControlName="nameSubproduct"
+                <div class="input-group  mt-2">
+                  <span class="input-group-text" id="basic-addon1">{{formProduct.get('shortname')?.value}} - </span>
+                  <input formControlName="nameSubproduct"
                   id="InputNamesSubProduct"
-                  class="form-control mt-2"
-                  placeholder="Nombre del SubProducto: "
-                />
+                  class="form-control"
+                  placeholder="Nombre del SubProducto: ">
+                </div>
                 <div>
                   <span
                     class="form-text m-2"
@@ -214,7 +213,7 @@
                   class="form-control mt-2"
                   placeholder="Ingrese Precio de Venta: "
                 />
-                <div mb-3>
+                <div>
                   <span
                     class="form-text m-2"
                     *ngIf="
@@ -228,12 +227,11 @@
               </div>
               <div class="col-2">
                 <button
-                  [disabled]="formSubproduct.invalid"
-                  type="button"
+                [disabled]="formSubproduct.invalid"
+                type="button"
                   (click)="AddSubproduct()"
-                  class="material-icons addSubproducts"
-                >
-                  add
+                  class="material-icons btn btn-success">
+                  Agregar
                 </button>
               </div>
             </div>
@@ -255,8 +253,10 @@
                 <td>
                   <button
                     (click)="DeleteSubproduct(i)"
-                    class="material-icon buttonDeleteSubproduct"
-                  >delete</button>
+                    class="material-icons deleteIconShipment"
+                  >
+                    delete
+                  </button>
                 </td>
               </tr>
             </tbody>
@@ -265,7 +265,7 @@
       </div>
       <div class="row-col-1 mt-2 offset-4">
         <button
-
+        [disabled]="formProduct.invalid"
           type="button"
           (click)="AddandUpdate()"
           class="btn btn-success w-25"

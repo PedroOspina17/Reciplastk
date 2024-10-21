@@ -33,15 +33,6 @@ public partial class Product
     [StringLength(10)]
     public string Code { get; set; }
 
-    [Column("buyprice")]
-    public decimal Buyprice { get; set; }
-
-    [Column("sellprice")]
-    public decimal Sellprice { get; set; }
-
-    [Column("margin")]
-    public decimal Margin { get; set; }
-
     [Column("issubtype")]
     public bool Issubtype { get; set; }
 
@@ -56,6 +47,13 @@ public partial class Product
 
     [Column("parentid")]
     public int? Parentid { get; set; }
+
+    [InverseProperty("Parent")]
+    public virtual ICollection<Product> InverseParent { get; set; } = new List<Product>();
+
+    [ForeignKey("Parentid")]
+    [InverseProperty("InverseParent")]
+    public virtual Product Parent { get; set; }
 
     [InverseProperty("Product")]
     public virtual ICollection<Shipmentdetail> Shipmentdetails { get; set; } = new List<Shipmentdetail>();

@@ -25,6 +25,13 @@ namespace Reciplastk.Gateway.Controllers
             return productsService.GetAll();
         }
 
+        [HttpGet("GetMain")]
+
+        public HttpResponseModel GetMain()
+        {
+            return productsService.GetMain();
+        }
+
         [HttpGet("GetById")]
 
         public HttpResponseModel GetById(int id)

@@ -69,6 +69,8 @@ public partial class ReciplastkContext : DbContext
             entity.Property(e => e.Isactive).HasDefaultValue(true);
             entity.Property(e => e.Issubtype).HasDefaultValue(false);
             entity.Property(e => e.Updatedate).HasDefaultValueSql("now()");
+
+            entity.HasOne(d => d.Parent).WithMany(p => p.InverseParent).HasConstraintName("products_parentid_fkey");
         });
 
         modelBuilder.Entity<Rol>(entity =>
