@@ -8,7 +8,7 @@
         public string Description { get; set; }
         public string Code { get; set; }
         public bool Issubtype { get; set; }
-        public List<ProductsViewModel> SubtypeProductList {  get; set; }
-        
+        public List<ProductsViewModel> SubtypeProductList { get; set; } = new List<ProductsViewModel>();
+
     }
 }

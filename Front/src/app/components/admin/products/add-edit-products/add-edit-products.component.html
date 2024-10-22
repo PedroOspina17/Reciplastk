@@ -8,61 +8,39 @@
       <div class="row">
         <div class="col-4 mb-2">
           <label class="control-label" for="shortName">Nombre Corto</label>
-          <input
-            formControlName="shortname"
-            id="InputShortNameProduct"
-            class="form-control mt-2"
-            placeholder="Nombre Corto: "
-          />
+          <input formControlName="shortname" id="InputShortNameProduct" class="form-control mt-2"
+            placeholder="Nombre Corto: " />
           <div>
-            <span
-              class="form-text m-2"
-              *ngIf="
+            <span class="form-text m-2" *ngIf="
                 formProduct.get('shortname')?.hasError('required') &&
                 formProduct.get('shortname')?.touched
-              "
-            >
+              ">
               El nombre corto es <strong>requerido</strong>
             </span>
           </div>
         </div>
         <div class="col-5">
           <label class="control-label" for="Name">Nombre</label>
-          <input
-            formControlName="name"
-            id="InputNameProduct"
-            class="form-control mt-2"
-            placeholder="Nombre del Producto: "
-          />
+          <input formControlName="name" id="InputNameProduct" class="form-control mt-2"
+            placeholder="Nombre del Producto: " />
           <div>
-            <span
-              class="form-text m-2"
-              *ngIf="
+            <span class="form-text m-2" *ngIf="
                 formProduct.get('name')?.hasError('required') &&
                 formProduct.get('name')?.touched
-              "
-            >
+              ">
               El nombre es <strong>requerido</strong>
             </span>
           </div>
         </div>
         <div class="col-3">
           <label class="control-label" for="control-label">Código</label>
-          <input
-            id="inputCodeProduct"
-            formControlName="code"
-            type="text"
-            class="form-control mt-2"
-            placeholder="Ingrese Codigo: "
-          />
+          <input id="inputCodeProduct" formControlName="code" type="text" class="form-control mt-2"
+            placeholder="Ingrese Codigo: " />
           <div>
-            <span
-              class="form-text m-2"
-              *ngIf="
+            <span class="form-text m-2" *ngIf="
                 formProduct.get('code')?.hasError('required') &&
                 formProduct.get('code')?.touched
-              "
-            >
+              ">
               El campo Código es <strong>requerido</strong>
             </span>
           </div>
@@ -70,23 +48,14 @@
       </div>
       <div class="row">
         <div class="col-12 mb-2">
-          <label class="control-label" for="inputDescriptionProductlabel"
-            >Descripcion del Producto</label
-          >
-          <textarea
-            formControlName="description"
-            id="descriptionProduct"
-            class="form-control mt-2"
-            placeholder="Ingrese la Descripción del Producto: "
-          ></textarea>
+          <label class="control-label" for="inputDescriptionProductlabel">Descripcion del Producto</label>
+          <textarea formControlName="description" id="descriptionProduct" class="form-control mt-2"
+            placeholder="Ingrese la Descripción del Producto: "></textarea>
           <div>
-            <span
-              class="form-text m-2"
-              *ngIf="
+            <span class="form-text m-2" *ngIf="
                 formProduct.get('description')?.hasError('required') &&
                 formProduct.get('description')?.touched
-              "
-            >
+              ">
               La Descripción es <strong>requerida</strong>
             </span>
           </div>
@@ -94,85 +63,47 @@
       </div>
       <div class="row">
         <div class="col-5 mb-2">
-          <label class="control-label" for="inputBuyPriceProduct"
-            >Precio de Compra</label
-          >
-          <input
-            id="inputBuyPriceProduct"
-            formControlName="buyprice"
-            type="number"
-            class="form-control mt-2"
-            placeholder="Ingrese Precio de Compra: "
-          />
+          <label class="control-label" for="inputBuyPriceProduct">Precio de Compra</label>
+          <input id="inputBuyPriceProduct" formControlName="buyprice" type="number" class="form-control mt-2"
+            placeholder="Ingrese Precio de Compra: " />
           <div>
-            <span
-              class="form-text m-2"
-              *ngIf="
+            <span class="form-text m-2" *ngIf="
                 formProduct.get('buyprice')?.hasError('required') &&
                 formProduct.get('buyprice')?.touched
-              "
-            >
+              ">
               El campo Precio de Compra es <strong>requerido</strong>
             </span>
           </div>
         </div>
         <div class="col-5">
-          <label class="control-label" for="inputSellPrice"
-            >Precio de Venta</label
-          >
-          <input
-            id="inputSellPrice"
-            formControlName="sellprice"
-            type="number"
-            class="form-control mt-2"
-            placeholder="Ingrese Precio de Venta: "
-          />
+          <label class="control-label" for="inputSellPrice">Precio de Venta</label>
+          <input id="inputSellPrice" formControlName="sellprice" type="number" class="form-control mt-2"
+            placeholder="Ingrese Precio de Venta: " />
           <div>
-            <span
-              class="form-text m-2"
-              *ngIf="
+            <span class="form-text m-2" *ngIf="
                 formProduct.get('sellprice')?.hasError('required') &&
                 formProduct.get('sellprice')?.touched
-              "
-            >
+              ">
               El campo Precio de venta es <strong>requerido</strong>
             </span>
           </div>
         </div>
         <div class="col-2 mb-2">
-          <label class="control-label mb-4" for="inputIsSubtypeProduct"
-            >¿Es subtipo?</label
-          >
+          <label class="control-label mb-4" for="inputIsSubtypeProduct">¿Es subtipo?</label>
           <div class="mb-2">
-            <input
-              class="form-check-input me-2"
-              type="radio"
-              id="isSubtypeFalse"
-              [value]="false"
-              name="issubtype"
-              formControlName="issubtype"
-            />
+            <input class="form-check-input me-2" type="radio" id="isSubtypeFalse" [value]="false" name="issubtype"
+              formControlName="issubtype" />
             <label class="form-check-label me-4" for="isSubtypeTrue">
               No
             </label>
-            <input
-              class="form-check-input me-2"
-              type="radio"
-              id="isSubtypeTrue"
-              [value]="true"
-              name="issubtype"
-              formControlName="issubtype"
-            />
+            <input class="form-check-input me-2" type="radio" id="isSubtypeTrue" [value]="true" name="issubtype"
+              formControlName="issubtype" />
             <label class="form-check-label" for="isSubtypeTrue"> Si </label>
           </div>
           <h2 *ngIf="formProduct.get('name')?.value == 'pedro'">pedro</h2>
         </div>
       </div>
-      <div
-        class="row-cols-1"
-        id="subtipos"
-        *ngIf="formProduct.get('issubtype')?.value"
-      >
+      <div class="row-cols-1" id="subtipos" *ngIf="formProduct.get('issubtype')?.value">
         <div class="row-cols-1 mb-4">
           <h3 class="mb-2 text-center">Sub-Producto</h3>
         </div>
@@ -180,56 +111,36 @@
           <form [formGroup]="formSubproduct">
             <div class="row d-flex align-items-end">
               <div class="col-5">
-                <label class="control-label" for="Name"
-                  >Nombre del SubProducto</label
-                >
+                <label class="control-label" for="Name">Nombre del SubProducto</label>
                 <div class="input-group  mt-2">
                   <span class="input-group-text" id="basic-addon1">{{formProduct.get('shortname')?.value}} - </span>
-                  <input formControlName="nameSubproduct"
-                  id="InputNamesSubProduct"
-                  class="form-control"
-                  placeholder="Nombre del SubProducto: ">
+                  <input formControlName="nameSubproduct" id="InputNamesSubProduct" class="form-control"
+                    placeholder="Nombre del SubProducto: ">
                 </div>
                 <div>
-                  <span
-                    class="form-text m-2"
-                    *ngIf="
+                  <span class="form-text m-2" *ngIf="
                       formProduct.get('nameSubproduct')?.hasError('required') &&
                       formProduct.get('nameSubproduct')?.touched
-                    "
-                  >
+                    ">
                     El nombre del subproducto es <strong>requerido</strong>
                   </span>
                 </div>
               </div>
               <div class="col-5">
-                <label class="control-label" for="inputSellPrice"
-                  >Precio de Venta</label
-                >
-                <input
-                  id="inputSellPriceSubproduct"
-                  formControlName="sellpriceSubproduct"
-                  type="number"
-                  class="form-control mt-2"
-                  placeholder="Ingrese Precio de Venta: "
-                />
+                <label class="control-label" for="inputSellPrice">Precio de Venta</label>
+                <input id="inputSellPriceSubproduct" formControlName="sellpriceSubproduct" type="number"
+                  class="form-control mt-2" placeholder="Ingrese Precio de Venta: " />
                 <div>
-                  <span
-                    class="form-text m-2"
-                    *ngIf="
+                  <span class="form-text m-2" *ngIf="
                       formProduct.get('sellprice')?.hasError('required') &&
                       formProduct.get('sellprice')?.touched
-                    "
-                  >
+                    ">
                     El campo Precio de venta es <strong>requerido</strong>
                   </span>
                 </div>
               </div>
               <div class="col-2">
-                <button
-                [disabled]="formSubproduct.invalid"
-                type="button"
-                  (click)="AddSubproduct()"
+                <button [disabled]="formSubproduct.invalid" type="button" (click)="AddSubproduct()"
                   class="material-icons btn btn-success">
                   Agregar
                 </button>
@@ -251,10 +162,7 @@
                 <td>{{ subproduct.shortname }}</td>
                 <td>1600</td>
                 <td>
-                  <button
-                    (click)="DeleteSubproduct(i)"
-                    class="material-icons deleteIconShipment"
-                  >
+                  <button (click)="DeleteSubproduct(i)" class="material-icons deleteIconShipment">
                     delete
                   </button>
                 </td>
@@ -264,19 +172,10 @@
         </div>
       </div>
       <div class="row-col-1 mt-2 offset-4">
-        <button
-        [disabled]="formProduct.invalid"
-          type="button"
-          (click)="AddandUpdate()"
-          class="btn btn-success w-25"
-        >
+        <button [disabled]="formProduct.invalid" type="button" (click)="AddandUpdate()" class="btn btn-success w-25">
           Guardar
         </button>
-        <button
-          type="button"
-          class="btn btn-secondary w-25 m-4"
-          routerLink="/admin/products"
-        >
+        <button type="button" class="btn btn-secondary w-25 m-4" routerLink="/admin/products">
           Volver
         </button>
       </div>

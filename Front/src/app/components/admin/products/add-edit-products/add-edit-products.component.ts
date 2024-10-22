@@ -33,9 +33,9 @@ export class AddEditProductsComponent {
   ){
     this.formProduct = this.fb.group({
       shortname: ['', [Validators.required, Validators.maxLength(20)]],
-      name: ['', [Validators.required, Validators.maxLength(20)]],
-      description: ['', [Validators.required, Validators.maxLength(20)]],
-      code: ['', [Validators.required, Validators.maxLength(20)]],
+      name: ['', [Validators.required, Validators.maxLength(50)]],
+      description: ['', [Validators.required, Validators.maxLength(150)]],
+      code: ['', [Validators.required, Validators.maxLength(10)]],
       buyprice: [null, Validators.required],
       sellprice: [null, Validators.required],
       issubtype: [false]
@@ -79,7 +79,7 @@ export class AddEditProductsComponent {
           code: result.data.code,
           issubtype: result.data.issubtype,
           buyprice: 100,
-          sellprice: 200.
+          sellprice: 200
 
         });
       } else {

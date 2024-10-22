@@ -16,26 +16,17 @@ public partial class Weightcontrol
     [Column("employeeid")]
     public int Employeeid { get; set; }
 
-    [Column("productid")]
-    public int Productid { get; set; }
+    [Column("weightcontroltypeid")]
+    public int Weightcontroltypeid { get; set; }
 
-    [Column("alternateid")]
-    public int? Alternateid { get; set; }
+    [Column("ispaid")]
+    public bool Ispaid { get; set; }
 
     [Column("datestart", TypeName = "timestamp without time zone")]
     public DateTime Datestart { get; set; }
 
     [Column("dateend", TypeName = "timestamp without time zone")]
     public DateTime Dateend { get; set; }
-
-    [Column("weight")]
-    public decimal Weight { get; set; }
-
-    [Column("totalpack")]
-    public int Totalpack { get; set; }
-
-    [Column("ispaid")]
-    public bool Ispaid { get; set; }
 
     [Column("creationdate", TypeName = "timestamp without time zone")]
     public DateTime Creationdate { get; set; }
@@ -50,10 +41,13 @@ public partial class Weightcontrol
     [InverseProperty("Weightcontrols")]
     public virtual Employee Employee { get; set; }
 
-    [ForeignKey("Productid")]
-    [InverseProperty("Weightcontrols")]
-    public virtual Product Product { get; set; }
+    [InverseProperty("Weightcontrol")]
+    public virtual ICollection<Remaining> Remainings { get; set; } = new List<Remaining>();
 
     [InverseProperty("Weightcontrol")]
     public virtual ICollection<Weightcontroldetail> Weightcontroldetails { get; set; } = new List<Weightcontroldetail>();
+
+    [ForeignKey("Weightcontroltypeid")]
+    [InverseProperty("Weightcontrols")]
+    public virtual Weightcontroltype Weightcontroltype { get; set; }
 }
