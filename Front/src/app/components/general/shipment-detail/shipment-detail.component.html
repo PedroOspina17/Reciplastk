@@ -6,9 +6,6 @@
         <div>
             <div class="mb-3 d-flex pt-3">
                 <label for="provider" class="pt-1">{{personname}}</label>
-                <!-- <button (click)="EditButton()" type="button" class="btn btn-light btn-sm">
-                    Editar
-                </button> -->
             </div>
 
             <form [formGroup]="formShipment">
@@ -18,7 +15,7 @@
                         <select formControlName="productid" class="form-select" id="productid">
                             <option value="-1">Productos {{type=='1'?'generales':'especificos'}}</option>
                             <option *ngFor="let i of type == '1' ? GeneralProductsList:SpecificProductsList "
-                                value="{{i.id}}">
+                                value="{{i.productid}}">
                                 {{i.name}}</option>
                         </select>
                     </div>
