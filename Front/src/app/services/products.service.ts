@@ -10,40 +10,47 @@ import { AppConfig } from '../common/app-config';
 })
 export class ProductsService {
 
-  constructor(private htpp: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   ServiceEndpoint: string = `${AppConfig.API_URL}/api/Products/`;
 
-  // Metodo para obtener todos los productos
   GetAll(): Observable<HttpResponseModel>{
-    return this.htpp.get<HttpResponseModel>(this.ServiceEndpoint+'GetAll');
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'GetAll');
   }
-  // Metodo para obtener los productos principales
   GetMain(): Observable<HttpResponseModel>{
-    return this.htpp.get<HttpResponseModel>(this.ServiceEndpoint+'GetMain');
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'GetMain');
   }
 
-  // Metodo para obtener un Producto por id
   GetById(id: number): Observable<HttpResponseModel>{
-    return this.htpp.get<HttpResponseModel>(this.ServiceEndpoint+'GetById?id='+id)
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'GetById?id='+id)
   }
-  // Metodo para obtener un Producto por parentid
   GetByParentId(id: number): Observable<HttpResponseModel>{
-    return this.htpp.get<HttpResponseModel>(this.ServiceEndpoint+'GetParentId?id='+id)
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'GetParentId?id='+id)
   }
 
-  // Metodo para Crear un Producto
   Create(productModel: ProductModel): Observable<HttpResponseModel>{
-    return this.htpp.post<HttpResponseModel>(this.ServiceEndpoint+"Create", productModel)
+    return this.http.post<HttpResponseModel>(this.ServiceEndpoint+"Create", productModel)
   }
 
-  // Metodo para modificar un Producto
   Update (productid: number, productModel: ProductModel): Observable<HttpResponseModel>{
-    return this.htpp.put<HttpResponseModel>(this.ServiceEndpoint+'Update', productModel)
+    return this.http.put<HttpResponseModel>(this.ServiceEndpoint+'Update', productModel)
   }
 
-  // Metodo para Eliminar un Producto
   Delete(id: number): Observable<HttpResponseModel>{
-    return this.htpp.delete<HttpResponseModel>(this.ServiceEndpoint+'Delete?id='+id )
+    return this.http.delete<HttpResponseModel>(this.ServiceEndpoint+'Delete?id='+id )
+  }
+
+  GetGeneralProducts():Observable<HttpResponseModel>{
+    return this.http.get<HttpResponseModel>('http://localhost:8765/GeneralProduct')
+  }
+  GetByIdGeneralProducts(id: number):Observable<HttpResponseModel>{
+    return this.http.get<HttpResponseModel>('http://localhost:8765/GeneralProduct')
+  }
+
+  GetSpecificProducts():Observable<HttpResponseModel>{
+    return this.http.get<HttpResponseModel>('http://localhost:8765/SpecificProduct')
+  }
+  GetByIdSpecificProducts(id: number):Observable<HttpResponseModel>{
+    return this.http.get<HttpResponseModel>('http://localhost:8765/SpecificProduct')
   }
 }

@@ -6,6 +6,11 @@
         {
             services.AddScoped<IMySimpleService, MySimpleService>();
             services.AddScoped<SecurityService>();
+            services.AddScoped<ShipmentService>();
+            services.AddScoped<ShipmentTypeService>();
+            services.AddScoped<CustomerService>();
+            services.AddScoped<WeightControlTypeService>();
+            services.AddScoped<WeightControlService>();
             services.AddScoped<ProductsService>();
             return services;
         }

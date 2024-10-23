@@ -15,6 +15,4 @@ export const appConfig: ApplicationConfig = {
     HttpClientModule,
     provideHttpClient()
   ]
-
-
 };

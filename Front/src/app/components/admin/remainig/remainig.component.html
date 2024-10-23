@@ -1,0 +1,22 @@
+<div class="container w-50">
+    <div class="row mt-3 text-center">
+        <div class="text-end mb-3" >
+            <label for="Check">Ver todo:</label>
+            <input (change)="onCheckChange($event)" class="ms-3" type="checkbox" name="Check" id="Check">
+        </div>
+        <table class="border table table-condensed table-striped">
+            <thead>
+                <tr>
+                    <th class="col-2">Producto</th>
+                    <th class="col-2">Peso</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let i of remaining">
+                    <td class="col-2">{{i.productName}}</td>
+                    <td class="col-2">{{i.weight}}</td>                   
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
