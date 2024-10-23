@@ -18,9 +18,11 @@ export class ProductsService {
     return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'GetAll');
   }
   GetMain(): Observable<HttpResponseModel>{
-    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'GetMain');
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'GetMainProducts');
   }
-
+  GetSpecificProducts(): Observable<HttpResponseModel>{
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'GetSpecificProducts');
+  }
   GetById(id: number): Observable<HttpResponseModel>{
     return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'GetById?id='+id)
   }
@@ -40,17 +42,4 @@ export class ProductsService {
     return this.http.delete<HttpResponseModel>(this.ServiceEndpoint+'Delete?id='+id )
   }
 
-  GetGeneralProducts():Observable<HttpResponseModel>{
-    return this.http.get<HttpResponseModel>('http://localhost:8765/GeneralProduct')
-  }
-  GetByIdGeneralProducts(id: number):Observable<HttpResponseModel>{
-    return this.http.get<HttpResponseModel>('http://localhost:8765/GeneralProduct')
-  }
-
-  GetSpecificProducts():Observable<HttpResponseModel>{
-    return this.http.get<HttpResponseModel>('http://localhost:8765/SpecificProduct')
-  }
-  GetByIdSpecificProducts(id: number):Observable<HttpResponseModel>{
-    return this.http.get<HttpResponseModel>('http://localhost:8765/SpecificProduct')
-  }
 }

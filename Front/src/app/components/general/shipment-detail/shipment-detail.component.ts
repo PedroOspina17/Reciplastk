@@ -13,9 +13,9 @@ import { CommonModule } from '@angular/common';
 import { ProviderCustomerSelectionComponent } from '../provider-customer-selection/provider-customer-selection.component';
 import { ShipmentService } from '../../../services/shipment.service';
 import { ShipmentDetailModel } from '../../../models/ShipmentDetailModel';
-import { ProductsModel } from '../../../models/ProductsModel';
 import { ShipmentModel } from '../../../models/ShipmentModel';
 import { ProductsService } from '../../../services/products.service';
+import { ProductModel } from '../../../models/ProductModel';
 
 @Component({
   selector: 'app-shipment-detail',
@@ -39,8 +39,8 @@ export class ShipmentDetailComponent {
   shipmentDetailList: ShipmentDetailModel[] = [];
   formShipment: FormGroup;
   loader: boolean = false;
-  GeneralProductsList: ProductsModel[] = [];
-  SpecificProductsList: ProductsModel[] = [];
+  GeneralProductsList: ProductModel[] = [];
+  SpecificProductsList: ProductModel[] = [];
   shipmenttypeid: number = -1;
   constructor(
     private fb: FormBuilder,
@@ -79,9 +79,9 @@ export class ShipmentDetailComponent {
   }
   getProductName(id: number): string {
     if (this.type == '1') {
-      return this.GeneralProductsList.find((p) => p.id == id)?.name ?? '';
+      return this.GeneralProductsList.find((p) => p.productid == id)?.name ?? '';
     } else {
-      return this.SpecificProductsList.find((p) => p.id == id)?.name ?? '';
+      return this.SpecificProductsList.find((p) => p.productid == id)?.name ?? '';
     }
   }
   ngOnInit(): void {
@@ -90,7 +90,7 @@ export class ShipmentDetailComponent {
   ShowProducts() {
     this.loader = true;
     if (this.type == '1') {
-      this.productsService.GetGeneralProducts().subscribe((GeneralResult) => {
+      this.productsService.GetMain().subscribe((GeneralResult) => {
         if (GeneralResult.wasSuccessful == true) {
           this.GeneralProductsList = GeneralResult.data;
         } else {

@@ -13,10 +13,10 @@ import { WeightControlComponent } from '../weight-control/weight-control.compone
 import { CommonModule } from '@angular/common';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { ProductsService } from '../../../services/products.service';
-import { ProductsModel } from '../../../models/ProductsModel';
 import { WeightControlModel } from '../../../models/WeightControlModel';
 import { WeightControlDetailModel } from '../../../models/WeightControlDetailModel';
 import { WeightControlService } from '../../../services/weight-control-service';
+import { ProductModel } from '../../../models/ProductModel';
 
 @Component({
   selector: 'app-weight-control-detail',
@@ -54,8 +54,8 @@ export class WeightControlDetailComponent {
   @Output() onComplete = new EventEmitter();
   weightcontroldetaillist: WeightControlDetailModel[] = [];
   weightDetailForm: FormGroup;
-  specificProducts: ProductsModel[] = [];
-  filterProducts: ProductsModel[] = [];
+  specificProducts: ProductModel[] = [];
+  filterProducts: ProductModel[] = [];
   ngOnInit(): void {
     this.GetSpecificProducts();
   }
@@ -64,7 +64,7 @@ export class WeightControlDetailComponent {
       if (r.wasSuccessful == true) {
         this.specificProducts = r.data;
         this.filterProducts = this.specificProducts.filter(
-          (p) => p.pid == this.productid
+          (p) => p.parentid == this.productid
         );
       } else {
         this.toastr.info('No se encontraron los productos especificos');
@@ -76,7 +76,7 @@ export class WeightControlDetailComponent {
       productid: this.weightDetailForm.value.productid,
       name:
         this.specificProducts.find(
-          (p) => p.id == this.weightDetailForm.value.productid
+          (p) => p.productid == this.weightDetailForm.value.productid
         )?.name ?? '',
       weight: this.weightDetailForm.value.weight,
     };

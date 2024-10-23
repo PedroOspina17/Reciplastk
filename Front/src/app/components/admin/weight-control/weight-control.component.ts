@@ -13,10 +13,10 @@ import { Router, RouterLink } from '@angular/router';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { ToastrService } from 'ngx-toastr';
 import { WeightControlService } from '../../../services/weight-control-service';
-import { ProductsModel } from '../../../models/ProductsModel';
 import { ProductsService } from '../../../services/products.service';
 import { WeightControlDetailComponent } from '../weight-control-detail/weight-control-detail.component';
 import Swal from 'sweetalert2';
+import { ProductModel } from '../../../models/ProductModel';
 
 @Component({
   selector: 'app-weight-control',
@@ -44,7 +44,7 @@ export class WeightControlComponent {
   ) {}
   disable: boolean = true;
   employeeList: any[] = [];
-  generalProductList: ProductsModel[] = [];
+  generalProductList: ProductModel[] = [];
   employeeid: number = -1;
   employeename: string = '';
   productid: number = -1;
@@ -65,7 +65,7 @@ export class WeightControlComponent {
     });
   }
   GetGeneralProducts() {
-    this.productsService.GetGeneralProducts().subscribe((r) => {
+    this.productsService.GetMain().subscribe((r) => {
       if (r.wasSuccessful == true) {
         this.generalProductList = r.data;
       } else {

@@ -15,59 +15,6 @@
       {"id": 35, "name": "David" }
     ]
   },
-  "GeneralProduct": {
-    "statusCode": 200,
-    "wasSuccessful": true,
-    "statusMessage": "Exito",
-    "data": [
-      {"id":3, "name": "PPBaja" },
-      {"id":4, "name": "PPAlta" },
-      {"id":5, "name": "Pasta" },
-      {"id":6, "name": "Plastico" },
-      {"id":7, "name": "PET" },
-      {"id":8, "name": "Carton" },
-      {"id":9, "name": "Vidrio" },
-      {"id":10, "name": "PET"}
-    ]
-  },
-  "SpecificProduct": {
-    "statusCode": 200,
-    "wasSuccessful": true,
-    "statusMessage": "Exito",
-    "data": [
-      {"pid":3,"id":6 , "name": "PPBaja-negro" },
-      {"pid":3,"id":6 , "name": "PPBaja-rojo" },
-      {"pid":3,"id":6 , "name": "PPBaja-amarillo" },
-      {"pid":3,"id":6 , "name": "PPBaja-verde" },
-      {"pid":3,"id":6 , "name": "PPBaja-azul" },
-      {"pid":3,"id":6 , "name": "PPBaja-morado" },
-      {"pid":3,"id":6 , "name": "PPBaja-blanco" },
-
-      {"pid":4,"id":7, "name": "PPAlta-negro" },
-      {"pid":4,"id":7, "name": "PPAlta-rojo" },
-      {"pid":4,"id":7, "name": "PPAlta-amarillo" },
-      {"pid":4,"id":7, "name": "PPAlta-verde" },
-      {"pid":4,"id":7, "name": "PPAlta-azul" },
-      {"pid":4,"id":7, "name": "PPAlta-morado" },
-      {"pid":4,"id":7, "name": "PPAlta-blanco" },
-      
-      {"pid":5,"id":4, "name": "Pasta-negro" },
-      {"pid":5,"id":4, "name": "Pasta-rojo" },
-      {"pid":5,"id":4, "name": "Pasta-amarillo" },
-      {"pid":5,"id":4, "name": "Pasta-verde" },
-      {"pid":5,"id":4, "name": "Pasta-azul" },
-      {"pid":5,"id":4, "name": "Pasta-morado" },
-      {"pid":5,"id":4, "name": "Pasta-blanco" },
-    
-      {"pid":6,"id":3, "name": "Plastico-negro" },
-      {"pid":6,"id":3, "name": "Plastico-rojo" },
-      {"pid":6,"id":3, "name": "Plastico-amarillo" },
-      {"pid":6,"id":3, "name": "Plastico-verde" },
-      {"pid":6,"id":3, "name": "Plastico-azul" },
-      {"pid":6,"id":3, "name": "Plastico-morado" },
-      {"pid":6,"id":3, "name": "Plastico-blanco" }
-    ]
-  },
   "ShipmentType": {
     "statusCode": 200,
     "wasSuccessful": true,

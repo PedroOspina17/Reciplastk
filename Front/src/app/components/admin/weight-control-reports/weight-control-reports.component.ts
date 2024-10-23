@@ -12,10 +12,10 @@ import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { WeightControlService } from '../../../services/weight-control-service';
-import { ProductsModel } from '../../../models/ProductsModel';
 import { ProductsService } from '../../../services/products.service';
 import { WeightCotrolTypeService } from '../../../services/weight-cotrol-type.service';
 import { WeightControlReport } from '../../../models/WeightControlReport';
+import { ProductModel } from '../../../models/ProductModel';
 
 @Component({
   selector: 'app-weight-control-reports',
@@ -53,7 +53,7 @@ export class WeightControlReportsComponent {
   TypeValue: string = '';
   ShowTable: boolean = false;
   weightControlReport: WeightControlReport[] = [];
-  ProductList: ProductsModel[] = [];
+  ProductList: ProductModel[] = [];
   WeightControlTypeList: any[] = [];
   EmployeeList: any[] = [];
   typeList: any[] = [];
