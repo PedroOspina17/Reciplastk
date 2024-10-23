@@ -30,7 +30,7 @@ export class AddEditProductsComponent {
   formProduct: FormGroup;
   formSubproduct: FormGroup;
   id: number;
-  operacion: string = '';
+  operation: string = '';
   loading: boolean = false;
   listSubproduct: ProductModel[] = [];
 
@@ -60,12 +60,12 @@ export class AddEditProductsComponent {
 
   ngOnInit() {
     if (this.id != 0) {
-      this.operacion = 'Editar';
+      this.operation = 'Editar';
       this.GetById(this.id);
       this.loading = false;
     } else {
       console.log('info id ngOnInit: ', this.id);
-      this.operacion = 'Agregar';
+      this.operation = 'Agregar';
       this.loading = false;
     }
   }

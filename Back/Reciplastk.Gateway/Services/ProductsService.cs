@@ -133,7 +133,7 @@ namespace Reciplastk.Gateway.Services
                 parentProduct.Name = ProductsModel.Name;
                 parentProduct.Description = ProductsModel.Description;
                 parentProduct.Code = ProductsModel.Code;
-                parentProduct.Issubtype = false;
+                parentProduct.Issubtype = ProductsModel.Issubtype;
                 parentProduct.Isactive = true;
         
                 db.Products.Add(parentProduct);

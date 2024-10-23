@@ -1,7 +1,7 @@
 <app-progress-bar *ngIf="loading"></app-progress-bar>
 <div *ngIf="!loading" class="">
   <div class="row-cols-1">
-    <h3 class="mb-4 mt-4 text-center">{{ operacion }} Producto</h3>
+    <h3 class="mb-4 mt-4 text-center">{{ operation }} Producto</h3>
   </div>
   <div class="row-cols-1 w-75 mx-auto">
     <form [formGroup]="formProduct">
@@ -31,8 +31,8 @@
           </div>
         </div>
         <div class="col-3">
-          <label class="control-label" for="control-label">Código</label>
-          <input id="control-label" formControlName="code" type="text" class="form-control mt-2"
+          <label class="control-label" for="code">Código</label>
+          <input id="code" formControlName="code" type="text" class="form-control mt-2"
             placeholder="Ingrese Codigo: " />
           <div>
             <span class="form-text m-2" *ngIf="
@@ -90,15 +90,14 @@
           <label class="control-label mb-4" for="inputIsSubtypeProduct">¿Es subtipo?</label>
           <div class="mb-2">
             <input class="form-check-input me-2" type="radio" id="isSubtypeFalse" [value]="false"
-              name="inputIsSubtypeProduct" formControlName="issubtype" />
+              name="issubtype" formControlName="issubtype" />
             <label class="form-check-label me-4" for="isSubtypeFalse">
               No
             </label>
-            <input class="form-check-input me-2" type="radio" id="isSubtypeTrue" [value]="true" name="inputIsSubtypeProduct"
+            <input class="form-check-input me-2" type="radio" id="isSubtypeTrue" [value]="true" name="issubtype"
               formControlName="issubtype" />
             <label class="form-check-label" for="isSubtypeTrue"> Si </label>
           </div>
-          <h2 *ngIf="formProduct.get('name')?.value == 'pedro'">pedro</h2>
         </div>
       </div>
       <div class="row-cols-1" id="subtipos" *ngIf="formProduct.get('issubtype')?.value">
@@ -109,7 +108,7 @@
           <form [formGroup]="formSubproduct">
             <div class="row d-flex align-items-end">
               <div class="col-5">
-                <label class="control-label" for="Name">Nombre del SubProducto</label>
+                <label class="control-label" for="InputNamesSubProduct">Nombre del SubProducto</label>
                 <div class="input-group  mt-2">
                   <span class="input-group-text" id="basic-addon1">{{formProduct.get('shortname')?.value}} - </span>
                   <input formControlName="nameSubproduct" id="InputNamesSubProduct" class="form-control"
@@ -126,7 +125,7 @@
               </div>
               <div class="col-5">
                 <label class="control-label" for="inputSellPrice">Precio de Venta</label>
-                <input id="inputSellPriceSubproduct" formControlName="sellpriceSubproduct" type="number"
+                <input id="inputSellPrice" formControlName="sellpriceSubproduct" type="number"
                   class="form-control mt-2" placeholder="Ingrese Precio de Venta: " />
                 <div>
                   <span class="form-text m-2" *ngIf="
@@ -139,7 +138,7 @@
               </div>
               <div class="col-2">
                 <button [disabled]="formSubproduct.invalid" type="button" (click)="AddSubproduct()"
-                  class="material-icons btn btn-success">
+                  class="btn btn-success">
                   Agregar
                 </button>
               </div>
@@ -160,8 +159,8 @@
                 <td>{{ subproduct.shortname }}</td>
                 <td>1600</td>
                 <td>
-                  <button (click)="DeleteSubproduct(i)" class="material-icons deleteIconShipment">
-                    delete
+                  <button (click)="DeleteSubproduct(i)" class="btn btn-outline-danger">
+                    <i class="bi bi-trash"></i>
                   </button>
                 </td>
               </tr>

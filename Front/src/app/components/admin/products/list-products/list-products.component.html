@@ -2,13 +2,9 @@
 <div *ngIf="!loading" class="container">
   <div class="row-md-12 p-1">
     <div class="panel panel-default">
-      <div class="panel-heading titleProduct mb-4">
+      <div class="panel-heading ComponentTittle">
         <h3>Productos</h3>
-        <button
-          type="button"
-          class="btn btn-outline-success"
-          routerLink="/admin/addProduct"
-        >
+        <button type="button" class="btn btn-outline-success" routerLink="/admin/addProduct">
           Agregar Producto
         </button>
       </div>
@@ -29,8 +25,8 @@
           <tbody>
             <tr *ngFor="let item of listProducts" data-toggle="collapse" data-target="#demo1" class="accordion-toggle">
               <td>
-                <button class="btn btn-default  " >
-                  <span class="material-icons">visibility</span>
+                <button class="btn btn-default  ">
+                 <i class="bi bi-eye-fill"></i>
                 </button>
               </td>
               <td>{{ item.name }}</td>
@@ -40,14 +36,19 @@
               <td>200</td>
               <td>100</td>
               <td>
-                <button [routerLink]="['/admin/editProduct', item.productid]" type="button"
-                  class="material-icons editIconProducts">edit</button>
-                <button
-                (click)="Delete(item.productid!)"
-                type="button"
-                class="material-icons deleteIconProduct">delete</button>
-                <button [routerLink]="['/admin/editProduct', item.productid]" type="button"
-                  class="material-icons addSubproducts">add</button>
+                <div class="btn-group">
+                  <button [routerLink]="['/admin/editProduct', item.productid]" type="button"
+                    class="btn btn-outline-warning ">
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                  <button (click)="Delete(item.productid!)" type="button" class="btn btn-outline-danger">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                  <button [routerLink]="['/admin/editProduct', item.productid]" type="button"
+                    class="btn btn-outline-success">
+                  <i class="bi bi-plus-circle"></i>
+                  </button>
+                </div>
               </td>
             </tr>
             <tr>
