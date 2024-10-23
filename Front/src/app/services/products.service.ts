@@ -44,4 +44,8 @@ export class ProductsService {
   DeleteSpecificProducts(id: number):Observable<HttpResponseModel>{
     return this.http.delete<HttpResponseModel>('http://localhost:8765/SpecificProduct')
   }
+  GetAll():Observable<HttpResponseModel>{
+    return this.http.get<HttpResponseModel>('http://localhost:8765/SpecificProduct')
+  }
+
 }

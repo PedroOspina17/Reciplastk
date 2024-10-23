@@ -39,5 +39,12 @@ namespace Reciplastk.Gateway.Controllers
             var response = shipmentService.Delete(shipmentid);
             return response;
         }
+
+        [HttpPost("Filter")]
+        public HttpResponseModel Filter(ShipmentReportParamsViewModel model)
+        {
+            var response = shipmentService.Filter(model);
+            return response;
+        }
     }
 }

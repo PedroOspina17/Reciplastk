@@ -14,6 +14,9 @@ import { WeightControlTypeComponent } from './components/admin/weight-control-ty
 import { AddEditWeightControlTypeComponent } from './components/admin/add-weight-control-type/add-edit-weight-control-type.component';
 import { WeightControlComponent } from './components/admin/weight-control/weight-control.component';
 import { RemainigComponent } from './components/admin/remainig/remainig.component';
+import { WeightControlReportsComponent } from './components/admin/weight-control-reports/weight-control-reports.component';
+import { ShimentReportsComponent } from './components/admin/shiment-reports/shiment-reports.component';
+import { WeightControlGrindingComponent } from './components/admin/weight-control-grinding/weight-control-grinding.component';
 
 
 export const routes: Routes = [
@@ -34,7 +37,11 @@ export const routes: Routes = [
       { path: 'AddWeightControlTypeComponent',component: AddEditWeightControlTypeComponent },
       { path: 'WeightControlTypeComponent',component: WeightControlTypeComponent },
       { path: 'WeightControlComponent', component: WeightControlComponent }, 
-      { path: 'RemainigComponent', component: RemainigComponent }
+      { path: 'WeightControlGrindingComponent', component: WeightControlGrindingComponent }, 
+      { path: 'WeightControlReportsComponent', component: WeightControlReportsComponent },
+      { path: 'ShimentReportsComponent', component: ShimentReportsComponent},
+      { path: 'RemainigComponent', component: RemainigComponent },
+
     ],
   },
   { path: 'ShipmentDetailComponent', component: ShipmentDetailComponent},
