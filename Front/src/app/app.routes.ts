@@ -18,6 +18,8 @@ import { WeightControlReportsComponent } from './components/admin/weight-control
 import { ShimentReportsComponent } from './components/admin/shiment-reports/shiment-reports.component';
 import { WeightControlGrindingComponent } from './components/admin/weight-control-grinding/weight-control-grinding.component';
 
+import { AddEditProductsComponent } from './components/admin/products/add-edit-products/add-edit-products.component';
+import { ListProductsComponent } from './components/admin/products/list-products/list-products.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
@@ -29,6 +31,9 @@ export const routes: Routes = [
     path: 'admin',
     children: [
       { path: 'dashboard', component: DashboardComponent },
+      { path: 'products', component: ListProductsComponent },
+      { path: 'addProduct', component: AddEditProductsComponent },
+      { path: 'editProduct/:id', component: AddEditProductsComponent },
       { path: 'roles', redirectTo: '/dashboard' },
       { path: 'customer', component: CustomerListComponent },
       { path: 'addCustomer', component: AddEditCustomerComponent },

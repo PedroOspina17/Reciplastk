@@ -12,8 +12,8 @@ export class SecurityService {
 
   constructor(private http: HttpClient) { }
   ServiceEndpoint: string = `${AppConfig.API_URL}/api/Security/Login`;
-  
+
   LogIn(loginInfo: LoginModel): Observable<HttpResponseModel>{
-    return this.http.post<HttpResponseModel>(this.ServiceEndpoint,loginInfo);    
+    return this.http.post<HttpResponseModel>(this.ServiceEndpoint,loginInfo);
   }
 }

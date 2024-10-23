@@ -6,16 +6,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Reciplastk.Gateway.DataAccess;
 
-[Table("products")]
-public partial class Product
+[Table("productprice")]
+public partial class Productprice
 {
     [Key]
+    [Column("productpriceid")]
+    public int Productpriceid { get; set; }
+
     [Column("productid")]
     public int Productid { get; set; }
 
+    [Column("customerid")]
+    public int Customerid { get; set; }
+
     [Required]
     [Column("shortname")]
-    [StringLength(50)]
+    [StringLength(20)]
     public string Shortname { get; set; }
 
     [Required]
@@ -25,13 +31,22 @@ public partial class Product
 
     [Required]
     [Column("description")]
-    [StringLength(150)]
+    [StringLength(50)]
     public string Description { get; set; }
 
     [Required]
     [Column("code")]
     [StringLength(10)]
     public string Code { get; set; }
+
+    [Column("buyprice")]
+    public decimal Buyprice { get; set; }
+
+    [Column("sellprice")]
+    public decimal Sellprice { get; set; }
+
+    [Column("margin")]
+    public decimal Margin { get; set; }
 
     [Column("issubtype")]
     public bool Issubtype { get; set; }
@@ -48,22 +63,11 @@ public partial class Product
     [Column("parentid")]
     public int? Parentid { get; set; }
 
-    [InverseProperty("Parent")]
-    public virtual ICollection<Product> InverseParent { get; set; } = new List<Product>();
+    [ForeignKey("Customerid")]
+    [InverseProperty("Productprices")]
+    public virtual Customer Customer { get; set; }
 
-    [ForeignKey("Parentid")]
-    [InverseProperty("InverseParent")]
-    public virtual Product Parent { get; set; }
-
-    [InverseProperty("Product")]
-    public virtual ICollection<Productprice> Productprices { get; set; } = new List<Productprice>();
-
-    [InverseProperty("Product")]
-    public virtual ICollection<Remaining> Remainings { get; set; } = new List<Remaining>();
-
-    [InverseProperty("Product")]
-    public virtual ICollection<Shipmentdetail> Shipmentdetails { get; set; } = new List<Shipmentdetail>();
-
-    [InverseProperty("Product")]
-    public virtual ICollection<Weightcontroldetail> Weightcontroldetails { get; set; } = new List<Weightcontroldetail>();
+    [ForeignKey("Productid")]
+    [InverseProperty("Productprices")]
+    public virtual Product Product { get; set; }
 }

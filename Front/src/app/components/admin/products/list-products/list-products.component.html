@@ -1,0 +1,88 @@
+<app-progress-bar *ngIf="loading"></app-progress-bar>
+<div *ngIf="!loading" class="container">
+  <div class="row-md-12 p-1">
+    <div class="panel panel-default">
+      <div class="panel-heading ComponentTittle">
+        <h3>Productos</h3>
+        <button type="button" class="btn btn-outline-success" routerLink="/admin/addProduct">
+          Agregar Producto
+        </button>
+      </div>
+      <div class="panel-body">
+        <table class="table table-condensed table-striped">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Nombre</th>
+              <th>Apodo</th>
+              <th>Código</th>
+              <th>Compra</th>
+              <th>Venta</th>
+              <th>ganancia</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of listProducts" data-toggle="collapse" data-target="#demo1" class="accordion-toggle">
+              <td>
+                <button class="btn btn-default  ">
+                 <i class="bi bi-eye-fill"></i>
+                </button>
+              </td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.shortname }}</td>
+              <td>{{ item.code }}</td>
+              <td>100</td>
+              <td>200</td>
+              <td>100</td>
+              <td>
+                <div class="btn-group">
+                  <button [routerLink]="['/admin/editProduct', item.productid]" type="button"
+                    class="btn btn-outline-warning ">
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                  <button (click)="Delete(item.productid!)" type="button" class="btn btn-outline-danger">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                  <button [routerLink]="['/admin/editProduct', item.productid]" type="button"
+                    class="btn btn-outline-success">
+                  <i class="bi bi-plus-circle"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="12" class="hiddenRow">
+                <div class="accordian-body collapse" id="demo1">
+                  <table class="table table-striped" *ngIf="expandedArea">
+                    <thead>
+                      <tr class="info">
+                        <th>Nombre</th>
+                        <th>Descripcion</th>
+                        <th>Code</th>
+                        <th>Precio compra</th>
+                        <th>Precio venta</th>
+                        <th>Ganancia</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr data-toggle="collapse" class="accordion-toggle-collapsed" data-target="#demo10">
+                        <td>polietileno azul</td>
+                        <td>material plastico de color azul</td>
+                        <td>0010</td>
+                        <td>1000</td>
+                        <td>2000</td>
+                        <td>1000</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

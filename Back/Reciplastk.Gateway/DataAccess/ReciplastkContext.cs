@@ -21,6 +21,8 @@ public partial class ReciplastkContext : DbContext
 
     public virtual DbSet<Product> Products { get; set; }
 
+    public virtual DbSet<Productprice> Productprices { get; set; }
+
     public virtual DbSet<Remaining> Remainings { get; set; }
 
     public virtual DbSet<Rol> Rols { get; set; }
@@ -73,6 +75,39 @@ public partial class ReciplastkContext : DbContext
             entity.Property(e => e.Isactive).HasDefaultValue(true);
             entity.Property(e => e.Issubtype).HasDefaultValue(false);
             entity.Property(e => e.Updatedate).HasDefaultValueSql("now()");
+
+            entity.HasOne(d => d.Parent).WithMany(p => p.InverseParent).HasConstraintName("products_parentid_fkey");
+        });
+
+        modelBuilder.Entity<Productprice>(entity =>
+        {
+            entity.HasKey(e => e.Productpriceid).HasName("productprice_pkey");
+
+            entity.Property(e => e.Creationdate).HasDefaultValueSql("now()");
+            entity.Property(e => e.Isactive).HasDefaultValue(true);
+            entity.Property(e => e.Issubtype).HasDefaultValue(false);
+            entity.Property(e => e.Updatedate).HasDefaultValueSql("now()");
+
+            entity.HasOne(d => d.Customer).WithMany(p => p.Productprices)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("productprice_customerid_fkey");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.Productprices)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("productprice_productid_fkey");
+        });
+
+        modelBuilder.Entity<Remaining>(entity =>
+        {
+            entity.HasKey(e => e.Remainingid).HasName("remainings_pkey");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.Remainings)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("remainings_productid_fkey");
+
+            entity.HasOne(d => d.Weightcontrol).WithMany(p => p.Remainings)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("remainings_weightcontrolid_fkey");
         });
 
         modelBuilder.Entity<Remaining>(entity =>

@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { HttpResponseModel } from '../models/HttpResponseModel';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { ProductModel } from '../models/ProductModel';
+import { HttpResponseModel } from '../models/HttpResponseModel';
 import { AppConfig } from '../common/app-config';
-import { ProductsModel } from '../models/ProductsModel';
 
 @Injectable({
   providedIn: 'root'
@@ -11,22 +11,40 @@ import { ProductsModel } from '../models/ProductsModel';
 export class ProductsService {
 
   constructor(private http: HttpClient) { }
-  //ServiceEndpoint: string = `${AppConfig.API_URL}`;
+
+  ServiceEndpoint: string = `${AppConfig.API_URL}/api/Products/`;
+
+  GetAll(): Observable<HttpResponseModel>{
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'GetAll');
+  }
+  GetMain(): Observable<HttpResponseModel>{
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'GetMain');
+  }
+
+  GetById(id: number): Observable<HttpResponseModel>{
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'GetById?id='+id)
+  }
+  GetByParentId(id: number): Observable<HttpResponseModel>{
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'GetParentId?id='+id)
+  }
+
+  Create(productModel: ProductModel): Observable<HttpResponseModel>{
+    return this.http.post<HttpResponseModel>(this.ServiceEndpoint+"Create", productModel)
+  }
+
+  Update (productid: number, productModel: ProductModel): Observable<HttpResponseModel>{
+    return this.http.put<HttpResponseModel>(this.ServiceEndpoint+'Update', productModel)
+  }
+
+  Delete(id: number): Observable<HttpResponseModel>{
+    return this.http.delete<HttpResponseModel>(this.ServiceEndpoint+'Delete?id='+id )
+  }
 
   GetGeneralProducts():Observable<HttpResponseModel>{
     return this.http.get<HttpResponseModel>('http://localhost:8765/GeneralProduct')
   }
   GetByIdGeneralProducts(id: number):Observable<HttpResponseModel>{
     return this.http.get<HttpResponseModel>('http://localhost:8765/GeneralProduct')
-  }
-  CreateGeneralProducts(products: ProductsModel):Observable<HttpResponseModel>{
-    return this.http.post<HttpResponseModel>('http://localhost:8765/GeneralProduct',products)
-  }
-  UpdateGeneralProducts(products: ProductsModel):Observable<HttpResponseModel>{
-    return this.http.post<HttpResponseModel>('http://localhost:8765/GeneralProduct',products)
-  }
-  DeleteGeneralProducts():Observable<HttpResponseModel>{
-    return this.http.delete<HttpResponseModel>('http://localhost:8765/GeneralProduct')
   }
 
   GetSpecificProducts():Observable<HttpResponseModel>{
@@ -35,17 +53,4 @@ export class ProductsService {
   GetByIdSpecificProducts(id: number):Observable<HttpResponseModel>{
     return this.http.get<HttpResponseModel>('http://localhost:8765/SpecificProduct')
   }
-  CreateSpecificProducts(products: ProductsModel):Observable<HttpResponseModel>{
-    return this.http.post<HttpResponseModel>('http://localhost:8765/SpecificProduct', products)
-  }
-  UpdateSpecificProducts(products: ProductsModel):Observable<HttpResponseModel>{
-    return this.http.post<HttpResponseModel>('http://localhost:8765/SpecificProduct', products)
-  }
-  DeleteSpecificProducts(id: number):Observable<HttpResponseModel>{
-    return this.http.delete<HttpResponseModel>('http://localhost:8765/SpecificProduct')
-  }
-  GetAll():Observable<HttpResponseModel>{
-    return this.http.get<HttpResponseModel>('http://localhost:8765/SpecificProduct')
-  }
-
 }
