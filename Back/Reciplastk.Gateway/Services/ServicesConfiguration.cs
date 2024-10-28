@@ -12,6 +12,7 @@
             services.AddScoped<WeightControlTypeService>();
             services.AddScoped<WeightControlService>();
             services.AddScoped<ProductsService>();
+            services.AddScoped<CustomerTypeService>();
             return services;
         }
     }

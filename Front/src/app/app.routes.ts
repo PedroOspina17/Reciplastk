@@ -20,6 +20,8 @@ import { WeightControlGrindingComponent } from './components/admin/weight-contro
 
 import { AddEditProductsComponent } from './components/admin/products/add-edit-products/add-edit-products.component';
 import { ListProductsComponent } from './components/admin/products/list-products/list-products.component';
+import { CustomerTypeComponent } from './components/admin/customer-type/customer-type.component';
+import { AddEditCustomerTypeComponent } from './components/admin/add-edit-customer-type/add-edit-customer-type.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
@@ -35,6 +37,9 @@ export const routes: Routes = [
       { path: 'addProduct', component: AddEditProductsComponent },
       { path: 'editProduct/:id', component: AddEditProductsComponent },
       { path: 'roles', redirectTo: '/dashboard' },
+      { path: 'CustomerTypeComponent', component: CustomerTypeComponent }, 
+      { path: 'AddCustomerType', component: AddEditCustomerTypeComponent},
+      { path: 'EditCustomerType/:id', component: AddEditCustomerTypeComponent},
       { path: 'customer', component: CustomerListComponent },
       { path: 'addCustomer', component: AddEditCustomerComponent },
       { path: 'editCustomer/:id', component: AddEditCustomerComponent },

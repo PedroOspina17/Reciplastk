@@ -3,6 +3,7 @@
     public class CustomerViewModel
     {
         public int? customerid { get; set; } 
+        public int customertypeid { get; set; }
         public String nit { get; set; }
         public String name { get; set; }
         public String lastname { get; set; }
