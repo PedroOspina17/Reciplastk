@@ -14,7 +14,7 @@ import { RouterLink } from '@angular/router';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { ToastrService } from 'ngx-toastr';
 import { ProductsService } from '../../../services/products.service';
-import { ProductsModel } from '../../../models/ProductsModel';
+import { ProductModel } from '../../../models/ProductModel';
 
 
 @Component({
@@ -60,9 +60,9 @@ export class WeightControlGrindingComponent {
   FormSelection: FormGroup;
   FormRemaining: FormGroup;
   todaysProductList: any[] = [];
-  generalProductList: ProductsModel[] = [];
-  specificProductList: ProductsModel[] = [];
-  filterProductList: ProductsModel[] = [];
+  generalProductList: ProductModel[] = [];
+  specificProductList: ProductModel[] = [];
+  filterProductList: ProductModel[] = [];
   formattedDate: string | null = '';
   ngOnInit(): void {
     this.getProducts();
@@ -72,7 +72,7 @@ export class WeightControlGrindingComponent {
     const selectElement = value.target;
     this.productid = selectElement.value;
     this.filterProductList = this.specificProductList.filter(
-      (p) => p.pid == this.productid
+      (p) => p.parentid == this.productid
     );
     this.FormSelection.get('ColorSelection')?.enable();
   }
@@ -112,7 +112,7 @@ export class WeightControlGrindingComponent {
     this.FormRemaining.reset();
   }
   getProducts() {
-    this.products.GetGeneralProducts().subscribe((r) => {
+    this.products.GetMain().subscribe((r) => {
       if (r.wasSuccessful == true) {
         this.generalProductList = r.data;
       } else {

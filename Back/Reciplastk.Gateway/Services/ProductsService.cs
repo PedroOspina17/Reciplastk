@@ -37,7 +37,7 @@ namespace Reciplastk.Gateway.Services
                 if (product != null)
                 {
                     response.WasSuccessful = false;
-                    response.StatusMessage = " El producto ya existe.";
+                    response.StatusMessage = " El nombre del producto ya existe.";
                     return response;
                 }
             }
@@ -86,9 +86,17 @@ namespace Reciplastk.Gateway.Services
             return response;
         }
 
-        public HttpResponseModel GetMain()
+        public HttpResponseModel GetMainProducts()
         {
             var productsMain = db.Products.Where(p => p.Isactive && p.Issubtype == false ).ToList();
+            var response = new HttpResponseModel();
+            response.WasSuccessful = true;
+            response.Data = productsMain;
+            return response;
+        }
+        public HttpResponseModel GetSpecificProducts()
+        {
+            var productsMain = db.Products.Where(p => p.Isactive && p.Issubtype == true).ToList();
             var response = new HttpResponseModel();
             response.WasSuccessful = true;
             response.Data = productsMain;
@@ -133,7 +141,7 @@ namespace Reciplastk.Gateway.Services
                 parentProduct.Name = ProductsModel.Name;
                 parentProduct.Description = ProductsModel.Description;
                 parentProduct.Code = ProductsModel.Code;
-                parentProduct.Issubtype = ProductsModel.Issubtype;
+                parentProduct.Issubtype = false;
                 parentProduct.Isactive = true;
         
                 db.Products.Add(parentProduct);
