@@ -25,15 +25,19 @@ namespace Reciplastk.Gateway.Controllers
             return productsService.GetAll();
         }
 
-        [HttpGet("GetMain")]
+        [HttpGet("GetMainProducts")]
 
-        public HttpResponseModel GetMain()
+        public HttpResponseModel GetMainProducts()
         {
-            return productsService.GetMain();
+            return productsService.GetMainProducts();
+        }
+
+        [HttpGet("GetSpecificProducts")]
+        public HttpResponseModel GetSpecificProducts() {
+            return productsService.GetSpecificProducts();
         }
 
         [HttpGet("GetById")]
-
         public HttpResponseModel GetById(int id)
         {
             return productsService.GetById(id);
