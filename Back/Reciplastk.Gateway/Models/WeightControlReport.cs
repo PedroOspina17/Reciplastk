@@ -2,7 +2,9 @@
 {
     public class WeightControlReport
     {
-       public string productName { get; set; }
+        public int productid { get; set; }
+        public DateTime date { get; set; }
+        public string productName { get; set; }
         public string employeeName { get; set; }
         public double weight { get; set; } 
         public string type { get; set; }

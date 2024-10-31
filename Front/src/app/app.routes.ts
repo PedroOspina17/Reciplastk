@@ -20,6 +20,7 @@ import { WeightControlGrindingComponent } from './components/admin/weight-contro
 
 import { AddEditProductsComponent } from './components/admin/products/add-edit-products/add-edit-products.component';
 import { ListProductsComponent } from './components/admin/products/list-products/list-products.component';
+import { WeightControlForPaymentsComponent } from './components/admin/weight-control-for-payments/weight-control-for-payments.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
@@ -46,6 +47,7 @@ export const routes: Routes = [
       { path: 'WeightControlReportsComponent', component: WeightControlReportsComponent },
       { path: 'ShimentReportsComponent', component: ShimentReportsComponent},
       { path: 'RemainigComponent', component: RemainigComponent },
+      { path: 'Payments', component: WeightControlForPaymentsComponent}
 
     ],
   },

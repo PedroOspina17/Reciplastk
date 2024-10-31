@@ -164,11 +164,11 @@ namespace Reciplastk.Gateway.Services
             response.Data = query;
             return response;
         }
-
+       
         public HttpResponseModel Filter(WeightControlReportParams viewModel)
         {
             var response = new HttpResponseModel();
-            var query = db.Weightcontroldetails.Where(p => p.Weightcontrol.Isactive == true);
+            var query = db.Weightcontroldetails.Where(p => p.Weightcontrol.Isactive == true && p.Weightcontrol.Ispaid == false);
             if (viewModel.ProductId != null && viewModel.ProductId != -1)
             {
                 query = query.Where(p => p.Productid == viewModel.ProductId);
@@ -195,6 +195,8 @@ namespace Reciplastk.Gateway.Services
             }
             var result = query.Select(p => new WeightControlReport
             {
+                productid = p.Weightcontroldetailid,
+                date = p.Weightcontrol.Datestart,
                 productName = p.Product.Name,
                 employeeName = p.Weightcontrol.Employee.Name,
                 weight = p.Weight,
@@ -225,6 +227,35 @@ namespace Reciplastk.Gateway.Services
                 weight = p.Weight,
             }).ToList();
             response.Data = result;
+            return response;
+        }
+
+        public HttpResponseModel PayAndSave(WeightControlReportParams viewModel) 
+        { 
+            var response = new HttpResponseModel();
+            foreach (var i in viewModel.productsId)
+            {
+                var detail = db.Weightcontroldetails.Where(x => x.Weightcontroldetailid == i).FirstOrDefault();
+                if (detail != null)
+                {
+                    var weightcontrol = db.Weightcontrols.Where(x=> x.Weightcontrolid == detail.Weightcontrolid ).FirstOrDefault();
+                    if (weightcontrol != null)
+                    {
+                        weightcontrol.Ispaid = true;
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        response.StatusMessage = "No se encontro la fk con el id";
+                        response.WasSuccessful = false;
+                    }
+                }
+                else
+                {
+                    response.WasSuccessful = false;
+                }
+            }
+            
             return response;
         }
 

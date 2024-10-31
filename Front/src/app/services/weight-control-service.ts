@@ -45,4 +45,10 @@ export class WeightControlService {
   Remainings(viewAll: boolean):Observable<HttpResponseModel>{
     return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'Remainings?ViewAll='+viewAll)
   }
+  WeightControlForPayments(Model: WeightControlReportParams):Observable<HttpResponseModel>{
+    return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'Filter',Model);
+  }
+  PayAndSave(Model: WeightControlReportParams):Observable<HttpResponseModel>{
+    return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'PayAndSave',Model);
+  }
 }

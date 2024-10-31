@@ -8,5 +8,6 @@
         public int? EmployeeId { get; set; }
         public Boolean? Ispaid { get; set; }
         public int? Type { get; set; }
+        public List<int>? productsId { get; set; } 
     }
 }

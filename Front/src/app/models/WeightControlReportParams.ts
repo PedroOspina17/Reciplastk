@@ -5,4 +5,5 @@ export class WeightControlReportParams {
   EmployeeId?: number;
   Ispaid?: boolean;
   Type?: number;
+  productsId?: any[] = [];
 }
