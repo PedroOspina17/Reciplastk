@@ -6,6 +6,7 @@ import { HttpResponseModel } from '../models/HttpResponseModel';
 import { WeightControlModel } from '../models/WeightControlModel';
 import { WeightControlGrindingModel } from '../models/WeightControlGrindingModel';
 import { WeightControlReportParams } from '../models/WeightControlReportParams';
+import {PaymentReceipt } from '../models/PaymentReceipt';
 
 @Injectable({
   providedIn: 'root'
@@ -48,7 +49,7 @@ export class WeightControlService {
   WeightControlForPayments(Model: WeightControlReportParams):Observable<HttpResponseModel>{
     return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'Filter',Model);
   }
-  PayAndSave(Model: WeightControlReportParams):Observable<HttpResponseModel>{
+  PayAndSave(Model: PaymentReceipt):Observable<HttpResponseModel>{
     return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'PayAndSave',Model);
   }
 }

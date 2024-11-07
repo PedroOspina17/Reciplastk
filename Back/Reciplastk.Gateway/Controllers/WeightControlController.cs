@@ -73,7 +73,7 @@ namespace Reciplastk.Gateway.Controllers
             return weightControlService.Remainings(ViewAll);
         }
         [HttpPost("PayAndSave")]
-        public HttpResponseModel PayAndSave(WeightControlReportParams viewModel)
+        public HttpResponseModel PayAndSave(PaymentReceiptParams viewModel)
         {
             return weightControlService.PayAndSave(viewModel);
         }

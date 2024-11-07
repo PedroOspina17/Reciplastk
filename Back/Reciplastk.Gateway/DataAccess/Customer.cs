@@ -50,6 +50,13 @@ public partial class Customer
     [Column("isactive")]
     public bool? Isactive { get; set; }
 
+    [Column("customertypeid")]
+    public int? Customertypeid { get; set; }
+
+    [ForeignKey("Customertypeid")]
+    [InverseProperty("Customers")]
+    public virtual Customertype Customertype { get; set; }
+
     [InverseProperty("Customer")]
     public virtual ICollection<Productprice> Productprices { get; set; } = new List<Productprice>();
 

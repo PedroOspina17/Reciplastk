@@ -230,12 +230,12 @@ namespace Reciplastk.Gateway.Services
             return response;
         }
 
-        public HttpResponseModel PayAndSave(WeightControlReportParams viewModel) 
+        public HttpResponseModel PayAndSave(PaymentReceiptParams viewModel) 
         { 
             var response = new HttpResponseModel();
-            foreach (var i in viewModel.productsId)
+            foreach (var i in viewModel.products)
             {
-                var detail = db.Weightcontroldetails.Where(x => x.Weightcontroldetailid == i).FirstOrDefault();
+                var detail = db.Weightcontroldetails.Where(x => x.Weightcontroldetailid == i.id).FirstOrDefault();
                 if (detail != null)
                 {
                     var weightcontrol = db.Weightcontrols.Where(x=> x.Weightcontrolid == detail.Weightcontrolid ).FirstOrDefault();
@@ -255,7 +255,22 @@ namespace Reciplastk.Gateway.Services
                     response.WasSuccessful = false;
                 }
             }
-            
+
+            var newpaymaent = new Payment();
+            newpaymaent.Employeid = viewModel.employeeId;
+            newpaymaent.Date = DateTime.Now;
+            newpaymaent.Totalweight = viewModel.totalWeight;
+            newpaymaent.Totalprice = viewModel.totalToPay;
+            db.Payments.Add(newpaymaent);
+            foreach (var i in viewModel.products)
+            {
+                var newDetail = new Paymentdetail();
+                newDetail.Paymentid = i.id;
+                newDetail.Weightcontroldetailid = i.id;
+                newDetail.Productprice = i.price;
+                db.Paymentdetails.Add(newDetail);
+            }
+            db.SaveChanges();
             return response;
         }
 

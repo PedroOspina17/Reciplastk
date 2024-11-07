@@ -22,6 +22,9 @@ public partial class Weightcontroldetail
     [Column("weight")]
     public double Weight { get; set; }
 
+    [InverseProperty("Weightcontroldetail")]
+    public virtual ICollection<Paymentdetail> Paymentdetails { get; set; } = new List<Paymentdetail>();
+
     [ForeignKey("Productid")]
     [InverseProperty("Weightcontroldetails")]
     public virtual Product Product { get; set; }
