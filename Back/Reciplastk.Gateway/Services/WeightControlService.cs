@@ -265,6 +265,7 @@ namespace Reciplastk.Gateway.Services
             foreach (var i in viewModel.products)
             {
                 var newDetail = new Paymentdetail();
+                newDetail.Payment = newpaymaent;
                 newDetail.Paymentid = i.id;
                 newDetail.Weightcontroldetailid = i.id;
                 newDetail.Productprice = i.price;
@@ -273,6 +274,13 @@ namespace Reciplastk.Gateway.Services
             db.SaveChanges();
             return response;
         }
-
+        public HttpResponseModel GetAllBills()
+        {
+            var response = new HttpResponseModel();
+            var bills = db.Payments.ToList();
+            response.Data = bills;
+            return response;
+        }
+        
     }
 }
