@@ -277,10 +277,20 @@ namespace Reciplastk.Gateway.Services
         public HttpResponseModel GetAllBills()
         {
             var response = new HttpResponseModel();
-            var bills = db.Payments.ToList();
+
+            var bills = db.Payments.Include(p => p.Employe).Select(p => new
+                {
+                    p.Paymentid,
+                    EmployeeName = p.Employe.Name,
+                    p.Totalweight,
+                    p.Totalprice,
+                    p.Date
+                })
+                .ToList();
+
             response.Data = bills;
             return response;
         }
-        
+
     }
 }

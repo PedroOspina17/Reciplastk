@@ -1,4 +1,4 @@
-<div  class="container w-75 mt-4 p-4 border rounded shadow-sm">
+<div class="container w-75 mt-4 p-4 border rounded shadow-sm" id="elementIdToPrint">
     <h2 class="text-center mb-4">Recibo de pago</h2>
     <div class="mb-3">
         <p><strong>Empleado: </strong>{{BillInfo.employeeName}}</p>
@@ -29,4 +29,9 @@
         <p><strong>Total Peso Seleccionado:</strong> {{ BillInfo.totalWeight }} kg</p>
         <p><strong>Total a Pagar:</strong> {{ BillInfo.totalToPay}} $</p>
     </div>
+
+
+</div>
+<div class="container w-75 mt-4 text-end">
+    <input class="btn btn-primary" type="button" value="Imprimir factura" (click)="print()">
 </div>

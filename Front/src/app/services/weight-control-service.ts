@@ -52,4 +52,7 @@ export class WeightControlService {
   PayAndSave(Model: PaymentReceipt):Observable<HttpResponseModel>{
     return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'PayAndSave',Model);
   }
+  GetAllBills():Observable<HttpResponseModel>{
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'GetAllBills');
+  } 
 }

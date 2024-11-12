@@ -22,6 +22,7 @@ import { AddEditProductsComponent } from './components/admin/products/add-edit-p
 import { ListProductsComponent } from './components/admin/products/list-products/list-products.component';
 import { WeightControlForPaymentsComponent } from './components/admin/weight-control-for-payments/weight-control-for-payments.component';
 import { PaymentReceiptComponent } from './components/admin/payment-receipt/payment-receipt.component';
+import { ShowAllBillsComponent } from './components/admin/show-all-bills/show-all-bills.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
@@ -48,8 +49,8 @@ export const routes: Routes = [
       { path: 'WeightControlReportsComponent', component: WeightControlReportsComponent },
       { path: 'ShimentReportsComponent', component: ShimentReportsComponent},
       { path: 'RemainigComponent', component: RemainigComponent },
-      { path: 'Payments', component: WeightControlForPaymentsComponent}
-
+      { path: 'Payments', component: WeightControlForPaymentsComponent}, 
+      { path: 'ShowAllBills', component: ShowAllBillsComponent}
     ],
   },
   { path: 'ShipmentDetailComponent', component: ShipmentDetailComponent},

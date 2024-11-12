@@ -1,0 +1,32 @@
+import { Component } from '@angular/core';
+import { WeightControlService } from '../../../services/weight-control-service';
+import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
+
+@Component({
+  selector: 'app-show-all-bills',
+  standalone: true,
+  imports: [CommonModule,], 
+  templateUrl: './show-all-bills.component.html',
+  styleUrl: './show-all-bills.component.css',
+})
+export class ShowAllBillsComponent {
+  constructor(
+    private weightcontrolservice: WeightControlService,
+    private toastr: ToastrService,
+  ) {}
+  BillsList: any[] = [];
+  ngOnInit(): void {
+    this.GetAllBills();
+  }
+  GetAllBills() {
+    this.weightcontrolservice.GetAllBills().subscribe((r) => {
+      if (r.wasSuccessful == true) {
+        this.BillsList = r.data;
+        console.log(this.BillsList);
+      } else {
+        this.toastr.info('No se encontraron facturas de pago')
+      }
+    });
+  }
+}
