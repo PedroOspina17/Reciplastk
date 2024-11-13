@@ -79,9 +79,9 @@ namespace Reciplastk.Gateway.Controllers
             return weightControlService.PayAndSave(viewModel);
         }
 
-        [HttpGet("GetAllBills")]
-        public HttpResponseModel GetAllBills() {
-            return weightControlService.GetAllBills();
+        [HttpGet("GetAllReceipt")]
+        public HttpResponseModel GetAllReceipt() {
+            return weightControlService.GetAllReceipt();
         }
     }
 }

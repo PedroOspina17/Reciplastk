@@ -14,7 +14,7 @@ export class PaymentReceiptComponent {
   ngOnInit(): void {
     console.log('BillInfo', this.BillInfo);
   }
-
+  
   print() {
     const printContent = document.getElementById('elementIdToPrint');
     if (printContent) {

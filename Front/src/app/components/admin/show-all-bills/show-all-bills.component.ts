@@ -20,7 +20,7 @@ export class ShowAllBillsComponent {
     this.GetAllBills();
   }
   GetAllBills() {
-    this.weightcontrolservice.GetAllBills().subscribe((r) => {
+    this.weightcontrolservice.GetAllReceipt().subscribe((r) => {
       if (r.wasSuccessful == true) {
         this.BillsList = r.data;
         console.log(this.BillsList);

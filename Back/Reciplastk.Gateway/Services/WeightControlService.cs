@@ -274,7 +274,7 @@ namespace Reciplastk.Gateway.Services
             db.SaveChanges();
             return response;
         }
-        public HttpResponseModel GetAllBills()
+        public HttpResponseModel GetAllReceipt()
         {
             var response = new HttpResponseModel();
 
@@ -285,12 +285,11 @@ namespace Reciplastk.Gateway.Services
                     p.Totalweight,
                     p.Totalprice,
                     p.Date
-                })
-                .ToList();
+            }).ToList();
 
             response.Data = bills;
             return response;
         }
-
+        //public HttpResponseModel GetReceipt() { }
     }
 }
