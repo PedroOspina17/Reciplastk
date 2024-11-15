@@ -2,14 +2,15 @@
     <h1 class="text-center mb-4">Listado de recibos de pago</h1>
     <div class="row">
         <div *ngFor="let i of BillsList" class="col-md-3 mt-4">
-            <a routerLink="/admin/PaymentReceiptComponent/{{i.paymentid}}" routerLinkActive="router-link-active" >
+            <a routerLink="/admin/PaymentReceiptComponent/{{i.paymentid}}" routerLinkActive="router-link-active"
+                style="text-decoration: none; color: black;">
                 <div class="p-4 border rounded shadow-sm">
                     <h2 class="text-center mb-4"> {{i.employeeName}} #{{i.paymentid}}</h2>
                     <div class="mb-3">
                         <p><strong>Empleado: </strong>{{i.employeeName}}</p>
-                        <p><strong>Fecha: </strong>{{i.date | date: 'dd/MM/yyyy' }}</p>
-                        <p><strong>Total Peso:</strong>{{i.totalweight}} kg</p>
-                        <p><strong>Total Pagado:</strong>{{i.totalprice}} $</p>
+                        <p><strong>Fecha: </strong>{{i.date | date: 'MM/dd/yyyy' }}</p>
+                        <p><strong>Total Peso: </strong>{{i.totalweight}} kg</p>
+                        <p><strong>Total Pagado: </strong>{{i.totalprice}} $</p>
                     </div>
                 </div>
             </a>
