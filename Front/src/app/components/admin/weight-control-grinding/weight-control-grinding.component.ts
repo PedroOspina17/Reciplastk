@@ -10,8 +10,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
-import { RouterLink } from '@angular/router';
-import { LoaderComponent } from '../../shared/loader/loader.component';
+import {  } from '../../shared/loader/loader.component';
 import { ToastrService } from 'ngx-toastr';
 import { ProductsService } from '../../../services/products.service';
 import { ProductsModel } from '../../../models/ProductsModel';
@@ -21,8 +20,6 @@ import { ProductsModel } from '../../../models/ProductsModel';
   selector: 'app-weight-control-grinding',
   standalone: true,
   imports: [
-    RouterLink,
-    LoaderComponent,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,

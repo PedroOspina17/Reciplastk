@@ -195,7 +195,7 @@ namespace Reciplastk.Gateway.Services
             }
             var result = query.Select(p => new WeightControlReport
             {
-                productid = p.Weightcontroldetailid,
+                productid = p.Productid,
                 date = p.Weightcontrol.Datestart,
                 productName = p.Product.Name,
                 employeeName = p.Weightcontrol.Employee.Name,
