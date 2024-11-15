@@ -49,7 +49,7 @@ export const routes: Routes = [
       { path: 'ShimentReportsComponent', component: ShimentReportsComponent},
       { path: 'RemainigComponent', component: RemainigComponent },
       { path: 'Payments', component: WeightControlForPaymentsComponent}, 
-      { path: 'PaymentReceiptComponent', component: PaymentReceiptComponent}, 
+      { path: 'PaymentReceiptComponent/:id', component: PaymentReceiptComponent}, 
       { path: 'ShowAllBills', component: ShowAllBillsComponent}
     ],
   },
