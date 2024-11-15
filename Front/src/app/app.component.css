@@ -3,14 +3,4 @@
     width: 100%;
     min-height: 100vh;
 }
-.footer{
-    position: sticky;
-    bottom: 0;
-    width: 100%;
-}
-.navBar{
-    position: sticky;
-    top: 0;
-    width: 100%;
-    z-index: 500;
-}
+
