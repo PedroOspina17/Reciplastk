@@ -17,7 +17,6 @@ import { RemainigComponent } from './components/admin/remainig/remainig.componen
 import { WeightControlReportsComponent } from './components/admin/weight-control-reports/weight-control-reports.component';
 import { ShimentReportsComponent } from './components/admin/shiment-reports/shiment-reports.component';
 import { WeightControlGrindingComponent } from './components/admin/weight-control-grinding/weight-control-grinding.component';
-
 import { AddEditProductsComponent } from './components/admin/products/add-edit-products/add-edit-products.component';
 import { ListProductsComponent } from './components/admin/products/list-products/list-products.component';
 import { WeightControlForPaymentsComponent } from './components/admin/weight-control-for-payments/weight-control-for-payments.component';
@@ -50,6 +49,7 @@ export const routes: Routes = [
       { path: 'ShimentReportsComponent', component: ShimentReportsComponent},
       { path: 'RemainigComponent', component: RemainigComponent },
       { path: 'Payments', component: WeightControlForPaymentsComponent}, 
+      { path: 'PaymentReceiptComponent', component: PaymentReceiptComponent}, 
       { path: 'ShowAllBills', component: ShowAllBillsComponent}
     ],
   },

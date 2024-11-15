@@ -5,9 +5,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { LoaderComponent } from '../../shared/loader/loader.component';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { WeightControlService } from '../../../services/weight-control-service';
 import { WeightControlReportParams } from '../../../models/WeightControlReportParams';
@@ -20,11 +18,9 @@ import { PaymentReceiptComponent } from '../payment-receipt/payment-receipt.comp
   selector: 'app-weight-control-for-payments',
   standalone: true,
   imports: [
-    RouterLink,
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    LoaderComponent,
     PaymentReceiptComponent,
   ],
   providers: [DatePipe],
@@ -37,7 +33,6 @@ export class WeightControlForPaymentsComponent {
     private toastr: ToastrService,
     private weightControlService: WeightControlService,
     private datePipe: DatePipe,
-    private router: Router
   ) {
     this.FormPayments = this.fb.group({
       StartDate: [],

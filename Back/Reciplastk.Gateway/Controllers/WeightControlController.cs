@@ -83,5 +83,11 @@ namespace Reciplastk.Gateway.Controllers
         public HttpResponseModel GetAllReceipt() {
             return weightControlService.GetAllReceipt();
         }
+
+        [HttpGet("GetReceipt")]
+        public HttpResponseModel GetReceipt(int id)
+        {
+            return weightControlService.GetReceipt(id);
+        }
     }
 }

@@ -15,8 +15,7 @@
             <div class="row pb-4">
                 <div class="col-6">
                     <label for="Employee">Empleado</label><br>
-                    <select formControlName="Employee" class="mt-1 w-75 form-select" name="EmployeeId"
-                        id="Employee">
+                    <select formControlName="Employee" class="mt-1 w-75 form-select" name="EmployeeId" id="Employee">
                         <option value="-1">Seleccione un empleado</option>
                         <option *ngFor="let employee of EmployeeList" [ngValue]="employee">{{employee.name}}</option>
                     </select>

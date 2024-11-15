@@ -6,14 +6,14 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-show-all-bills',
   standalone: true,
-  imports: [CommonModule,], 
+  imports: [CommonModule],
   templateUrl: './show-all-bills.component.html',
   styleUrl: './show-all-bills.component.css',
 })
 export class ShowAllBillsComponent {
   constructor(
     private weightcontrolservice: WeightControlService,
-    private toastr: ToastrService,
+    private toastr: ToastrService
   ) {}
   BillsList: any[] = [];
   ngOnInit(): void {
@@ -25,7 +25,14 @@ export class ShowAllBillsComponent {
         this.BillsList = r.data;
         console.log(this.BillsList);
       } else {
-        this.toastr.info('No se encontraron facturas de pago')
+        this.toastr.info('No se encontraron facturas de pago');
+      }
+    });
+  }
+  GetReceipt(id: number) {
+    this.weightcontrolservice.GetReceipt(id).subscribe((r) => {
+      if (r.wasSuccessful == true) {
+      } else {
       }
     });
   }

@@ -5,7 +5,7 @@
         <div *ngFor="let i of BillsList" class="col-md-3 mt-4">
             <a href="http://"></a>
             <div class="p-4 border rounded shadow-sm">
-                <h2 class="text-center mb-4"># {{i.paymentid}}</h2>
+                <h2 class="text-center mb-4"> {{i.employeeName}} #{{i.paymentid}}</h2>
                 <div class="mb-3">
                     <p><strong>Empleado: </strong>{{i.employeeName}}</p>
                     <p><strong>Fecha: </strong>{{i.date | date: 'dd/MM/yyyy' }}</p>

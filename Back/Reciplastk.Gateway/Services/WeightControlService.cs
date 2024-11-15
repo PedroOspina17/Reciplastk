@@ -290,6 +290,26 @@ namespace Reciplastk.Gateway.Services
             response.Data = bills;
             return response;
         }
-        //public HttpResponseModel GetReceipt() { }
+        public HttpResponseModel GetReceipt(int id) {
+            var response = new HttpResponseModel();
+            var query = db.Payments.Include(p => p.Employe).Select(p => new
+            {
+                p.Paymentid,
+                EmployeeName = p.Employe.Name,
+                p.Totalweight,
+                p.Totalprice,
+                p.Date
+            }).Where(x => x.Paymentid == id).FirstOrDefault();
+            if (query != null)
+            {
+                response.Data = query;
+            }
+            else
+            {
+                response.StatusMessage = "No se encontro el recibo de pago con el id indicado";
+                response.WasSuccessful = false;
+            }
+            return response;
+        }
     }
 }

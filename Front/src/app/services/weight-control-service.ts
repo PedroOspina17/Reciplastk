@@ -55,4 +55,7 @@ export class WeightControlService {
   GetAllReceipt():Observable<HttpResponseModel>{
     return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'GetAllReceipt');
   } 
+  GetReceipt(id: number):Observable<HttpResponseModel>{
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'GetReceipt?id='+id);
+  }
 }
