@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class="offset-3">
-                <input (click)="Filter()" class="btn btn-primary w-50" type="button" value="Filtrar">
+                <input [disabled]="FormPayments.invalid" (click)="Filter()" class="btn btn-primary w-50" type="button" value="Filtrar">
             </div>
         </form>
     </div>

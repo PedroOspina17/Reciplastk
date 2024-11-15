@@ -4,6 +4,7 @@ import {
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
@@ -37,7 +38,7 @@ export class WeightControlForPaymentsComponent {
     this.FormPayments = this.fb.group({
       StartDate: [],
       EndDate: [],
-      Employee: [-1],
+      Employee: [-1, [Validators.required, Validators.min(0)]],
     });
     this.BillInfo = new PaymentReceipt();
   }
@@ -126,7 +127,6 @@ export class WeightControlForPaymentsComponent {
     weight: number
   ) {
     const checkbox = event.target as HTMLInputElement;
-
     if (checkbox.checked) {
       this.BillInfo.products.push({
         id: productId,

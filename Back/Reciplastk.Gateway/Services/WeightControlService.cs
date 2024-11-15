@@ -292,13 +292,20 @@ namespace Reciplastk.Gateway.Services
         }
         public HttpResponseModel GetReceipt(int id) {
             var response = new HttpResponseModel();
-            var query = db.Payments.Include(p => p.Employe).Select(p => new
+            var query = db.Payments.Include(p => p.Employe).Select(p => new 
             {
                 p.Paymentid,
                 EmployeeName = p.Employe.Name,
-                p.Totalweight,
-                p.Totalprice,
-                p.Date
+                totalWeight = p.Totalweight,
+                totalToPay = p.Totalprice,
+                p.Date,
+                products = db.Paymentdetails.Where(x=> x.Paymentid == id).Select(x=> new
+                {
+                    id = x.Weightcontroldetail.Productid,
+                    name = x.Weightcontroldetail.Product.Name,
+                    weight = x.Weightcontroldetail.Weight,
+                    price = x.Productprice,
+                }) .ToList(),
             }).Where(x => x.Paymentid == id).FirstOrDefault();
             if (query != null)
             {
