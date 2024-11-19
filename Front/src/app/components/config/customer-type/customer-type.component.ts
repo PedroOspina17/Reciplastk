@@ -3,14 +3,13 @@ import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { LoaderComponent } from '../../shared/loader/loader.component';
 import { CustomerTypeModel } from '../../../models/CustomerTypeModel';
 import { CustomerTypeService } from '../../../services/customer-type.service';
 
 @Component({
   selector: 'app-customer-type',
   standalone: true,
-  imports: [RouterLink, LoaderComponent, CommonModule],
+  imports: [RouterLink, CommonModule],
   templateUrl: './customer-type.component.html',
   styleUrl: './customer-type.component.css',
 })

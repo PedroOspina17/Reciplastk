@@ -3,15 +3,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
-  FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router, ActivatedRoute, RouterLink } from '@angular/router';
+import { Router, ActivatedRoute, } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { WeightControlComponent } from '../weight-control/weight-control.component';
 import { CommonModule } from '@angular/common';
-import { LoaderComponent } from '../../shared/loader/loader.component';
 import { ProductsService } from '../../../services/products.service';
 import { WeightControlModel } from '../../../models/WeightControlModel';
 import { WeightControlDetailModel } from '../../../models/WeightControlDetailModel';
@@ -22,12 +19,8 @@ import { ProductModel } from '../../../models/ProductModel';
   selector: 'app-weight-control-detail',
   standalone: true,
   imports: [
-    RouterLink,
-    LoaderComponent,
     CommonModule,
-    HttpClientModule,
     ReactiveFormsModule,
-    WeightControlComponent,
   ],
   templateUrl: './weight-control-detail.component.html',
   styleUrl: './weight-control-detail.component.css',

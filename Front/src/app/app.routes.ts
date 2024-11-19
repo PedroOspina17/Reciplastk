@@ -31,42 +31,49 @@ export const routes: Routes = [
   { path: 'aboutus', component: AboutusComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'weightcontrol', children: []},
-  { path: 'admin', children: []},
-  { path: 'reports', children: []},
-  { path: 'config', children: []},
   {
-    path: 'admin',
-    children: [
+    path: 'admin', children: [
       { path: 'dashboard', component: DashboardComponent },
+      { path: 'PaymentReceiptComponent', component: PaymentReceiptComponent },
+      { path: 'PaymentReceiptComponent/:id', component: PaymentReceiptComponent },
       { path: 'products', component: ListProductsComponent },
       { path: 'addProduct', component: AddEditProductsComponent },
       { path: 'editProduct/:id', component: AddEditProductsComponent },
-      { path: 'roles', redirectTo: '/dashboard' },
-      { path: 'CustomerTypeComponent', component: CustomerTypeComponent }, 
-      { path: 'AddCustomerType', component: AddEditCustomerTypeComponent},
-      { path: 'EditCustomerType/:id', component: AddEditCustomerTypeComponent},
+      { path: 'RemainigComponent', component: RemainigComponent },
+      { path: 'ShowAllBills', component: ShowAllBillsComponent },
+      { path: 'Payments', component: WeightControlForPaymentsComponent },
+    ],
+  },
+  {
+    path: 'config', children: [
       { path: 'customer', component: CustomerListComponent },
       { path: 'addCustomer', component: AddEditCustomerComponent },
       { path: 'editCustomer/:id', component: AddEditCustomerComponent },
-      { path: 'EditWeightControlTypeComponent/:id',component: AddEditWeightControlTypeComponent },
-      { path: 'AddWeightControlTypeComponent',component: AddEditWeightControlTypeComponent },
-      { path: 'WeightControlTypeComponent',component: WeightControlTypeComponent },
-      { path: 'WeightControlComponent', component: WeightControlComponent }, 
-      { path: 'WeightControlGrindingComponent', component: WeightControlGrindingComponent }, 
-      { path: 'WeightControlReportsComponent', component: WeightControlReportsComponent },
-      { path: 'ShimentReportsComponent', component: ShimentReportsComponent},
-      { path: 'RemainigComponent', component: RemainigComponent },
-      { path: 'Payments', component: WeightControlForPaymentsComponent}, 
-      { path: 'PaymentReceiptComponent/:id', component: PaymentReceiptComponent}, 
-      { path: 'ShowAllBills', component: ShowAllBillsComponent}
-    ],
+      { path: 'CustomerTypeComponent', component: CustomerTypeComponent },
+      { path: 'AddCustomerType', component: AddEditCustomerTypeComponent },
+      { path: 'EditCustomerType/:id', component: AddEditCustomerTypeComponent },
+      { path: 'WeightControlTypeComponent', component: WeightControlTypeComponent },
+      { path: 'AddWeightControlTypeComponent', component: AddEditWeightControlTypeComponent },
+      { path: 'EditWeightControlTypeComponent/:id', component: AddEditWeightControlTypeComponent },
+      { path: 'shipmenttype', component: ShipmentTypeComponent },
+      { path: 'addshipmenttype', component: AddEditShipmentTypeComponent },
+      { path: 'editshipmenttype/:id', component: AddEditShipmentTypeComponent },
+      { path: 'roles', redirectTo: '/dashboard' },
+    ]
   },
-  { path: 'ShipmentDetailComponent', component: ShipmentDetailComponent},
-  { path: 'ProviderCustomerSelectionComponent', component: ProviderCustomerSelectionComponent},
-  { path: 'shipmenttype', component: ShipmentTypeComponent},
-  { path: 'addshipmenttype', component: AddEditShipmentTypeComponent},
-  { path: 'editshipmenttype/:id', component: AddEditShipmentTypeComponent}, 
-  { path: 'PaymentReceiptComponent', component: PaymentReceiptComponent}, 
-  { path: '**', redirectTo: '/welcome', pathMatch: 'full' }, 
+  {
+    path: 'reports', children: [
+      { path: 'ShimentReportsComponent', component: ShimentReportsComponent },
+      { path: 'WeightControlReportsComponent', component: WeightControlReportsComponent },
+    ]
+  },
+  {
+    path: 'weightcontrol', children: [
+      { path: 'ProviderCustomerSelectionComponent', component: ProviderCustomerSelectionComponent },
+      { path: 'ShipmentDetailComponent', component: ShipmentDetailComponent },
+      { path: 'WeightControlComponent', component: WeightControlComponent },
+      { path: 'WeightControlGrindingComponent', component: WeightControlGrindingComponent },
+    ]
+  },
+  { path: '**', redirectTo: '/welcome', pathMatch: 'full' },
 ];

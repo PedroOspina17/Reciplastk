@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { LoaderComponent } from '../../shared/loader/loader.component';
 import { CommonModule } from '@angular/common';
-import { ShipmentTypeService } from '../../../services/shipment-type.service';
 import { ToastrService } from 'ngx-toastr';
 import { WeightCotrolTypeService } from '../../../services/weight-cotrol-type.service';
 import { WeightControlTypeModel } from '../../../models/WeightControlTypeModel';
@@ -11,7 +9,7 @@ import { WeightControlTypeModel } from '../../../models/WeightControlTypeModel';
 @Component({
   selector: 'app-add-edit-weight-control-type',
   standalone: true,
-  imports: [RouterLink, LoaderComponent, CommonModule, FormsModule,ReactiveFormsModule],
+  imports: [RouterLink, CommonModule, FormsModule,ReactiveFormsModule],
   templateUrl: './add-edit-weight-control-type.component.html',
   styleUrl: './add-edit-weight-control-type.component.css'
 })

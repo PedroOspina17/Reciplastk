@@ -1,15 +1,8 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { LoaderComponent } from '../../shared/loader/loader.component';
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import {
-  FormBuilder,
-  FormGroup,
   FormsModule,
-  NgModel,
   ReactiveFormsModule,
-  Validators,
 } from '@angular/forms';
 import { CustomerViewModel } from '../../../models/CustomerModel';
 import { CustomerService } from '../../../services/customer.service';
@@ -22,10 +15,7 @@ import Swal from 'sweetalert2';
   selector: 'app-provider-customer-selection',
   standalone: true,
   imports: [
-    RouterLink,
-    LoaderComponent,
     CommonModule,
-    HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
     ShipmentDetailComponent,
@@ -44,9 +34,6 @@ export class ProviderCustomerSelectionComponent {
   showShipmentDetail: boolean = false;
   edit: boolean = false;
   constructor(
-    private fb: FormBuilder,
-    private router: Router,
-    private http: HttpClient,
     private customerService: CustomerService,
     private shipmentService: ShipmentService,
     private toastr: ToastrService
