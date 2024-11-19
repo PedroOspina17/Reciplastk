@@ -168,7 +168,7 @@ namespace Reciplastk.Gateway.Services
         public HttpResponseModel Filter(WeightControlReportParams viewModel)
         {
             var response = new HttpResponseModel();
-            var query = db.Weightcontroldetails.Where(p => p.Weightcontrol.Isactive == true && p.Weightcontrol.Ispaid == false);
+            var query = db.Weightcontroldetails.Where(p => p.Weightcontrol.Isactive == true);
             if (viewModel.ProductId != null && viewModel.ProductId != -1)
             {
                 query = query.Where(p => p.Productid == viewModel.ProductId);
@@ -196,6 +196,7 @@ namespace Reciplastk.Gateway.Services
             var result = query.Select(p => new WeightControlReport
             {
                 productid = p.Productid,
+                weightcontroldetailid = p.Weightcontroldetailid,
                 date = p.Weightcontrol.Datestart,
                 productName = p.Product.Name,
                 employeeName = p.Weightcontrol.Employee.Name,
@@ -235,7 +236,7 @@ namespace Reciplastk.Gateway.Services
             var response = new HttpResponseModel();
             foreach (var i in viewModel.products)
             {
-                var detail = db.Weightcontroldetails.Where(x => x.Weightcontroldetailid == i.id).FirstOrDefault();
+                var detail = db.Weightcontroldetails.Where(x => x.Weightcontroldetailid == i.weightcontroldetailid).FirstOrDefault();
                 if (detail != null)
                 {
                     var weightcontrol = db.Weightcontrols.Where(x=> x.Weightcontrolid == detail.Weightcontrolid ).FirstOrDefault();
@@ -256,18 +257,17 @@ namespace Reciplastk.Gateway.Services
                 }
             }
 
-            var newpaymaent = new Payment();
-            newpaymaent.Employeid = viewModel.employeeId;
-            newpaymaent.Date = DateTime.Now;
-            newpaymaent.Totalweight = viewModel.totalWeight;
-            newpaymaent.Totalprice = viewModel.totalToPay;
-            db.Payments.Add(newpaymaent);
+            var newpayment = new Payment();
+            newpayment.Employeid = viewModel.employeeId;
+            newpayment.Date = DateTime.Now;
+            newpayment.Totalweight = viewModel.totalWeight;
+            newpayment.Totalprice = viewModel.totalToPay;
+            db.Payments.Add(newpayment);
             foreach (var i in viewModel.products)
             {
                 var newDetail = new Paymentdetail();
-                newDetail.Payment = newpaymaent;
-                newDetail.Paymentid = i.id;
-                newDetail.Weightcontroldetailid = i.id;
+                newDetail.Payment = newpayment;
+                newDetail.Weightcontroldetailid = i.weightcontroldetailid;
                 newDetail.Productprice = i.price;
                 db.Paymentdetails.Add(newDetail);
             }

@@ -48,8 +48,8 @@
             <tbody>
                 <tr *ngFor="let i of Filtered">
                     <td>
-                        <input type="checkbox" [id]="i.productid" [(ngModel)]="i.selected"
-                            (change)="onCheckboxChange($event, i.productid, i.productName, i.weight)">
+                        <input type="checkbox" [id]="i.weightcontroldetailid" [(ngModel)]="i.selected"
+                            (change)="onCheckboxChange($event, i.weightcontroldetailid, i.productName, i.weight)">
                     </td>
                     <td>{{i.employeeName}}</td>
                     <td>{{i.productName}}</td>

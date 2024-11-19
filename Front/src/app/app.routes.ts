@@ -4,24 +4,26 @@ import { RegisterComponent } from './components/security/register/register.compo
 import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
 import { AboutusComponent } from './components/general/aboutus/aboutus.component';
 import { WelcomeComponent } from './components/general/welcome/welcome.component';
-import { ShipmentTypeComponent } from './components/general/shipmentType/shipment-type.component';
-import { AddEditShipmentTypeComponent } from './components/general/add-edit-shipment-type/add-edit-shipment-type.component';
-import { CustomerListComponent } from './components/admin/customer-list/customer-list.component';
-import { AddEditCustomerComponent } from './components/admin/add-edit-customer/add-edit-customer.component';
-import { ProviderCustomerSelectionComponent } from './components/general/provider-customer-selection/provider-customer-selection.component';
-import { ShipmentDetailComponent } from './components/general/shipment-detail/shipment-detail.component';
-import { WeightControlTypeComponent } from './components/admin/weight-control-type/weight-control-type.component';
-import { AddEditWeightControlTypeComponent } from './components/admin/add-weight-control-type/add-edit-weight-control-type.component';
-import { WeightControlComponent } from './components/admin/weight-control/weight-control.component';
+import { ShipmentTypeComponent } from './components/config/shipmentType/shipment-type.component';
+import { AddEditShipmentTypeComponent } from './components/config/add-edit-shipment-type/add-edit-shipment-type.component';
+import { CustomerListComponent } from './components/config/customer-list/customer-list.component';
+import { AddEditCustomerComponent } from './components/config/add-edit-customer/add-edit-customer.component';
+import { ProviderCustomerSelectionComponent } from './components/weightcontrol/provider-customer-selection/provider-customer-selection.component';
+import { ShipmentDetailComponent } from './components/weightcontrol/shipment-detail/shipment-detail.component';
+import { WeightControlTypeComponent } from './components/config/weight-control-type/weight-control-type.component';
+import { AddEditWeightControlTypeComponent } from './components/config/add-weight-control-type/add-edit-weight-control-type.component';
+import { WeightControlComponent } from './components/weightcontrol/weight-control/weight-control.component';
 import { RemainigComponent } from './components/admin/remainig/remainig.component';
-import { WeightControlReportsComponent } from './components/admin/weight-control-reports/weight-control-reports.component';
-import { ShimentReportsComponent } from './components/admin/shiment-reports/shiment-reports.component';
-import { WeightControlGrindingComponent } from './components/admin/weight-control-grinding/weight-control-grinding.component';
+import { WeightControlReportsComponent } from './components/reports/weight-control-reports/weight-control-reports.component';
+import { ShimentReportsComponent } from './components/reports/shiment-reports/shiment-reports.component';
+import { WeightControlGrindingComponent } from './components/weightcontrol/weight-control-grinding/weight-control-grinding.component';
 import { AddEditProductsComponent } from './components/admin/products/add-edit-products/add-edit-products.component';
 import { ListProductsComponent } from './components/admin/products/list-products/list-products.component';
 import { WeightControlForPaymentsComponent } from './components/admin/weight-control-for-payments/weight-control-for-payments.component';
 import { PaymentReceiptComponent } from './components/admin/payment-receipt/payment-receipt.component';
 import { ShowAllBillsComponent } from './components/admin/show-all-bills/show-all-bills.component';
+import { CustomerTypeComponent } from './components/config/customer-type/customer-type.component';
+import { AddEditCustomerTypeComponent } from './components/config/add-edit-customer-type/add-edit-customer-type.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
@@ -29,6 +31,10 @@ export const routes: Routes = [
   { path: 'aboutus', component: AboutusComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'weightcontrol', children: []},
+  { path: 'admin', children: []},
+  { path: 'reports', children: []},
+  { path: 'config', children: []},
   {
     path: 'admin',
     children: [
@@ -37,6 +43,9 @@ export const routes: Routes = [
       { path: 'addProduct', component: AddEditProductsComponent },
       { path: 'editProduct/:id', component: AddEditProductsComponent },
       { path: 'roles', redirectTo: '/dashboard' },
+      { path: 'CustomerTypeComponent', component: CustomerTypeComponent }, 
+      { path: 'AddCustomerType', component: AddEditCustomerTypeComponent},
+      { path: 'EditCustomerType/:id', component: AddEditCustomerTypeComponent},
       { path: 'customer', component: CustomerListComponent },
       { path: 'addCustomer', component: AddEditCustomerComponent },
       { path: 'editCustomer/:id', component: AddEditCustomerComponent },

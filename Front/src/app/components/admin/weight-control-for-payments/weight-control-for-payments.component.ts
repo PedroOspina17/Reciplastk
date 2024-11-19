@@ -70,6 +70,7 @@ export class WeightControlForPaymentsComponent {
       StartDate: this.FormPayments.value.StartDate,
       EndDate: this.FormPayments.value.EndDate,
       EmployeeId: selectedEmployee?.id,
+      Ispaid: false,
     };
     this.BillInfo.employeeName = selectedEmployee.name;
     this.BillInfo.employeeId = selectedEmployee.employeeid;
@@ -102,7 +103,7 @@ export class WeightControlForPaymentsComponent {
 
     if (isChecked) {
       this.BillInfo.products = this.Filtered.map((item) => ({
-        id: item.productid,
+        weightcontroldetailid: item.weightcontroldetailid,
         name: item.productName,
         weight: item.weight,
         price: item.weight * 150, // To do: replace for a config value
@@ -122,14 +123,14 @@ export class WeightControlForPaymentsComponent {
 
   onCheckboxChange(
     event: Event,
-    productId: number,
+    weightcontroldetailid: number,
     productName: string,
     weight: number
   ) {
     const checkbox = event.target as HTMLInputElement;
     if (checkbox.checked) {
       this.BillInfo.products.push({
-        id: productId,
+        weightcontroldetailid: weightcontroldetailid,
         name: productName,
         weight: weight,
         price: weight * 150, // To do: replace for a config value
@@ -137,7 +138,7 @@ export class WeightControlForPaymentsComponent {
       this.BillInfo.totalWeight += weight;
     } else {
       this.BillInfo.products = this.BillInfo.products.filter(
-        (product) => product.id !== productId
+        (product) => product.weightcontroldetailid !== weightcontroldetailid
       );
       this.BillInfo.totalWeight -= weight;
     }

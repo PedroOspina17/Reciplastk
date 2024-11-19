@@ -11,7 +11,7 @@
                 <div class="col-7 d-flex">
                     <select formControlName="ProductSelection" class="form-select" id="ProductSelection" (change)="onProductChange($event)">
                         <option value="-1">Selecione un producto</option>
-                        <option *ngFor="let i of generalProductList" value="{{i.id}}">{{i.name}}</option>
+                        <option *ngFor="let i of generalProductList" value="{{i.productid}}">{{i.name}}</option>
                     </select>
                 </div>
             </div>
@@ -22,7 +22,7 @@
                 <div class="col-7">
                     <select formControlName="ColorSelection" class="form-select" name="ColorSelection" id="ColorSelection" (change)="onColorChange($event)">
                         <option value="-1">Selecione el producto especifico</option>
-                        <option *ngFor="let i of filterProductList" value="{{i.id}}">{{i.name}}</option>
+                        <option *ngFor="let i of filterProductList" value="{{i.productid}}">{{i.name}}</option>
                     </select>
                 </div>
             </div>

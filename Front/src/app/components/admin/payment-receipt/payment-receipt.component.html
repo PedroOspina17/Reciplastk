@@ -9,7 +9,6 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>ID Producto</th>
                     <th>Producto</th>
                     <th>Peso (kg)</th>
                     <th>Valor total por Producto ($)</th>
@@ -17,7 +16,6 @@
             </thead>
             <tbody>
                 <tr *ngFor="let product of BillInfo.products">
-                    <td>{{ product.id }}</td>
                     <td>{{ product.name }}</td>
                     <td>{{ product.weight }} kg</td>
                     <td>{{ product.price }}$</td>

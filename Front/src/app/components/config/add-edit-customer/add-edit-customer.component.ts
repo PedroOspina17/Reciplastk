@@ -11,8 +11,9 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CustomerService } from '../../../services/customer.service';
 import { CustomerViewModel } from '../../../models/CustomerModel';
 import { LoaderComponent } from '../../shared/loader/loader.component';
-import { Subscriber } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { CustomerTypeModel } from '../../../models/CustomerTypeModel';
+import { CustomerTypeService } from '../../../services/customer-type.service';
 
 @Component({
   selector: 'app-add-edit-customer',
@@ -32,10 +33,11 @@ export class AddEditCustomerComponent {
   id: number;
   operacion: string = 'Agregar';
   loader: boolean = false;
-
+  customertypeList: CustomerTypeModel[] = [];
   constructor(
     private fb: FormBuilder,
     private customerServises: CustomerService,
+    private customerTypeService: CustomerTypeService,
     private router: Router,
     private aRoute: ActivatedRoute, //
     private toastr: ToastrService,
@@ -43,17 +45,18 @@ export class AddEditCustomerComponent {
   ) {
     this.formCustomer = this.fb.group({
       nit: ['', [Validators.required, Validators.maxLength(50)]],
+      customertypeid: [-1, Validators.required],
       name: ['', [Validators.required, Validators.maxLength(50)]],
       lastname: ['', [Validators.required, Validators.maxLength(50)]],
       address: ['', [Validators.required, Validators.maxLength(50)]],
       cell: ['', [Validators.required, Validators.maxLength(20)]],
       needspickup: [false, Validators.required],
-      clientsince: [null,Validators.required ]
+      clientsince: [null, Validators.required],
     });
     this.id = Number(this.aRoute.snapshot.paramMap.get('id'));
   }
-
   ngOnInit(): void {
+    this.getCustomerType();
     if (this.id != 0) {
       this.operacion = 'Editar';
       this.GetCustomer(this.id);
@@ -61,20 +64,34 @@ export class AddEditCustomerComponent {
       this.operacion = 'Agregar';
     }
   }
+  getCustomerType(){
+    this.customerTypeService.GetAll().subscribe(r=>{
+      if (r.wasSuccessful == true) {
+        this.customertypeList = r.data
+        console.log(this.customertypeList)
+      } else {
+        this.toastr.info(r.statusMessage)
+      }
+    })
+  }
 
   GetCustomer(customerId: number) {
     this.customerServises.ShowCustomer(customerId).subscribe((result) => {
       if (result.wasSuccessful) {
         this.formCustomer.setValue({
           nit: result.data.nit,
+          customertypeid: result.data.customertypeid,
           name: result.data.name,
           lastname: result.data.lastname,
           address: result.data.address,
           cell: result.data.cell,
           needspickup: result.data.needspickup,
-          clientsince: formatDate(result.data.clientsince, 'yyyy-MM-dd',this.locale)
+          clientsince: formatDate(
+            result.data.clientsince,
+            'yyyy-MM-dd',
+            this.locale
+          ),
         });
-
       } else {
         console.log('Informacion incorrecta');
       }
@@ -85,15 +102,16 @@ export class AddEditCustomerComponent {
     this.loader = true;
     const customer: CustomerViewModel = {
       nit: this.formCustomer.value.nit,
+      customertypeid: this.formCustomer.value.customertypeid,
       name: this.formCustomer.value.name,
       lastname: this.formCustomer.value.lastname,
       address: this.formCustomer.value.address,
       cell: this.formCustomer.value.cell,
       needspickup: this.formCustomer.value.needspickup,
-      clientsince: this.formCustomer.value.clientsince
+      clientsince: this.formCustomer.value.clientsince,
     };
+    console.log('Model: ',customer)
     if (this.id != 0) {
-      // Llamar metodo modificar
       customer.customerid = this.id;
       this.customerServises
         .EditCustomer(customer, this.id)
@@ -113,7 +131,7 @@ export class AddEditCustomerComponent {
         });
     } else {
       this.customerServises.CreateCustomer(customer).subscribe((result) => {
-        console.log('Crear', customer,result)
+        console.log('Crear', customer, result);
         if (result.wasSuccessful) {
           this.loader = false;
           this.toastr.success(result.statusMessage, 'Felicitaciones');

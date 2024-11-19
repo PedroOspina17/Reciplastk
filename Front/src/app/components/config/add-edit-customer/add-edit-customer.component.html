@@ -1,0 +1,119 @@
+<app-loader *ngIf="loader"></app-loader>
+<div class="container-sm">
+    <main class="pb-3">
+        <div class="row h-50 ">
+            <h3 class="mb-4 mt-4 text-center">{{operacion}} Cliente</h3>
+            <div class="col-md-12 mb-3 offset-2 w-75">
+                <form [formGroup]="formCustomer" (ngSubmit)="AddEditCustomer()" class="row">
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label for="customertypeid" class="control-label">Tipo de cliente</label>
+                            <select name="CustomerType" formControlName="customertypeid" class="form-select mt-2"
+                                id="customertypeid">
+                                <option value="-1">Seleccione un tipo de cliente</option>
+                                <option *ngFor="let i of customertypeList" value="{{i.customertypeid}}">{{i.name}}</option>
+                            </select>
+                            <div>
+                                <span *ngIf="
+                                    formCustomer.get('customertype')?.hasError('required') && 
+                                    formCustomer.get('customertype')?.touched" class="form-text m-2 text-danger"> El
+                                    tipo de clente
+                                    es<strong> requerido </strong> </span>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <label for="Nit" class="control-label">Nit</label>
+                            <input type="text" class="form-control mt-2" placeholder="Nit" id="Nit"
+                                formControlName="nit">
+                            <div>
+                                <span *ngIf="
+                                    formCustomer.get('nit')?.hasError('required') && 
+                                    formCustomer.get('nit')?.touched" class="form-text m-2 text-danger"> El nit
+                                    es<strong> requerido </strong> </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label for="name" class="control-label">Nombre</label>
+                            <input type="text" class="form-control mt-2" placeholder="Nombre" id="name"
+                                formControlName="name">
+                            <div>
+                                <span *ngIf="
+                            formCustomer.get('name')?.hasError('required') && 
+                            formCustomer.get('name')?.touched" class="form-text m-2 text-danger"> El nombre es<strong>
+                                        requerido </strong> </span>
+                            </div>
+                        </div>
+
+                        <div class="col-6 mb-3">
+                            <label for="lastName" class="control-label">Apellido</label>
+                            <input type="text" class="form-control mt-2" placeholder="Apellido" id="lastName"
+                                formControlName="lastname">
+                            <div>
+                                <span *ngIf="
+                            formCustomer.get('lastName')?.hasError('required') && 
+                            formCustomer.get('lastName')?.touched" class="form-text m-2 text-danger"> El teléfono
+                                    es<strong> requerido </strong> </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label for="address" class="control-label">Direccion</label>
+                            <input type="text" class="form-control mt-2" placeholder="Direccion" id="address"
+                                formControlName="address">
+                            <div>
+                                <span *ngIf="
+                            formCustomer.get('address')?.hasError('required') && 
+                            formCustomer.get('address')?.touched" class="form-text m-2 text-danger"> la direccion
+                                    es<strong> requerida </strong> </span>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <label for="cell" class="control-label">Celular</label>
+                            <input type="text" class="form-control mt-2" placeholder="Celular" id="cell"
+                                formControlName="cell">
+                            <div>
+                                <span *ngIf="
+                            formCustomer.get('cel')?.hasError('required') && 
+                            formCustomer.get('cell')?.touched" class="form-text m-2 text-danger"> El celular es<strong>
+                                        requerido </strong> </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="clientsince" class="pb-2">Fecha de Cliente Desde:</label>
+                                <input type="date" class="form-control" id="clientsince" formControlName="clientsince">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label for="needspickup" class="control-label">Recoger</label>
+                            <br>
+                            <div class="radio-group mt-3 ms-1">
+                                <input type="radio" id="needspickupYes" formControlName="needspickup" name="needspickup"
+                                    [value]="true">
+                                <label for="needspickupYes">Sí</label>
+
+                                <input class="ms-4" type="radio" id="needspickupNo" formControlName="needspickup"
+                                    name="needspickup" [value]="false">
+                                <label for="needspickupNo">No</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-5">
+                        <button [disabled]="formCustomer.invalid" type="submit"
+                            class="btn btn-success w-25">Aceptar</button>
+                        <button class="btn btn-secondary w-25 ms-2" type="button"
+                            routerLink="/admin/customer">Volver</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </main>
+</div>

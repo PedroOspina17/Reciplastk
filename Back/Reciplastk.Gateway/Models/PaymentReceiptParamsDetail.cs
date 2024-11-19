@@ -2,7 +2,7 @@
 {
     public class PaymentReceiptParamsDetail
     {
-        public int id { get; set; } 
+        public int weightcontroldetailid { get; set; } 
         public int price { get; set; }
     }
 }
