@@ -57,6 +57,7 @@ namespace Reciplastk.Gateway.Services
             {
                 var newCustomer = new Customer(); // se hace instancia cuando no hay datos en la db
                 newCustomer.Nit = customerViewModel.nit;
+                newCustomer.Customertypeid = customerViewModel.customertypeid;
                 newCustomer.Name = customerViewModel.name;
                 newCustomer.Lastname = customerViewModel.lastname;
                 newCustomer.Address = customerViewModel.address;

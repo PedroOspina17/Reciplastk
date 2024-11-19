@@ -17,6 +17,8 @@ public partial class ReciplastkContext : DbContext
 
     public virtual DbSet<Customer> Customers { get; set; }
 
+    public virtual DbSet<Customertype> Customertypes { get; set; }
+
     public virtual DbSet<Employee> Employees { get; set; }
 
     public virtual DbSet<Product> Products { get; set; }
@@ -55,6 +57,15 @@ public partial class ReciplastkContext : DbContext
 
             entity.Property(e => e.Createddate).HasDefaultValueSql("now()");
             entity.Property(e => e.Isactive).HasDefaultValue(true);
+
+            entity.HasOne(d => d.Customertype).WithMany(p => p.Customers)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("fk_customer_type");
+        });
+
+        modelBuilder.Entity<Customertype>(entity =>
+        {
+            entity.HasKey(e => e.Customertypeid).HasName("customertype_pkey");
         });
 
         modelBuilder.Entity<Employee>(entity =>
@@ -95,19 +106,6 @@ public partial class ReciplastkContext : DbContext
             entity.HasOne(d => d.Product).WithMany(p => p.Productprices)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("productprice_productid_fkey");
-        });
-
-        modelBuilder.Entity<Remaining>(entity =>
-        {
-            entity.HasKey(e => e.Remainingid).HasName("remainings_pkey");
-
-            entity.HasOne(d => d.Product).WithMany(p => p.Remainings)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("remainings_productid_fkey");
-
-            entity.HasOne(d => d.Weightcontrol).WithMany(p => p.Remainings)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("remainings_weightcontrolid_fkey");
         });
 
         modelBuilder.Entity<Remaining>(entity =>

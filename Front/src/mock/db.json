@@ -1,29 +1,4 @@
 {
-  "Providers": {
-    "statusCode": 200,
-    "wasSuccessful": true,
-    "statusMessage": "Exito",
-    "data": [
-      {"id": 24, "name": "David" },
-      {"id": 26, "name": "Alejandro" },
-      {"id": 30, "name": "Andrea" },
-      {"id": 32, "name": "Pedro" },
-      {"id": 31, "name": "David" },
-      {"id": 29, "name": "Alejandro" },
-      {"id": 33, "name": "Andrea" },
-      {"id": 34, "name": "Pedro" },
-      {"id": 35, "name": "David" }
-    ]
-  },
-  "ShipmentType": {
-    "statusCode": 200,
-    "wasSuccessful": true,
-    "statusMessage": "Exito",
-    "data": [
-      {"shipmenttypeid":1, "name":"Entrada", "description": "Ingreso de material", "isactive": true},
-      {"shipmenttypeid":2, "name":"Salida", "description": "Venta o salida de material", "isactive": true}
-    ]
-  },
   "Employee":{
     "statusCode": 200,
     "wasSuccessful": true,

@@ -32,4 +32,7 @@ CREATE TABLE productPrice (
     parentid INTEGER
 );
 
+ALTER TABLE public.productprice 
+DROP COLUMN shortName, name, description, code, issubtype, isActive, parentid;
+
 
