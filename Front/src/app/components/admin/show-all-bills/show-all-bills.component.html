@@ -1,11 +1,11 @@
-<div class="container mt-5">
-    <h1 class="text-center mb-4">Listado de recibos de pago</h1>
+<div class="container mt-3">
+    <h3 class="text-center mb-4">Listado de recibos de pago</h3>
     <div class="row">
         <div *ngFor="let i of BillsList" class="col-md-3 mt-4">
             <a routerLink="/admin/PaymentReceiptComponent/{{i.paymentid}}" routerLinkActive="router-link-active"
                 style="text-decoration: none; color: black;">
-                <div class="p-4 border rounded shadow-sm">
-                    <h2 class="text-center mb-4"> {{i.employeeName}} #{{i.paymentid}}</h2>
+                <div class="border rounded shadow-sm px-4 py-2">                    
+                    <h4 class="text-center mb-4"> {{i.employeeName}} #{{i.paymentid}}</h4>
                     <div class="mb-3">
                         <p><strong>Empleado: </strong>{{i.employeeName}}</p>
                         <p><strong>Fecha: </strong>{{i.date | date: 'MM/dd/yyyy' }}</p>

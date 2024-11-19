@@ -1,5 +1,5 @@
-<div class="container w-75">
-    <h2 class="text-center">Control de bodega</h2>
+<div class="mx-5 w-75">
+    <h3 class="text-center">Control de bodega</h3>
     <div class="offset-2 pt-5">
         <form [formGroup]="FormShipment">
             <div class="row pb-4">
@@ -56,6 +56,7 @@
                     <th>Producto</th>
                     <th>Peso</th>
                     <th>Tipo</th>
+                    <th>Fescha</th>
                 </tr>
             </thead>
             <tbody>
@@ -64,6 +65,7 @@
                     <td>{{i.productName}}</td>
                     <td>{{i.weight}}</td>
                     <td>{{i.type}}</td>
+                    <td>{{i.date | date:'MM/dd/yyyy'}}</td>
                 </tr>
             </tbody>
         </table>

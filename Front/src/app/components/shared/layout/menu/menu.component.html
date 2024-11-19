@@ -54,16 +54,11 @@
                         restante</a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link px-4 link-body-emphasis" routerLink="/admin/Payments">Material
-                        pago</a>
-                </li>
-                <li>
                     <a href="#" class="nav-link px-4 link-body-emphasis" routerLink="/admin/ShowAllBills">Recibos de
                         pago</a>
                 </li>
             </ul>
         </li>
-
         <li>
             <a href="#ReportsMenu" class="nav-link link-body-emphasis" data-bs-toggle="collapse">
 
@@ -73,6 +68,14 @@
                 </span>
             </a>
             <ul class="collapse ms-1" id="ReportsMenu">
+                <li>
+                    <a href="#" class="nav-link px-4 link-body-emphasis" routerLink="/admin/Payments">Material a
+                        pagar</a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link px-4 link-body-emphasis" routerLink="/admin/RemainigComponent">Material
+                        restante</a>
+                </li>
                 <li class="d-block">
                     <a href="#" class="nav-link px-4 link-body-emphasis"
                         routerLink="/admin/WeightControlReportsComponent">Control de peso</a>
@@ -84,7 +87,7 @@
 
             </ul>
         </li>
-        <li>
+        <li> 
             <a href="#ConfigMenu" class="nav-link link-body-emphasis" data-bs-toggle="collapse">
                 <i class="fs-4 bi-gear"></i>
                 <span class="d-none d-sm-inline ms-2">Configuraciones
@@ -94,20 +97,35 @@
             </a>
             <ul class="collapse ms-1" id="ConfigMenu">
                 <li class="w-100">
-                    <a href="#" class="nav-link px-4 link-body-emphasis">
-                        <span class="d-none d-sm-inline">Item</span> 1
+                    <a href="#" class="nav-link px-4 link-body-emphasis"   routerLink="/admin/WeightControlTypeComponent">
+                        <span class="d-none d-sm-inline">Tipo control de peso</span>
+                    </a>
+                </li>
+                <li class="w-100">
+                    <a href="#" class="nav-link px-4 link-body-emphasis" routerLink="/shipmenttype">
+                        <span class="d-none d-sm-inline">Tipo cargamento</span>
+                    </a>
+                </li>
+                <li class="w-100">
+                    <a href="#" class="nav-link px-4 link-body-emphasis" routerLink="/admin/products">
+                        <span class="d-none d-sm-inline">Productos</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link px-4 link-body-emphasis">
-                        <span class="d-none d-sm-inline ">Item</span> 2
+                    <a href="#" class="nav-link px-4 link-body-emphasis" routerLink="/admin/customer">
+                        <span class="d-none d-sm-inline ">Clientes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link px-4 link-body-emphasis" routerLink="/admin/roles">
+                        <span class="d-none d-sm-inline ">Roles</span>
                     </a>
                 </li>
             </ul>
         </li>
 
 
-        <li class="nav-item dropdown">
+        <!-- <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
                 Administrativo
@@ -124,19 +142,15 @@
                 <li>
                     <a class="dropdown-item" routerLink="/admin/RemainigComponent">Material restante</a>
                 </li>
-                <li>
-                    <a class="dropdown-item" routerLink="/admin/Payments">Material pago</a>
-                </li>
-                <li>
-                    <a class="dropdown-item" routerLink="/admin/ShowAllBills">Recibos de pago</a>
-                </li>
+           
+             
             </ul>
-        </li>
+        </li> -->
     </ul>
 </div>
 
-<!-- 
-<nav class="navbar navbar-expand-lg navbar-light px-5 appnavbar">
+
+<!-- <nav class="navbar navbar-expand-lg navbar-light px-5 appnavbar">
     <div class="container-fluid mx-5">
         <a class="navbar-brand text-primary font-weight-bold mr-5" routerLink="/welcome">My super app</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"

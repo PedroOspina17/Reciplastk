@@ -1,5 +1,5 @@
-<div class="container w-75">
-    <h2 class="text-center">Control de peso</h2>
+<div class="mx-5 w-75">
+    <h3 class="text-center">Control de peso</h3>
     <div class="offset-2 pt-5">
         <form [formGroup]="FormGroupControl">
             <div class="row pb-4">
@@ -76,6 +76,7 @@
                     <th>Producto</th>
                     <th>Peso/Unidades</th>
                     <th>Tipo</th>
+                    <th>Fecha</th>
                 </tr>
             </thead>
             <tbody>
@@ -83,7 +84,8 @@
                     <td>{{i.employeeName}}</td>
                     <td>{{i.productName}}</td>
                     <td>{{i.weight}}</td>
-                    <td>{{i.type}}</td>                 
+                    <td>{{i.type}}</td>       
+                    <td>{{i.date | date:'MM/dd/yyyy'}}</td>             
                 </tr>
             </tbody>
         </table>

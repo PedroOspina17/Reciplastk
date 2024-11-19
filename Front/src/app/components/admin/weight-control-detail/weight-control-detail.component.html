@@ -3,14 +3,14 @@
         <div class="d-flex">
             <label for="">Empelado</label>
             <div class="ps-3">
-                <h5>{{employeename}}</h5>
+                <label class="fw-bold">{{employeename}}</label>
             </div>
         </div>
         <form [formGroup]="weightDetailForm">
             <div class="d-flex">
                 <label for="">Producto</label>
                 <div class="ps-3">
-                    <h5>{{productname}}</h5>
+                    <label class="fw-bold">{{productname}}</label>
                 </div>
             </div>
             <div class="pt-4">
@@ -44,8 +44,7 @@
                                 <td>{{i.name}}</td>
                                 <td>{{i.weight}}</td>
                                 <td>
-                                    <button type="button" (click)="Detele(index)"
-                                        class="btn btn-outline-danger">
+                                    <button type="button" (click)="Detele(index)" class="btn btn-outline-danger">
                                         <i class="bi bi-trash fs-6"></i>
                                     </button>
                                 </td>
