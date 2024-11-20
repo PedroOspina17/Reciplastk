@@ -122,11 +122,11 @@ export class AddEditCustomerComponent {
               `El cliente ${customer.name} fue modificado exitosamente`,
               'Felicitaciones'
             );
-            this.router.navigate(['/admin/customer']);
+            this.router.navigate(['/config/customer']);
           } else {
             this.loader = false;
             this.toastr.error(result.statusMessage, 'Error');
-            this.router.navigate(['/admin/customer']);
+            this.router.navigate(['/config/customer']);
           }
         });
     } else {
@@ -135,11 +135,11 @@ export class AddEditCustomerComponent {
         if (result.wasSuccessful) {
           this.loader = false;
           this.toastr.success(result.statusMessage, 'Felicitaciones');
-          this.router.navigate(['/admin/customer']);
+          this.router.navigate(['/config/customer']);
         } else {
           this.loader = false;
           this.toastr.error(result.statusMessage, 'Error');
-          this.router.navigate(['/admin/customer']);
+          this.router.navigate(['/config/customer']);
         }
       });
     }

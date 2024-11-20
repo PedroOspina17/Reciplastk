@@ -62,9 +62,7 @@ public partial class ReciplastkContext : DbContext
             entity.Property(e => e.Createddate).HasDefaultValueSql("now()");
             entity.Property(e => e.Isactive).HasDefaultValue(true);
 
-            entity.HasOne(d => d.Customertype).WithMany(p => p.Customers)
-                .OnDelete(DeleteBehavior.Cascade)
-                .HasConstraintName("fk_customer_type");
+            entity.HasOne(d => d.Customertype).WithMany(p => p.Customers).HasConstraintName("fk_customer_type");
         });
 
         modelBuilder.Entity<Customertype>(entity =>

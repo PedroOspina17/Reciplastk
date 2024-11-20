@@ -10,7 +10,7 @@
                             <label for="customertypeid" class="control-label">Tipo de cliente</label>
                             <select name="CustomerType" formControlName="customertypeid" class="form-select mt-2"
                                 id="customertypeid">
-                                <option value="-1">Seleccione un tipo de cliente</option>
+                                <option value="-1">Seleccione el tipo</option>
                                 <option *ngFor="let i of customertypeList" value="{{i.customertypeid}}">{{i.name}}</option>
                             </select>
                             <div>
@@ -109,7 +109,7 @@
                         <button [disabled]="formCustomer.invalid" type="submit"
                             class="btn btn-success w-25">Aceptar</button>
                         <button class="btn btn-secondary w-25 ms-2" type="button"
-                            routerLink="/admin/customer">Volver</button>
+                            routerLink="/config/customer">Volver</button>
                     </div>
 
                 </form>

@@ -4,12 +4,11 @@ import { WeightCotrolTypeService } from '../../../services/weight-cotrol-type.se
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { LoaderComponent } from '../../shared/loader/loader.component';
 
 @Component({
   selector: 'app-weight-control-type',
   standalone: true,
-  imports: [CommonModule, RouterLink, LoaderComponent],
+  imports: [CommonModule, RouterLink],
   templateUrl: './weight-control-type.component.html',
   styleUrl: './weight-control-type.component.css',
 })

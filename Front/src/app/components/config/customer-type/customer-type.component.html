@@ -1,7 +1,7 @@
 <div class="container">
     <div class="ComponentTittle">
         <h3 class="me-auto">Tipo de clientes</h3>
-        <button type="button" routerLink="/admin/AddCustomerType" class="btn btn-outline-success">
+        <button type="button" routerLink="/config/AddCustomerType" class="btn btn-outline-success">
             Agregar tipo de clientes</button>
     </div>
     <div class="row">
@@ -18,7 +18,7 @@
                     <td>{{i.name}}</td>
                     <td>{{i.description}}</td>
                     <td class="col-auto text-center btn-group">
-                        <button routerLink="/admin/EditCustomerType/{{i.customertypeid}}" type="button w-100" class="btn btn-outline-warning">
+                        <button routerLink="/config/EditCustomerType/{{i.customertypeid}}" type="button w-100" class="btn btn-outline-warning">
                             <i class="bi bi-pencil fs-6"></i>
                         </button>
                         <button (click)="Delete(i.customertypeid ?? -1)" type="button w-100" class="btn btn-outline-danger">

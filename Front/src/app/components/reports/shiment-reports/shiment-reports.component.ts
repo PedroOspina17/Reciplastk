@@ -6,9 +6,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { LoaderComponent } from '../../shared/loader/loader.component';
 import { ShipmentReportParamsModel } from '../../../models/ShipmentReportParamsModel';
 import { WeightControlService } from '../../../services/weight-control-service';
 import { ProductsService } from '../../../services/products.service';
@@ -20,11 +18,9 @@ import { ShipmentService } from '../../../services/shipment.service';
   selector: 'app-shiment-reports',
   standalone: true,
   imports: [
-    RouterLink,
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    LoaderComponent,
   ],
   templateUrl: './shiment-reports.component.html',
   styleUrl: './shiment-reports.component.css',

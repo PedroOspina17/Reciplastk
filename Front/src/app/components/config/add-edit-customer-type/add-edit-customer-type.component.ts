@@ -9,7 +9,6 @@ import {
 } from '@angular/forms';
 import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { LoaderComponent } from '../../shared/loader/loader.component';
 import { CustomerTypeModel } from '../../../models/CustomerTypeModel';
 import { CustomerTypeService } from '../../../services/customer-type.service';
 
@@ -18,7 +17,6 @@ import { CustomerTypeService } from '../../../services/customer-type.service';
   standalone: true,
   imports: [
     RouterLink,
-    LoaderComponent,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -63,7 +61,7 @@ export class AddEditCustomerTypeComponent {
       this.customerTypeService.Create(customermodel).subscribe((r) => {
         if (r.wasSuccessful == true) {
           this.toastr.success(r.statusMessage);
-          this.router.navigate(['/admin/CustomerTypeComponent']);
+          this.router.navigate(['/config/CustomerTypeComponent']);
         } else {
           this.toastr.error(r.statusMessage, 'Error');
         }
@@ -73,7 +71,7 @@ export class AddEditCustomerTypeComponent {
       this.customerTypeService.Update(customermodel, this.id).subscribe((r) => {
         if (r.wasSuccessful == true) {
           this.toastr.success(r.statusMessage);
-          this.router.navigate(['/admin/CustomerTypeComponent']);
+          this.router.navigate(['/config/CustomerTypeComponent']);
         } else {
           this.toastr.error(r.statusMessage, 'Error');
         }

@@ -6,11 +6,13 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import {
+  ActivatedRoute, Router,
+} from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { LoaderComponent } from '../../shared/loader/loader.component';
+
 import { CommonModule } from '@angular/common';
-import { ProviderCustomerSelectionComponent } from '../provider-customer-selection/provider-customer-selection.component';
+
 import { ShipmentService } from '../../../services/shipment.service';
 import { ShipmentDetailModel } from '../../../models/ShipmentDetailModel';
 import { ShipmentModel } from '../../../models/ShipmentModel';
@@ -21,11 +23,7 @@ import { ProductModel } from '../../../models/ProductModel';
   selector: 'app-shipment-detail',
   standalone: true,
   imports: [
-    RouterLink,
-    LoaderComponent,
     CommonModule,
-    HttpClientModule,
-    ProviderCustomerSelectionComponent,
     ReactiveFormsModule,
   ],
   templateUrl: './shipment-detail.component.html',
@@ -99,12 +97,12 @@ export class ShipmentDetailComponent {
       });
     } else if (this.type == '2') {
       this.productsService.GetSpecificProducts().subscribe((SpecificResult) => {
-          if (SpecificResult.wasSuccessful == true) {
-            this.SpecificProductsList = SpecificResult.data;
-          } else {
-            this.toastr.info('No se encontraron productos espesificos');
-          }
-        });
+        if (SpecificResult.wasSuccessful == true) {
+          this.SpecificProductsList = SpecificResult.data;
+        } else {
+          this.toastr.info('No se encontraron productos espesificos');
+        }
+      });
     }
   }
   ShipmentDetailDelete(ShipmentDetailId: number) {

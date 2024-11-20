@@ -64,17 +64,17 @@ export class AddEditWeightControlTypeComponent {
       this.weightCotrolTypeService.Update(ControlType).subscribe(r=>{
         if (r.wasSuccessful == true) {
           this.toastr.success(r.statusMessage)
-          this.router.navigate(['/admin/WeightControlTypeComponent'])
+          this.router.navigate(['/config/WeightControlTypeComponent'])
         } else {
           this.toastr.error(r.statusMessage,'Error')
-          this.router.navigate(['/admin/WeightControlTypeComponent'])
+          this.router.navigate(['/config/WeightControlTypeComponent'])
         }
       })
     } else {
       this.weightCotrolTypeService.Create(ControlType).subscribe(r=>{
         if (r.wasSuccessful == true) {
           this.toastr.success(r.statusMessage)
-          this.router.navigate(['/admin/WeightControlTypeComponent'])
+          this.router.navigate(['/config/WeightControlTypeComponent'])
         } else {
           this.toastr.error(r.statusMessage)
         }

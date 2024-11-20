@@ -2,15 +2,12 @@ import { Component } from '@angular/core';
 import { WeightControlReportParams } from '../../../models/WeightControlReportParams';
 import {
   FormBuilder,
-  Validators,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
-import { LoaderComponent } from '../../shared/loader/loader.component';
 import { WeightControlService } from '../../../services/weight-control-service';
 import { ProductsService } from '../../../services/products.service';
 import { WeightCotrolTypeService } from '../../../services/weight-cotrol-type.service';
@@ -21,11 +18,9 @@ import { ProductModel } from '../../../models/ProductModel';
   selector: 'app-weight-control-reports',
   standalone: true,
   imports: [
-    RouterLink,
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    LoaderComponent,
   ],
   templateUrl: './weight-control-reports.component.html',
   styleUrl: './weight-control-reports.component.css',
@@ -69,20 +64,15 @@ export class WeightControlReportsComponent {
       Ispaid: this.FormGroupControl.value.Ispaid,
       Type: this.FormGroupControl.value.Typeid,
     };
-    console.log('Model',model); 
+    console.log('Model', model);
     this.weightControlService.Filter(model).subscribe((r) => {
       if (r.wasSuccessful == true) {
         this.weightControlReport = r.data
-        console.log(r.data)
-        console.log(this.weightControlReport)
-
         this.ShowTable = true;
       } else {
         this.toastr.error('No se encontraron productos con los filtros aplicados')
       }
     });
-    
-    console.log(this.FormGroupControl);
   }
   GetInfo() {
     this.weightControlService.GetEmployee().subscribe((r) => {

@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { ShipmentTypeViewModel } from '../../../models/ShipmentTypeViewModel';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
@@ -12,11 +11,10 @@ import {
 } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ShipmentTypeService } from '../../../services/shipment-type.service';
-import { LoaderComponent } from '../../shared/loader/loader.component';
 @Component({
   selector: 'app-add-edit-shipment-type',
   standalone: true,
-  imports: [RouterLink, LoaderComponent, CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [RouterLink, CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './add-edit-shipment-type.component.html',
   styleUrl: './add-edit-shipment-type.component.css',
 })
@@ -77,7 +75,7 @@ export class AddEditShipmentTypeComponent {
         if (result.wasSuccessful == true) {
           this.loader = false;
           this.toastr.success(result.statusMessage)
-          this.router.navigate(['/shipmenttype'])
+          this.router.navigate(['/config/shipmenttype'])
         } else {
           this.loader = false;
           this.toastr.error(result.statusMessage,'Error')
@@ -89,11 +87,11 @@ export class AddEditShipmentTypeComponent {
         if (result.wasSuccessful == true) {
           this.loader = false;
           this.toastr.success(result.statusMessage)
-          this.router.navigate(['/shipmenttype'])
+          this.router.navigate(['/config/shipmenttype'])
         } else {
           this.loader = false;
           this.toastr.error(result.statusMessage,'Error')
-          this.router.navigate(['/shipmenttype'])
+          this.router.navigate(['/config/shipmenttype'])
         }
       })
     }

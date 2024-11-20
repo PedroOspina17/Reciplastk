@@ -1,16 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import {
   FormBuilder,
-  FormGroup,
   FormsModule,
-  NgModel,
   ReactiveFormsModule,
-  Validators,
 } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-import { LoaderComponent } from '../../shared/loader/loader.component';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { WeightControlService } from '../../../services/weight-control-service';
 import { ProductsService } from '../../../services/products.service';
@@ -22,10 +18,7 @@ import { ProductModel } from '../../../models/ProductModel';
   selector: 'app-weight-control',
   standalone: true,
   imports: [
-    RouterLink,
-    LoaderComponent,
     CommonModule,
-    HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
     WeightControlDetailComponent,
@@ -41,7 +34,7 @@ export class WeightControlComponent {
     private toastr: ToastrService,
     private weightControlService: WeightControlService,
     private productsService: ProductsService
-  ) {}
+  ) { }
   disable: boolean = true;
   employeeList: any[] = [];
   generalProductList: ProductModel[] = [];

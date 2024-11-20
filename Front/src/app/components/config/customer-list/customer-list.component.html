@@ -4,7 +4,7 @@
     <div class="panel panel-default">
       <div class="panel-heading ComponentTittle">
         <h3>Clientes</h3>
-        <button type="button" class="btn btn-outline-success" routerLink="/admin/addCustomer">
+        <button type="button" class="btn btn-outline-success" routerLink="/config/addCustomer">
           Agregar cliente
         </button>
       </div>
@@ -29,7 +29,7 @@
               <td>{{ item.lastname }}</td>
               <td>{{ item.address }}</td>
               <td>{{ item.cell }}</td>
-              <td>{{ item.customertypeid }}</td>
+              <td>{{ item.customertypename}}</td>
               <td>
                 <span *ngIf="item.needspickup; else noPickup">Sí</span>
                 <ng-template #noPickup>No</ng-template>
@@ -37,7 +37,7 @@
               <td>
                 <div class="btn-group">
                   <button type="button" class="btn btn-outline-warning"
-                    routerLink="/admin/editCustomer/{{ item.customerid }}">
+                    routerLink="/config/editCustomer/{{ item.customerid }}">
                     <i class="bi bi-pencil fs-6"></i>
                   </button>
                   <button type="button" class="btn btn-outline-danger"

@@ -6,7 +6,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router, ActivatedRoute, } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { ProductsService } from '../../../services/products.service';
@@ -28,10 +27,7 @@ import { ProductModel } from '../../../models/ProductModel';
 export class WeightControlDetailComponent {
   constructor(
     private fb: FormBuilder,
-    private router: Router,
-    private http: HttpClient,
     private toastr: ToastrService,
-    private aRoute: ActivatedRoute,
     private productService: ProductsService,
     private weightControlService: WeightControlService
   ) {
@@ -80,8 +76,8 @@ export class WeightControlDetailComponent {
     this.onComplete.emit();
   }
   Detele(Index: number) {
-      this.weightcontroldetaillist.splice(Index,1);
-      this.toastr.info('Producto eliminado con éxito');
+    this.weightcontroldetaillist.splice(Index, 1);
+    this.toastr.info('Producto eliminado con éxito');
   }
   SaveAll() {
     const weightcontrol: WeightControlModel = {
