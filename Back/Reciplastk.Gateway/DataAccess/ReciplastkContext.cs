@@ -21,6 +21,10 @@ public partial class ReciplastkContext : DbContext
 
     public virtual DbSet<Employee> Employees { get; set; }
 
+    public virtual DbSet<Payment> Payments { get; set; }
+
+    public virtual DbSet<Paymentdetail> Paymentdetails { get; set; }
+
     public virtual DbSet<Product> Products { get; set; }
 
     public virtual DbSet<Productprice> Productprices { get; set; }
@@ -58,9 +62,7 @@ public partial class ReciplastkContext : DbContext
             entity.Property(e => e.Createddate).HasDefaultValueSql("now()");
             entity.Property(e => e.Isactive).HasDefaultValue(true);
 
-            entity.HasOne(d => d.Customertype).WithMany(p => p.Customers)
-                .OnDelete(DeleteBehavior.Cascade)
-                .HasConstraintName("fk_customer_type");
+            entity.HasOne(d => d.Customertype).WithMany(p => p.Customers).HasConstraintName("fk_customer_type");
         });
 
         modelBuilder.Entity<Customertype>(entity =>
@@ -76,6 +78,26 @@ public partial class ReciplastkContext : DbContext
             entity.Property(e => e.Isactive).HasDefaultValue(true);
 
             entity.HasOne(d => d.Role).WithMany(p => p.Employees).HasConstraintName("employee_roleid_fkey");
+        });
+
+        modelBuilder.Entity<Payment>(entity =>
+        {
+            entity.HasKey(e => e.Paymentid).HasName("payment_pkey");
+
+            entity.HasOne(d => d.Employe).WithMany(p => p.Payments)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("payment_employeid_fkey");
+        });
+
+        modelBuilder.Entity<Paymentdetail>(entity =>
+        {
+            entity.HasKey(e => e.Paymentsdetailid).HasName("paymentdetails_pkey");
+
+            entity.HasOne(d => d.Payment).WithMany(p => p.Paymentdetails)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("paymentdetails_paymentid_fkey");
+
+            entity.HasOne(d => d.Weightcontroldetail).WithMany(p => p.Paymentdetails).HasConstraintName("paymentdetails_weightcontroldetailid_fkey");
         });
 
         modelBuilder.Entity<Product>(entity =>

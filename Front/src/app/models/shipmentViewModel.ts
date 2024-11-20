@@ -7,6 +7,3 @@ export class ShipmentViewModel {
     iscomplete: boolean = false;
     isactive: boolean = false;
 }
-    // customer: Customer;
-    // employee: Employee;
-    // shipmenttype: Shipmenttype;

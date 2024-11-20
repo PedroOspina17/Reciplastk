@@ -45,6 +45,9 @@ public partial class Employee
     [Column("isactive")]
     public bool Isactive { get; set; }
 
+    [InverseProperty("Employe")]
+    public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
+
     [ForeignKey("Roleid")]
     [InverseProperty("Employees")]
     public virtual Rol Role { get; set; }

@@ -51,7 +51,7 @@ public partial class Customer
     public bool? Isactive { get; set; }
 
     [Column("customertypeid")]
-    public int? Customertypeid { get; set; }
+    public int Customertypeid { get; set; }
 
     [ForeignKey("Customertypeid")]
     [InverseProperty("Customers")]
