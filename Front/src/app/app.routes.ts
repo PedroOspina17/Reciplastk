@@ -36,6 +36,7 @@ export const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'PaymentReceiptComponent', component: PaymentReceiptComponent },
       { path: 'PaymentReceiptComponent/:id', component: PaymentReceiptComponent },
+      { path: 'products', component: ListProductsComponent },
       { path: 'addProduct', component: AddEditProductsComponent },
       { path: 'editProduct/:id', component: AddEditProductsComponent },
       { path: 'RemainigComponent', component: RemainigComponent },
@@ -58,7 +59,6 @@ export const routes: Routes = [
       { path: 'addshipmenttype', component: AddEditShipmentTypeComponent },
       { path: 'editshipmenttype/:id', component: AddEditShipmentTypeComponent },
       { path: 'roles', redirectTo: '/dashboard' },
-      { path: 'products', component: ListProductsComponent },
     ]
   },
   {
