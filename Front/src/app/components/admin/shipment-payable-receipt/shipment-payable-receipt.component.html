@@ -1,0 +1,33 @@
+<div class="border rounded shadow-sm px-4 py-2" id="elementIdToPrint">
+    <h3 class="text-center mb-4">{{Receivable.shipmenttype == 1 ? 'Recibo de compra':'Recibo de venta'}} </h3>
+    <div class="mb-3">
+        <p><strong>Tipo: </strong>{{Receivable.shipmenttypename}}</p>
+        <p><strong>Empleado: </strong>{{Receivable.employeename}}</p>
+        <div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Peso (kg)</th>
+                        <th>SubTotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of Receivable.details">
+                        <td>{{item.productname}}</td>
+                        <td>{{item.productprice | currency:'USD':'symbol':'1.0-0'}}</td>
+                        <td>{{item.weight}}</td>
+                        <td>{{item.subtotal | currency:'USD':'symbol':'1.0-0'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="text-end me-3">
+            <p><strong class="fs-4">Total: {{Receivable.totalprice | currency:'USD':'symbol':'1.0-0'}}</strong></p>
+        </div>
+    </div>
+</div>
+<div class="container mt-4 text-end">
+    <input class="btn btn-primary" type="button" value="Imprimir factura" (click)="print()">
+</div>

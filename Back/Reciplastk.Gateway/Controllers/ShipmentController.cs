@@ -46,5 +46,16 @@ namespace Reciplastk.Gateway.Controllers
             var response = shipmentService.Filter(model);
             return response;
         }
+        [HttpGet("GetShipmentForPayments")]
+
+        public HttpResponseModel GetShipmentForPayments()
+        {
+            return shipmentService.GetShipmentForPayments();
+        }
+        [HttpGet("GetReceivableReceiptInfo")]
+        public HttpResponseModel GetReceivableReceiptInfo(int id)
+        {
+            return shipmentService.GetReceivableReceiptInfo(id);
+        }
     }
 }

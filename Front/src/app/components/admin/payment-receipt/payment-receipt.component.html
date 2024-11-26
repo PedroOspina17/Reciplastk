@@ -1,5 +1,7 @@
-<div class="container w-75 mt-4 p-4 border rounded shadow-sm" id="elementIdToPrint">
-    <h2 class="text-center mb-4">Recibo de pago</h2>
+<div class="w-75 mx-auto border rounded shadow-sm container" id="elementIdToPrint">
+    <div class="text-center">
+        <h3>Recibo de pago</h3>
+    </div>
     <div>
         <p><strong>Empleado: </strong>{{BillInfo.employeeName}}</p>
         <p><strong>Fecha: </strong> {{ BillInfo.date | date:'MM/dd/yyyy' }}</p>

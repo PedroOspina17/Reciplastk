@@ -1,42 +1,36 @@
-import { Component, Input } from '@angular/core';
-import { PaymentReceipt } from '../../../models/PaymentReceipt';
 import { CommonModule, DatePipe } from '@angular/common';
-import { WeightControlService } from '../../../services/weight-control-service';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { ReceivableModel } from '../../../models/ReceivableModel';
+import { ShipmentService } from '../../../services/shipment.service';
 
 @Component({
-  selector: 'app-payment-receipt',
+  selector: 'app-shipment-payable-receipt',
   standalone: true,
   imports: [CommonModule],
   providers: [DatePipe],
-  templateUrl: './payment-receipt.component.html',
-  styleUrl: './payment-receipt.component.css',
+  templateUrl: './shipment-payable-receipt.component.html',
+  styleUrl: './shipment-payable-receipt.component.css'
 })
-export class PaymentReceiptComponent {
-  constructor(
-    private weightcontrolservice: WeightControlService,
-    private aRoute: ActivatedRoute,
-  ) {
+export class ShipmentPayableReceiptComponent {
+  constructor(private aRoute: ActivatedRoute, private shipmentService: ShipmentService, private toastr: ToastrService) {
     this.id = Number(this.aRoute.snapshot.paramMap.get('id'));
   }
-  fromBillList: boolean = false;
+  Receivable: ReceivableModel = new ReceivableModel;
   id: number;
-  @Input() BillInfo!: PaymentReceipt;
   ngOnInit(): void {
-    console.log('BillInfo', this.BillInfo);
-    this.GetReceipt(this.id);
+    this.GetById();
   }
-  GetReceipt(id: number) {
-    this.weightcontrolservice.GetReceipt(id).subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.fromBillList = true;
-        this.BillInfo = r.data;
-        console.log('data', r.data);
-        console.log('BillInfo', this.BillInfo);
+  GetById() {
+    this.shipmentService.GetById(this.id).subscribe(r => {
+      if (r.wasSuccessful) {
+        this.Receivable = r.data;
+        console.log('receivable',this.Receivable)
       } else {
-        console.log(r.statusMessage);
+        this.toastr.error(r.statusMessage)
       }
-    });
+    })
   }
   print() {
     const printContent = document.getElementById('elementIdToPrint');
@@ -64,10 +58,7 @@ export class PaymentReceiptComponent {
           </body>
         </html>
         `);
-
         WindowPrt.document.close();
-
-        // Asegúrate de esperar a que los estilos se carguen antes de imprimir
         WindowPrt.onload = () => {
           WindowPrt.focus();
           WindowPrt.print();
