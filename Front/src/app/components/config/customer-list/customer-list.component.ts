@@ -28,7 +28,7 @@ export class CustomerListComponent {
   }
   ShowAllCustomers() {
     this.loader = true;
-    this.customerService.ShowAllCustomers().subscribe((result) => {
+    this.customerService.GetAll().subscribe((result) => {
       if (result.wasSuccessful == true) {
         this.CustomerList = result.data;
         this.loader = false;
@@ -40,7 +40,7 @@ export class CustomerListComponent {
 
   DeleteCustomer(customerId: number) {
     this.loader = true;
-    this.customerService.DeleteCustomer(customerId).subscribe((result) => {
+    this.customerService.Delete(customerId).subscribe((result) => {
       if (result.wasSuccessful) {
         this.loader = false;
         this.toastr.info(result.statusMessage, 'Cliente eliminado');
