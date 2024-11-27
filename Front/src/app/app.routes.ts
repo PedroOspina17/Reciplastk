@@ -24,6 +24,8 @@ import { PaymentReceiptComponent } from './components/admin/payment-receipt/paym
 import { ShowAllBillsComponent } from './components/admin/show-all-bills/show-all-bills.component';
 import { CustomerTypeComponent } from './components/config/customer-type/customer-type.component';
 import { AddEditCustomerTypeComponent } from './components/config/add-edit-customer-type/add-edit-customer-type.component';
+import { ShipmentPayableComponent } from './components/admin/shipment-payable/shipment-payable.component';
+import { ShipmentPayableReceiptComponent } from './components/admin/shipment-payable-receipt/shipment-payable-receipt.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
@@ -32,13 +34,16 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   {
-    path: 'admin', children: [
+    path: 'admin', children: [ 
       { path: 'dashboard', component: DashboardComponent },
       { path: 'PaymentReceiptComponent', component: PaymentReceiptComponent },
       { path: 'PaymentReceiptComponent/:id', component: PaymentReceiptComponent },
       { path: 'products', component: ListProductsComponent },
       { path: 'addProduct', component: AddEditProductsComponent },
       { path: 'editProduct/:id', component: AddEditProductsComponent },
+      { path: 'ShipmentPayableComponent/:id', component: ShipmentPayableComponent }, 
+      { path: 'ShipmentReceivablesComponent/:id', component: ShipmentPayableComponent }, 
+      { path: 'ShipmentPayableReceiptComponent/:id', component: ShipmentPayableReceiptComponent },
       { path: 'RemainigComponent', component: RemainigComponent },
       { path: 'ShowAllBills', component: ShowAllBillsComponent },
       { path: 'Payments', component: WeightControlForPaymentsComponent },

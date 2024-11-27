@@ -25,6 +25,12 @@ public partial class Shipmentdetail
     [Column("weight")]
     public double Weight { get; set; }
 
+    [Column("subtotal")]
+    public double Subtotal { get; set; }
+
+    [Column("productprice")]
+    public double Productprice { get; set; }
+
     [ForeignKey("Productid")]
     [InverseProperty("Shipmentdetails")]
     public virtual Product Product { get; set; }
