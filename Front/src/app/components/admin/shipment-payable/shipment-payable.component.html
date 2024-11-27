@@ -28,10 +28,10 @@
                     <td>{{i.totalprice | currency:'USD':'symbol':'1.0-0'}}</td>
                     <td>
                         <div class="btn-group">
-                            <button type="button" class="btn btn-outline-warning">
+                            <button routerLink="/admin/ShipmentPayableReceiptComponent/{{i.shipmentid}}"  type="button" class="btn btn-outline-warning">
                                 <i class="bi bi-currency-dollar"></i>
                             </button>
-                            <button type="button" class="btn btn-outline-primary">
+                            <button  routerLink="/admin/ShipmentPayableReceiptComponent/{{i.shipmentid}}"  type="button" class="btn btn-outline-primary">
                                 <i class="bi bi-eye"></i>
                             </button>
                             <button type="button" class="btn btn-outline-success">
@@ -43,5 +43,6 @@
             </tbody>
         </table>
     </div>
-
 </div>
+
+

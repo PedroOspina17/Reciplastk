@@ -23,7 +23,7 @@ export class ShipmentPayableReceiptComponent {
     this.GetById();
   }
   GetById() {
-    this.shipmentService.GetById(this.id).subscribe(r => {
+    this.shipmentService.GetReceivableReceiptInfo(this.id).subscribe(r => {
       if (r.wasSuccessful) {
         this.Receivable = r.data;
         console.log('receivable',this.Receivable)

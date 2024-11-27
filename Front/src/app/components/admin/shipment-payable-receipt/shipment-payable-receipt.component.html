@@ -2,7 +2,7 @@
     <h3 class="text-center mb-4">{{Receivable.shipmenttype == 1 ? 'Recibo de compra':'Recibo de venta'}} </h3>
     <div class="mb-3">
         <p><strong>Tipo: </strong>{{Receivable.shipmenttypename}}</p>
-        <p><strong>Empleado: </strong>{{Receivable.employeename}}</p>
+        <p><strong>{{Receivable.shipmenttype == 1 ? 'Recibido de: ':'Enviado a: '}} </strong>{{Receivable.customername}}</p>
         <div>
             <table class="table table-bordered">
                 <thead>

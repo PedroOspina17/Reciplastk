@@ -31,8 +31,8 @@ export class ShipmentService {
   Filter(model: ShipmentReportParamsModel):Observable<HttpResponseModel>{
     return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/Filter', model)
   }
-  GetShipmentForPayments(): Observable<HttpResponseModel>{
-    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'/GetShipmentForPayments');
+  GetShipmentForPayments(id:number): Observable<HttpResponseModel>{
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'/GetShipmentForPayments?id='+id);
   }
   GetReceivableReceiptInfo(id: number): Observable<HttpResponseModel>{
     return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'/GetReceivableReceiptInfo?id='+id);

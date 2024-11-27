@@ -20,14 +20,14 @@
                 <tr *ngFor="let product of BillInfo.products">
                     <td>{{ product.name }}</td>
                     <td>{{ product.weight }} kg</td>
-                    <td>{{ product.price }}$</td>
+                    <td>{{ product.price | currency:'USD':'symbol':'1.0-0'}}</td>
                 </tr>
             </tbody>
         </table>
     </div>
     <div>
         <p><strong>Total Peso Seleccionado:</strong> {{ BillInfo.totalWeight }} kg</p>
-        <p><strong>Total a Pagar:</strong> {{ BillInfo.totalToPay}} $</p>
+        <p><strong>Total a Pagar:</strong> {{ BillInfo.totalToPay | currency:'USD':'symbol':'1.0-0'}}</p>
     </div>
 </div>
 <div class="container w-75 mt-4 text-end">

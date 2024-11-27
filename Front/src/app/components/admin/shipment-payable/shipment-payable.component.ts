@@ -20,11 +20,11 @@ export class ShipmentPayableComponent {
   ReceivableList: ReceivableModel[] = [];
 
   ngOnInit(): void {
-    this.GetAllReceivables()
+    this.GetAllReceivables(this.id)
     console.log(this.id)
   }
-  GetAllReceivables() {
-    this.shipmentService.GetShipmentForPayments().subscribe(r => {
+  GetAllReceivables(id: number) {
+    this.shipmentService.GetShipmentForPayments(id).subscribe(r => {
       if (r.wasSuccessful) {
         this.ReceivableList = r.data;
         console.log(r.data)

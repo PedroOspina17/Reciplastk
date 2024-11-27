@@ -160,10 +160,10 @@ namespace Reciplastk.Gateway.Services
             response.Data = result;
             return response;
         }
-        public HttpResponseModel GetShipmentForPayments()
+        public HttpResponseModel GetShipmentForPayments(int id)
         {
             var response = new HttpResponseModel();
-            var query = db.Shipments.Include(p => p.Shipmentdetails).Where(x => x.Ispaid == false).Select(z => new RecivableViewModelClass
+            var query = db.Shipments.Include(p => p.Shipmentdetails).Where(x => x.Ispaid == false && x.Shipmenttypeid == id).Select(z => new RecivableViewModelClass
             {
                 shipmentid = z.Shipmentid,
                 shipmenttype = z.Shipmenttypeid,

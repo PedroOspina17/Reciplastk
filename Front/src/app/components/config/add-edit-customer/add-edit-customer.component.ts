@@ -50,7 +50,7 @@ export class AddEditCustomerComponent {
       lastname: ['', [Validators.required, Validators.maxLength(50)]],
       address: ['', [Validators.required, Validators.maxLength(50)]],
       cell: ['', [Validators.required, Validators.maxLength(20)]],
-      needspickup: [false, Validators.required],
+      needspickup: [,],
       clientsince: [null, Validators.required],
     });
     this.id = Number(this.aRoute.snapshot.paramMap.get('id'));
