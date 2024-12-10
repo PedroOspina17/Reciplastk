@@ -164,7 +164,7 @@ namespace Reciplastk.Gateway.Services
             response.Data = query;
             return response;
         }
-
+       
         public HttpResponseModel Filter(WeightControlReportParams viewModel)
         {
             var response = new HttpResponseModel();
@@ -195,6 +195,9 @@ namespace Reciplastk.Gateway.Services
             }
             var result = query.Select(p => new WeightControlReport
             {
+                productid = p.Productid,
+                weightcontroldetailid = p.Weightcontroldetailid,
+                date = p.Weightcontrol.Datestart,
                 productName = p.Product.Name,
                 employeeName = p.Weightcontrol.Employee.Name,
                 weight = p.Weight,
@@ -228,5 +231,92 @@ namespace Reciplastk.Gateway.Services
             return response;
         }
 
+        public HttpResponseModel PayAndSave(PaymentReceiptParams viewModel) 
+        { 
+            var response = new HttpResponseModel();
+            foreach (var i in viewModel.products)
+            {
+                var detail = db.Weightcontroldetails.Where(x => x.Weightcontroldetailid == i.weightcontroldetailid).FirstOrDefault();
+                if (detail != null)
+                {
+                    var weightcontrol = db.Weightcontrols.Where(x=> x.Weightcontrolid == detail.Weightcontrolid ).FirstOrDefault();
+                    if (weightcontrol != null)
+                    {
+                        weightcontrol.Ispaid = true;
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        response.StatusMessage = "No se encontro la fk con el id";
+                        response.WasSuccessful = false;
+                    }
+                }
+                else
+                {
+                    response.WasSuccessful = false;
+                }
+            }
+
+            var newpayment = new Payment();
+            newpayment.Employeid = viewModel.employeeId;
+            newpayment.Date = DateTime.Now;
+            newpayment.Totalweight = viewModel.totalWeight;
+            newpayment.Totalprice = viewModel.totalToPay;
+            db.Payments.Add(newpayment);
+            foreach (var i in viewModel.products)
+            {
+                var newDetail = new Paymentdetail();
+                newDetail.Payment = newpayment;
+                newDetail.Weightcontroldetailid = i.weightcontroldetailid;
+                newDetail.Productprice = i.price;
+                db.Paymentdetails.Add(newDetail);
+            }
+            db.SaveChanges();
+            return response;
+        }
+        public HttpResponseModel GetAllReceipt()
+        {
+            var response = new HttpResponseModel();
+
+            var bills = db.Payments.Include(p => p.Employe).Select(p => new
+                {
+                    p.Paymentid,
+                    EmployeeName = p.Employe.Name,
+                    p.Totalweight,
+                    p.Totalprice,
+                    p.Date
+            }).ToList();
+
+            response.Data = bills;
+            return response;
+        }
+        public HttpResponseModel GetReceipt(int id) {
+            var response = new HttpResponseModel();
+            var query = db.Payments.Include(p => p.Employe).Select(p => new 
+            {
+                p.Paymentid,
+                EmployeeName = p.Employe.Name,
+                totalWeight = p.Totalweight,
+                totalToPay = p.Totalprice,
+                p.Date,
+                products = db.Paymentdetails.Where(x=> x.Paymentid == id).Select(x=> new
+                {
+                    id = x.Weightcontroldetail.Productid,
+                    name = x.Weightcontroldetail.Product.Name,
+                    weight = x.Weightcontroldetail.Weight,
+                    price = x.Productprice,
+                }) .ToList(),
+            }).Where(x => x.Paymentid == id).FirstOrDefault();
+            if (query != null)
+            {
+                response.Data = query;
+            }
+            else
+            {
+                response.StatusMessage = "No se encontro el recibo de pago con el id indicado";
+                response.WasSuccessful = false;
+            }
+            return response;
+        }
     }
 }

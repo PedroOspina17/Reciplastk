@@ -119,6 +119,7 @@ namespace Reciplastk.Gateway.Services
                 EmployeeName = p.Shipment.Employee.Name,
                 Weight = p.Weight,
                 Type = p.Shipment.Shipmenttype.Name,
+                Date = p.Shipment.Creationdate,
             });
             response.Data = result;
             return response;

@@ -1,0 +1,9 @@
+.iconClass{
+    position: relative;
+  }
+  .iconClass span{
+    position: absolute;
+    top: -10px;
+    right:-10px;
+    display: block;
+  }

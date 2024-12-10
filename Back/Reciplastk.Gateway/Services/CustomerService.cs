@@ -1,4 +1,5 @@
 ﻿using Azure;
+using Microsoft.EntityFrameworkCore;
 using Reciplastk.Gateway.DataAccess;
 using Reciplastk.Gateway.Models;
 using System;
@@ -17,7 +18,19 @@ namespace Reciplastk.Gateway.Services
         }
         public HttpResponseModel GetAll()
         {
-            var customer = db.Customers.Where(x => x.Isactive == true).ToList();
+            var customer = db.Customers.Include(p=> p.Customertype).Where(x => x.Isactive == true).Select(y=> new CustomerViewModel()
+            {
+                customerid = y.Customerid,
+                customertypeid = y.Customertypeid,
+                customertypename = y.Customertype.Name,
+                nit = y.Nit,
+                name = y.Name,
+                lastname = y.Lastname,
+                address = y.Address,
+                cell = y.Cell,
+                needspickup = y.Needspickup,
+                clientsince = y.Clientsince,
+            }).ToList();
             var response = new HttpResponseModel();
             response.WasSuccessful = true;
             response.Data = customer;
@@ -57,6 +70,7 @@ namespace Reciplastk.Gateway.Services
             {
                 var newCustomer = new Customer(); // se hace instancia cuando no hay datos en la db
                 newCustomer.Nit = customerViewModel.nit;
+                newCustomer.Customertypeid = customerViewModel.customertypeid;
                 newCustomer.Name = customerViewModel.name;
                 newCustomer.Lastname = customerViewModel.lastname;
                 newCustomer.Address = customerViewModel.address;
