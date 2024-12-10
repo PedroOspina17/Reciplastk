@@ -12,6 +12,7 @@ import { ShipmentDetailModel } from '../../../models/ShipmentDetailModel';
 import { ShipmentModel } from '../../../models/ShipmentModel';
 import { ProductsService } from '../../../services/products.service';
 import { ProductModel } from '../../../models/ProductModel';
+import { ProductPriceService } from '../../../services/product-price.service';
 
 @Component({
   selector: 'app-shipment-detail',
@@ -26,7 +27,7 @@ import { ProductModel } from '../../../models/ProductModel';
 export class ShipmentDetailComponent {
   @Input() type = '1';
   @Input() personname = '';
-  @Input() personid: string = '';
+  @Input() personid = -1;
   @Output() onComplete = new EventEmitter();
   shipmentDetailList: ShipmentDetailModel[] = [];
   formShipment: FormGroup;
@@ -41,7 +42,8 @@ export class ShipmentDetailComponent {
     private fb: FormBuilder,
     private toastr: ToastrService,
     private shipmentService: ShipmentService,
-    private productsService: ProductsService ) {
+    private productsService: ProductsService,
+    private productPriceService: ProductPriceService ) {
     this.formShipment = this.fb.group({
       productid: ['-1', [Validators.required, Validators.min(0)]],
       weight: ['', [Validators.required]],
@@ -50,16 +52,17 @@ export class ShipmentDetailComponent {
   onSelectedProductChange(value: any) { // To do: send the id when the real EndPoint is created
     if (this.type == '1') {
       this.shipmenttypeid = 1;
-      this.shipmentService.ProductBuyPrice().subscribe(r => {
+      this.productPriceService.GetCurrentPrice(value.target.value,this.personid,this.shipmenttypeid).subscribe(r => {
         if (r.wasSuccessful) {
           this.productPrice = r.data;
+          console.log(this.productPrice)
         } else {
           this.toastr.error('No se encontro el precio de venta');
         }
       })
     } else {
       this.shipmenttypeid = 2;
-      this.shipmentService.ProductSellPrice().subscribe(r => {
+      this.productPriceService.GetCurrentPrice(value.target.value,this.personid,this.shipmenttypeid).subscribe(r => {
         if (r.wasSuccessful) {
           this.productPrice = r.data;
           console.log(this.productPrice)

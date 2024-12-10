@@ -94,6 +94,8 @@ export class AddEditProductsComponent {
       name: this.formProduct.value.name,
       description: this.formProduct.value.description,
       code: this.formProduct.value.code,
+      buyprice: this.formProduct.value.buyprice,
+      sellprice: this.formProduct.value.sellprice,
       issubtype: this.formProduct.value.issubtype,
       SubtypeProductList: this.listSubproduct,
     };
@@ -146,6 +148,8 @@ export class AddEditProductsComponent {
         ' ' +
         this.formSubproduct.value.nameSubproduct,
       code: this.formProduct.value.code + (this.listSubproduct.length + 1),
+      buyprice: this.formProduct.value.buyprice,
+      sellprice: this.formSubproduct.value.sellpriceSubproduct,
       issubtype: true,
     };
     console.log('subproducto: ', subproduct);

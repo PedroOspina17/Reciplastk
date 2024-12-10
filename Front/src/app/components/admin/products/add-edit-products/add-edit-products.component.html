@@ -157,7 +157,7 @@
             <tbody>
               <tr *ngFor="let subproduct of listSubproduct; index as i">
                 <td>{{ subproduct.shortname }}</td>
-                <td>1600</td>
+                <td>{{subproduct.sellprice}}</td>
                 <td>
                   <button (click)="DeleteSubproduct(i)" class="btn btn-outline-danger">
                     <i class="bi bi-trash"></i>

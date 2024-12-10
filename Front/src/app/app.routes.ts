@@ -26,6 +26,8 @@ import { CustomerTypeComponent } from './components/config/customer-type/custome
 import { AddEditCustomerTypeComponent } from './components/config/add-edit-customer-type/add-edit-customer-type.component';
 import { ShipmentPayableComponent } from './components/admin/shipment-payable/shipment-payable.component';
 import { ShipmentPayableReceiptComponent } from './components/admin/shipment-payable-receipt/shipment-payable-receipt.component';
+import { ProductPriceInnerComponent } from './components/admin/product-price-inner/product-price-inner.component';
+import { ProductPriceComponent } from './components/admin/product-price/product-price.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
@@ -47,6 +49,8 @@ export const routes: Routes = [
       { path: 'RemainigComponent', component: RemainigComponent },
       { path: 'ShowAllBills', component: ShowAllBillsComponent },
       { path: 'Payments', component: WeightControlForPaymentsComponent },
+      { path: 'ProductPriceComponent', component: ProductPriceComponent },
+      { path: 'ProductPriceInnerComponent', component: ProductPriceInnerComponent },
     ],
   },
   {

@@ -25,6 +25,8 @@ public partial class ReciplastkContext : DbContext
 
     public virtual DbSet<Paymentdetail> Paymentdetails { get; set; }
 
+    public virtual DbSet<Pricetype> Pricetypes { get; set; }
+
     public virtual DbSet<Product> Products { get; set; }
 
     public virtual DbSet<Productprice> Productprices { get; set; }
@@ -100,6 +102,11 @@ public partial class ReciplastkContext : DbContext
             entity.HasOne(d => d.Weightcontroldetail).WithMany(p => p.Paymentdetails).HasConstraintName("paymentdetails_weightcontroldetailid_fkey");
         });
 
+        modelBuilder.Entity<Pricetype>(entity =>
+        {
+            entity.HasKey(e => e.Pricetypeid).HasName("pricetype_pkey");
+        });
+
         modelBuilder.Entity<Product>(entity =>
         {
             entity.HasKey(e => e.Productid).HasName("products_pkey");
@@ -116,14 +123,17 @@ public partial class ReciplastkContext : DbContext
         {
             entity.HasKey(e => e.Productpriceid).HasName("productprice_pkey");
 
-            entity.Property(e => e.Creationdate).HasDefaultValueSql("now()");
-            entity.Property(e => e.Isactive).HasDefaultValue(true);
-            entity.Property(e => e.Issubtype).HasDefaultValue(false);
-            entity.Property(e => e.Updatedate).HasDefaultValueSql("now()");
-
             entity.HasOne(d => d.Customer).WithMany(p => p.Productprices)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("productprice_customerid_fkey");
+
+            entity.HasOne(d => d.Employee).WithMany(p => p.Productprices)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("productprice_employeeid_fkey");
+
+            entity.HasOne(d => d.Pricetype).WithMany(p => p.Productprices)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("productprice_pricetypeid_fkey");
 
             entity.HasOne(d => d.Product).WithMany(p => p.Productprices)
                 .OnDelete(DeleteBehavior.ClientSetNull)
