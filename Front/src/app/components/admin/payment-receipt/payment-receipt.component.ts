@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { PaymentReceipt } from '../../../models/PaymentReceipt';
 import { CommonModule, DatePipe } from '@angular/common';
 import { WeightControlService } from '../../../services/weight-control-service';
-import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -17,8 +16,6 @@ export class PaymentReceiptComponent {
   constructor(
     private weightcontrolservice: WeightControlService,
     private aRoute: ActivatedRoute,
-    private toastr: ToastrService,
-    private datePipe: DatePipe
   ) {
     this.id = Number(this.aRoute.snapshot.paramMap.get('id'));
   }

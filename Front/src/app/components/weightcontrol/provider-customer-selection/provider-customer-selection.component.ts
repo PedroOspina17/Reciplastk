@@ -6,7 +6,6 @@ import {
 } from '@angular/forms';
 import { CustomerViewModel } from '../../../models/CustomerModel';
 import { CustomerService } from '../../../services/customer.service';
-import { ShipmentService } from '../../../services/shipment.service';
 import { ToastrService } from 'ngx-toastr';
 import { ShipmentDetailComponent } from '../shipment-detail/shipment-detail.component';
 import Swal from 'sweetalert2';
@@ -30,14 +29,12 @@ export class ProviderCustomerSelectionComponent {
   type: number = 1;
   loader: boolean = false;
   CustomerList: CustomerViewModel[] = [];
-  ProviderList: any[] = [];
   showShipmentDetail: boolean = false;
   edit: boolean = false;
   constructor(
     private customerService: CustomerService,
-    private shipmentService: ShipmentService,
     private toastr: ToastrService
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.CustomerProviderSelect('Ingreso');
   }
@@ -56,7 +53,7 @@ export class ProviderCustomerSelectionComponent {
       if (result.isConfirmed) {
         this.edit = true;
         this.Clear();
-      } else{
+      } else {
         this.edit = false;
       }
     });
@@ -66,16 +63,16 @@ export class ProviderCustomerSelectionComponent {
     this.loader = true;
     if (this.type == 1) {
       this.ShowProvider = true;
-      this.shipmentService.ShowAllProviders().subscribe((resultProvider) => {
+      this.customerService.GetAllProviders().subscribe((resultProvider) => {
         if (resultProvider.wasSuccessful == true) {
-          this.ProviderList = resultProvider.data;
+          this.CustomerList = resultProvider.data;
         } else {
           this.toastr.info('No se encontro ningun proveedor');
         }
       });
     } else if (this.type == 2) {
       this.ShowProvider = false;
-      this.customerService.ShowAllCustomers().subscribe((resultCustomer) => {
+      this.customerService.GetAllCustomer().subscribe((resultCustomer) => {
         if (resultCustomer.wasSuccessful == true) {
           this.CustomerList = resultCustomer.data;
         } else {
@@ -88,13 +85,11 @@ export class ProviderCustomerSelectionComponent {
   onProviderChange(value: any) {
     this.id = value.target.value;
     this.edit = false;
-    if (this.type == 1) {
-      this.personname = this.ProviderList.find((p) => p.id == this.id)?.name;
-    } else {
-      this.personname = this.CustomerList.find(
-        (p) => p.customerid == this.id
-      )?.name;
-    }
+
+    this.personname = this.CustomerList.find(
+      (p) => p.customerid == this.id
+    )?.name;
+
     if (this.id != -1) {
       this.showShipmentDetail = true;
     } else {

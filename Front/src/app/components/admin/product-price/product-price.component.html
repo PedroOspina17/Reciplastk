@@ -1,0 +1,45 @@
+<div class="w-75">
+    <h3 class="text-center">Precios de los productos</h3>
+    <div class="offset-1">
+        <form [formGroup]="formSelects">
+            <div class="row mt-5">
+                <div class="col">
+                    <div class="d-flex align-items-center">
+                        <label for="tipeid" class="me-2">Tipo</label>
+                        <select formControlName="tipeid" (change)="PriceTypeChange($event)" class="form-select" name="tipeid" id="tipeid">
+                            <option value="-1">Seleccione el tipo del precio</option>
+                            <option *ngFor="let i of PriceTypesList" value="{{i.pricetypeid}}">{{i.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="d-flex align-items-center">
+                        <label for="productid" class="me-2">Producto</label>
+                        <select formControlName="productid" (change)="ProductChange($event)" class="form-select" name="productid" id="productid">
+                            <option value="-1">Seleccione el producto</option>
+                            <option *ngFor="let i of ProductsList" value="{{i.productid}}">{{i.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col ms-3">
+                    <div class="ms-5">
+                        <input formControlName="isCreate" (change)="IsCreateChange($event)" type="radio" name="isCreate"
+                            id="GrowpPricesChange" [value]="false">
+                        <label class="ms-2" for="GrowpPricesChange">Cambiar precios existentes</label>
+                    </div>
+                </div>
+                <div class="col ms-5">
+                    <div>
+                        <input formControlName="isCreate" (change)="IsCreateChange($event)" type="radio" name="isCreate"
+                            id="IndividualPricesChange" [value]="true">
+                        <label class="ms-2" for="IndividualPricesChange">Crear precio individual</label>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<app-product-price-inner *ngIf="formSelects.value.isCreate != null"
+    [productPriceTypeId]="productPriceTypeId" [productid]="formSelects.value.productid" [isCreate]="formSelects.value.isCreate"></app-product-price-inner>

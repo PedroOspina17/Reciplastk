@@ -39,7 +39,7 @@ export class AddEditCustomerComponent {
     private customerServises: CustomerService,
     private customerTypeService: CustomerTypeService,
     private router: Router,
-    private aRoute: ActivatedRoute, //
+    private aRoute: ActivatedRoute,
     private toastr: ToastrService,
     @Inject(LOCALE_ID) public locale: string
   ) {
@@ -50,7 +50,7 @@ export class AddEditCustomerComponent {
       lastname: ['', [Validators.required, Validators.maxLength(50)]],
       address: ['', [Validators.required, Validators.maxLength(50)]],
       cell: ['', [Validators.required, Validators.maxLength(20)]],
-      needspickup: [false, Validators.required],
+      needspickup: [,],
       clientsince: [null, Validators.required],
     });
     this.id = Number(this.aRoute.snapshot.paramMap.get('id'));
@@ -64,8 +64,8 @@ export class AddEditCustomerComponent {
       this.operacion = 'Agregar';
     }
   }
-  getCustomerType(){
-    this.customerTypeService.GetAll().subscribe(r=>{
+  getCustomerType() {
+    this.customerTypeService.GetAll().subscribe(r => {
       if (r.wasSuccessful == true) {
         this.customertypeList = r.data
         console.log(this.customertypeList)
@@ -76,26 +76,50 @@ export class AddEditCustomerComponent {
   }
 
   GetCustomer(customerId: number) {
-    this.customerServises.ShowCustomer(customerId).subscribe((result) => {
-      if (result.wasSuccessful) {
-        this.formCustomer.setValue({
-          nit: result.data.nit,
-          customertypeid: result.data.customertypeid,
-          name: result.data.name,
-          lastname: result.data.lastname,
-          address: result.data.address,
-          cell: result.data.cell,
-          needspickup: result.data.needspickup,
-          clientsince: formatDate(
-            result.data.clientsince,
-            'yyyy-MM-dd',
-            this.locale
-          ),
-        });
-      } else {
-        console.log('Informacion incorrecta');
-      }
-    });
+    console.log(customerId);
+    if (customerId == 1) {
+      this.customerServises.GetProvider(customerId).subscribe((result) => {
+        if (result.wasSuccessful) {
+          this.formCustomer.setValue({
+            nit: result.data.nit,
+            customertypeid: result.data.customertypeid,
+            name: result.data.name,
+            lastname: result.data.lastname,
+            address: result.data.address,
+            cell: result.data.cell,
+            needspickup: result.data.needspickup,
+            clientsince: formatDate(
+              result.data.clientsince,
+              'yyyy-MM-dd',
+              this.locale
+            ),
+          });
+        } else {
+          console.log('Informacion incorrecta');
+        }
+      });
+    } else {
+      this.customerServises.GetCustomer(customerId).subscribe((result) => {
+        if (result.wasSuccessful) {
+          this.formCustomer.setValue({
+            nit: result.data.nit,
+            customertypeid: result.data.customertypeid,
+            name: result.data.name,
+            lastname: result.data.lastname,
+            address: result.data.address,
+            cell: result.data.cell,
+            needspickup: result.data.needspickup,
+            clientsince: formatDate(
+              result.data.clientsince,
+              'yyyy-MM-dd',
+              this.locale
+            ),
+          });
+        } else {
+          console.log('Informacion incorrecta');
+        }
+      });
+    }
   }
 
   AddEditCustomer() {
@@ -110,11 +134,11 @@ export class AddEditCustomerComponent {
       needspickup: this.formCustomer.value.needspickup,
       clientsince: this.formCustomer.value.clientsince,
     };
-    console.log('Model: ',customer)
+    console.log('Model: ', customer)
     if (this.id != 0) {
       customer.customerid = this.id;
       this.customerServises
-        .EditCustomer(customer, this.id)
+        .Update(customer, this.id)
         .subscribe((result) => {
           if (result.wasSuccessful == true) {
             this.loader = false;
@@ -130,7 +154,7 @@ export class AddEditCustomerComponent {
           }
         });
     } else {
-      this.customerServises.CreateCustomer(customer).subscribe((result) => {
+      this.customerServises.Create(customer).subscribe((result) => {
         console.log('Crear', customer, result);
         if (result.wasSuccessful) {
           this.loader = false;
