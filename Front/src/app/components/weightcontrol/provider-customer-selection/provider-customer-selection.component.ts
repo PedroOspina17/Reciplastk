@@ -84,6 +84,7 @@ export class ProviderCustomerSelectionComponent {
   }
   onProviderChange(value: any) {
     this.id = value.target.value;
+    console.log('CustomerId:',this.id)
     this.edit = false;
 
     this.personname = this.CustomerList.find(

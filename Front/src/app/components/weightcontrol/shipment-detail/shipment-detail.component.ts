@@ -13,6 +13,7 @@ import { ShipmentModel } from '../../../models/ShipmentModel';
 import { ProductsService } from '../../../services/products.service';
 import { ProductModel } from '../../../models/ProductModel';
 import { ProductPriceService } from '../../../services/product-price.service';
+import { ProductPriceInnerComponent } from "../../admin/product-price-inner/product-price-inner.component";
 
 @Component({
   selector: 'app-shipment-detail',
@@ -20,6 +21,7 @@ import { ProductPriceService } from '../../../services/product-price.service';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    ProductPriceInnerComponent
   ],
   templateUrl: './shipment-detail.component.html',
   styleUrl: './shipment-detail.component.css',
@@ -38,21 +40,25 @@ export class ShipmentDetailComponent {
   productPrice: number = 0;
   subtotal: number = 0;
   TotalPrice: number = 0;
+  producttochangeprice: number = -1;
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
     private shipmentService: ShipmentService,
     private productsService: ProductsService,
-    private productPriceService: ProductPriceService ) {
+    private productPriceService: ProductPriceService) {
     this.formShipment = this.fb.group({
       productid: ['-1', [Validators.required, Validators.min(0)]],
       weight: ['', [Validators.required]],
     });
   }
+  ChangePrice(productid: number) {
+    this.producttochangeprice = productid
+  }
   onSelectedProductChange(value: any) { // To do: send the id when the real EndPoint is created
     if (this.type == '1') {
       this.shipmenttypeid = 1;
-      this.productPriceService.GetCurrentPrice(value.target.value,this.personid,this.shipmenttypeid).subscribe(r => {
+      this.productPriceService.GetCurrentPrice(value.target.value, this.personid, this.shipmenttypeid).subscribe(r => {
         if (r.wasSuccessful) {
           this.productPrice = r.data;
           console.log(this.productPrice)
@@ -62,7 +68,7 @@ export class ShipmentDetailComponent {
       })
     } else {
       this.shipmenttypeid = 2;
-      this.productPriceService.GetCurrentPrice(value.target.value,this.personid,this.shipmenttypeid).subscribe(r => {
+      this.productPriceService.GetCurrentPrice(value.target.value, this.personid, this.shipmenttypeid).subscribe(r => {
         if (r.wasSuccessful) {
           this.productPrice = r.data;
           console.log(this.productPrice)
@@ -73,6 +79,7 @@ export class ShipmentDetailComponent {
     }
   }
   SaveWeight() {
+    console.log('CustomerId:',this.personid)
     const shipmentDetail: ShipmentDetailModel = {
       shipmenttypeid: this.shipmenttypeid,
       productid: this.formShipment.value.productid,

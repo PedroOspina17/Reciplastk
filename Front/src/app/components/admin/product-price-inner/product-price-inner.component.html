@@ -1,8 +1,8 @@
-<div class="w-75 mt-3">
-    <div class="offset-1">
+<div class="mt-3">
+    <div>
         <form [formGroup]="formSelects">
             <div class="row mt-5">
-                <div class="col-6" *ngIf="isCreate == true" >
+                <div class="col-6" *ngIf="isCreate == true && customerid == null" >
                     <div class="d-flex align-items-center">
                         <label for="tipeid" class="me-2">{{productPriceTypeId == 1 ? 'Proveedores':'Clientes'}}</label>
                         <select formControlName="customer" (change)="CustomerChange($event)" class="form-select"

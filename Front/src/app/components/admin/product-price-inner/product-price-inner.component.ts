@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { CustomerViewModel } from '../../../models/CustomerModel';
 import { CustomerService } from '../../../services/customer.service';
 import { ToastrService } from 'ngx-toastr';
@@ -26,14 +26,28 @@ export class ProductPriceInnerComponent {
   @Input() productPriceTypeId: any;
   @Input() productid: number = -1;
   @Input() isCreate: boolean = false;
+  @Input() customerid?: number = -1;
 
   filterList: ProductPriceInnerParams[] = [];
   formSelects: FormGroup;
   CustomerList: CustomerViewModel[] = [];
-  customerid: number = -1;
+  /*   customerid: number = -1;*/
   ngOnInit(): void {
     this.filter();
     this.GetCustomers(this.productPriceTypeId);
+    console.log('productPriceTypeId', this.productPriceTypeId)
+    console.log('productid', this.productid)
+    console.log('isCreate', this.isCreate)
+    console.log('customer', this.customerid)
+  }
+  ngOnChanges(changes: SimpleChanges) {
+    /* for (const propName in changes) {
+      const chng = changes[propName];
+      const cur = JSON.stringify(chng.currentValue);
+      const prev = JSON.stringify(chng.previousValue);
+      console.log(`${propName}: currentValue = ${cur}, previousValue = ${prev}`);
+    } */
+    this.filter();
   }
   filter() {
     const productPriceModel: ProductPriceModel = {
