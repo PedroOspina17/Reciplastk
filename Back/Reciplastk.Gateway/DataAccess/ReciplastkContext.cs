@@ -123,6 +123,8 @@ public partial class ReciplastkContext : DbContext
         {
             entity.HasKey(e => e.Productpriceid).HasName("productprice_pkey");
 
+            entity.Property(e => e.Iscurrentprice).HasDefaultValue(false);
+
             entity.HasOne(d => d.Customer).WithMany(p => p.Productprices)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("productprice_customerid_fkey");

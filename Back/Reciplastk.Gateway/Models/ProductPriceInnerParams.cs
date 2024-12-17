@@ -6,6 +6,6 @@
         public string employee { get; set; }
         public string customer { get; set; }
         public Double price { get; set; }
-        public Boolean isactive { get; set; }
+        public Boolean iscurrentprice { get; set; }
     }
 }

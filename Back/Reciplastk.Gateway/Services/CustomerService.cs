@@ -10,11 +10,12 @@ namespace Reciplastk.Gateway.Services
     public class CustomerService
     {
         private readonly ReciplastkContext db;
+        private readonly ProductPricesService productPricesService;
 
-        public CustomerService(ReciplastkContext db)
+        public CustomerService(ReciplastkContext db, ProductPricesService productPricesService)
         {
             this.db = db;
-
+            this.productPricesService = productPricesService;
         }
         public HttpResponseModel GetAll()
         {
@@ -38,7 +39,7 @@ namespace Reciplastk.Gateway.Services
         }
         public HttpResponseModel GetAllCustomer()
         {
-            var customer = db.Customers.Include(p=> p.Customertype).Where(x => x.Isactive == true && x.Customertypeid == 2).Select(y=> new CustomerViewModel()
+            var customer = db.Customers.Include(p=> p.Customertype).Where(x => x.Isactive == true && x.Customertypeid == (int)Enums.CustomerTypeEnum.customer).Select(y=> new CustomerViewModel()
             {
                 customerid = y.Customerid,
                 customertypeid = y.Customertypeid,
@@ -58,7 +59,7 @@ namespace Reciplastk.Gateway.Services
         }
         public HttpResponseModel GetAllProviders()
         {
-            var customer = db.Customers.Include(p => p.Customertype).Where(x => x.Isactive == true && x.Customertypeid == 1).Select(y => new CustomerViewModel()
+            var customer = db.Customers.Include(p => p.Customertype).Where(x => x.Isactive == true && x.Customertypeid == (int)Enums.CustomerTypeEnum.provider).Select(y => new CustomerViewModel()
             {
                 customerid = y.Customerid,
                 customertypeid = y.Customertypeid,
@@ -141,6 +142,7 @@ namespace Reciplastk.Gateway.Services
                 newCustomer.Createddate = DateTime.Now;
                 db.Customers.Add(newCustomer);
                 db.SaveChanges();
+                this.productPricesService.CreatePriceForNewCustomer(newCustomer);
                 response.WasSuccessful = true;
                 response.Data = newCustomer;
                 response.StatusMessage = "El cliente fue creado exitosamente";
@@ -153,6 +155,7 @@ namespace Reciplastk.Gateway.Services
 
             return response;
         }
+        
         public HttpResponseModel Update(CustomerViewModel customerViewModel)
         {
             var response = new HttpResponseModel();

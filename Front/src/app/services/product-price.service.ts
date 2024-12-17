@@ -4,6 +4,7 @@ import { AppConfig } from '../common/app-config';
 import { Observable } from 'rxjs';
 import { HttpResponseModel } from '../models/HttpResponseModel';
 import { ProductPriceModel } from '../models/ProductPriceModel';
+import { CopyCustomerPricesViewModel } from '../models/CopyCustomerPricesViewModel';
 
 @Injectable({
   providedIn: 'root'
@@ -35,5 +36,8 @@ export class ProductPriceService {
   }
   GetCurrentPrice(productid:number, customerid:number, productpricetypeid:number): Observable<HttpResponseModel> {
     return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'GetCurrentPrice?productid='+productid+'&customerid='+customerid+'&productpricetypeid='+productpricetypeid);
+  }
+  CopyPrices(Model: CopyCustomerPricesViewModel): Observable<HttpResponseModel>{
+    return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'CopyPrices',Model);
   }
 }

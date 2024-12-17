@@ -2,7 +2,7 @@
     <div>
         <form [formGroup]="formSelects">
             <div class="row mt-5">
-                <div class="col-6" *ngIf="isCreate == true && customerid == null" >
+                <div class="col-6" *ngIf="isCreate == true || customerid == null" >
                     <div class="d-flex align-items-center">
                         <label for="tipeid" class="me-2">{{productPriceTypeId == 1 ? 'Proveedores':'Clientes'}}</label>
                         <select formControlName="customer" (change)="CustomerChange($event)" class="form-select"
@@ -32,7 +32,7 @@
                         <th>Fecha</th>
                         <th>Empleado</th>
                         <th>{{productPriceTypeId == 1 ? 'Proveedores':'Clientes'}}</th>
-                        <th>Precio compra</th>
+                        <th>{{productPriceTypeId == 1 ? 'Precio compra':'Precio venta'}}</th>
                         <th>Precio vigente</th>
                     </tr>
                 </thead>
@@ -42,7 +42,7 @@
                         <td>{{i.employee}}</td>
                         <td>{{i.customer}}</td>
                         <td>{{i.price | currency:'USD':'symbol':'1.0-0'}}</td>
-                        <td>{{i.isactive}}</td>
+                        <td>{{i.iscurrentprice}}</td>
                     </tr>
                 </tbody>
             </table>

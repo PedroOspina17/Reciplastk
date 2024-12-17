@@ -3,5 +3,5 @@ export class ProductPriceInnerParams {
     employee: string = "";
     customer: string = "";
     price: number = 0;
-    isactive?: boolean;
+    iscurrentprice?: boolean;
 }

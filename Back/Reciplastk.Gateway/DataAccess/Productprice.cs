@@ -37,6 +37,9 @@ public partial class Productprice
     [Column("employeeid")]
     public int Employeeid { get; set; }
 
+    [Column("iscurrentprice")]
+    public bool Iscurrentprice { get; set; }
+
     [ForeignKey("Customerid")]
     [InverseProperty("Productprices")]
     public virtual Customer Customer { get; set; }

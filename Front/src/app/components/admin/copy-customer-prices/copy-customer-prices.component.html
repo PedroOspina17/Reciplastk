@@ -1,0 +1,61 @@
+<div class="w-75 ms-4">
+    <h3 class="text-center">Copiar precios de clientes</h3>
+    <form [formGroup]="FormSelects">
+        <div class="row mt-5">
+            <div class="col">
+                <div class="d-flex align-items-center">
+                    <label class="me-2" for="CustomerToCopy">Cliente a copiar</label>
+                    <div class="col">
+                        <select formControlName="CustomerToCopyId" (change)="CustomerToChange($event)"  class="form-select" name="" id="CustomerToCopy">
+                            <option value="-1">seleccione cliente a copiar</option>
+                            <option *ngFor="let i of CustomerList" value="{{i.customerid}}">{{i.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="d-flex align-items-center">
+                    <label class="me-2" for="CustomerToAssign">Cliente a asignar</label>
+                    <div class="col">
+                        <select formControlName="CustomerToAssignId" class="form-select" name="" id="CustomerToAssign">
+                            <option value="-1">Seleccione un cliente</option>
+                            <option *ngFor="let i of CustomerList" value="{{i.customerid}}">{{i.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-5 text-center">
+            <input (click)="SaveInfo()"
+                [disabled]="FormSelects.value.CustomerToCopyId == -1 || FormSelects.value.CustomerToAssignId == -1 "
+                class="btn btn-success" type="button" value="Guardar">
+        </div>
+        <div *ngIf="buttonSave" class="mt-5">
+            <table class="table table-condensed table-striped align-middle">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Producto</th>
+                        <th>Tipo de precio</th>
+                        <th>Precio</th>
+                        <th>Precio vigente</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let i of CopyCustomerPricesParams">
+                        <td>{{i.date | date: 'MM/dd/yyyy'}}</td>
+                        <td>{{i.product}}</td>
+                        <td>{{i.type}}</td>
+                        <td>{{i.price | currency:'USD':'symbol':'1.0-0'}}</td>
+                        <td>
+                            <i *ngIf="i.iscurrentprice; else x" class="bi bi-check2 text-success ms-5"></i>
+                            <ng-template #x>
+                                <i class="bi bi-x-lg text-danger ms-5"></i>
+                            </ng-template>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+</div>

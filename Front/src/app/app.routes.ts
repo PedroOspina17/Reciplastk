@@ -28,6 +28,7 @@ import { ShipmentPayableComponent } from './components/admin/shipment-payable/sh
 import { ShipmentPayableReceiptComponent } from './components/admin/shipment-payable-receipt/shipment-payable-receipt.component';
 import { ProductPriceInnerComponent } from './components/admin/product-price-inner/product-price-inner.component';
 import { ProductPriceComponent } from './components/admin/product-price/product-price.component';
+import { CopyCustomerPricesComponent } from './components/admin/copy-customer-prices/copy-customer-prices.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
@@ -50,7 +51,8 @@ export const routes: Routes = [
       { path: 'ShowAllBills', component: ShowAllBillsComponent },
       { path: 'Payments', component: WeightControlForPaymentsComponent },
       { path: 'ProductPriceComponent', component: ProductPriceComponent },
-      { path: 'ProductPriceInnerComponent', component: ProductPriceInnerComponent },
+      { path: 'ProductPriceInnerComponent', component: ProductPriceInnerComponent }, 
+      { path: 'CopyCustomerPricesComponent', component: CopyCustomerPricesComponent }
     ],
   },
   {

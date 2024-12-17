@@ -15,7 +15,7 @@ CREATE TABLE ProductPrice (
 	price DOUBLE PRECISION NOT NULL,
 	creationdate TIMESTAMP NOT NULL,
 	updatedate TIMESTAMP NOT NULL,
+	iscurrentprice BOOL NOT NULL,
 	isactive BOOL NOT NULL
 );
-
 

@@ -58,7 +58,7 @@ export class ProductPriceInnerComponent {
     console.log('productPriceModel', productPriceModel)
     this.productPriceService.Filter(productPriceModel).subscribe(r => {
       if (r.wasSuccessful) {
-        this.filterList = r.data.reverse();
+        this.filterList = r.data;
         console.log('filterList', this.filterList);
       } else {
         this.toastr.info("No se encontraron productos con los filtros aplicados")

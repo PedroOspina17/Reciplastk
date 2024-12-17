@@ -54,6 +54,11 @@ namespace Reciplastk.Gateway.Controllers
         public HttpResponseModel GetCurrentPrice(int productid, int customerid, int productpricetypeid) {
             return this.productPricesService.GetCurrentPrice(productid,customerid, productpricetypeid);
         }
+        [HttpPost("CopyPrices")]
+        public HttpResponseModel CopyPrices(CopyCustomerPricesViewModel copyCustomerPricesViewModel)
+        {
+            return this.productPricesService.CopyPrices(copyCustomerPricesViewModel);
+        }
         // call getcurrentprices where we were using default prices
     }
 }

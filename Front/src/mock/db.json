@@ -9,17 +9,5 @@
       {"employeeid":29, "roleid":1, "name": "Ossa", "lastname": "Ossa", "username": "Davidossa", "isactive": true}
 
     ]
-  },
-  "ProductBuyPrice":{
-    "statusCode": 200,
-    "wasSuccessful": true,
-    "statusMessage": "Exito",
-    "data": 1400
-  },
-  "ProductSellPrice":{
-    "statusCode": 200,
-    "wasSuccessful": true,
-    "statusMessage": "Exito",
-    "data": 3000
-  }
+  } 
 }

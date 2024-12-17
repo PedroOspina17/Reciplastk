@@ -8,12 +8,10 @@ namespace Reciplastk.Gateway.Services
     public class ProductPricesService
     {
         private readonly ReciplastkContext db;
-        private readonly CustomerService customerService;
 
-        public ProductPricesService(ReciplastkContext db, CustomerService customerService)
+        public ProductPricesService(ReciplastkContext db)
         {
             this.db = db;
-            this.customerService = customerService;
         }
         public HttpResponseModel GetAllPriceTypes()
         {
@@ -91,7 +89,8 @@ namespace Reciplastk.Gateway.Services
         public HttpResponseModel GetCurrentPrice(int productid, int customerid, int pricetypeid)
         {
             var response = new HttpResponseModel();
-            var query = db.Productprices.Where(x => x.Productid == productid && x.Customerid == customerid && x.Pricetypeid == pricetypeid)
+            var query = db.Productprices
+                .Where(x => x.Productid == productid && x.Customerid == customerid && x.Pricetypeid == pricetypeid && x.Iscurrentprice == true)
                 .OrderByDescending(x => x.Creationdate)
                 .Select(y => y.Price).FirstOrDefault();
 
@@ -103,6 +102,9 @@ namespace Reciplastk.Gateway.Services
             var response = new HttpResponseModel();
             if (productPricesViewModel.customerid != null)
             {
+                var query = db.Productprices
+                    .Where(x=> x.Productid == productPricesViewModel.productid && x.Customerid == productPricesViewModel.customerid.Value && x.Pricetypeid == productPricesViewModel.pricetypeid).FirstOrDefault();
+                query.Iscurrentprice = false;
                 var newObject = new Productprice();
                 newObject.Productid = productPricesViewModel.productid;
                 newObject.Customerid = productPricesViewModel.customerid.Value;
@@ -111,7 +113,8 @@ namespace Reciplastk.Gateway.Services
                 newObject.Price = productPricesViewModel.price;
                 newObject.Creationdate = DateTime.Now;
                 newObject.Isactive = true;
-                db.Productprices.Add(newObject);
+                newObject.Iscurrentprice = true;
+                db.Productprices.Add(newObject);                
                 db.SaveChanges();
                 response.StatusMessage = "Se creo el precio del producto correctamente";
                 return response;
@@ -124,26 +127,30 @@ namespace Reciplastk.Gateway.Services
         public HttpResponseModel CreatePriceForAllCustomers(ProductPricesViewModel productPricesViewModel)
         {
             var response = new HttpResponseModel();
-            List<CustomerViewModel> customers;
+            List<Customer> customers;
             if (productPricesViewModel.pricetypeid == 1)
             {
-                customers = (List<CustomerViewModel>)this.customerService.GetAllProviders().Data;
+                customers = db.Customers.Where(x => x.Isactive == true && x.Customertypeid == (int)Enums.CustomerTypeEnum.provider).ToList();
             }
             else
             {
-                customers = (List<CustomerViewModel>)this.customerService.GetAllCustomer().Data;
+                customers = db.Customers.Where(x => x.Isactive == true && x.Customertypeid == (int)Enums.CustomerTypeEnum.customer).ToList();
             }
+            var query = db.Productprices.Where(x => x.Productid == productPricesViewModel.productid && x.Pricetypeid == productPricesViewModel.pricetypeid && x.Iscurrentprice == true).ToList();
+            query.ForEach(x => x.Iscurrentprice = false);
             foreach (var customer in customers)
             {
-                var currentprice = (double)this.GetCurrentPrice(productPricesViewModel.productid, customer.customerid.Value, productPricesViewModel.pricetypeid).Data;
+                //customer.Iscurrentprice = false;
+                var currentprice = (double)this.GetCurrentPrice(productPricesViewModel.productid, customer.Customerid, productPricesViewModel.pricetypeid).Data;
                 var newObject = new Productprice();
                 newObject.Productid = productPricesViewModel.productid;
-                newObject.Customerid = customer.customerid.Value;
+                newObject.Customerid = customer.Customerid;
                 newObject.Pricetypeid = productPricesViewModel.pricetypeid;
                 newObject.Employeeid = 29; ; // To do: get from logged in user
                 newObject.Price = currentprice + productPricesViewModel.price;
                 newObject.Creationdate = DateTime.Now;
                 newObject.Isactive = true;
+                newObject.Iscurrentprice = true;
                 db.Productprices.Add(newObject);
             }
             db.SaveChanges();
@@ -154,18 +161,26 @@ namespace Reciplastk.Gateway.Services
         public HttpResponseModel Filter(FilterViewModel filterViewModel)
         {
             var response = new HttpResponseModel();
-            var query = db.Productprices.Where(z => z.Pricetypeid == filterViewModel.pricetypeid && z.Productid == filterViewModel.productid);
+            var query = db.Productprices.AsQueryable(); //.Where(x=> x.Isactive == true);
             if (filterViewModel.customerid != null && filterViewModel.customerid != -1)
             {
                 query = query.Where(x => x.Customerid == filterViewModel.customerid);
             };
-            var result = query.Select(x => new ProductPriceInnerParams
+            if (filterViewModel.productid != null && filterViewModel.productid != -1)
+            {
+                query = query.Where(x => x.Productid == filterViewModel.productid);
+            };
+            if (filterViewModel.pricetypeid != null && filterViewModel.pricetypeid != -1)
+            {
+                query = query.Where(x => x.Pricetypeid == filterViewModel.pricetypeid);
+            };
+            var result = query.OrderByDescending(x=> x.Creationdate).Select(x => new ProductPriceInnerParams
             {
                 date = x.Creationdate,
                 employee = x.Employee.Name,
                 customer = x.Customer.Name,
                 price = x.Price,
-                isactive = x.Isactive,
+                iscurrentprice = x.Iscurrentprice,
             });
             response.Data = result;
             return response;
@@ -209,9 +224,93 @@ namespace Reciplastk.Gateway.Services
             }
 
         }
+        
+        public HttpResponseModel CopyPrices(CopyCustomerPricesViewModel copyCustomerPricesViewModel)
+        {
+            var response = new HttpResponseModel();
+            var currentprice = db.Productprices.Where(x => x.Customerid == copyCustomerPricesViewModel.CustomerTo && x.Iscurrentprice == true).ToList();
+            foreach (var price in currentprice)
+            {
+                price.Iscurrentprice = false;
+            }
+            var query = db.Productprices
+                .Include(x => x.Product)
+                .Include(x => x.Pricetype)
+                .Where(x => x.Customerid == copyCustomerPricesViewModel.CustomerFrom && x.Iscurrentprice == true)
+                .ToList();
+            foreach (var prices in query)
+            {
+                var newprice = new Productprice() {
+                    Creationdate = DateTime.Now,
+                    Price = prices.Price,
+                    Productid = prices.Productid,
+                    Customerid = copyCustomerPricesViewModel.CustomerTo,
+                    Employeeid = prices.Employeeid,
+                    Pricetypeid = prices.Pricetypeid,
+                    Isactive = true,
+                    Iscurrentprice = true,
+                };
+                db.Productprices.Add(newprice);
+                db.SaveChanges();
+            }
+            var result = query
+            .OrderBy(x => x.Pricetypeid) 
+            .ThenBy(x => x.Product.Issubtype) 
+            .ThenBy(x => x.Product.Name) 
+            .ThenByDescending(x => x.Creationdate) 
+            .Select(x => new CopyCustomerPricesParams
+            {
+                date = x.Creationdate,
+                product = x.Product.Name,
+                type = x.Pricetype.Name,
+                price = x.Price,
+                iscurrentprice = x.Iscurrentprice,
+            }).ToList();
+            response.Data = result;
+            response.StatusMessage = "Se copiaron los precios correctamente del cliente anterior";
+            return response;
+        }
+        public HttpResponseModel CreatePriceForNewCustomer(Customer customer)
+        {
+            var lastestPrice = db.Productprices.Where(x=> x.Iscurrentprice == true).OrderByDescending(x=> x.Creationdate).FirstOrDefault();
+            var CopyPriceViewModel = new CopyCustomerPricesViewModel
+            {
+                CustomerFrom = lastestPrice.Customerid,
+                CustomerTo = customer.Customerid,
+            };
+            return this.CopyPrices(CopyPriceViewModel);
+        }
 
-        // create a metod CreatePricesForNewProducts to receipt this view model ProductsViewModel
-        // create the two type of prices for general and specific products 
-        // in products services call this new metod after savechanges 
+        // 2 consultar todos los precios de el cliente FROM
+        // 3 recorrer esos precios 
+        // 4 crear un nuevo precio con base a los que estoy recorriendo pero con el customer TO del fron (UI)
     }
 }
+
+
+
+
+
+//if (customertypeid == 1)
+//{
+//    products = (List<ProductsViewModel>)this.productsService.GetMainProducts().Data;
+//}
+//else
+//{
+//    products = (List<ProductsViewModel>)this.productsService.GetAll().Data;
+//}
+//foreach (var product in products)
+//{
+//    var newObject = new Productprice();
+//    newObject.Productid = ;
+//    newObject.Customerid = ;
+//    newObject.Pricetypeid = ;
+//    newObject.Employeeid = 29; ; // To do: get from logged in user
+//    newObject.Price = ;
+//    newObject.Creationdate = DateTime.Now;
+//    newObject.Isactive = true;
+//    db.Productprices.Add(newObject);
+//}
+//db.SaveChanges();
+//response.StatusMessage = "Se creo el cliente con sus precios correspondientes";
+//return response;
