@@ -77,49 +77,45 @@ export class AddEditCustomerComponent {
 
   GetCustomer(customerId: number) {
     console.log(customerId);
-    if (customerId == 1) {
-      this.customerServises.GetProvider(customerId).subscribe((result) => {
-        if (result.wasSuccessful) {
-          this.formCustomer.setValue({
-            nit: result.data.nit,
-            customertypeid: result.data.customertypeid,
-            name: result.data.name,
-            lastname: result.data.lastname,
-            address: result.data.address,
-            cell: result.data.cell,
-            needspickup: result.data.needspickup,
-            clientsince: formatDate(
-              result.data.clientsince,
-              'yyyy-MM-dd',
-              this.locale
-            ),
-          });
-        } else {
-          console.log('Informacion incorrecta');
-        }
-      });
-    } else {
-      this.customerServises.GetCustomer(customerId).subscribe((result) => {
-        if (result.wasSuccessful) {
-          this.formCustomer.setValue({
-            nit: result.data.nit,
-            customertypeid: result.data.customertypeid,
-            name: result.data.name,
-            lastname: result.data.lastname,
-            address: result.data.address,
-            cell: result.data.cell,
-            needspickup: result.data.needspickup,
-            clientsince: formatDate(
-              result.data.clientsince,
-              'yyyy-MM-dd',
-              this.locale
-            ),
-          });
-        } else {
-          console.log('Informacion incorrecta');
-        }
-      });
-    }
+    this.customerServises.GetProvider(customerId).subscribe((result) => {
+      if (result.wasSuccessful) {
+        this.formCustomer.setValue({
+          nit: result.data.nit,
+          customertypeid: result.data.customertypeid,
+          name: result.data.name,
+          lastname: result.data.lastname,
+          address: result.data.address,
+          cell: result.data.cell,
+          needspickup: result.data.needspickup,
+          clientsince: formatDate(
+            result.data.clientsince,
+            'yyyy-MM-dd',
+            this.locale
+          ),
+        });
+      } else {
+        this.customerServises.GetCustomer(customerId).subscribe((result) => {
+          if (result.wasSuccessful) {
+            this.formCustomer.setValue({
+              nit: result.data.nit,
+              customertypeid: result.data.customertypeid,
+              name: result.data.name,
+              lastname: result.data.lastname,
+              address: result.data.address,
+              cell: result.data.cell,
+              needspickup: result.data.needspickup,
+              clientsince: formatDate(
+                result.data.clientsince,
+                'yyyy-MM-dd',
+                this.locale
+              ),
+            });
+          } else {
+            console.log('Informacion incorrecta');
+          }
+        });
+      }
+    });
   }
 
   AddEditCustomer() {
@@ -162,8 +158,7 @@ export class AddEditCustomerComponent {
           this.router.navigate(['/config/customer']);
         } else {
           this.loader = false;
-          this.toastr.error(result.statusMessage, 'Error');
-          this.router.navigate(['/config/customer']);
+          this.toastr.error(result.statusMessage, 'Error');          
         }
       });
     }

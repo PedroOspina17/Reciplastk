@@ -143,7 +143,6 @@ namespace Reciplastk.Gateway.Services
                 db.Customers.Add(newCustomer);
                 db.SaveChanges();
                 this.productPricesService.CreatePriceForNewCustomer(newCustomer);
-                response.WasSuccessful = true;
                 response.Data = newCustomer;
                 response.StatusMessage = "El cliente fue creado exitosamente";
             }
@@ -177,8 +176,27 @@ namespace Reciplastk.Gateway.Services
             }
             else
             {
-                response.WasSuccessful = false;
-                response.StatusMessage = "No existe ningun cliente con el Id especificado";
+                customer = GetProviderById(customerViewModel.customerid ?? -1);
+                if (customer != null)
+                {
+                    customer.Nit = customerViewModel.nit;
+                    customer.Name = customerViewModel.name;
+                    customer.Lastname = customerViewModel.lastname;
+                    customer.Address = customerViewModel.address;
+                    customer.Cell = customerViewModel.cell;
+                    customer.Clientsince = customerViewModel.clientsince;
+                    customer.Needspickup = customerViewModel.needspickup;
+                    customer.Updateddate = DateTime.Now;
+                    db.SaveChanges();
+                    response.WasSuccessful = true;
+                    response.Data = customer;
+                    response.StatusMessage = "El cliente fue editado exitosamente";
+                }
+                else
+                {
+                    response.WasSuccessful = false;
+                    response.StatusMessage = "No existe ningun cliente con el Id especificado";
+                }                
             }
             return response;
         }
@@ -195,8 +213,20 @@ namespace Reciplastk.Gateway.Services
             }
             else
             {
-                response.WasSuccessful = false;
-                response.StatusMessage = "No se encontró ningún cliente con el Id especificado";
+                customer = GetProviderById(customerId);
+                if (customer != null)
+                {
+                    customer.Isactive = false;
+                    db.SaveChanges();
+                    response.WasSuccessful = true;
+                    response.StatusMessage = "El cliente fue eliminado exitosamente";
+                }
+                else
+                {
+                    response.WasSuccessful = false;
+                    response.StatusMessage = "No se encontró ningún cliente con el Id especificado";
+                }
+
             }
             return response;
         }
