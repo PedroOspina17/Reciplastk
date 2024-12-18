@@ -1,4 +1,3 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import {
   FormBuilder,
@@ -6,18 +5,15 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import {
-  ActivatedRoute, Router,
-} from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-
 import { CommonModule } from '@angular/common';
-
 import { ShipmentService } from '../../../services/shipment.service';
 import { ShipmentDetailModel } from '../../../models/ShipmentDetailModel';
 import { ShipmentModel } from '../../../models/ShipmentModel';
 import { ProductsService } from '../../../services/products.service';
 import { ProductModel } from '../../../models/ProductModel';
+import { ProductPriceService } from '../../../services/product-price.service';
+import { ProductPriceInnerComponent } from "../../admin/product-price-inner/product-price-inner.component";
 
 @Component({
   selector: 'app-shipment-detail',
@@ -25,6 +21,7 @@ import { ProductModel } from '../../../models/ProductModel';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    ProductPriceInnerComponent
   ],
   templateUrl: './shipment-detail.component.html',
   styleUrl: './shipment-detail.component.css',
@@ -32,7 +29,7 @@ import { ProductModel } from '../../../models/ProductModel';
 export class ShipmentDetailComponent {
   @Input() type = '1';
   @Input() personname = '';
-  @Input() personid: string = '';
+  @Input() personid = -1;
   @Output() onComplete = new EventEmitter();
   shipmentDetailList: ShipmentDetailModel[] = [];
   formShipment: FormGroup;
@@ -40,34 +37,60 @@ export class ShipmentDetailComponent {
   GeneralProductsList: ProductModel[] = [];
   SpecificProductsList: ProductModel[] = [];
   shipmenttypeid: number = -1;
+  productPrice: number = 0;
+  subtotal: number = 0;
+  TotalPrice: number = 0;
+  producttochangeprice: number = -1;
   constructor(
     private fb: FormBuilder,
-    private router: Router,
-    private http: HttpClient,
     private toastr: ToastrService,
-    private aRoute: ActivatedRoute,
     private shipmentService: ShipmentService,
-    private productsService: ProductsService
-  ) {
+    private productsService: ProductsService,
+    private productPriceService: ProductPriceService) {
     this.formShipment = this.fb.group({
       productid: ['-1', [Validators.required, Validators.min(0)]],
       weight: ['', [Validators.required]],
     });
   }
-  SaveWeight() {
-    this.loader = true;
+  ChangePrice(productid: number) {
+    this.producttochangeprice = productid
+  }
+  onSelectedProductChange(value: any) { // To do: send the id when the real EndPoint is created
     if (this.type == '1') {
       this.shipmenttypeid = 1;
+      this.productPriceService.GetCurrentPrice(value.target.value, this.personid, this.shipmenttypeid).subscribe(r => {
+        if (r.wasSuccessful) {
+          this.productPrice = r.data;
+          console.log(this.productPrice)
+        } else {
+          this.toastr.error('No se encontro el precio de venta');
+        }
+      })
     } else {
       this.shipmenttypeid = 2;
+      this.productPriceService.GetCurrentPrice(value.target.value, this.personid, this.shipmenttypeid).subscribe(r => {
+        if (r.wasSuccessful) {
+          this.productPrice = r.data;
+          console.log(this.productPrice)
+        } else {
+          this.toastr.error('No se encontro el precio de venta');
+        }
+      })
     }
+  }
+  SaveWeight() {
+    console.log('CustomerId:',this.personid)
     const shipmentDetail: ShipmentDetailModel = {
       shipmenttypeid: this.shipmenttypeid,
       productid: this.formShipment.value.productid,
       productname: this.getProductName(this.formShipment.value.productid),
       weight: this.formShipment.value.weight,
+      price: this.productPrice,
+      subtotal: this.productPrice * this.formShipment.value.weight
     };
-    console.log(shipmentDetail);
+    console.log('shipmentDetail', shipmentDetail)
+    this.TotalPrice += shipmentDetail.subtotal;
+    console.log(this.TotalPrice)
     this.shipmentDetailList.unshift(shipmentDetail);
     this.formShipment = this.fb.group({
       productid: ['-1', [Validators.required, Validators.min(0)]],
@@ -107,10 +130,9 @@ export class ShipmentDetailComponent {
   }
   ShipmentDetailDelete(ShipmentDetailId: number) {
     this.loader = true;
-    const index = this.shipmentDetailList.findIndex(
-      (i) => i.productid === ShipmentDetailId
-    );
+    const index = this.shipmentDetailList.findIndex((i) => i.productid === ShipmentDetailId);
     if (index !== -1) {
+      this.TotalPrice -= this.shipmentDetailList[index].subtotal;
       this.shipmentDetailList.splice(index, 1);
       this.toastr.info('Producto eliminado con éxito');
     }
@@ -120,10 +142,11 @@ export class ShipmentDetailComponent {
     const shipment: ShipmentModel = {
       shipmenttypeid: this.shipmenttypeid,
       customerid: Number(this.personid),
+      totalprice: this.TotalPrice,
       details: this.shipmentDetailList,
     };
     console.log('shipmentDetail', shipment);
-    this.shipmentService.CreateShipment(shipment).subscribe((result) => {
+    this.shipmentService.Create(shipment).subscribe((result) => {
       if (result.wasSuccessful == true) {
         this.loader = false;
         this.toastr.success(result.statusMessage, 'Felicitaciones');

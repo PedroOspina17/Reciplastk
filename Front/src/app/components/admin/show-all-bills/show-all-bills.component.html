@@ -1,19 +1,46 @@
-<div class="container mt-3">
-    <h3 class="text-center mb-4">Listado de recibos de pago</h3>
-    <div class="row">
-        <div *ngFor="let i of BillsList" class="col-md-3 mt-4">
-            <a routerLink="/admin/PaymentReceiptComponent/{{i.paymentid}}" routerLinkActive="router-link-active"
-                style="text-decoration: none; color: black;">
-                <div class="border rounded shadow-sm px-4 py-2">                    
-                    <h4 class="text-center mb-4"> {{i.employeeName}} #{{i.paymentid}}</h4>
-                    <div class="mb-3">
-                        <p><strong>Empleado: </strong>{{i.employeeName}}</p>
-                        <p><strong>Fecha: </strong>{{i.date | date: 'MM/dd/yyyy' }}</p>
-                        <p><strong>Total Peso: </strong>{{i.totalweight}} kg</p>
-                        <p><strong>Total Pagado: </strong>{{i.totalprice}} $</p>
-                    </div>
-                </div>
-            </a>
+<div class="mx-auto w-75">
+    <h3 class="text-center">Listado de recibos de pago</h3>
+    <div class="mt-4">
+        <div>
+            <table class="table table-condensed table-striped align-middle">
+                <thead>
+                    <tr>
+                        <th>Id recivo</th>
+                        <th>Empleado</th>
+                        <th>Fecha</th>
+                        <th>Total de peso</th>
+                        <th>Total pagado</th>
+                        <th>
+                            <div class="ms-4 ps-2">Acciones</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let i of BillsList">
+                        <td>{{i.paymentid}}</td>
+                        <td>{{i.employeeName}}</td>
+                        <td>{{i.date | date: 'MM/dd/yyyy' }}</td>
+                        <td>{{i.totalweight}} kg</td>
+                        <td>{{i.totalprice | currency:'USD':'symbol':'1.0-0'}}</td>
+                        <td>
+                            <div class="btn-group">
+                                <button routerLink="/admin/PaymentReceiptComponent/{{i.paymentid}}" type="button" class="btn btn-outline-warning">
+                                    <i class="bi bi-currency-dollar"></i>
+                                </button>
+                                <button type="button" routerLink="/admin/PaymentReceiptComponent/{{i.paymentid}}" class="btn btn-outline-primary">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                                <button type="button" class="btn btn-outline-success">
+                                    <i class="bi bi-printer"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+
+<!-- <a routerLinkActive="router-link-active"
+style="text-decoration: none; color: black;"></a> -->

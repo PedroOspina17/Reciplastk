@@ -10,5 +10,10 @@
         public string StatusMessage { get; set; }
         public bool WasSuccessful { get; set; } = true;
         public object Data { get; set; }
+        public T getData<T>()
+        {
+            return (T)Data;
+        }
     }
+
 }
