@@ -8,10 +8,12 @@ namespace Reciplastk.Gateway.Services
     {
 
         private readonly ReciplastkContext db;
+        private readonly ProductPricesService priceService;
 
-        public ProductsService( ReciplastkContext dbReciplastk)
+        public ProductsService( ReciplastkContext dbReciplastk, ProductPricesService priceService)
         {
             this.db = dbReciplastk;
+            this.priceService = priceService;
         }
         private Product FindById(int id)
         {
@@ -24,7 +26,7 @@ namespace Reciplastk.Gateway.Services
         {
             var response = new HttpResponseModel();
 
-            if (ProductsModel.Name == null)
+            if (ProductsModel.Shortname == null)
             {
                 response.WasSuccessful = false;
                 response.StatusMessage = " El nombre es requerido.";
@@ -32,7 +34,7 @@ namespace Reciplastk.Gateway.Services
 
             } else
             {
-                var product = db.Products.Where(p => p.Name.ToLower().Trim() == ProductsModel.Name.ToLower().Trim()).FirstOrDefault();
+                var product = db.Products.Where(p => p.Shortname.ToLower().Trim() == ProductsModel.Shortname.ToLower().Trim()).FirstOrDefault();
 
                 if (product != null)
                 {
@@ -129,7 +131,7 @@ namespace Reciplastk.Gateway.Services
 
             return response;
         }
-
+       
         public HttpResponseModel Create(ProductsViewModel ProductsModel)
         {
             var response = Validate(ProductsModel);
@@ -143,9 +145,9 @@ namespace Reciplastk.Gateway.Services
                 parentProduct.Code = ProductsModel.Code;
                 parentProduct.Issubtype = false;
                 parentProduct.Isactive = true;
-        
+
                 db.Products.Add(parentProduct);
-               
+                ProductsModel.productref = parentProduct;
                 if (ProductsModel.Issubtype == true) {
                    
                     foreach (var subproduct in ProductsModel.SubtypeProductList)
@@ -159,9 +161,11 @@ namespace Reciplastk.Gateway.Services
                         newSubproduct.Isactive = true;
                         newSubproduct.Issubtype = subproduct.Issubtype;
                         db.Products.Add(newSubproduct);
+                        subproduct.productref = newSubproduct;  
                     }
                 }
                 db.SaveChanges();
+                this.priceService.CreatePricesForNewProducts(ProductsModel);
                 response.WasSuccessful = true;
                 response.StatusMessage = "El producto fue Creado exitosamente. ";
             }

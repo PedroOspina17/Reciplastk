@@ -15,20 +15,37 @@ namespace Reciplastk.Gateway.Controllers
         {
             this.customerService = custumerService;
         }
-
         [HttpGet("GetAll")]
-        public HttpResponseModel GetAll() {
+        public HttpResponseModel GetAll()
+        {
             var response = customerService.GetAll();
             return response;
         }
-
-        [HttpGet("GetById")]
-        public HttpResponseModel GetById(int id)
-        {
-            var response = customerService.Get(id);
+        [HttpGet("GetAllCustomer")]
+        public HttpResponseModel GetAllCustomer() {
+            var response = customerService.GetAllCustomer();
             return response;
         }
-        
+        [HttpGet("GetAllProviders")]
+        public HttpResponseModel GetAllProviders()
+        {
+            var response = customerService.GetAllProviders();
+            return response;
+        }
+
+        [HttpGet("GetCustomer")]
+        public HttpResponseModel GetCustomer(int id)
+        {
+            var response = customerService.GetCustomer(id);
+            return response;
+        }
+        [HttpGet("GetProvider")]
+        public HttpResponseModel GetProvider(int id)
+        {
+            var response = customerService.GetProvider(id);
+            return response;
+        }
+
         [HttpPost("Create")]
         public HttpResponseModel Create(CustomerViewModel customerViewModel)
         {

@@ -19,37 +19,11 @@ public partial class Productprice
     [Column("customerid")]
     public int Customerid { get; set; }
 
-    [Required]
-    [Column("shortname")]
-    [StringLength(20)]
-    public string Shortname { get; set; }
+    [Column("pricetypeid")]
+    public int Pricetypeid { get; set; }
 
-    [Required]
-    [Column("name")]
-    [StringLength(50)]
-    public string Name { get; set; }
-
-    [Required]
-    [Column("description")]
-    [StringLength(50)]
-    public string Description { get; set; }
-
-    [Required]
-    [Column("code")]
-    [StringLength(10)]
-    public string Code { get; set; }
-
-    [Column("buyprice")]
-    public decimal Buyprice { get; set; }
-
-    [Column("sellprice")]
-    public decimal Sellprice { get; set; }
-
-    [Column("margin")]
-    public decimal Margin { get; set; }
-
-    [Column("issubtype")]
-    public bool Issubtype { get; set; }
+    [Column("price")]
+    public double Price { get; set; }
 
     [Column("creationdate", TypeName = "timestamp without time zone")]
     public DateTime Creationdate { get; set; }
@@ -60,12 +34,23 @@ public partial class Productprice
     [Column("isactive")]
     public bool Isactive { get; set; }
 
-    [Column("parentid")]
-    public int? Parentid { get; set; }
+    [Column("employeeid")]
+    public int Employeeid { get; set; }
+
+    [Column("iscurrentprice")]
+    public bool Iscurrentprice { get; set; }
 
     [ForeignKey("Customerid")]
     [InverseProperty("Productprices")]
     public virtual Customer Customer { get; set; }
+
+    [ForeignKey("Employeeid")]
+    [InverseProperty("Productprices")]
+    public virtual Employee Employee { get; set; }
+
+    [ForeignKey("Pricetypeid")]
+    [InverseProperty("Productprices")]
+    public virtual Pricetype Pricetype { get; set; }
 
     [ForeignKey("Productid")]
     [InverseProperty("Productprices")]
