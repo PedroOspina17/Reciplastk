@@ -10,7 +10,7 @@
           <label class="control-label" for="shortName">Nombre Corto</label>
           <input formControlName="shortname" id="shortName" class="form-control mt-2" placeholder="Nombre Corto: " />
           <div>
-            <span class="form-text m-2" *ngIf="
+            <span class="form-text m-2 text-danger" *ngIf="
                 formProduct.get('shortname')?.hasError('required') &&
                 formProduct.get('shortname')?.touched
               ">
@@ -22,7 +22,7 @@
           <label class="control-label" for="Name">Nombre</label>
           <input formControlName="name" id="Name" class="form-control mt-2" placeholder="Nombre del Producto: " />
           <div>
-            <span class="form-text m-2" *ngIf="
+            <span class="form-text m-2 text-danger" *ngIf="
                 formProduct.get('name')?.hasError('required') &&
                 formProduct.get('name')?.touched
               ">
@@ -35,7 +35,7 @@
           <input id="code" formControlName="code" type="text" class="form-control mt-2"
             placeholder="Ingrese Codigo: " />
           <div>
-            <span class="form-text m-2" *ngIf="
+            <span class="form-text m-2 text-danger" *ngIf="
                 formProduct.get('code')?.hasError('required') &&
                 formProduct.get('code')?.touched
               ">
@@ -50,7 +50,7 @@
           <textarea formControlName="description" id="inputDescriptionProductlabel" class="form-control mt-2"
             placeholder="Ingrese la Descripción del Producto: "></textarea>
           <div>
-            <span class="form-text m-2" *ngIf="
+            <span class="form-text m-2 text-danger" *ngIf="
                 formProduct.get('description')?.hasError('required') &&
                 formProduct.get('description')?.touched
               ">
@@ -65,7 +65,7 @@
           <input id="inputBuyPriceProduct" formControlName="buyprice" type="number" class="form-control mt-2"
             placeholder="Ingrese Precio de Compra: " />
           <div>
-            <span class="form-text m-2" *ngIf="
+            <span class="form-text m-2 text-danger" *ngIf="
                 formProduct.get('buyprice')?.hasError('required') &&
                 formProduct.get('buyprice')?.touched
               ">
@@ -78,7 +78,7 @@
           <input id="inputSellPrice" formControlName="sellprice" type="number" class="form-control mt-2"
             placeholder="Ingrese Precio de Venta: " />
           <div>
-            <span class="form-text m-2" *ngIf="
+            <span class="form-text m-2 text-danger" *ngIf="
                 formProduct.get('sellprice')?.hasError('required') &&
                 formProduct.get('sellprice')?.touched
               ">
@@ -104,7 +104,7 @@
         <div class="row-cols-1 mb-4">
           <h3 class="mb-2 text-center">Sub-Producto</h3>
         </div>
-        <div class="row-cols-1 mt-2 w-75">
+        <div class="row-cols-1 mt-2">
           <form [formGroup]="formSubproduct">
             <div class="row d-flex align-items-end">
               <div class="col-5">
@@ -115,9 +115,9 @@
                     placeholder="Nombre del SubProducto: ">
                 </div>
                 <div>
-                  <span class="form-text m-2" *ngIf="
-                      formProduct.get('nameSubproduct')?.hasError('required') &&
-                      formProduct.get('nameSubproduct')?.touched
+                  <span class="form-text m-2 text-danger" *ngIf="
+                      formSubproduct.get('nameSubproduct')?.hasError('required') &&
+                      formSubproduct.get('nameSubproduct')?.touched
                     ">
                     El nombre del subproducto es <strong>requerido</strong>
                   </span>
@@ -128,9 +128,9 @@
                 <input id="inputSellPrice" formControlName="sellpriceSubproduct" type="number"
                   class="form-control mt-2" placeholder="Ingrese Precio de Venta: " />
                 <div>
-                  <span class="form-text m-2" *ngIf="
-                      formProduct.get('sellprice')?.hasError('required') &&
-                      formProduct.get('sellprice')?.touched
+                  <span class="form-text m-2 text-danger" *ngIf="
+                      formSubproduct.get('sellpriceSubproduct')?.hasError('required') &&
+                      formSubproduct.get('sellpriceSubproduct')?.touched
                     ">
                     El campo Precio de venta es <strong>requerido</strong>
                   </span>

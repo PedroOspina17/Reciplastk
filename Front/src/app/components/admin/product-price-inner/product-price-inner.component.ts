@@ -31,14 +31,10 @@ export class ProductPriceInnerComponent {
   filterList: ProductPriceInnerParams[] = [];
   formSelects: FormGroup;
   CustomerList: CustomerViewModel[] = [];
-  /*   customerid: number = -1;*/
+  IsNegative: boolean = false;
   ngOnInit(): void {
     this.filter();
     this.GetCustomers(this.productPriceTypeId);
-    console.log('productPriceTypeId', this.productPriceTypeId)
-    console.log('productid', this.productid)
-    console.log('isCreate', this.isCreate)
-    console.log('customer', this.customerid)
   }
   ngOnChanges(changes: SimpleChanges) {
     /* for (const propName in changes) {
@@ -48,6 +44,11 @@ export class ProductPriceInnerComponent {
       console.log(`${propName}: currentValue = ${cur}, previousValue = ${prev}`);
     } */
     this.filter();
+  }
+  onCheckboxChange(event: Event): void {
+    const isChecked = (event.target as HTMLInputElement).checked;
+    this.IsNegative = isChecked;
+    console.log('Es negativo?', this.IsNegative);
   }
   filter() {
     const productPriceModel: ProductPriceModel = {
@@ -59,7 +60,6 @@ export class ProductPriceInnerComponent {
     this.productPriceService.Filter(productPriceModel).subscribe(r => {
       if (r.wasSuccessful) {
         this.filterList = r.data;
-        console.log('filterList', this.filterList);
       } else {
         this.toastr.info("No se encontraron productos con los filtros aplicados")
       }
@@ -70,7 +70,6 @@ export class ProductPriceInnerComponent {
       this.customerService.GetAllProviders().subscribe((r) => {
         if (r.wasSuccessful) {
           this.CustomerList = r.data;
-          console.log(this.CustomerList)
         } else {
           this.toastr.info('No se encontro ningun proveedor');
         }
@@ -87,7 +86,6 @@ export class ProductPriceInnerComponent {
   }
   CustomerChange(value: any) {
     this.customerid = value.target.value;
-    console.log(this.customerid)
     this.filter();
   }
   CreateProductPrice() {
@@ -95,13 +93,14 @@ export class ProductPriceInnerComponent {
       pricetypeid: this.productPriceTypeId,
       productid: this.productid,
       customerid: this.isCreate == true ? this.customerid : undefined,
-      price: this.formSelects.value.price
+      price: this.IsNegative ? this.formSelects.value.price * -1 : this.formSelects.value.price
     }
     console.log('productPriceModel', productPriceModel)
     this.productPriceService.CreateProductPrices(productPriceModel).subscribe(r => {
       if (r.wasSuccessful) {
         this.toastr.success(r.statusMessage)
         this.filter();
+        this.formSelects.get('price')?.setValue('');
       } else {
         this.toastr.info('No se pudo crer en nuevo precio de producto')
       }

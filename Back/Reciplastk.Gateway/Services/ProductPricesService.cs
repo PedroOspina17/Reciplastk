@@ -222,7 +222,6 @@ namespace Reciplastk.Gateway.Services
             {
                 return false;
             }
-
         }
         
         public HttpResponseModel CopyPrices(CopyCustomerPricesViewModel copyCustomerPricesViewModel)
