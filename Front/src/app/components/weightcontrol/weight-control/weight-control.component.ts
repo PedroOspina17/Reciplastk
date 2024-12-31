@@ -45,10 +45,10 @@ export class WeightControlComponent {
   showDetail: boolean = false;
   edit: boolean = false;
   ngOnInit(): void {
-    this.GetEmployyes();
+    this.GetEmployee();
     this.GetGeneralProducts();
   }
-  GetEmployyes() {
+  GetEmployee() {
     this.weightControlService.GetEmployee().subscribe((r) => {
       if (r.wasSuccessful == true) {
         this.employeeList = r.data;

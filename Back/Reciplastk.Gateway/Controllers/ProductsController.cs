@@ -69,7 +69,5 @@ namespace Reciplastk.Gateway.Controllers
         {
             return productsService.Delete(id);
         }
-
-
     }
 }

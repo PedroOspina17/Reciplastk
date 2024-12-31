@@ -61,7 +61,6 @@ export class ShipmentDetailComponent {
       this.productPriceService.GetCurrentPrice(value.target.value, this.personid, this.shipmenttypeid).subscribe(r => {
         if (r.wasSuccessful) {
           this.productPrice = r.data;
-          console.log(this.productPrice)
         } else {
           this.toastr.error('No se encontro el precio de venta');
         }
@@ -71,7 +70,6 @@ export class ShipmentDetailComponent {
       this.productPriceService.GetCurrentPrice(value.target.value, this.personid, this.shipmenttypeid).subscribe(r => {
         if (r.wasSuccessful) {
           this.productPrice = r.data;
-          console.log(this.productPrice)
         } else {
           this.toastr.error('No se encontro el precio de venta');
         }
@@ -79,7 +77,6 @@ export class ShipmentDetailComponent {
     }
   }
   SaveWeight() {
-    console.log('CustomerId:',this.personid)
     const shipmentDetail: ShipmentDetailModel = {
       shipmenttypeid: this.shipmenttypeid,
       productid: this.formShipment.value.productid,
@@ -88,9 +85,7 @@ export class ShipmentDetailComponent {
       price: this.productPrice,
       subtotal: this.productPrice * this.formShipment.value.weight
     };
-    console.log('shipmentDetail', shipmentDetail)
     this.TotalPrice += shipmentDetail.subtotal;
-    console.log(this.TotalPrice)
     this.shipmentDetailList.unshift(shipmentDetail);
     this.formShipment = this.fb.group({
       productid: ['-1', [Validators.required, Validators.min(0)]],
@@ -145,7 +140,6 @@ export class ShipmentDetailComponent {
       totalprice: this.TotalPrice,
       details: this.shipmentDetailList,
     };
-    console.log('shipmentDetail', shipment);
     this.shipmentService.Create(shipment).subscribe((result) => {
       if (result.wasSuccessful == true) {
         this.loader = false;

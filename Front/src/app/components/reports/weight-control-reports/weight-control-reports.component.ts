@@ -64,7 +64,6 @@ export class WeightControlReportsComponent {
       Ispaid: this.FormGroupControl.value.Ispaid,
       Type: this.FormGroupControl.value.Typeid,
     };
-    console.log('Model', model);
     this.weightControlService.Filter(model).subscribe((r) => {
       if (r.wasSuccessful == true) {
         this.weightControlReport = r.data

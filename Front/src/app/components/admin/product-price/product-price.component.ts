@@ -46,26 +46,21 @@ export class ProductPriceComponent implements AfterViewInit {
     }
   }
   ProductChange(value: any) {
-    console.log('id form', value.target.value)
-    console.log('id form', this.formSelects.value.productid)
     if (value.target.value == -1) {
       this.formSelects.get('isCreate')?.disable();
     } else {
       this.formSelects.get('isCreate')?.enable();
       this.child.filter();
     }
-    console.log('Product seleccionado', this.formSelects.value)
   }
   IsCreateChange(value: any) {
     const isCreateValue = value.target.id;
-    console.log('Type seleccionado', this.formSelects.value)
   }
 
   GetAllPriceTypes() {
     this.productPriceService.GetAllPriceTypes().subscribe(r => {
       if (r.wasSuccessful) {
         this.PriceTypesList = r.data;
-        console.log('List', this.PriceTypesList)
       } else {
         this.toastr.error(r.statusMessage)
       }
@@ -89,8 +84,5 @@ export class ProductPriceComponent implements AfterViewInit {
         }
       })
     }
-    console.log('Form', this.formSelects.value)
   }
-
-
 }

@@ -6,11 +6,12 @@ import { ActivatedRoute, RouterLink} from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductsService } from '../../../../services/products.service';
 import { ProgressBarComponent } from '../../../shared/progress/progress-bar/progress-bar.component';
+import { ProductPriceInnerComponent } from "../../product-price-inner/product-price-inner.component";
 
 @Component({
   selector: 'app-list-products',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink, ProgressBarComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink, ProgressBarComponent, ProductPriceInnerComponent],
   templateUrl: './list-products.component.html',
   styleUrl: './list-products.component.css'
 })
@@ -20,7 +21,7 @@ export class ListProductsComponent {
   loading: boolean = false;
   expandedArea: boolean = true;
   id: number;
-
+  producttochangeprice: number = -1;
   constructor(
     private productService: ProductsService,
     private toastr: ToastrService,
@@ -32,7 +33,9 @@ export class ListProductsComponent {
   ngOnInit(id: number){
     this.GetMain();
   };
-
+  ChangePrice(productid: number) {
+    this.producttochangeprice = productid
+  }
   GetMain() {
     this.loading = true;
     this.productService.GetMain().subscribe(result =>{
@@ -40,7 +43,6 @@ export class ListProductsComponent {
         this.listProducts = result.data;
         this.loading= false;
       } else {
-        console.log("informacion incorrecta");
       }
     })
   };
@@ -50,7 +52,6 @@ export class ListProductsComponent {
     this.productService.GetByParentId(id).subscribe(result=> {
       if(result.wasSuccessful == true){
         this.subProductsList = result.data;
-        console.log("getByparentid:", this.subProductsList);
       }
     })
   }
@@ -75,10 +76,7 @@ export class ListProductsComponent {
       if(result.wasSuccessful == true){
         this.expandedArea = true;
         this.subProductsList = result.data;
-        console.log("data product expandArea: ", this.subProductsList);
       }
     })
-
   }
-
 }

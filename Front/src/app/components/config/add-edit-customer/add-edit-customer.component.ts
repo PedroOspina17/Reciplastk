@@ -68,7 +68,6 @@ export class AddEditCustomerComponent {
     this.customerTypeService.GetAll().subscribe(r => {
       if (r.wasSuccessful == true) {
         this.customertypeList = r.data
-        console.log(this.customertypeList)
       } else {
         this.toastr.info(r.statusMessage)
       }
@@ -76,7 +75,6 @@ export class AddEditCustomerComponent {
   }
 
   GetCustomer(customerId: number) {
-    console.log(customerId);
     this.customerServises.GetProvider(customerId).subscribe((result) => {
       if (result.wasSuccessful) {
         this.formCustomer.setValue({
@@ -130,7 +128,6 @@ export class AddEditCustomerComponent {
       needspickup: this.formCustomer.value.needspickup,
       clientsince: this.formCustomer.value.clientsince,
     };
-    console.log('Model: ', customer)
     if (this.id != 0) {
       customer.customerid = this.id;
       this.customerServises
@@ -151,7 +148,6 @@ export class AddEditCustomerComponent {
         });
     } else {
       this.customerServises.Create(customer).subscribe((result) => {
-        console.log('Crear', customer, result);
         if (result.wasSuccessful) {
           this.loader = false;
           this.toastr.success(result.statusMessage, 'Felicitaciones');

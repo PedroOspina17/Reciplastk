@@ -4,4 +4,6 @@ export class ProductPriceInnerParams {
     customer: string = "";
     price: number = 0;
     iscurrentprice?: boolean;
+    product: string = "";
+    type: string = "";
 }

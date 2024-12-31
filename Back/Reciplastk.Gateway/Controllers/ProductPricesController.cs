@@ -59,6 +59,5 @@ namespace Reciplastk.Gateway.Controllers
         {
             return this.productPricesService.CopyPrices(copyCustomerPricesViewModel);
         }
-        // call getcurrentprices where we were using default prices
     }
 }

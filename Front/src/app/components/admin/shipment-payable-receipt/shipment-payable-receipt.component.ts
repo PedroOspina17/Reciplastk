@@ -26,7 +26,6 @@ export class ShipmentPayableReceiptComponent {
     this.shipmentService.GetReceivableReceiptInfo(this.id).subscribe(r => {
       if (r.wasSuccessful) {
         this.Receivable = r.data;
-        console.log('receivable',this.Receivable)
       } else {
         this.toastr.error(r.statusMessage)
       }

@@ -6,7 +6,8 @@ import { CustomerViewModel } from '../../../models/CustomerModel';
 import { CustomerService } from '../../../services/customer.service';
 import { CopyCustomerPricesViewModel } from '../../../models/CopyCustomerPricesViewModel';
 import { ProductPriceService } from '../../../services/product-price.service';
-import { CopyCustomerPricesParams } from '../../../models/CopyCustomerPricesParams';
+import { ProductPriceModel } from '../../../models/ProductPriceModel';
+import { ProductPriceInnerParams } from '../../../models/ProductPriceInnerParams';
 
 @Component({
   selector: 'app-copy-customer-prices',
@@ -21,11 +22,11 @@ export class CopyCustomerPricesComponent {
       CustomerToCopyId: [-1,],
       CustomerToAssignId: [-1]
     })
+
   }
   FormSelects: FormGroup;
   CustomerList: CustomerViewModel[] = [];
-  CopyCustomerPricesParams: CopyCustomerPricesParams[] = [];
-  buttonSave: boolean = false;
+  filterList: ProductPriceInnerParams[] = [];
   ngOnInit(): void {
     this.GetCustomers();
   }
@@ -38,32 +39,29 @@ export class CopyCustomerPricesComponent {
       }
     });
   }
-  CustomerToChange(value: any) {
-    /* const copyCustomerPricesViewModel: CopyCustomerPricesViewModel = {
-      CustomerFrom: this.FormSelects.value.CustomerToCopyId
+  Filter() {
+    const productPriceModel: ProductPriceModel = {
+      customerid: this.FormSelects.value.CustomerToCopyId
     }
-    this.productPriceService.CopyPrices(copyCustomerPricesViewModel).subscribe(r => {
+    this.productPriceService.Filter(productPriceModel).subscribe(r => {
       if (r.wasSuccessful) {
-        this.CopyCustomerPricesParams = r.data;
-        this.toastr.success(r.statusMessage);
-        this.buttonSave = true;
+        this.filterList = r.data;
       } else {
         this.toastr.error(r.data);
       }
-    }) */
+    })
   }
   SaveInfo() {
-    console.log(this.FormSelects.value)
     const copyCustomerPricesViewModel: CopyCustomerPricesViewModel = {
       CustomerFrom: this.FormSelects.value.CustomerToCopyId,
       CustomerTo: this.FormSelects.value.CustomerToAssignId,
     }
-    console.log(copyCustomerPricesViewModel)
     this.productPriceService.CopyPrices(copyCustomerPricesViewModel).subscribe(r => {
-      if (r.data) {
-        this.CopyCustomerPricesParams = r.data;
+      if (r.wasSuccessful) {
         this.toastr.success(r.statusMessage);
-        this.buttonSave = true;
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       } else {
         this.toastr.error(r.data);
       }

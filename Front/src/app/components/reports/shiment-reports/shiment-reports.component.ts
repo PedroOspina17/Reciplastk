@@ -58,11 +58,9 @@ export class ShimentReportsComponent {
       IsPaid: this.FormShipment.value.IsPaid,
       Type: this.FormShipment.value.TypeId,
     };
-    console.log(Model);
     this.shipmentService.Filter(Model).subscribe((r) => {
       if (r.wasSuccessful) {
         this.ShipmentReports = r.data;
-        console.log('ShipmentReports:', this.ShipmentReports);
       } else {
         this.toastr.error(
           'No se encontraron los detalles con los filtros aplicado'

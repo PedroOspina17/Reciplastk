@@ -64,7 +64,6 @@ export class AddEditProductsComponent {
       this.GetById(this.id);
       this.loading = false;
     } else {
-      console.log('info id ngOnInit: ', this.id);
       this.operation = 'Agregar';
       this.loading = false;
     }
@@ -72,7 +71,6 @@ export class AddEditProductsComponent {
 
   GetById(id: number): void {
     this.productService.GetById(id).subscribe((result) => {
-      console.log('result GetProduct: ', result);
       if (result.wasSuccessful == true) {
         this.formProduct.setValue({
           shortname: result.data.shortname,
@@ -84,7 +82,7 @@ export class AddEditProductsComponent {
           sellprice: 200,
         });
       } else {
-        console.log('informacion incorrecta');
+        this.toastr.error(result.statusMessage);
       }
     });
   }
@@ -99,7 +97,6 @@ export class AddEditProductsComponent {
       issubtype: this.formProduct.value.issubtype,
       SubtypeProductList: this.listSubproduct,
     };
-    console.log(' info product AddUpdte', product);
     product.productid = this.id;
     if (this.id != 0) {
       this.productService.Update(this.id, product).subscribe((result) => {
@@ -118,9 +115,7 @@ export class AddEditProductsComponent {
       });
     } else {
       this.productService.Create(product).subscribe((result) => {
-        console.log('result CreateProducts: ', result);
         if (result.wasSuccessful == true) {
-          console.log('informacion de product en agregar: ', product);
           this.toastr.success(
             `El producto ${product.name} fue creado Exitosamente`,
             `Producto Creado`
@@ -152,9 +147,7 @@ export class AddEditProductsComponent {
       sellprice: this.formSubproduct.value.sellpriceSubproduct,
       issubtype: true,
     };
-    console.log('subproducto: ', subproduct);
     this.listSubproduct.push(subproduct);
-    console.log('lista de subp: ', this.listSubproduct);
     this.formSubproduct.reset();
   }
   DeleteSubproduct(index: number) {

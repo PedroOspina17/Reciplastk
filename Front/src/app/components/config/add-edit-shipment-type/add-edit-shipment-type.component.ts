@@ -36,7 +36,6 @@ export class AddEditShipmentTypeComponent {
       isactive: [true]
     });
     this.id = Number(this.aRoute.snapshot.paramMap.get('id'));
-    console.log(this.id);
   }
   ngOnInit(): void {
     if (this.id == 0) {
@@ -56,9 +55,8 @@ export class AddEditShipmentTypeComponent {
           description: result.data.description,
           isactive: result.data.isactive
         });
-        console.log(this.formShipment)
       } else {
-        console.log('Informacion incorrecta');
+        this.toastr.error(result.data);
       }
     });
   }
@@ -69,7 +67,6 @@ export class AddEditShipmentTypeComponent {
       description: this.formShipment.value.description,
       isactive: this.formShipment.value.isactive
     };
-    console.log(shipment,this.formShipment)
     if (this.id == 0) {
       this.shipmentTypeservice.Create(shipment).subscribe((result)=>{
         if (result.wasSuccessful == true) {

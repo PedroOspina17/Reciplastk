@@ -32,6 +32,7 @@ export class ProductPriceInnerComponent {
   formSelects: FormGroup;
   CustomerList: CustomerViewModel[] = [];
   IsNegative: boolean = false;
+  value: any = { checked: false };
   ngOnInit(): void {
     this.filter();
     this.GetCustomers(this.productPriceTypeId);
@@ -43,20 +44,25 @@ export class ProductPriceInnerComponent {
       const prev = JSON.stringify(chng.previousValue);
       console.log(`${propName}: currentValue = ${cur}, previousValue = ${prev}`);
     } */
+    this.onRadioChange(false);    
     this.filter();
   }
-  onCheckboxChange(event: Event): void {
-    const isChecked = (event.target as HTMLInputElement).checked;
-    this.IsNegative = isChecked;
-    console.log('Es negativo?', this.IsNegative);
+  onRadioChange(value: boolean): void {
+    if (value != null) {
+      this.IsNegative = value;
+    };
+  }
+  OnChecboxChange(event: Event): void {
+    this.value = event.target as HTMLInputElement;
+    this.filter();
   }
   filter() {
     const productPriceModel: ProductPriceModel = {
       pricetypeid: this.productPriceTypeId,
       productid: this.productid,
-      customerid: this.customerid
+      customerid: this.customerid,
+      ShowHistory: this.value?.checked ?? false,
     }
-    console.log('productPriceModel', productPriceModel)
     this.productPriceService.Filter(productPriceModel).subscribe(r => {
       if (r.wasSuccessful) {
         this.filterList = r.data;
@@ -93,9 +99,8 @@ export class ProductPriceInnerComponent {
       pricetypeid: this.productPriceTypeId,
       productid: this.productid,
       customerid: this.isCreate == true ? this.customerid : undefined,
-      price: this.IsNegative ? this.formSelects.value.price * -1 : this.formSelects.value.price
+      price: this.IsNegative && this.isCreate == false ? this.formSelects.value.price * -1 : this.formSelects.value.price
     }
-    console.log('productPriceModel', productPriceModel)
     this.productPriceService.CreateProductPrices(productPriceModel).subscribe(r => {
       if (r.wasSuccessful) {
         this.toastr.success(r.statusMessage)

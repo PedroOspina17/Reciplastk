@@ -128,9 +128,9 @@ namespace Reciplastk.Gateway.Services
         {
             var response = new HttpResponseModel();
             var customer = GetByNit(customerViewModel.nit);
-            if (customer == null) // Customer exists with the same nit
+            if (customer == null)
             {
-                var newCustomer = new Customer(); // se hace instancia cuando no hay datos en la db
+                var newCustomer = new Customer(); 
                 newCustomer.Nit = customerViewModel.nit;
                 newCustomer.Customertypeid = customerViewModel.customertypeid;
                 newCustomer.Name = customerViewModel.name;
@@ -143,7 +143,6 @@ namespace Reciplastk.Gateway.Services
                 db.Customers.Add(newCustomer);
                 db.SaveChanges();
                 this.productPricesService.CreatePriceForNewCustomer(newCustomer);
-                response.Data = newCustomer;
                 response.StatusMessage = "El cliente fue creado exitosamente";
             }
             else

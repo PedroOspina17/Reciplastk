@@ -27,7 +27,6 @@ export class WeightControlTypeComponent {
     this.controlType.GetAll().subscribe((r) => {
       if (r.wasSuccessful == true) {
         this.controlTypeList = r.data;
-        console.log(this.controlTypeList);
       } else {
         this.toastr.info('No se encontro nigun tipo de control de peso');
       }

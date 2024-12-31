@@ -7,5 +7,7 @@
         public string customer { get; set; }
         public Double price { get; set; }
         public Boolean iscurrentprice { get; set; }
+        public string product { get; set; }
+        public string type { get; set; }
     }
 }

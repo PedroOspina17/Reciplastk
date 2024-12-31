@@ -53,7 +53,6 @@ namespace Reciplastk.Gateway.Services
             db.Customertypes.Add(newCustomer);
             db.SaveChanges();
             response.WasSuccessful = true;
-            response.Data = newCustomer;
             response.StatusMessage = "El tipo de cliente se creo exitosamente";
             return response;
         }
@@ -70,7 +69,6 @@ namespace Reciplastk.Gateway.Services
                 customerType.Isactive = customerTypeModel.isactive;
                 db.SaveChanges();
                 response.WasSuccessful = true;
-                response.Data = customerType;
                 response.StatusMessage = "El tipo de cliente se edito exitosamente";
             }
             else
