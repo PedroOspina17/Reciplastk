@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Reciplastk.Gateway.DataAccess;
 
-[Keyless]
 [Table("payrollconfig")]
 public partial class Payrollconfig
 {
@@ -31,9 +30,15 @@ public partial class Payrollconfig
     [Column("isactive")]
     public bool Isactive { get; set; }
 
+    [Key]
+    [Column("payrollconfigid")]
+    public int Payrollconfigid { get; set; }
+
     [ForeignKey("Employeeid")]
+    [InverseProperty("Payrollconfigs")]
     public virtual Employee Employee { get; set; }
 
     [ForeignKey("Productid")]
+    [InverseProperty("Payrollconfigs")]
     public virtual Product Product { get; set; }
 }

@@ -102,11 +102,15 @@ public partial class ReciplastkContext : DbContext
 
         modelBuilder.Entity<Payrollconfig>(entity =>
         {
-            entity.HasOne(d => d.Employee).WithMany()
+            entity.HasKey(e => e.Payrollconfigid).HasName("payrollconfig_pkey");
+
+            entity.Property(e => e.Payrollconfigid).ValueGeneratedNever();
+
+            entity.HasOne(d => d.Employee).WithMany(p => p.Payrollconfigs)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("payrollconfig_employeeid_fkey");
 
-            entity.HasOne(d => d.Product).WithMany()
+            entity.HasOne(d => d.Product).WithMany(p => p.Payrollconfigs)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("payrollconfig_productid_fkey");
         });
