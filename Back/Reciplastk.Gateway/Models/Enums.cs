@@ -7,5 +7,11 @@
             provider = 1,
             customer = 2,
         }
+
+        public enum PriceTypeEnum
+        {
+            Buy = 1,
+            Sell = 2,
+        }
     }
 }

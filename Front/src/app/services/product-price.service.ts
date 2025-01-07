@@ -37,6 +37,12 @@ export class ProductPriceService {
   GetCurrentPrice(productid:number, customerid:number, productpricetypeid:number): Observable<HttpResponseModel> {
     return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'GetCurrentPrice?productid='+productid+'&customerid='+customerid+'&productpricetypeid='+productpricetypeid);
   }
+  GetProductCurrentPrice(productid:number, productpricetypeid:number): Observable<HttpResponseModel> {
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'GetProductCurrentPrice?productid='+productid+'&productpricetypeid='+productpricetypeid);
+  }
+  GetProductCurrentBuySellPrices(productid:number): Observable<HttpResponseModel> {
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'GetProductCurrentBuySellPrices?productid='+productid);
+  }
   CopyPrices(Model: CopyCustomerPricesViewModel): Observable<HttpResponseModel>{
     return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'CopyPrices',Model);
   }

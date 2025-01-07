@@ -153,6 +153,8 @@ export class ShipmentDetailComponent {
     });
   }
   cancelDetil() {
-    this.onComplete.emit()
+    this.onComplete.emit();
+    // this.onComplete.emit({idSelected: 9}); To send parameter.
+
   }
 }

@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Reciplastk.Gateway.DataAccess;
 using Reciplastk.Gateway.Models;
 using Reciplastk.Gateway.Services;
+using static Reciplastk.Gateway.Models.Enums;
 
 namespace Reciplastk.Gateway.Controllers
 {
@@ -54,6 +56,19 @@ namespace Reciplastk.Gateway.Controllers
         public HttpResponseModel GetCurrentPrice(int productid, int customerid, int productpricetypeid) {
             return this.productPricesService.GetCurrentPrice(productid,customerid, productpricetypeid);
         }
+        [HttpGet("GetProductCurrentPrice")]
+        public HttpResponseModel GetProductCurrentPrice(int productid, int productpricetypeid)
+        {
+            return this.productPricesService.GetCurrentPrice(productid, productpricetypeid);
+        }
+        [HttpGet("GetProductCurrentBuySellPrices")]
+        public HttpResponseModel GetProductCurrentPrice(int productid)
+        {
+            var sell = this.productPricesService.GetCurrentPrice(productid, (int)PriceTypeEnum.Sell).Data;
+            var buy = this.productPricesService.GetCurrentPrice(productid, (int)PriceTypeEnum.Buy).Data;
+            return new HttpResponseModel() { Data = new { sell, buy } };
+        }
+
         [HttpPost("CopyPrices")]
         public HttpResponseModel CopyPrices(CopyCustomerPricesViewModel copyCustomerPricesViewModel)
         {

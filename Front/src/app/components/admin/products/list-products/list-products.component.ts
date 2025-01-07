@@ -38,7 +38,7 @@ export class ListProductsComponent {
   }
   GetMain() {
     this.loading = true;
-    this.productService.GetMain().subscribe(result =>{
+    this.productService.GetAll().subscribe(result =>{
       if (result.wasSuccessful == true) {
         this.listProducts = result.data;
         this.loading= false;

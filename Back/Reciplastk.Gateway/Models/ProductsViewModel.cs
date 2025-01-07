@@ -12,7 +12,6 @@ namespace Reciplastk.Gateway.Models
         public string Code { get; set; }
         public double Buyprice { get; set; }
         public double Sellprice { get; set; }
-        public bool Issubtype { get; set; }
         public List<ProductsViewModel> SubtypeProductList { get; set; } = new List<ProductsViewModel>();
     }
 }

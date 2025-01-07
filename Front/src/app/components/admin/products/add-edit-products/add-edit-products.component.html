@@ -87,10 +87,10 @@
           </div>
         </div>
         <div class="col-2 mb-2">
-          <label class="control-label mb-4" for="inputIsSubtypeProduct">¿Es subtipo?</label>
+          <label class="control-label mb-4" for="inputIsSubtypeProduct">¿Tiene subtipos?</label>
           <div class="mb-2">
-            <input class="form-check-input me-2" type="radio" id="isSubtypeFalse" [value]="false"
-              name="issubtype" formControlName="issubtype" />
+            <input class="form-check-input me-2" type="radio" id="isSubtypeFalse" [value]="false" name="issubtype"
+              formControlName="issubtype" />
             <label class="form-check-label me-4" for="isSubtypeFalse">
               No
             </label>
@@ -113,6 +113,11 @@
                   <span class="input-group-text" id="basic-addon1">{{formProduct.get('shortname')?.value}} - </span>
                   <input formControlName="nameSubproduct" id="InputNamesSubProduct" class="form-control"
                     placeholder="Nombre del SubProducto: ">
+                  <button class="btn btn-outline-secondary border">
+
+                    <i class="bi bi-search"></i>
+                  </button>
+
                 </div>
                 <div>
                   <span class="form-text m-2 text-danger" *ngIf="
@@ -125,8 +130,8 @@
               </div>
               <div class="col-5">
                 <label class="control-label" for="inputSellPrice">Precio de Venta</label>
-                <input id="inputSellPrice" formControlName="sellpriceSubproduct" type="number"
-                  class="form-control mt-2" placeholder="Ingrese Precio de Venta: " />
+                <input id="inputSellPrice" formControlName="sellpriceSubproduct" type="number" class="form-control mt-2"
+                  placeholder="Ingrese Precio de Venta: " />
                 <div>
                   <span class="form-text m-2 text-danger" *ngIf="
                       formSubproduct.get('sellpriceSubproduct')?.hasError('required') &&
@@ -159,7 +164,7 @@
                 <td>{{ subproduct.shortname }}</td>
                 <td>{{subproduct.sellprice}}</td>
                 <td>
-                  <button (click)="DeleteSubproduct(i)" class="btn btn-outline-danger">
+                  <button *ngIf="subproduct.productid == null" (click)="DeleteSubproduct(i)" class="btn btn-outline-danger">
                     <i class="bi bi-trash"></i>
                   </button>
                 </td>

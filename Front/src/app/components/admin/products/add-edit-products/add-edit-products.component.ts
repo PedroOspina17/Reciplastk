@@ -12,7 +12,8 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ProductsService } from '../../../../services/products.service';
 import { ProgressBarComponent } from '../../../shared/progress/progress-bar/progress-bar.component';
-
+import { ProductPriceService } from '../../../../services/product-price.service';
+import { PriceType } from '../../../../models/Enums';
 @Component({
   selector: 'app-add-edit-products',
   standalone: true,
@@ -39,7 +40,8 @@ export class AddEditProductsComponent {
     private productService: ProductsService,
     private aRoute: ActivatedRoute,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private productPriceService: ProductPriceService
   ) {
     this.formProduct = this.fb.group({
       shortname: ['', [Validators.required, Validators.maxLength(20)]],
@@ -71,16 +73,43 @@ export class AddEditProductsComponent {
 
   GetById(id: number): void {
     this.productService.GetById(id).subscribe((result) => {
+      console.log('DATA',result.data)
       if (result.wasSuccessful == true) {
-        this.formProduct.setValue({
-          shortname: result.data.shortname,
-          name: result.data.name,
-          description: result.data.description,
-          code: result.data.code,
-          issubtype: result.data.issubtype,
-          buyprice: 100,
-          sellprice: 200,
+        this.productPriceService.GetProductCurrentBuySellPrices(id).subscribe(r => {
+          console.log('DATA2',result.data)
+
+          if (r.wasSuccessful) {
+            this.formProduct.controls['shortname'].disable();
+            this.formProduct.controls['code'].disable();
+            this.formProduct.setValue({
+              shortname: result.data.shortname,
+              name: result.data.name,
+              description: result.data.description,
+              code: result.data.code,
+              issubtype: result.data.inverseParent.length > 0,
+              buyprice: r.data.buy,
+              sellprice: r.data.sell,
+            });
+            console.log('FORM',this.formProduct.value)
+          }
         });
+
+
+        result.data.inverseParent.forEach((element: ProductModel) => {
+          this.productPriceService.GetProductCurrentPrice(element.productid!, PriceType.Sell).subscribe(r => {
+            if (r.wasSuccessful) {
+              const productPrice = r.data;
+              const product = {
+                ...element,
+                sellprice: productPrice
+              };
+              this.listSubproduct.push(product);
+              console.log(this.listSubproduct);
+            }
+          });
+        });
+
+
       } else {
         this.toastr.error(result.statusMessage);
       }
@@ -94,7 +123,6 @@ export class AddEditProductsComponent {
       code: this.formProduct.value.code,
       buyprice: this.formProduct.value.buyprice,
       sellprice: this.formProduct.value.sellprice,
-      issubtype: this.formProduct.value.issubtype,
       SubtypeProductList: this.listSubproduct,
     };
     product.productid = this.id;
@@ -129,6 +157,7 @@ export class AddEditProductsComponent {
     }
   }
   AddSubproduct() {
+    console.log('form',this.formProduct.value)
     const subproduct = {
       shortname:
         this.formProduct.value.shortname +
@@ -148,6 +177,7 @@ export class AddEditProductsComponent {
       issubtype: true,
     };
     this.listSubproduct.push(subproduct);
+    console.log(this.listSubproduct);
     this.formSubproduct.reset();
   }
   DeleteSubproduct(index: number) {
