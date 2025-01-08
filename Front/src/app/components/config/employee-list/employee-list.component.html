@@ -1,0 +1,48 @@
+<div class="w-75 mx-auto">
+    <div class="row-md-12 p-1">
+        <div class="panel panel-default">
+            <div class="panel-heading ComponentTittle">
+                <h3>Empleados</h3>
+                <button type="button" class="btn btn-outline-success" routerLink="/config/addEmployee">
+                    Agregar empleado
+                </button>
+            </div>
+            <div class="panel-body">
+                <table class="table table-condensed table-striped">
+                    <thead>
+                        <tr>                       
+                            <th>Rol</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Usuario</th>
+                            <th class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-toggle="collapse" data-target="#demo1" class="accordion-toggle">
+                            <td>Pastero</td>
+                            <td>David</td>
+                            <td>Ossa</td>
+                            <td>Da0110</td>
+                            <td class="text-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-outline-warning " title="Editar producto">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+
+                                    <button type="button" class="btn btn-outline-danger" title="Eliminar producto">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModalCenter" title="Cambiar precio de producto">
+                                        <i class="bi bi-currency-dollar"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

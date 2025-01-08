@@ -1,4 +1,4 @@
-import { ProductModel } from './../../../../models/ProductModel';
+import { ProductModel } from '../../../../models/ProductModel';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {
@@ -134,11 +134,11 @@ export class AddEditProductsComponent {
             `Producto Actualizado.`
           );
           this.loading = false;
-          this.router.navigate(['/admin/products']);
+          this.router.navigate(['/config/products']);
         } else {
           this.toastr.error(`El producto no pudo ser modificado`, `Error.`);
           this.loading = false;
-          this.router.navigate(['/admin/products']);
+          this.router.navigate(['/config/products']);
         }
       });
     } else {
@@ -148,7 +148,7 @@ export class AddEditProductsComponent {
             `El producto ${product.name} fue creado Exitosamente`,
             `Producto Creado`
           );
-          this.router.navigate(['/admin/products']);
+          this.router.navigate(['/config/products']);
         } else {
           this.toastr.error(result.statusMessage, `Error.`);
         }

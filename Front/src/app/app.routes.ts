@@ -17,8 +17,8 @@ import { RemainigComponent } from './components/admin/remainig/remainig.componen
 import { WeightControlReportsComponent } from './components/reports/weight-control-reports/weight-control-reports.component';
 import { ShimentReportsComponent } from './components/reports/shiment-reports/shiment-reports.component';
 import { WeightControlGrindingComponent } from './components/weightcontrol/weight-control-grinding/weight-control-grinding.component';
-import { AddEditProductsComponent } from './components/admin/products/add-edit-products/add-edit-products.component';
-import { ListProductsComponent } from './components/admin/products/list-products/list-products.component';
+import { AddEditProductsComponent } from './components/config/products/add-edit-products/add-edit-products.component';
+import { ListProductsComponent } from './components/config/products/list-products/list-products.component';
 import { WeightControlForPaymentsComponent } from './components/admin/weight-control-for-payments/weight-control-for-payments.component';
 import { PaymentReceiptComponent } from './components/admin/payment-receipt/payment-receipt.component';
 import { ShowAllBillsComponent } from './components/admin/show-all-bills/show-all-bills.component';
@@ -30,6 +30,10 @@ import { ProductPriceInnerComponent } from './components/admin/product-price-inn
 import { ProductPriceComponent } from './components/admin/product-price/product-price.component';
 import { CopyCustomerPricesComponent } from './components/admin/copy-customer-prices/copy-customer-prices.component';
 import { MaterialProcessingPricesComponent } from './components/admin/material-processing-prices/material-processing-prices.component';
+import { EmployeeListComponent } from './components/config/employee-list/employee-list.component';
+import { CreateEmployeeComponent } from './components/config/create-employee/create-employee.component';
+import { CreateRoleComponent } from './components/config/create-role/create-role.component';
+import { RoleListComponent } from './components/config/role-list/role-list.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
@@ -42,9 +46,6 @@ export const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'PaymentReceiptComponent', component: PaymentReceiptComponent },
       { path: 'PaymentReceiptComponent/:id', component: PaymentReceiptComponent },
-      { path: 'products', component: ListProductsComponent },
-      { path: 'addProduct', component: AddEditProductsComponent },
-      { path: 'editProduct/:id', component: AddEditProductsComponent },
       { path: 'ShipmentPayableComponent/:id', component: ShipmentPayableComponent }, 
       { path: 'ShipmentReceivablesComponent/:id', component: ShipmentPayableComponent }, 
       { path: 'ShipmentPayableReceiptComponent/:id', component: ShipmentPayableReceiptComponent },
@@ -72,7 +73,15 @@ export const routes: Routes = [
       { path: 'shipmenttype', component: ShipmentTypeComponent },
       { path: 'addshipmenttype', component: AddEditShipmentTypeComponent },
       { path: 'editshipmenttype/:id', component: AddEditShipmentTypeComponent },
-      { path: 'roles', redirectTo: '/dashboard' },
+      { path: 'products', component: ListProductsComponent },
+      { path: 'addProduct', component: AddEditProductsComponent },
+      { path: 'editProduct/:id', component: AddEditProductsComponent },
+      { path: 'employee', component: EmployeeListComponent },
+      { path: 'addEmployee', component: CreateEmployeeComponent },
+      { path: 'editEmployee/:id', component: CreateEmployeeComponent },
+      { path: 'role', component: RoleListComponent },
+      { path: 'addRole', component: CreateRoleComponent },
+      { path: 'editRole/:id', component: CreateRoleComponent },
     ]
   },
   {

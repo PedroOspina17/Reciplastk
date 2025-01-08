@@ -4,7 +4,7 @@
     <div class="panel panel-default">
       <div class="panel-heading ComponentTittle">
         <h3>Productos</h3>
-        <button type="button" class="btn btn-outline-success" routerLink="/admin/addProduct">
+        <button type="button" class="btn btn-outline-success" routerLink="/config/addProduct">
           Agregar Producto
         </button>
       </div>
@@ -31,7 +31,7 @@
               <td>{{ item.code }}</td>
               <td class="text-center">
                 <div class="btn-group">
-                  <button [routerLink]="['/admin/editProduct', item.productid]" type="button"
+                  <button [routerLink]="['/config/editProduct', item.productid]" type="button"
                     class="btn btn-outline-warning " title="Editar producto">
                     <i class="bi bi-pencil"></i>
                   </button>

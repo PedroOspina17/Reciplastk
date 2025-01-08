@@ -5,13 +5,12 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, RouterLink} from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductsService } from '../../../../services/products.service';
-import { ProgressBarComponent } from '../../../shared/progress/progress-bar/progress-bar.component';
-import { ProductPriceInnerComponent } from "../../product-price-inner/product-price-inner.component";
+import { ProductPriceInnerComponent } from "../../../admin/product-price-inner/product-price-inner.component";
 
 @Component({
   selector: 'app-list-products',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink, ProgressBarComponent, ProductPriceInnerComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink, ProductPriceInnerComponent],
   templateUrl: './list-products.component.html',
   styleUrl: './list-products.component.css'
 })
