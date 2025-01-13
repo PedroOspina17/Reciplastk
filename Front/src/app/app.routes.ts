@@ -32,7 +32,6 @@ import { CopyCustomerPricesComponent } from './components/admin/copy-customer-pr
 import { MaterialProcessingPricesComponent } from './components/admin/material-processing-prices/material-processing-prices.component';
 import { EmployeeListComponent } from './components/config/employee-list/employee-list.component';
 import { CreateEmployeeComponent } from './components/config/create-employee/create-employee.component';
-import { CreateRoleComponent } from './components/config/create-role/create-role.component';
 import { RoleListComponent } from './components/config/role-list/role-list.component';
 
 export const routes: Routes = [
@@ -80,8 +79,6 @@ export const routes: Routes = [
       { path: 'addEmployee', component: CreateEmployeeComponent },
       { path: 'editEmployee/:id', component: CreateEmployeeComponent },
       { path: 'role', component: RoleListComponent },
-      { path: 'addRole', component: CreateRoleComponent },
-      { path: 'editRole/:id', component: CreateRoleComponent },
     ]
   },
   {

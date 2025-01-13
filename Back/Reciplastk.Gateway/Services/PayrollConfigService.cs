@@ -43,11 +43,32 @@ namespace Reciplastk.Gateway.Services
         public HttpResponseModel Update(PayrollConfigViewModel payrollConfigViewModel) 
         {
             var response = new HttpResponseModel();
+            var newPayrollConfig = new Payrollconfig();
+            newPayrollConfig.Productid = payrollConfigViewModel.productid;
+            newPayrollConfig.Employeeid = payrollConfigViewModel.employeeid;
+            newPayrollConfig.Priceperkilo = payrollConfigViewModel.priceperkilo;
+            newPayrollConfig.Iscurrentprice = payrollConfigViewModel.iscurrentePrice;
+            newPayrollConfig.Creationdate = DateTime.Now;
+            newPayrollConfig.Isactive = true;
+            db.SaveChanges();
+            response.StatusMessage = "Se edito la configuracion correctamente";
             return response;
         }
         public HttpResponseModel Delete(int id) 
         {
             var response = new HttpResponseModel();
+            var payRoll = db.Payrollconfigs.Where(x=> x.Payrollconfigid == id).FirstOrDefault();
+            if (payRoll != null)
+            {
+                payRoll.Isactive = false;
+                db.SaveChanges();
+                response.StatusMessage = "Se eleimino la configuarcion correctamente"; 
+            }
+            else
+            {
+                response.WasSuccessful = false;
+                response.StatusMessage = "Se eleimino la configuarcion correctamente";
+            }
             return response;
         }
 

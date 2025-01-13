@@ -11,7 +11,8 @@
                             <select name="CustomerType" formControlName="customertypeid" class="form-select mt-2"
                                 id="customertypeid">
                                 <option value="-1">Seleccione el tipo</option>
-                                <option *ngFor="let i of customertypeList" value="{{i.customertypeid}}">{{i.name}}</option>
+                                <option *ngFor="let i of customertypeList" value="{{i.customertypeid}}">{{i.name}}
+                                </option>
                             </select>
                             <div>
                                 <span *ngIf="
@@ -21,7 +22,6 @@
                                     es<strong> requerido </strong> </span>
                             </div>
                         </div>
-
                         <div class="col-6">
                             <label for="Nit" class="control-label">Nit</label>
                             <input type="text" class="form-control mt-2" placeholder="Nit" id="Nit"
@@ -46,7 +46,6 @@
                                         requerido </strong> </span>
                             </div>
                         </div>
-
                         <div class="col-6 mb-3">
                             <label for="lastName" class="control-label">Apellido</label>
                             <input type="text" class="form-control mt-2" placeholder="Apellido" id="lastName"
@@ -71,7 +70,6 @@
                                     es<strong> requerida </strong> </span>
                             </div>
                         </div>
-
                         <div class="col-6">
                             <label for="cell" class="control-label">Celular</label>
                             <input type="text" class="form-control mt-2" placeholder="Celular" id="cell"
@@ -98,7 +96,6 @@
                                 <input type="radio" id="needspickupYes" formControlName="needspickup" name="needspickup"
                                     [value]="true">
                                 <label for="needspickupYes">Sí</label>
-
                                 <input class="ms-4" type="radio" id="needspickupNo" formControlName="needspickup"
                                     name="needspickup" [value]="false">
                                 <label for="needspickupNo">No</label>
@@ -111,7 +108,6 @@
                         <button class="btn btn-secondary w-25 ms-2" type="button"
                             routerLink="/config/customer">Volver</button>
                     </div>
-
                 </form>
             </div>
         </div>

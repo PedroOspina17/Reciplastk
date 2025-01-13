@@ -11,25 +11,25 @@ import { EmployeeViewModel } from '../models/EmployeeViewModel';
 export class EmployeeService {
 
   constructor(private http: HttpClient) { }
-  ServiceEndpoint: string = `${AppConfig.API_URL}/api/Employee`;
+  ServiceEndpoint: string = `${AppConfig.API_URL}/api/Employee/`;
   
   GetAll(): Observable<HttpResponseModel> {
-    return this.http.get<HttpResponseModel>(this.ServiceEndpoint + '/GetAll')
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint + 'GetAllEmployee')
   }
 
   GetById(id: number): Observable<HttpResponseModel> {
-    return this.http.get<HttpResponseModel>(this.ServiceEndpoint + '/GetById?customerTypeId=' + id)
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint + 'GetEmployeeById?Id=' + id)
   }
 
   Create(employeeModel: EmployeeViewModel): Observable<HttpResponseModel> {
-    return this.http.post<HttpResponseModel>(this.ServiceEndpoint + '/Create', employeeModel)
+    return this.http.post<HttpResponseModel>(this.ServiceEndpoint + 'AddEmployee', employeeModel)
   }
 
-  Update(employeeModel: EmployeeViewModel, id: number): Observable<HttpResponseModel> {
-    return this.http.post<HttpResponseModel>(this.ServiceEndpoint + '/Update', employeeModel)
+  Update(employeeModel: EmployeeViewModel): Observable<HttpResponseModel> {
+    return this.http.post<HttpResponseModel>(this.ServiceEndpoint + 'UpdateEmployee', employeeModel)
   }
 
   Delete(id: number): Observable<HttpResponseModel> {
-    return this.http.delete<HttpResponseModel>(this.ServiceEndpoint + '/Delete?customerTypeId=' + id)
+    return this.http.delete<HttpResponseModel>(this.ServiceEndpoint + 'DeleteEmployee?Id=' + id)
   }
 }
