@@ -18,7 +18,7 @@ namespace Reciplastk.Gateway.Services
         }
         public HttpResponseModel GetAll()
         {
-            var customer = db.Customers.Include(p=> p.Customertype).Where(x => x.Isactive == true).Select(y=> new CustomerViewModel()
+            var customer = db.Customers.Include(p => p.Customertype).Where(x => x.Isactive == true).Select(y => new CustomerViewModel()
             {
                 customerid = y.Customerid,
                 customertypeid = y.Customertypeid,
@@ -36,9 +36,49 @@ namespace Reciplastk.Gateway.Services
             response.Data = customer;
             return response;
         }
-        public HttpResponseModel Get(int customerid)
+        public HttpResponseModel GetAllCustomer()
         {
-            var customer = GetById(customerid);
+            var customer = db.Customers.Include(p=> p.Customertype).Where(x => x.Isactive == true && x.Customertypeid == 2).Select(y=> new CustomerViewModel()
+            {
+                customerid = y.Customerid,
+                customertypeid = y.Customertypeid,
+                customertypename = y.Customertype.Name,
+                nit = y.Nit,
+                name = y.Name,
+                lastname = y.Lastname,
+                address = y.Address,
+                cell = y.Cell,
+                needspickup = y.Needspickup,
+                clientsince = y.Clientsince,
+            }).ToList();
+            var response = new HttpResponseModel();
+            response.WasSuccessful = true;
+            response.Data = customer;
+            return response;
+        }
+        public HttpResponseModel GetAllProviders()
+        {
+            var customer = db.Customers.Include(p => p.Customertype).Where(x => x.Isactive == true && x.Customertypeid == 1).Select(y => new CustomerViewModel()
+            {
+                customerid = y.Customerid,
+                customertypeid = y.Customertypeid,
+                customertypename = y.Customertype.Name,
+                nit = y.Nit,
+                name = y.Name,
+                lastname = y.Lastname,
+                address = y.Address,
+                cell = y.Cell,
+                needspickup = y.Needspickup,
+                clientsince = y.Clientsince,
+            }).ToList();
+            var response = new HttpResponseModel();
+            response.WasSuccessful = true;
+            response.Data = customer;
+            return response;
+        }
+        public HttpResponseModel GetCustomer(int customerid)
+        {
+            var customer = GetCustomerById(customerid);
             var response = new HttpResponseModel();
             if (customer != null)
             {
@@ -52,9 +92,30 @@ namespace Reciplastk.Gateway.Services
             }
             return response;
         }
-        private Customer GetById(int customerId)
+        private Customer GetCustomerById(int customerId)
         {
-            var customer = db.Customers.FirstOrDefault(x => x.Customerid == customerId && x.Isactive == true);
+            var customer = db.Customers.FirstOrDefault(x => x.Customerid == customerId && x.Isactive == true && x.Customertypeid == 2);
+            return customer;
+        }
+        public HttpResponseModel GetProvider(int providerid)
+        {
+            var customer = GetProviderById(providerid);
+            var response = new HttpResponseModel();
+            if (customer != null)
+            {
+                response.WasSuccessful = true;
+                response.Data = customer;
+            }
+            else
+            {
+                response.WasSuccessful = false;
+                response.StatusMessage = "El id indicadon no esta relacionado con algun cliente";
+            }
+            return response;
+        }
+        private Customer GetProviderById(int customerId)
+        {
+            var customer = db.Customers.FirstOrDefault(x => x.Customerid == customerId && x.Isactive == true && x.Customertypeid == 1);
             return customer;
         }
         private Customer GetByNit(String customerNit)
@@ -95,7 +156,7 @@ namespace Reciplastk.Gateway.Services
         public HttpResponseModel Update(CustomerViewModel customerViewModel)
         {
             var response = new HttpResponseModel();
-            var customer = GetById(customerViewModel.customerid ?? -1);
+            var customer = GetCustomerById(customerViewModel.customerid ?? -1);
             if (customer != null)
             {
                 customer.Nit = customerViewModel.nit;
@@ -121,7 +182,7 @@ namespace Reciplastk.Gateway.Services
         public HttpResponseModel Delete(int customerId)
         {
             var response = new HttpResponseModel();
-            var customer = GetById(customerId);
+            var customer = GetCustomerById(customerId);
             if (customer != null)
             {
                 customer.Isactive = false;

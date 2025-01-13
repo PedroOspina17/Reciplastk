@@ -70,7 +70,10 @@ export class WeightControlDetailComponent {
       weight: this.weightDetailForm.value.weight,
     };
     this.weightcontroldetaillist.unshift(WeightDetail);
-    this.weightDetailForm.reset();
+    this.weightDetailForm = this.fb.group({
+      productid: ['-1', [Validators.required, Validators.min(0)]],
+      weight: ['', Validators.required],
+    });
   }
   cancelDetail() {
     this.onComplete.emit();
