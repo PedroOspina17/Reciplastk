@@ -29,11 +29,16 @@ namespace Reciplastk.Gateway.Controllers
         {
             return this.payrollConfigService.Create(payrollConfigViewModel);
         }
-        [HttpPost("Update")]
-        public HttpResponseModel Update(PayrollConfigViewModel payrollConfigViewModel)
+        [HttpPost("Filter")]
+        public HttpResponseModel Filter(PayrollConfigViewModel payrollConfigViewModel)
         {
-            return this.payrollConfigService.Update(payrollConfigViewModel);
+            return this.payrollConfigService.Filter(payrollConfigViewModel);
         }
+        //[HttpPost("Update")]
+        //public HttpResponseModel Update(PayrollConfigViewModel payrollConfigViewModel)
+        //{
+        //    return this.payrollConfigService.Update(payrollConfigViewModel);
+        //}
         [HttpDelete("Delete")]
         public HttpResponseModel Delete(int id)
         {

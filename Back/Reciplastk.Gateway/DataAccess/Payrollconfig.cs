@@ -9,6 +9,10 @@ namespace Reciplastk.Gateway.DataAccess;
 [Table("payrollconfig")]
 public partial class Payrollconfig
 {
+    [Key]
+    [Column("payrollconfigid")]
+    public int Payrollconfigid { get; set; }
+
     [Column("productid")]
     public int Productid { get; set; }
 
@@ -29,10 +33,6 @@ public partial class Payrollconfig
 
     [Column("isactive")]
     public bool Isactive { get; set; }
-
-    [Key]
-    [Column("payrollconfigid")]
-    public int Payrollconfigid { get; set; }
 
     [ForeignKey("Employeeid")]
     [InverseProperty("Payrollconfigs")]

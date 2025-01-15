@@ -104,8 +104,6 @@ public partial class ReciplastkContext : DbContext
         {
             entity.HasKey(e => e.Payrollconfigid).HasName("payrollconfig_pkey");
 
-            entity.Property(e => e.Payrollconfigid).ValueGeneratedNever();
-
             entity.HasOne(d => d.Employee).WithMany(p => p.Payrollconfigs)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("payrollconfig_employeeid_fkey");

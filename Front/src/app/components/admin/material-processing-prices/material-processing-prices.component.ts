@@ -7,6 +7,7 @@ import { WeightControlService } from '../../../services/weight-control-service';
 import { CommonModule } from '@angular/common';
 import { PayrollconfigService } from '../../../services/payrollconfig.service';
 import { PayrollConfig } from '../../../models/PayrollConfigViewModel';
+import { PayrollConfigParams } from '../../../models/PayrollConfigParams';
 
 @Component({
   selector: 'app-material-processing-prices',
@@ -24,35 +25,67 @@ export class MaterialProcessingPricesComponent {
     private payrollconfigService: PayrollconfigService
   ) {
     this.formSelect = this.fb.group({
-      Employee: [-1, Validators.required],
-      Product: [-1, Validators.required],
-      price: [, Validators.required],
+      Employee: [-1],
+      Product: [-1],
+      price: []
     })
   }
   formSelect: FormGroup;
   SpecificProductsList: ProductModel[] = [];
+  payrollConfigList: PayrollConfigParams[] = [];
   employeeList: any[] = [];
+  employeeId: number = -1;
+  productId: number = -1;
+  showAll?: boolean;
   ngOnInit(): void {
     this.GetEmployee();
     this.GetProduct();
+    this.Filter();
   }
-  saveConfig() {
-    console.log(this.formSelect.value);
-    const model: PayrollConfig = {
-      productId: this.formSelect.value.Product,
-      employeeId: this.formSelect.value.Employee,
-      pricePerKilo: this.formSelect.value.price,
+  validation(): boolean {
+    if (this.formSelect.value.Employee != -1 && this.formSelect.value.Product != -1 && this.formSelect.value.price != null) {
+      return true;
+    } else {
+      return false;
     }
-    console.log('Model', model);
-    this.payrollconfigService.Create(model).subscribe(r => {
+  }
+  EmployeeChange(value: any) {
+    const id = value.target.value;
+    console.log(id);
+    this.employeeId = id;
+    this.Filter();
+  }
+  ProductChange(value: any) {
+    const id = value.target.value;
+    console.log(id);
+    this.productId = id;
+    this.Filter();
+  }
+  OnChecboxChange(event: Event) {
+    const checkbox = event.target as HTMLInputElement;
+    this.showAll = checkbox.checked;
+    console.log(this.showAll);
+    this.Filter();
+  }
+  Filter() {
+    const payrollConfig: PayrollConfig = {
+      employeeId: this.employeeId,
+      productId: this.productId,
+      showAll: this.showAll,
+    };
+    console.log("payrollConfig", payrollConfig)
+    this.payrollconfigService.Filter(payrollConfig).subscribe(r => {
       if (r.wasSuccessful) {
-        this.toastr.success(r.statusMessage)
-        this.formSelect.reset({
-          Product: -1,
-          Employee: -1,
+        this.payrollConfigList = r.data
+        this.formSelect.value.setValue({
+          Employee: [-1],
+          Product: [-1],
+          price: []
         });
+        this.Filter();
+        console.log(this.payrollConfigList)
       } else {
-        this.toastr.error(r.statusMessage)
+        this.toastr.info(r.statusMessage);
       }
     })
   }
@@ -75,4 +108,26 @@ export class MaterialProcessingPricesComponent {
       }
     });
   }
+  saveConfig() {
+    console.log(this.formSelect.value);
+    const model: PayrollConfig = {
+      productId: this.formSelect.value.Product,
+      employeeId: this.formSelect.value.Employee,
+      pricePerKilo: this.formSelect.value.price,
+    }
+    console.log('Model', model);
+    this.payrollconfigService.Create(model).subscribe(r => {
+      if (r.wasSuccessful) {
+        this.toastr.success(r.statusMessage)
+        this.Filter()
+        this.formSelect.reset({
+          Product: -1,
+          Employee: -1,
+        });
+      } else {
+        this.toastr.error(r.statusMessage)
+      }
+    })
+  }
+
 }

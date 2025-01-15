@@ -24,7 +24,11 @@ export class PayrollconfigService {
     Create(payrollConfig:PayrollConfig): Observable<HttpResponseModel> {
       return this.http.post<HttpResponseModel>(this.ServiceEndpoint + 'Create', payrollConfig)
     }
-  
+
+    Filter(payrollConfig:PayrollConfig): Observable<HttpResponseModel> {
+      return this.http.post<HttpResponseModel>(this.ServiceEndpoint + 'Filter', payrollConfig)
+    }
+
     Update(payrollConfig:PayrollConfig): Observable<HttpResponseModel> {
       return this.http.post<HttpResponseModel>(this.ServiceEndpoint + 'Update', payrollConfig)
     }
