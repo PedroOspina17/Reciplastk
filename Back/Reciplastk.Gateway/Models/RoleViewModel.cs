@@ -1,8 +1,8 @@
 ﻿namespace Reciplastk.Gateway.Models
 {
-    public class RolViewModel
+    public class RoleViewModel
     {
-        public int? Rolid { get; set; }
+        public int? Roleid { get; set; }
         public string Name { get; set; }
     }
 }

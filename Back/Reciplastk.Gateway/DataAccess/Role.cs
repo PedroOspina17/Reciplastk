@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore;
 namespace Reciplastk.Gateway.DataAccess;
 
 [Table("rol")]
-public partial class Rol
+public partial class Role
 {
     [Key]
-    [Column("rolid")]
-    public int Rolid { get; set; }
+    [Column("roleid")]
+    public int Roleid { get; set; }
 
     [Required]
     [Column("name")]

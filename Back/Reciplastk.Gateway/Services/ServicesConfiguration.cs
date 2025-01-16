@@ -20,7 +20,7 @@ namespace Reciplastk.Gateway.Services
             services.AddScoped<WeightControlService>();
             services.AddScoped<ProductsService>();
             services.AddScoped<IEmployeeService, EmployeeService>();
-            services.AddScoped<IRolService, RolService>();
+            services.AddScoped<IRoleService, RoleService>();
             return services;
         }
     }

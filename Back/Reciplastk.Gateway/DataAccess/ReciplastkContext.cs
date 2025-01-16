@@ -25,7 +25,7 @@ public partial class ReciplastkContext : DbContext
 
     public virtual DbSet<Remaining> Remainings { get; set; }
 
-    public virtual DbSet<Rol> Rols { get; set; }
+    public virtual DbSet<Role> Roles { get; set; }
 
     public virtual DbSet<Secondarytabletest> Secondarytabletests { get; set; }
 
@@ -123,9 +123,9 @@ public partial class ReciplastkContext : DbContext
                 .HasConstraintName("remainings_weightcontrolid_fkey");
         });
 
-        modelBuilder.Entity<Rol>(entity =>
+        modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.Rolid).HasName("rol_pkey");
+            entity.HasKey(e => e.Roleid).HasName("rol_pkey");
 
             entity.Property(e => e.Creationdate).HasDefaultValueSql("now()");
             entity.Property(e => e.Isactive).HasDefaultValue(true);

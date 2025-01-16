@@ -9,29 +9,29 @@ namespace Reciplastk.Gateway.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RolController : ControllerBase
+    public class RoleController : ControllerBase
     {
-        private readonly IRolService rolService;
+        private readonly IRoleService roleService;
         private readonly IMapper mapper;
 
-        public RolController(IRolService _rolService, IMapper _mapper)
+        public RoleController(IRoleService _roleService, IMapper _mapper)
         {
-            rolService = _rolService;
+            roleService = _roleService;
             mapper = _mapper;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllRol()
+        public async Task<IActionResult> GetAllRole()
         {
             try
             {
-                var rols = await rolService.GetAllRol();
-                if (rols == null || rols.Count == 0)
+                var roles = await roleService.GetAllRoles();
+                if (roles == null || roles.Count == 0)
                 {
-                    return Ok(new { message = "not rols created" });
+                    return Ok(new { message = "not roles created" });
                 }
 
-                return Ok(rols);
+                return Ok(roles);
             }
             catch (Exception ex)
             {
@@ -42,17 +42,17 @@ namespace Reciplastk.Gateway.Controllers
 
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetRolById(int id)
+        public async Task<IActionResult> GetRoleById(int id)
         {
             try
             {
-                var rol = await rolService.GetRolById(id);
-                if (rol == null)
+                var role = await roleService.GetRoleById(id);
+                if (role == null)
                 {
                     return NotFound(new { message = "Not Data found" });
                 }
 
-                return Ok(rol);
+                return Ok(role);
             }
             catch (Exception ex)
             {
@@ -63,20 +63,20 @@ namespace Reciplastk.Gateway.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> AddRol([FromBody] RolViewModel rolViewModel)
+        public async Task<IActionResult> AddRole([FromBody] RoleViewModel roleViewModel)
         {
             try
             {
-                var existRol = await rolService.GetRolByName(rolViewModel.Name);
-                if (existRol == null)
+                var existRole = await roleService.GetRoleByName(roleViewModel.Name);
+                if (existRole == null)
                 {
-                    var rol = mapper.Map<Rol>(rolViewModel);
+                    var role = mapper.Map<Role>(roleViewModel);
                     //rol.IsActive = true;
-                    await rolService.AddRol(rol);
-                    return Ok(new { message = "rol created successfully" });
+                    await roleService.AddRole(role);
+                    return Ok(new { message = "role created successfully" });
                 }
 
-                return Ok(new { message = "The rol already exist" });
+                return Ok(new { message = "The role already exist" });
             }
             catch (Exception ex)
             {
@@ -87,15 +87,15 @@ namespace Reciplastk.Gateway.Controllers
 
 
         [HttpPut]
-        public async Task<IActionResult> UpdateRol([FromBody] RolViewModel rolViewModel)
+        public async Task<IActionResult> UpdateRol([FromBody] RoleViewModel roleViewModel)
         {
             try
             {
-                var existRol = await rolService.GetRolById(rolViewModel.Rolid);
-                if (existRol != null)
+                var existRole = await roleService.GetRoleById(roleViewModel.Roleid);
+                if (existRole != null)
                 {
-                    mapper.Map(rolViewModel, existRol);
-                    await rolService.UpdateRol(existRol);
+                    mapper.Map(roleViewModel, existRole);
+                    await roleService.UpdateRole(existRole);
                     return Ok(new { message = "rol edited successfully" });
                 }
 
@@ -114,10 +114,10 @@ namespace Reciplastk.Gateway.Controllers
         {
             try
             {
-                var existRol = await rolService.GetRolById(id);
-                if (existRol != null)
+                var existRole = await roleService.GetRoleById(id);
+                if (existRole != null)
                 {
-                    await rolService.DeleteRol(existRol);
+                    await roleService.DeleteRole(existRole);
                     return Ok(new { message = "rol deleted successfully" });
                 }
 

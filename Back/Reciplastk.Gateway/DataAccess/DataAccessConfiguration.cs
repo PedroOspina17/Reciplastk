@@ -9,7 +9,7 @@ namespace Reciplastk.Gateway.DataAccess
         public static IServiceCollection AddConfigureRepositories(this IServiceCollection services)
         {
             services.AddScoped<IBaseRepository<Employee>, BaseRepository<Employee>>();
-            services.AddScoped<IBaseRepository<Rol>, BaseRepository<Rol>>();
+            services.AddScoped<IBaseRepository<Role>, BaseRepository<Role>>();
             return services;
         }
         public static IServiceCollection AddApplicationDataAccess(this IServiceCollection services, ConfigurationManager config)

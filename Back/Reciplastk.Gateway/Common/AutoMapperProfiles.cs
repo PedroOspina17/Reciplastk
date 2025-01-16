@@ -12,7 +12,7 @@ namespace Reciplastk.Gateway.Common
         {
             CreateMap<EmployeeViewModel, Employee>();
             CreateMap<Employee, EmployeeViewModel>();
-            CreateMap<RolViewModel, Rol>();
+            CreateMap<RoleViewModel, Role>();
         }
     }
 }
