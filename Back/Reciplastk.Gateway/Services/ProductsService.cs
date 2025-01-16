@@ -193,38 +193,45 @@ namespace Reciplastk.Gateway.Services
             if (productInfo == null)
             {
                 response.WasSuccessful = false;
-                response.StatusMessage = "El producto con el id enviado, no fue encontrado en la base de datos. ";
+                response.StatusMessage = "El producto con el id enviado no fue encontrado en la base de datos.";
             }
             else
             {
-                //productInfo.Shortname = ProductsModel.Shortname;
                 productInfo.Name = ProductsModel.Name;
                 productInfo.Description = ProductsModel.Description;
                 productInfo.Code = ProductsModel.Code;
-                //productInfo.Issubtype = ProductsModel.Issubtype;
 
                 foreach (var subtype in ProductsModel.SubtypeProductList)
                 {
-
-                    // Check the product id,
-                    // If the id is negative. Desable the product.
-                    // If the is is present, do nothing. 
-                    // if the id is not present. create the subproduct. 
-                    //var newSubproduct = new Product();
-                    //newSubproduct.Parent = parentProduct;
-                    //newSubproduct.Name = subproduct.Name;
-                    //newSubproduct.Shortname = subproduct.Shortname;
-                    //newSubproduct.Description = subproduct.Description;
-                    //newSubproduct.Code = subproduct.Code;
-                    //newSubproduct.Isactive = true;
-                    //newSubproduct.Issubtype = true;
-                    //db.Products.Add(newSubproduct);
-                    //subproduct.productref = newSubproduct;
+                    if (subtype.Productid == null || subtype.Productid <= 0)
+                    {
+                        var newSubproduct = new Product
+                        {
+                            Parent = productInfo, 
+                            Name = subtype.Name,
+                            Shortname = subtype.Shortname,
+                            Description = subtype.Description,
+                            Code = subtype.Code,
+                            Isactive = true,
+                            Issubtype = true
+                        };
+                        db.Products.Add(newSubproduct);
+                    }
+                    else
+                    {
+                        var existingSubproduct = db.Products.Where(p => p.Productid == subtype.Productid).FirstOrDefault();
+                        if (existingSubproduct != null)
+                        {
+                            existingSubproduct.Name = subtype.Name;
+                            existingSubproduct.Shortname = subtype.Shortname;
+                            existingSubproduct.Description = subtype.Description;
+                            existingSubproduct.Code = subtype.Code;
+                        }
+                    }
                 }
                 db.SaveChanges();
-
                 response.WasSuccessful = true;
-                response.StatusMessage = "El producto fue modificado exitosamente. ";
+                response.StatusMessage = "El producto fue modificado exitosamente.";
             }
             return response;
         }

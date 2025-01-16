@@ -142,7 +142,7 @@ namespace Reciplastk.Gateway.Services
         {
             var response = new HttpResponseModel();
             List<Customer> customers;
-            if (productPricesViewModel.pricetypeid == 1)
+            if (productPricesViewModel.pricetypeid == (int)Enums.PriceTypeEnum.Buy)
             {
                 customers = db.Customers.Where(x => x.Isactive == true && x.Customertypeid == (int)Enums.CustomerTypeEnum.provider).ToList();
             }
@@ -227,7 +227,7 @@ namespace Reciplastk.Gateway.Services
             var BuyPriceViewModel = new ProductPricesViewModel()
             {
                 productid = ProductsModel.productref.Productid,
-                pricetypeid = 1,
+                pricetypeid = (int)Enums.PriceTypeEnum.Buy,
                 employeeid = 29, // To do: replace for a config value
                 price = ProductsModel.Buyprice,
             };
@@ -237,7 +237,7 @@ namespace Reciplastk.Gateway.Services
                 BuyPriceViewModel = new ProductPricesViewModel()
                 {
                     productid = ProductsModel.productref.Productid,
-                    pricetypeid = 2,
+                    pricetypeid = (int)Enums.PriceTypeEnum.Sell,
                     employeeid = 29, // To do: replace for a config value
                     price = ProductsModel.Sellprice,
                 };
