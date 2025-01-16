@@ -400,5 +400,5 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 reciplastk.pem
-Back/Reciplastk.Gateway/appsettings.json
 Front/package-lock.json
+
