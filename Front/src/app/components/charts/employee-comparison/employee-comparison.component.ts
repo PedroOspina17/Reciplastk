@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import Chart from 'chart.js/auto';
+import { ChartsService } from '../../../services/charts.service';
 
 @Component({
   selector: 'app-employee-comparison',
@@ -8,7 +9,9 @@ import Chart from 'chart.js/auto';
   templateUrl: './employee-comparison.component.html',
   styleUrl: './employee-comparison.component.css'
 })
+
 export class EmployeeComparisonComponent {
+  constructor(private chartService: ChartsService) {}
   chart: any = []
 
   
