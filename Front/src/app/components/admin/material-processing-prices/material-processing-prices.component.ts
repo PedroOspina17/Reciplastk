@@ -49,41 +49,21 @@ export class MaterialProcessingPricesComponent {
       return false;
     }
   }
-  EmployeeChange(value: any) {
-    const id = value.target.value;
-    console.log(id);
-    this.employeeId = id;
-    this.Filter();
-  }
-  ProductChange(value: any) {
-    const id = value.target.value;
-    console.log(id);
-    this.productId = id;
-    this.Filter();
-  }
   OnChecboxChange(event: Event) {
     const checkbox = event.target as HTMLInputElement;
     this.showAll = checkbox.checked;
-    console.log(this.showAll);
     this.Filter();
   }
   Filter() {
     const payrollConfig: PayrollConfig = {
-      employeeId: this.employeeId,
-      productId: this.productId,
-      showAll: this.showAll,
+      employeeId: this.formSelect.value.Employee,
+      productId: this.formSelect.value.Product,
+      showAll: this.showAll
     };
-    console.log("payrollConfig", payrollConfig)
+    console.log(payrollConfig)
     this.payrollconfigService.Filter(payrollConfig).subscribe(r => {
       if (r.wasSuccessful) {
         this.payrollConfigList = r.data
-        this.formSelect.value.setValue({
-          Employee: [-1],
-          Product: [-1],
-          price: []
-        });
-        this.Filter();
-        console.log(this.payrollConfigList)
       } else {
         this.toastr.info(r.statusMessage);
       }
@@ -102,20 +82,17 @@ export class MaterialProcessingPricesComponent {
     this.weightControlService.GetEmployee().subscribe((r) => {
       if (r.wasSuccessful == true) {
         this.employeeList = r.data;
-        console.log(this.employeeList)
       } else {
         this.toastr.info('No se encontro ningun empleado');
       }
     });
   }
   saveConfig() {
-    console.log(this.formSelect.value);
     const model: PayrollConfig = {
       productId: this.formSelect.value.Product,
       employeeId: this.formSelect.value.Employee,
       pricePerKilo: this.formSelect.value.price,
     }
-    console.log('Model', model);
     this.payrollconfigService.Create(model).subscribe(r => {
       if (r.wasSuccessful) {
         this.toastr.success(r.statusMessage)

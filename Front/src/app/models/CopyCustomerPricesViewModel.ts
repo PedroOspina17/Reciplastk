@@ -1,4 +1,4 @@
 export class CopyCustomerPricesViewModel{
-    CustomerFrom: number = -1;
-    CustomerTo?: number = -1;
+    customerFrom: number = -1;
+    customerTo?: number = -1;
 }

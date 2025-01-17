@@ -7,6 +7,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ProductPriceModel } from '../../../models/ProductPriceModel';
 import { ProductPriceInnerParams } from '../../../models/ProductPriceInnerParams';
 import { ProductPriceService } from '../../../services/product-price.service';
+import { PriceType } from '../../../models/Enums';
+
 
 @Component({
   selector: 'app-product-price-inner',
@@ -33,17 +35,12 @@ export class ProductPriceInnerComponent {
   CustomerList: CustomerViewModel[] = [];
   IsNegative: boolean = false;
   value: any = { checked: false };
+  PriceType = PriceType;
   ngOnInit(): void {
     this.filter();
     this.GetCustomers(this.productPriceTypeId);
   }
   ngOnChanges(changes: SimpleChanges) {
-    /* for (const propName in changes) {
-      const chng = changes[propName];
-      const cur = JSON.stringify(chng.currentValue);
-      const prev = JSON.stringify(chng.previousValue);
-      console.log(`${propName}: currentValue = ${cur}, previousValue = ${prev}`);
-    } */
     this.onRadioChange(false);    
     this.filter();
   }
@@ -61,7 +58,7 @@ export class ProductPriceInnerComponent {
       pricetypeid: this.productPriceTypeId,
       productid: this.productid,
       customerid: this.customerid,
-      ShowHistory: this.value?.checked ?? false,
+      showHistory: this.value?.checked ?? false,
     }
     this.productPriceService.Filter(productPriceModel).subscribe(r => {
       if (r.wasSuccessful) {

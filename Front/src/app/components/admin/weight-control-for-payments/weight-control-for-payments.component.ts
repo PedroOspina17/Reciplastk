@@ -67,10 +67,10 @@ export class WeightControlForPaymentsComponent {
   Filter() {
     const selectedEmployee = this.FormPayments.value.Employee;
     const Model: WeightControlReportParams = {
-      StartDate: this.FormPayments.value.StartDate,
-      EndDate: this.FormPayments.value.EndDate,
-      EmployeeId: selectedEmployee?.id,
-      Ispaid: false,
+      startDate: this.FormPayments.value.StartDate,
+      endDate: this.FormPayments.value.EndDate,
+      employeeId: selectedEmployee?.id,
+      ispaid: false,
     };
     this.BillInfo.employeeName = selectedEmployee.name;
     this.BillInfo.employeeId = selectedEmployee.employeeid;
@@ -83,7 +83,7 @@ export class WeightControlForPaymentsComponent {
           selected: false,
         }));
         const selectedEmployee = this.EmployeeList.find(
-          (employee) => employee.id === Model.EmployeeId
+          (employee) => employee.id === Model.employeeId
         );
         this.BillInfo.employeeName = selectedEmployee.name;
       } else {

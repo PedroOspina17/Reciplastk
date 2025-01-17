@@ -52,19 +52,30 @@ export class CopyCustomerPricesComponent {
     })
   }
   SaveInfo() {
-    const copyCustomerPricesViewModel: CopyCustomerPricesViewModel = {
-      CustomerFrom: this.FormSelects.value.CustomerToCopyId,
-      CustomerTo: this.FormSelects.value.CustomerToAssignId,
-    }
-    this.productPriceService.CopyPrices(copyCustomerPricesViewModel).subscribe(r => {
-      if (r.wasSuccessful) {
-        this.toastr.success(r.statusMessage);
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
-      } else {
-        this.toastr.error(r.data);
+    if (this.FormSelects.value.CustomerToCopyId == this.FormSelects.value.CustomerToAssignId) {
+      this.toastr.error("El cliente a asignar no puede ser el mismo que el cliente a copiar");
+
+      this.FormSelects.setValue({
+        CustomerToCopyId: [-1,],
+        CustomerToAssignId: [-1]
+      })
+
+    } else {
+      const copyCustomerPricesViewModel: CopyCustomerPricesViewModel = {
+        customerFrom: this.FormSelects.value.CustomerToCopyId,
+        customerTo: this.FormSelects.value.CustomerToAssignId,
       }
-    });
+      this.productPriceService.CopyPrices(copyCustomerPricesViewModel).subscribe(r => {
+        if (r.wasSuccessful) {
+          this.toastr.success(r.statusMessage);
+          this.FormSelects.setValue({
+            CustomerToCopyId: [-1,],
+            CustomerToAssignId: [-1]
+          })
+        } else {
+          this.toastr.error(r.data);
+        }
+      });
+    }
   }
 }

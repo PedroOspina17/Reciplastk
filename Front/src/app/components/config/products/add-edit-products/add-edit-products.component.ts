@@ -73,10 +73,8 @@ export class AddEditProductsComponent {
 
   GetById(id: number): void {
     this.productService.GetById(id).subscribe((result) => {
-      console.log('DATA',result.data)
       if (result.wasSuccessful == true) {
         this.productPriceService.GetProductCurrentBuySellPrices(id).subscribe(r => {
-          console.log('DATA2',result.data)
 
           if (r.wasSuccessful) {
             this.formProduct.controls['shortname'].disable();
@@ -90,7 +88,6 @@ export class AddEditProductsComponent {
               buyprice: r.data.buy,
               sellprice: r.data.sell,
             });
-            console.log('FORM',this.formProduct.value)
           }
         });
 
@@ -104,7 +101,6 @@ export class AddEditProductsComponent {
                 sellprice: productPrice
               };
               this.listSubproduct.push(product);
-              console.log(this.listSubproduct);
             }
           });
         });
@@ -123,7 +119,7 @@ export class AddEditProductsComponent {
       code: this.formProduct.value.code,
       buyprice: this.formProduct.value.buyprice,
       sellprice: this.formProduct.value.sellprice,
-      SubtypeProductList: this.listSubproduct,
+      subtypeProductList: this.listSubproduct,
     };
     product.productid = this.id;
     if (this.id != 0) {
@@ -157,7 +153,6 @@ export class AddEditProductsComponent {
     }
   }
   AddSubproduct() {
-    console.log('form',this.formProduct.value)
     const subproduct = {
       shortname:
         this.formProduct.value.shortname +
@@ -177,7 +172,6 @@ export class AddEditProductsComponent {
       issubtype: true,
     };
     this.listSubproduct.push(subproduct);
-    console.log(this.listSubproduct);
     this.formSubproduct.reset();
   }
   DeleteSubproduct(index: number) {

@@ -1,7 +1,7 @@
 <div class="container-sm">
     <main class="pb-3">
         <div class="row h-50 ">
-            <h3 class="mb-4 mt-4 text-center">{{isCreate}} Cliente</h3>
+            <h3 class="mb-4 mt-4 text-center">{{isCreate}} empleado</h3>
             <div class="col-md-12 mb-3 offset-2 w-75">
                 <form [formGroup]="formEmployee" class="row">
                     <div class="row mb-3">
@@ -47,6 +47,23 @@
                             </div>
                         </div>
                         <div class="col-6">
+                            <label for="role" class="control-label">Roles</label>
+                            <select name="role" formControlName="role" class="form-select mt-2" id="role">
+                                <option value="" disabled selected>Seleccione un rol</option>
+                                <option value="5">5</option>
+                                <option *ngFor="let i of roleList" value="{{i.roleid}}">{{i.name}}</option>
+                            </select>
+                            <div>
+                                <span *ngIf="
+                                    formEmployee.get('role')?.hasError('required') && 
+                                    formEmployee.get('role')?.touched" class="form-text m-2 text-danger"> Seleccionar un rol
+                                    es<strong> requerido </strong>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6">
                             <label for="password" class="control-label">Contraseña</label>
                             <input type="text" class="form-control mt-2" placeholder="Contraseña" id="password"
                                 formControlName="password">
@@ -59,26 +76,29 @@
                                 </span>
                             </div>
                         </div>
-                    </div>
-                    <div class="row mb-3">
                         <div class="col-6">
-                            <label for="role" class="control-label">Roles</label>
-                            <select name="role" formControlName="role" class="form-select mt-2" id="role">
-                                <option value="" disabled selected>Seleccione un rol</option>
-                                <option *ngFor="let i of roleList" value="{{i.roleid}}">{{i.name}}</option>
-                            </select>
+                            <label for="repPassword" class="control-label">Repetir contraseña</label>
+                            <input type="text" class="form-control mt-2" placeholder="Repita la contraseña" id="repPassword"
+                                formControlName="repPassword">
                             <div>
                                 <span *ngIf="
-                                    formEmployee.get('lastName')?.hasError('required') && 
-                                    formEmployee.get('lastName')?.touched" class="form-text m-2 text-danger"> El nombre
+                                    formEmployee.get('repPassword')?.hasError('required') && 
+                                    formEmployee.get('repPassword')?.touched" class="form-text m-2 text-danger"> El nombre
                                     del nuevo ususario
                                     es<strong> requerido </strong>
+                                </span>
+                            </div>
+                            <div>
+                                <span *ngIf="
+                                    formEmployee.get('repPassword')?.value !== formEmployee.get('password')?.value"
+                                   class="form-text m-2 text-danger">
+                                    <strong>Las contraseñas no son iguales</strong>
                                 </span>
                             </div>
                         </div>
                     </div>
                     <div class="text-center mt-5">
-                        <button [disabled]="formEmployee.invalid" type="submit"
+                        <button [disabled]="formEmployee.invalid || formEmployee.hasError('passwordsMismatch')" type="submit"
                             class="btn btn-success w-25">Aceptar</button>
                         <button class="btn btn-secondary w-25 ms-2" type="button"
                             routerLink="/config/employee">Volver</button>

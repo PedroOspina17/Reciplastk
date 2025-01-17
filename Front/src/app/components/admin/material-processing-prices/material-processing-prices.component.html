@@ -9,7 +9,7 @@
                     <label class="me-2" for="Employee">Empleado</label>
                     <div class="col">
                         <select formControlName="Employee" class="form-select" name="" id="Employee"
-                            (change)="EmployeeChange($event)">
+                            (change)="Filter()">
                             <option value="-1">Seleccione a un empleado</option>
                             <option *ngFor="let i of employeeList" value="{{i.employeeid}}">{{i.name}}</option>
                         </select>
@@ -21,7 +21,7 @@
                     <label class="me-2" for="Product">Producto</label>
                     <div class="col">
                         <select formControlName="Product" class="form-select" name="" id="Product"
-                            (change)="ProductChange($event)">
+                            (change)="Filter()">
                             <option value="-1">Seleccione un producto</option>
                             <option *ngFor="let i of SpecificProductsList" value="{{i.productid}}">{{i.shortname}}
                             </option>
@@ -62,7 +62,7 @@
                             <td>{{i.creationdate| date: 'MM/dd/yyyy'}}</td>
                             <td>{{i.employee}}</td>
                             <td>{{i.product}}</td>
-                            <td>{{i.buyPrice}}</td>
+                            <td>{{i.buyPrice | currency:'USD':'symbol':'1.0-0'}}</td>
                             <td>
                                 <i *ngIf="i.isCurrentePrice; else x" class="bi bi-check2 text-success ms-5"></i>
                                 <ng-template #x>

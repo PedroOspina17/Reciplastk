@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { RoleService } from '../../../services/role.service';
@@ -34,10 +34,19 @@ export class CreateEmployeeComponent {
       lastName: ['', [Validators.required, Validators.maxLength(50)]],
       userName: ['', [Validators.required, Validators.maxLength(50)]],
       password: ['', [Validators.required, Validators.maxLength(50)]],
+      repPassword: ['', [Validators.required, Validators.maxLength(50)]],
       role: ['', Validators.required]
-    })
+    },
+      { validators: this.passwordsMatchValidator }
+    )
     this.id = Number(this.aRoute.snapshot.paramMap.get('id'));
   }
+  passwordsMatchValidator: ValidatorFn = (group: AbstractControl): { [key: string]: boolean } | null => {
+    const password = group.get('password')?.value;
+    const repPassword = group.get('repPassword')?.value;
+
+    return password === repPassword ? null : { passwordsMismatch: true };
+  };
   formEmployee: FormGroup;
   roleList: RoleParams[] = [];
   isCreate: string = "";

@@ -4,5 +4,5 @@ export class ProductPriceModel{
     pricetypeid?: number = -1;
     price?: number= -1;
     createorchangeprice?: boolean;
-    ShowHistory?: boolean;
+    showHistory?: boolean;
 }

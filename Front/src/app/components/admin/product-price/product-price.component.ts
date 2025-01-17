@@ -16,7 +16,7 @@ import { ProductPriceInnerParams } from '../../../models/ProductPriceInnerParams
   templateUrl: './product-price.component.html',
   styleUrl: './product-price.component.css'
 })
-export class ProductPriceComponent implements AfterViewInit {
+export class ProductPriceComponent {
   constructor(private fb: FormBuilder, private customerService: CustomerService, private productPriceService: ProductPriceService, private toastr: ToastrService, private productsService: ProductsService) {
     this.formSelects = this.fb.group({
       tipeid: [-1],
@@ -31,9 +31,6 @@ export class ProductPriceComponent implements AfterViewInit {
   @ViewChild(ProductPriceInnerComponent) child!: ProductPriceInnerComponent;
   ngOnInit(): void {
     this.GetAllPriceTypes();
-  }
-  ngAfterViewInit(): void {
-
   }
   PriceTypeChange(value: any) {
     this.formSelects.get('isCreate')?.disable();

@@ -18,24 +18,7 @@
                             <th class="text-center">Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr data-toggle="collapse" data-target="#demo1" class="accordion-toggle">
-                            <td>Pastero</td>
-                            <td>David</td>
-                            <td>Ossa</td>
-                            <td>Da0110</td>
-                            <td class="text-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-outline-warning " title="Editar producto">
-                                        <i class="bi bi-pencil"></i>
-                                    </button>
-
-                                    <button type="button" class="btn btn-outline-danger" title="Eliminar producto">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                    <tbody>                        
                         <tr *ngFor="let i of employeeList" data-toggle="collapse" data-target="#demo1" class="accordion-toggle">
                             <td>{{i.role}}</td>
                             <td>{{i.name}}</td>
@@ -43,11 +26,11 @@
                             <td>{{i.userName}}</td>
                             <td class="text-center">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-outline-warning" routerLink="/config/editEmployee/{{i.employeeid}}" title="Editar producto">
+                                    <button type="button" class="btn btn-outline-warning" routerLink="/config/editEmployee/{{i.employeeid}}" title="Editar empleado">
                                         <i class="bi bi-pencil"></i>
                                     </button>
 
-                                    <button type="button" class="btn btn-outline-danger" (click)="Delete(i.employeeid)" title="Eliminar producto">
+                                    <button type="button" class="btn btn-outline-danger" (click)="Delete(i.employeeid)" title="Eliminar empleado">
                                         <i class="bi bi-trash"></i>
                                     </button>
                                 </div>

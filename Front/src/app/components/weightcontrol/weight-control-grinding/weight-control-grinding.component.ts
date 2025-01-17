@@ -84,9 +84,9 @@ export class WeightControlGrindingComponent {
   }
   SaveRemainig() {
     const remainingModel: WeightControlGrindingModel = {
-      ProductId: this.specificproductid,
-      PackageCount: this.FormRemaining.value.Package,
-      Remainig: this.FormRemaining.value.Spare,
+      productId: this.specificproductid,
+      packageCount: this.FormRemaining.value.Package,
+      remainig: this.FormRemaining.value.Spare,
     };
     this.weightControlService.CreateGrinding(remainingModel).subscribe((p) => {
       if (p.wasSuccessful == true) {

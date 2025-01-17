@@ -7,5 +7,5 @@ export class ProductModel{
   buyprice: number = 0;
   sellprice: number = 0;
   parentid?: number = 0;
-  SubtypeProductList?: ProductModel[] = [];
+  subtypeProductList?: ProductModel[] = [];
 }

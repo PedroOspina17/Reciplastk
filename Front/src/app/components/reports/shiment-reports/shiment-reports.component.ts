@@ -51,12 +51,12 @@ export class ShimentReportsComponent {
   ShipmentReports: ShipmentReports[] = [];
   Filter() {
     const Model: ShipmentReportParamsModel = {
-      StartDate: this.FormShipment.value.StartDate,
-      EndDate: this.FormShipment.value.EndDate,
-      EmployeeId: this.FormShipment.value.EmployeeId,
-      ProductId: this.FormShipment.value.ProductId,
-      IsPaid: this.FormShipment.value.IsPaid,
-      Type: this.FormShipment.value.TypeId,
+      startDate: this.FormShipment.value.StartDate,
+      endDate: this.FormShipment.value.EndDate,
+      employeeId: this.FormShipment.value.EmployeeId,
+      productId: this.FormShipment.value.ProductId,
+      isPaid: this.FormShipment.value.IsPaid,
+      type: this.FormShipment.value.TypeId,
     };
     this.shipmentService.Filter(Model).subscribe((r) => {
       if (r.wasSuccessful) {
