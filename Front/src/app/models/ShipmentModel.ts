@@ -4,6 +4,7 @@ export class ShipmentModel {
   shipmentid?: number;
   customerid: number = 0;  
   shipmenttypeid: number = 0;
+  totalprice: number = 0;
   details: ShipmentDetailModel[] = [];
 }
 

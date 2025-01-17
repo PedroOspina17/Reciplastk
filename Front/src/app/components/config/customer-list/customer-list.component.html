@@ -1,5 +1,5 @@
 <app-loader *ngIf="loader"></app-loader>
-<div class="w-75 mx-auto mt-5">
+<div class="w-100 mx-auto">
   <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-heading ComponentTittle">
@@ -11,7 +11,7 @@
       <div class="panel-body">
         <table class="table table-condensed table-striped align-middle">
           <thead>
-            <tr>              
+            <tr>
               <th>Nit</th>
               <th>Nombre</th>
               <th>Apellido</th>
@@ -31,8 +31,10 @@
               <td>{{ item.cell }}</td>
               <td>{{ item.customertypename}}</td>
               <td>
-                <span *ngIf="item.needspickup; else noPickup">Sí</span>
-                <ng-template #noPickup>No</ng-template>
+                <div class="ms-3">
+                  <span *ngIf="item.needspickup; else noPickup">Sí</span>
+                  <ng-template #noPickup>No</ng-template>
+                </div>
               </td>
               <td>
                 <div class="btn-group">
@@ -40,8 +42,7 @@
                     routerLink="/config/editCustomer/{{ item.customerid }}">
                     <i class="bi bi-pencil fs-6"></i>
                   </button>
-                  <button type="button" class="btn btn-outline-danger"
-                    (click)="DeleteCustomer(item.customerid!)">
+                  <button type="button" class="btn btn-outline-danger" (click)="DeleteCustomer(item.customerid!)">
                     <i class="bi bi-trash fs-6"></i>
                   </button>
                 </div>

@@ -43,6 +43,9 @@ public partial class Shipment
     [Column("isactive")]
     public bool Isactive { get; set; }
 
+    [Column("totalprice")]
+    public double Totalprice { get; set; }
+
     [ForeignKey("Customerid")]
     [InverseProperty("Shipments")]
     public virtual Customer Customer { get; set; }

@@ -1,6 +1,8 @@
-<div class="d-flex justify-content-center align-items-center">
-    <div class="container">
-        <div><h3 class="text-center mb-3">Bodega</h3></div>
+<div class="mx-auto mt-5 w-100 ">
+    <div class="">
+        <div class="text-center">
+            <h3>Bodega</h3>
+        </div>
         <div class="row rounded-3  p-4" style="width: 50%;">
             <div class="row mb-3">
                 <div class="col-5">
@@ -30,8 +32,8 @@
                     <select [(ngModel)]="id" (change)="onProviderChange($event)" class="form-select" name="ddlprovider"
                         id="ddlprovider">
                         <option value="-1">Lista de {{ShowProvider ? "Proveedores":"Clientes"}}</option>
-                        <option *ngFor="let i of ShowProvider ? ProviderList:CustomerList"
-                            value="{{ ShowProvider ? i.id : i.customerid }}">{{i.name}}</option>
+                        <option *ngFor="let i of CustomerList"
+                            value="{{i.customerid}}">{{i.name}}</option>
                     </select>
                 </div>
             </div>
