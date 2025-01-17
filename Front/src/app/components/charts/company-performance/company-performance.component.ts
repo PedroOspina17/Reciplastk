@@ -12,7 +12,7 @@ export class CompanyPerformanceComponent {
   chart: any = [];
 
   ngOnInit() {
-    // Traer los datos del back
+    // get a list of metrics SIMILAR TO EMPLOYEES COMPARISONS. also 
     
     this.chart = new Chart('company-performance-canvas', {
       type: 'bar',

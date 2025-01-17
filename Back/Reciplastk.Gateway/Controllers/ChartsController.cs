@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Reciplastk.Common.Helpers;
+﻿using Microsoft.AspNetCore.Mvc;
 using Reciplastk.Gateway.Models;
 using Reciplastk.Gateway.Services;
 
@@ -17,9 +15,9 @@ namespace Reciplastk.Gateway.Controllers
             this.chartsService = chartsService;
         }
         [HttpGet("GetEmployeeComparisonInfo")]
-        public List<EmployeeComparisonsViewModel> GetEmployeeComparisonInfo()
+        public HttpResponseModel GetEmployeeComparisonInfo(bool yearlyChart = false, int year = 2025, int month = 1)
         {
-            return chartsService.GetEmployeeComparisonInfo();
+            return new HttpResponseModel { Data = chartsService.GetEmployeeComparisonInfo(yearlyChart,year, month) };
         }
     }
 }

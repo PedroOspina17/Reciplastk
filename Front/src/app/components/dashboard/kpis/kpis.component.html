@@ -1,0 +1,87 @@
+<div class="row mt-1">
+  <div class="col">
+    <div class="row-col">
+      <span class="text-secondary fs-5 fw-bold">Kilos separados:</span><br>
+      <span class="text-primary fs-3 fw-bold ms-2">{{SeparationSummary}}</span>
+    </div>
+    <div class="row fs-6 fw-bold" *ngIf="false">
+      <div class="col">
+        <span class="text-secondary">PP alta:</span>
+        <span class="text-primary">30</span>
+      </div>
+      <div class="col">
+        <span class="text-secondary">PP Baja:</span>
+        <span class="text-primary">100</span>
+      </div>
+      <div class="col">
+        <span class="text-secondary">Pasta:</span>
+        <span class="text-primary">60</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-3">
+  <div class="col">
+    <div class="row-col">
+      <span class="text-secondary fs-5 fw-bold">Kilos molidos:</span><br>
+      <span class="text-primary fs-3 fw-bold ms-2">{{GrindingSummary}}</span>
+    </div>
+    <div class="row fs-6 fw-bold" *ngIf="false">
+      <div class="col">
+        <span class="text-secondary">PP alta:</span>
+        <span class="text-primary">30</span>
+      </div>
+      <div class="col">
+        <span class="text-secondary">PP Baja:</span>
+        <span class="text-primary">100</span>
+      </div>
+      <div class="col">
+        <span class="text-secondary">Pasta:</span>
+        <span class="text-primary">60</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-3">
+    <div class="row-col">
+        <span class="text-secondary fs-5 fw-bold">Total facturado:</span> <br />
+        <span class="text-danger fs-3 fw-bold ms-2">{{BillingSummary  | currency:'USD':'symbol':'1.0-0'}}</span>
+      </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col">
+      <div class="row-col">
+        <span class="text-secondary fs-5 fw-bold">Kilos despachados:</span><br>
+        <span class="text-danger fs-3 fw-bold ms-2">{{ShippingSummary}}</span>
+      </div>
+      <div class="row fs-6 fw-bold" *ngIf="false">
+        <div class="col">
+          <span class="text-secondary">PP alta:</span>
+          <span class="text-danger">30</span>
+        </div>
+        <div class="col">
+          <span class="text-secondary">PP Baja:</span>
+          <span class="text-danger">100</span>
+        </div>
+        <div class="col">
+          <span class="text-secondary">Pasta:</span>
+          <span class="text-danger">60</span>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+<div class="row mt-3">
+  
+    <div class="row-col">
+        <span class="text-secondary fs-5 fw-bold">Meta:</span><br>
+        <span class="text-success fs-4 fw-bold ms-2">{{BillingGoal}}</span> - 
+      
+        <span class="text-success fs-4 fw-bold">{{ShipmentGoal}} </span> <span class="text-success fw-bold">KG</span>
+        
+      </div>
+</div>

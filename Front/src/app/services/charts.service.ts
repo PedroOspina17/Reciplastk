@@ -12,7 +12,7 @@ export class ChartsService {
   constructor(private http: HttpClient) { }
   ServiceEndpoint: string = `${AppConfig.API_URL}/api/Charts`;
 
-  GetEmployeeComparisonInfo(): Observable<HttpResponseModel>{
-    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'/GetEmployeeComparisonInfo')
+  GetEmployeeComparisonInfo(isYearlyChart: boolean, year:number, month: number): Observable<HttpResponseModel>{
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+`/GetEmployeeComparisonInfo?yearlyChart=${isYearlyChart}&year=${year}&month=${month}`)
   }
 }

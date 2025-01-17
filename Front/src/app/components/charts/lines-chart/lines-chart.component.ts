@@ -11,7 +11,15 @@ import Chart from 'chart.js/auto';
 export class LinesChartComponent {
   chart: any = []
 
-  
+  /*
+  From service get a list of weight control products and its sums based on the parameters. List<CharDataModel>
+  [
+    {label: PET, value: 12},
+    {label: PP-Alta, value: 24},
+    {label: PP-Baja, value: 14},
+    {label: Pasta, value: 50},
+  ]
+  */
   ngOnInit() {
     this.chart = new Chart('line-canvas', {
       type: 'pie',
@@ -20,7 +28,7 @@ export class LinesChartComponent {
         datasets: [
           {
             label: 'Pedro',
-            data: [12, 8, 14, 15, 12, 12],
+            data: [12, 24, 14, 50],
             borderWidth: 1,
           }
         ],
