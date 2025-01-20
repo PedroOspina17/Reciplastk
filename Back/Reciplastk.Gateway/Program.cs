@@ -13,7 +13,7 @@ var config = builder.Configuration;
 builder.Services.AddApplicationDataAccess(config);
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 builder.Services.AddApplicationServices();
-builder.Services.AddConfigureRepositories();
+builder.Services.AddApplicationRepositories();
 builder.Services.AddCors(options => options.AddPolicy("AllowWebApp", builder =>
                             builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).
