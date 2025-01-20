@@ -1,1 +1,55 @@
-<p>welcom works!</p>
+<div class="row">
+    <form [formGroup]="chartFiltersForm"> 
+        <!--ToDo: move filters ot of this component -->
+      <div class="row">
+        <div class="col small text-end align-content-around">
+          <label class="" for="flexSwitchCheckChecked">Reporte por Mes</label>
+          
+          <div class="form-check-inline form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" formControlName="isYearlyChart"  checked>
+          </div>
+          <label class="me-3" for="flexSwitchCheckChecked">Reporte por año</label>
+        </div>
+        <div class="col-2">
+          <select name="month" id="month" class="form-select form-select-sm " formControlName="month" *ngIf="!chartFiltersForm.value.isYearlyChart">
+            <option value="1">Enero</option>
+            <option value="2">Febrero</option>
+            <option value="3">Marzo</option>
+            <option value="4">Abril</option>
+            <option value="5">Mayo</option>
+            <option value="6">Junio</option>
+            <option value="7">Julio</option>
+            <option value="8">Agosto</option>
+            <option value="9">Septiembre</option>
+            <option value="10">Octubre</option>
+            <option value="11">Noviembre</option>
+            <option value="12">Diciembre</option>
+          </select>
+        </div>
+        <div class="col-2" >
+          <select name="year" id="year" class="form-select form-select-sm " formControlName="year">
+            <option value="2025">2025</option>
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+          </select>
+        </div>
+      </div>
+      </form>
+  <div class="col-9">
+  <app-employee-comparison [isYearlyChart]="chartFiltersForm.value.isYearlyChart" [year]="chartFiltersForm.value.year" [month]="chartFiltersForm.value.month"></app-employee-comparison>
+</div>
+<div class="col-3">
+    <span class="fs-4 fw-bold">Resumen:</span>
+
+    <app-kpis [isYearly]="chartFiltersForm.value.isYearlyChart" [year]="chartFiltersForm.value.year" [month]="chartFiltersForm.value.month"></app-kpis>
+</div>
+</div>
+<div class="row mt-5">
+  <div class="col-8">
+    <app-company-performance></app-company-performance>
+  </div>
+  <div class="col-4">
+    
+    <app-lines-chart></app-lines-chart>
+  </div>
+</div>
