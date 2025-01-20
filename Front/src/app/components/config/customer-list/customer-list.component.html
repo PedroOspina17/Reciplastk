@@ -1,0 +1,56 @@
+<app-loader *ngIf="loader"></app-loader>
+<div class="w-100 mx-auto">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading ComponentTittle">
+        <h3>Clientes</h3>
+        <button type="button" class="btn btn-outline-success" routerLink="/config/addCustomer">
+          Agregar cliente
+        </button>
+      </div>
+      <div class="panel-body">
+        <table class="table table-condensed table-striped align-middle">
+          <thead>
+            <tr>
+              <th>Nit</th>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>Dirección</th>
+              <th>Celular</th>
+              <th>Tipo</th>
+              <th>Recoger</th>
+              <th>Acciones </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of CustomerList">
+              <td>{{ item.nit }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.lastname }}</td>
+              <td>{{ item.address }}</td>
+              <td>{{ item.cell }}</td>
+              <td>{{ item.customertypename}}</td>
+              <td>
+                <div class="ms-3">
+                  <span *ngIf="item.needspickup; else noPickup">Sí</span>
+                  <ng-template #noPickup>No</ng-template>
+                </div>
+              </td>
+              <td>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-outline-warning"
+                    routerLink="/config/editCustomer/{{ item.customerid }}">
+                    <i class="bi bi-pencil fs-6"></i>
+                  </button>
+                  <button type="button" class="btn btn-outline-danger" (click)="DeleteCustomer(item.customerid!)">
+                    <i class="bi bi-trash fs-6"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

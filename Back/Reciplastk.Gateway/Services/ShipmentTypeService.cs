@@ -53,7 +53,6 @@ namespace Reciplastk.Gateway.Services
             db.Shipmenttypes.Add(newShipmentType);
             db.SaveChanges();
             response.WasSuccessful = true;
-            response.Data = newShipmentType;
             response.StatusMessage = "El tipo de cargamento se creo exitosamente";
             return response;
         }
@@ -70,7 +69,6 @@ namespace Reciplastk.Gateway.Services
                 shipmentType.Isactive = true;
                 db.SaveChanges();
                 response.WasSuccessful = true;
-                response.Data = shipmentType;
                 response.StatusMessage = "El tipo de cargamento se edito exitosamente";
             }
             else

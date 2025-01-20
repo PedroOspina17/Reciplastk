@@ -1,0 +1,100 @@
+<div class="w-75 mx-auto mt-5">
+    <div class="text-center mb-3">
+        <h3>Molino</h3>
+    </div>
+    <form [formGroup]="FormSelection" class="d-flex">
+        <div class="row rounded-3 w-50 p-4">
+            <div class="row mb-3">
+                <div class="col-5">
+                    <label class="fw-bold" for="ProductSelection">Producto</label>
+                </div>
+                <div class="col-7 d-flex">
+                    <select formControlName="ProductSelection" class="form-select" id="ProductSelection" (change)="onProductChange($event)">
+                        <option value="-1">Selecione un producto</option>
+                        <option *ngFor="let i of generalProductList" value="{{i.productid}}">{{i.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5">
+                    <label class="fw-bold" for="ColorSelection">Color</label>
+                </div>
+                <div class="col-7">
+                    <select formControlName="ColorSelection" class="form-select" name="ColorSelection" id="ColorSelection" (change)="onColorChange($event)">
+                        <option value="-1">Selecione color</option>
+                        <option *ngFor="let i of filterProductList" value="{{i.productid}}">{{i.name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row rounded-3 text-center w-50 p-4">
+            <h6>{{formattedDate}}</h6>
+            <h6>Total (Kg)</h6>
+            <h6>{{totalweight}}</h6>
+        </div>
+    </form>
+
+    <form *ngIf="isVisible" [formGroup]="FormRemaining">
+        <div  class="container w-50 pb-5 pt-4">
+            <div class="row border-bottom">
+                <div class="col-6 text-center">
+                    <label class="fw-bold">Productos:</label>
+                </div>
+                <div class="col-6 text-center">
+                    <label class="fw-bold">{{productName}}</label>
+                </div>
+            </div>
+            <div class="row mt-3 mb-2 pt-2">
+                <div class="col-6 text-center">
+                    <label class="fs-6" for="Package">Cantidad de bultos</label><br>
+                    <label class="fs-6" for="Package"> (Unidades)</label>
+                </div>
+                <div class="col-6 text-center">
+                    <label class="fs-6" for="Spare">Restante</label><br>
+                    <label class="fs-6" for="Spare">(Kg)</label>
+                </div>
+            </div>
+            <div class="row pb-3">
+                <div class="col-6">
+                    <input formControlName="Package" class="form-control" type="number" id="Package" placeholder="Ingrese los bultos">
+                </div>
+                <div class="col-6">
+                    <input formControlName="Spare" class="form-control" type="number" id="Spare" placeholder="Ingrese el cunchito">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <input (click)="ClearForm()" class="btn btn-danger w-100" type="button" value="Cancelar">
+                </div>
+                <div class="col-6">
+                    <input (click)="SaveRemainig()" [disabled]="FormRemaining.invalid" class="btn btn-success w-100" type="button" value="Guardar">
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="row m-0 offset-2 text-center">
+        <table class="border table table-condensed table-striped">
+            <thead>
+                <tr>
+                    <th class="col-2">Producto</th>
+                    <th class="col-2">Bultos</th>
+                    <th class="col-2">Restantes</th>
+                    <th class="col-2">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let i of todaysProductList">
+                    <td class="col-2">{{i.productName}}</td>
+                    <td class="col-2">{{i.weight/25}}</td> <!-- to do: replace with default configuration -->
+                    <td class="col-2">{{i.remaining}}</td>
+                    <td class="col-2">
+                        <button (click)="DeleteRemaining(i.controlId)" type="button" class="btn btn-outline-danger">
+                            <i class="bi bi-trash fs-6"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

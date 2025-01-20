@@ -1,0 +1,45 @@
+<div class="mx-auto mt-5 w-100 ">
+    <div class="">
+        <div class="text-center">
+            <h3>Bodega</h3>
+        </div>
+        <div class="row rounded-3  p-4" style="width: 50%;">
+            <div class="row mb-3">
+                <div class="col-5">
+                    <label for="ddltype" class="fw-bold">Tipo de despacho</label>
+                </div>
+                <div class="col-7 d-flex">
+
+                    <select [disabled]="id !== -1 && !edit" [(ngModel)]="type" (change)="CustomerProviderSelect($event)"
+                        class="form-select" name="ddltype" id="ddltype">
+                        <option value="1">Ingreso</option>
+                        <option value="2">Salida</option>
+                    </select>
+
+                    <div class="ms-lg-1">
+                        <button *ngIf="!edit && id !== -1" (click)="edittype()" type="button"
+                            class="btn btn-outline-warning">
+                            <i class="bi bi-pencil fs-6"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5">
+                    <label for="ddlprovider" class="fw-bold">{{ShowProvider == true? 'Proveedores':'Clientes'}}</label>
+                </div>
+                <div class="col-7">
+                    <select [(ngModel)]="id" (change)="onProviderChange($event)" class="form-select" name="ddlprovider"
+                        id="ddlprovider">
+                        <option value="-1">Lista de {{ShowProvider ? "Proveedores":"Clientes"}}</option>
+                        <option *ngFor="let i of CustomerList"
+                            value="{{i.customerid}}">{{i.name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<app-shipment-detail *ngIf="showShipmentDetail" id="ShipmentDetailComponent" type="{{type}}" personname="{{personname}}"
+    [personid]="id" (onComplete)="Clear()"></app-shipment-detail>

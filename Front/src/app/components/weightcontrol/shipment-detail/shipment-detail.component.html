@@ -1,0 +1,91 @@
+<div class="container mt-3">
+    <div class="px-4">
+        <div class="">
+            <label class="fw-bold">Detalle de {{type=='1'? 'Ingreso':'Salida'}}</label>
+        </div>
+        <div>
+            <div class="mb-3 d-flex pt-3">
+                <label for="provider" class="pt-1">{{personname}}</label>
+            </div>
+
+            <form [formGroup]="formShipment">
+                <div class="d-flex mb-3">
+                    <div class="me-3">
+                        <label for="product" class="form-label">Producto</label>
+                        <select formControlName="productid" class="form-select" id="productid"
+                            (change)="onSelectedProductChange($event)">
+                            <option value="-1">Productos {{type=='1'?'generales':'especificos'}}</option>
+                            <option *ngFor="let i of type == '1' ? GeneralProductsList:SpecificProductsList "
+                                value="{{i.productid}}">
+                                {{i.name}}</option>
+                        </select>
+                    </div>
+                    <div class="me-3">
+                        <label for="weight" class="form-label">Peso (KG)</label>
+                        <input formControlName="weight" type="number" class="form-control" id="weight" placeholder="0">
+                    </div>
+                    <button (click)="SaveWeight()" [disabled]="formShipment.invalid" type="submit"
+                        class="btn btn-primary align-self-end">Agregar</button>
+                </div>
+                <table class="table table-bordered text-center">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Producto</th>
+                            <th>Peso</th>
+                            <th>Precio</th>
+                            <th>SubTotal</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let i of shipmentDetailList">
+                            <td>{{i.productname}}</td>
+                            <td>{{i.weight}}</td>
+                            <td>{{i.price | currency:'USD':'symbol':'1.0-0'}}
+                                <button type="button" class="btn btn-sm btn-outline-success ms-3" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModalCenter" (click)="ChangePrice(i.productid)">
+                                    <i class="bi bi-currency-dollar"></i>
+                                </button>
+                            </td>
+                            <td>{{i.subtotal | currency:'USD':'symbol':'1.0-0'}}</td>
+                            <td>
+                                <button (click)="ShipmentDetailDelete(i.productid)" type="button"
+                                    class="btn btn-outline-danger">
+                                    <i class="bi bi-trash fs-6"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-between mt-3">
+                    <button (click)="cancelDetil()" type="button" class="btn btn-secondary">Cancelar</button>
+                    <div>
+                        <label class="me-3"><strong>Precio total: </strong>{{TotalPrice |
+                            currency:'USD':'symbol':'1.0-0'}}</label>
+                        <button (click)="Save()" type="button" class="btn btn-success me-2">Guardar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Cambio de precios</h5>
+                <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close">
+                   
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-product-price-inner [customerid]="personid" [productPriceTypeId]="type"
+                    [productid]="producttochangeprice" [isCreate]="true"></app-product-price-inner>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

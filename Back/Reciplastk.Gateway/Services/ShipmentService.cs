@@ -1,6 +1,8 @@
-﻿using Reciplastk.Gateway.DataAccess;
+﻿using Microsoft.EntityFrameworkCore;
+using Reciplastk.Gateway.DataAccess;
 using Reciplastk.Gateway.Models;
 using System.IO.Compression;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Reciplastk.Gateway.Services
 {
@@ -21,7 +23,7 @@ namespace Reciplastk.Gateway.Services
         }
         public HttpResponseModel GetById(int shipmentid)
         {
-            var shipment = GetById(shipmentid);
+            var shipment = Exist(shipmentid);
             var response = new HttpResponseModel();
             if (shipment != null)
             {
@@ -36,7 +38,38 @@ namespace Reciplastk.Gateway.Services
             }
             return response;
         }
-        private Shipment GetByid(int shipmentid)
+        public HttpResponseModel GetReceivableReceiptInfo(int id)
+        {
+            var response = new HttpResponseModel();
+            var query = db.Shipments.Include(p => p.Shipmentdetails).Where(x => x.Shipmentid == id).Select(z => new RecivableViewModelClass
+            {
+                shipmentid = z.Shipmentid,
+                shipmenttype = z.Shipmenttypeid,
+                shipmenttypename = z.Shipmenttype.Name,
+                employeename = z.Employee.Name,
+                customername = z.Customer.Name,
+                date = z.Creationdate,
+                totalprice = z.Totalprice,
+                details = z.Shipmentdetails.Select(x => new RecivableDetails
+                {
+                    productname = x.Product.Name,
+                    weight = x.Weight,
+                    productprice = x.Productprice,
+                    subtotal = x.Subtotal,
+                }).ToList()
+            }).FirstOrDefault();
+            if (query != null)
+            {
+                response.Data = query;
+            }
+            else
+            {
+                response.WasSuccessful = false;
+                response.StatusMessage = "No se encontraron el material con el id indicado";
+            }
+            return response;
+        }
+        private Shipment Exist(int shipmentid)
         {
             var shipment = db.Shipments.Where(x => x.Shipmentid == shipmentid && x.Isactive).FirstOrDefault();
             return shipment;
@@ -50,6 +83,7 @@ namespace Reciplastk.Gateway.Services
                 newShipment.Customerid = shipmentViewModel.customerid;
                 newShipment.Employeeid = 29; // to do: obtener de usuario logeado
                 newShipment.Shipmenttypeid = shipmentViewModel.shipmenttypeid;
+                newShipment.Totalprice = shipmentViewModel.totalprice;
                 newShipment.Shipmentstartdate = DateTime.Now;
                 newShipment.Shipmentenddate = DateTime.Now;
                 newShipment.Ispaid = false;
@@ -62,12 +96,12 @@ namespace Reciplastk.Gateway.Services
                     detail.Shipment = newShipment;
                     detail.Productid = i.productid;
                     detail.Weight = i.weight;
+                    detail.Productprice = i.price;
+                    detail.Subtotal = i.subtotal;
                     detail.Shipmentdate = DateTime.Now;
                     db.Shipmentdetails.Add(detail);
                 }
                 db.SaveChanges();
-                response.WasSuccessful = true;
-                response.Data = newShipment;
                 response.StatusMessage = "El cargamento se creo exitosamnete";
             
             return response;
@@ -76,7 +110,7 @@ namespace Reciplastk.Gateway.Services
         public HttpResponseModel Delete(int shipmentid)
         {
             var response = new HttpResponseModel();
-            var shipment = GetByid(shipmentid);
+            var shipment = Exist(shipmentid);
             if (shipment != null)
             {
                 shipment.Isactive = false;
@@ -119,8 +153,40 @@ namespace Reciplastk.Gateway.Services
                 EmployeeName = p.Shipment.Employee.Name,
                 Weight = p.Weight,
                 Type = p.Shipment.Shipmenttype.Name,
+                Date = p.Shipment.Creationdate,
             });
             response.Data = result;
+            return response;
+        }
+        public HttpResponseModel GetShipmentForPayments(int id)
+        {
+            var response = new HttpResponseModel();
+            var query = db.Shipments.Include(p => p.Shipmentdetails).Where(x => x.Ispaid == false && x.Shipmenttypeid == id).Select(z => new RecivableViewModelClass
+            {
+                shipmentid = z.Shipmentid,
+                shipmenttype = z.Shipmenttypeid,
+                shipmenttypename = z.Shipmenttype.Name,
+                employeename = z.Employee.Name,
+                customername = z.Customer.Name,
+                date = z.Creationdate,
+                totalprice = z.Totalprice,
+                details = z.Shipmentdetails.Select(x => new RecivableDetails
+                {
+                    productname = x.Product.Name,
+                    weight = x.Weight,
+                    productprice = x.Productprice,
+                    subtotal = x.Subtotal,
+                }).ToList()
+            }).ToList();
+            if (query != null)
+            {
+                response.Data = query;
+            }
+            else
+            {
+                response.WasSuccessful = false;
+                response.StatusMessage = "No se encontraron materiales sin pagar";
+            }
             return response;
         }
     }

@@ -1,0 +1,78 @@
+<div class="w-75 ms-5">
+    <form [formGroup]="formSelect">
+        <div class="text-center">
+            <h3>Precios procesamiento de material</h3>
+        </div>
+        <div class="row mt-5">
+            <div class="col">
+                <div class="d-flex align-items-center">
+                    <label class="me-2" for="Employee">Empleado</label>
+                    <div class="col">
+                        <select formControlName="Employee" class="form-select" name="" id="Employee"
+                            (change)="Filter()">
+                            <option value="-1">Seleccione a un empleado</option>
+                            <option *ngFor="let i of employeeList" value="{{i.employeeid}}">{{i.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="d-flex align-items-center">
+                    <label class="me-2" for="Product">Producto</label>
+                    <div class="col">
+                        <select formControlName="Product" class="form-select" name="" id="Product"
+                            (change)="Filter()">
+                            <option value="-1">Seleccione un producto</option>
+                            <option *ngFor="let i of SpecificProductsList" value="{{i.productid}}">{{i.shortname}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-5">
+            <div class="d-flex col-6 align-items-center">
+                <Label class="text-nowrap" for="Price">Precio de procesado (KG)</Label>
+                <input formControlName="price" class="ms-2 form-control" type="number" name="" id="Price">
+                <div data-toggle="tooltip" title="Some tooltip text!" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Se habilitara el boton cuando se completen los tres campos anteriores">
+                    <button type="button" [disabled]="validation() == false" class="btn btn-outline-success ms-2">
+                        <i class="bi bi-plus-circle" (click)="saveConfig()"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="mt-5">
+                <div class="text-end">
+                    <label for="">Mostrar historico</label>
+                    <input class="ms-2" (change)="OnChecboxChange($event)" type="checkbox" name="ShowHistory"
+                        id="ShowHistory">
+                </div>
+                <table class="table table-condensed table-striped align-middle">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Empleado</th>
+                            <th>Producto</th>
+                            <th>Precio venta</th>
+                            <th>Precio vigente</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let i of payrollConfigList">
+                            <td>{{i.creationdate| date: 'MM/dd/yyyy'}}</td>
+                            <td>{{i.employee}}</td>
+                            <td>{{i.product}}</td>
+                            <td>{{i.buyPrice | currency:'USD':'symbol':'1.0-0'}}</td>
+                            <td>
+                                <i *ngIf="i.isCurrentePrice; else x" class="bi bi-check2 text-success ms-5"></i>
+                                <ng-template #x>
+                                    <i class="bi bi-x-lg text-danger ms-5"></i>
+                                </ng-template>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </form>
+</div>

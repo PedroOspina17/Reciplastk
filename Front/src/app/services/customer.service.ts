@@ -13,24 +13,28 @@ export class CustomerService {
   constructor(private http: HttpClient) { }
   
   ServiceEndpoint: string = `${AppConfig.API_URL}/api/Customer`;
-  ShowAllCustomers(): Observable<HttpResponseModel> {
+  GetAll(): Observable<HttpResponseModel> {
     return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'/GetAll')
   }
-
-  ShowCustomer(id: number): Observable<HttpResponseModel> {
-    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'/GetById?id='+id)
+  GetAllCustomer(): Observable<HttpResponseModel> {
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'/GetAllCustomer')
   }
-
-  CreateCustomer(customerModel: CustomerViewModel): Observable<HttpResponseModel> {
-    return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/Create', customerModel)
+  GetAllProviders():Observable<HttpResponseModel>{
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'/GetAllProviders')
   }
-
-  EditCustomer(customerModel: CustomerViewModel, customerId: number): Observable<HttpResponseModel> {
+  GetCustomer(id: number): Observable<HttpResponseModel> {
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'/GetCustomer?id='+id)
+  }
+  GetProvider(id: number): Observable<HttpResponseModel> {
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'/GetProvider?id='+id)
+  }
+  Create(customerModel: CustomerViewModel):Observable<HttpResponseModel>{
+    return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/Create',customerModel)
+  }
+  Update(customerModel: CustomerViewModel, customerId: number): Observable<HttpResponseModel> {
     return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/Update',customerModel)
   }
-
-  DeleteCustomer(id: number): Observable<HttpResponseModel> {
+  Delete(id: number): Observable<HttpResponseModel> {
     return this.http.delete<HttpResponseModel>(this.ServiceEndpoint+'/Delete?id='+id)
   }
-
 }

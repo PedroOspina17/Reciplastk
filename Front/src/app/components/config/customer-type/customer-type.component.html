@@ -1,0 +1,36 @@
+<div class="w-75 mx-auto">
+    <div class="ComponentTittle">
+        <h3 class="me-auto">Tipo de clientes</h3>
+        <button type="button" routerLink="/config/AddCustomerType" class="btn btn-outline-success">
+            Agregar tipo de clientes</button>
+    </div>
+    <div class="row">
+        <table class="border table table-condensed table-striped">
+            <thead>
+                <tr>
+                    <th class="col">Nombre</th>
+                    <th class="col">Descripción</th>
+                    <th class="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let i of customertypelist">
+                    <td>{{i.name}}</td>
+                    <td>{{i.description}}</td>
+                    <td>
+                        <div class="btn-group">
+                            <button routerLink="/config/EditCustomerType/{{i.customertypeid}}" type="button w-100"
+                                class="btn btn-outline-warning">
+                                <i class="bi bi-pencil fs-6"></i>
+                            </button>
+                            <button (click)="Delete(i.customertypeid ?? -1)" type="button w-100"
+                                class="btn btn-outline-danger">
+                                <i class="bi bi-trash fs-6"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

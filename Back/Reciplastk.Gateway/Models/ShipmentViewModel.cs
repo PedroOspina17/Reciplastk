@@ -11,6 +11,7 @@ namespace Reciplastk.Gateway.Models
         public int customerid { get; set; }
         public int employeeid { get; set; }
         public int shipmenttypeid { get; set; }
+        public Double totalprice { get; set; }
         public DateTime shipmentstartdate { get; set; } 
         public DateTime shipmentenddate { get; set; }
         public Boolean ispaid { get; set; }
