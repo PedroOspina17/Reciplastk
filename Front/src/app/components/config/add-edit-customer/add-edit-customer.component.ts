@@ -109,7 +109,7 @@ export class AddEditCustomerComponent {
               ),
             });
           } else {
-            console.log('Informacion incorrecta');
+            this.toastr.error("Informacion incorrecta")
           }
         });
       }

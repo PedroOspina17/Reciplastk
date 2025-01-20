@@ -60,7 +60,6 @@ export class MaterialProcessingPricesComponent {
       productId: this.formSelect.value.Product,
       showAll: this.showAll
     };
-    console.log(payrollConfig)
     this.payrollconfigService.Filter(payrollConfig).subscribe(r => {
       if (r.wasSuccessful) {
         this.payrollConfigList = r.data

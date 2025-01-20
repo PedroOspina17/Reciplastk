@@ -48,7 +48,6 @@ export class RoleListComponent {
     const roleModel: RoleViewModel = {
       name: this.formRoles.value.role,
     }
-    console.log('RoleModel',roleModel)
     this.roleService.Create(roleModel).subscribe(r => {
       if (r.wasSuccessful) {
         this.toastr.success(r.statusMessage);
