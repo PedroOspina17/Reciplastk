@@ -21,13 +21,11 @@ export class ShipmentPayableComponent {
 
   ngOnInit(): void {
     this.GetAllReceivables(this.id)
-    console.log(this.id)
   }
   GetAllReceivables(id: number) {
     this.shipmentService.GetShipmentForPayments(id).subscribe(r => {
       if (r.wasSuccessful) {
         this.ReceivableList = r.data;
-        console.log(r.data)
       } else {
         this.toastr.error(r.data)
       }

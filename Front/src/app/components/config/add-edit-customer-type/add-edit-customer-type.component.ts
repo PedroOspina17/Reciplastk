@@ -38,7 +38,6 @@ export class AddEditCustomerTypeComponent {
       isactive: [true],
     });
     this.id = Number(this.aRoute.snapshot.paramMap.get('id'));
-    console.log(this.id);
   }
   edit: string = 'Editar';
   id: number;
@@ -87,9 +86,8 @@ export class AddEditCustomerTypeComponent {
           description: result.data.description,
           isactive: result.data.isactive
         });
-        console.log(this.FormCustomer)
       } else {
-        console.log('Informacion incorrecta');
+        this.toastr.error(result.data);
       }
     });
   }

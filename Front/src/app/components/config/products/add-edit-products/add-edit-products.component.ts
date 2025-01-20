@@ -1,4 +1,4 @@
-import { ProductModel } from './../../../../models/ProductModel';
+import { ProductModel } from '../../../../models/ProductModel';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {
@@ -12,7 +12,8 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ProductsService } from '../../../../services/products.service';
 import { ProgressBarComponent } from '../../../shared/progress/progress-bar/progress-bar.component';
-
+import { ProductPriceService } from '../../../../services/product-price.service';
+import { PriceType } from '../../../../models/Enums';
 @Component({
   selector: 'app-add-edit-products',
   standalone: true,
@@ -39,7 +40,8 @@ export class AddEditProductsComponent {
     private productService: ProductsService,
     private aRoute: ActivatedRoute,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private productPriceService: ProductPriceService
   ) {
     this.formProduct = this.fb.group({
       shortname: ['', [Validators.required, Validators.maxLength(20)]],
@@ -64,7 +66,6 @@ export class AddEditProductsComponent {
       this.GetById(this.id);
       this.loading = false;
     } else {
-      console.log('info id ngOnInit: ', this.id);
       this.operation = 'Agregar';
       this.loading = false;
     }
@@ -72,19 +73,41 @@ export class AddEditProductsComponent {
 
   GetById(id: number): void {
     this.productService.GetById(id).subscribe((result) => {
-      console.log('result GetProduct: ', result);
       if (result.wasSuccessful == true) {
-        this.formProduct.setValue({
-          shortname: result.data.shortname,
-          name: result.data.name,
-          description: result.data.description,
-          code: result.data.code,
-          issubtype: result.data.issubtype,
-          buyprice: 100,
-          sellprice: 200,
+        this.productPriceService.GetProductCurrentBuySellPrices(id).subscribe(r => {
+
+          if (r.wasSuccessful) {
+            this.formProduct.controls['shortname'].disable();
+            this.formProduct.controls['code'].disable();
+            this.formProduct.setValue({
+              shortname: result.data.shortname,
+              name: result.data.name,
+              description: result.data.description,
+              code: result.data.code,
+              issubtype: result.data.inverseParent.length > 0,
+              buyprice: r.data.buy,
+              sellprice: r.data.sell,
+            });
+          }
         });
+
+
+        result.data.inverseParent.forEach((element: ProductModel) => {
+          this.productPriceService.GetProductCurrentPrice(element.productid!, PriceType.Sell).subscribe(r => {
+            if (r.wasSuccessful) {
+              const productPrice = r.data;
+              const product = {
+                ...element,
+                sellprice: productPrice
+              };
+              this.listSubproduct.push(product);
+            }
+          });
+        });
+
+
       } else {
-        console.log('informacion incorrecta');
+        this.toastr.error(result.statusMessage);
       }
     });
   }
@@ -94,10 +117,10 @@ export class AddEditProductsComponent {
       name: this.formProduct.value.name,
       description: this.formProduct.value.description,
       code: this.formProduct.value.code,
-      issubtype: this.formProduct.value.issubtype,
-      SubtypeProductList: this.listSubproduct,
+      buyprice: this.formProduct.value.buyprice,
+      sellprice: this.formProduct.value.sellprice,
+      subtypeProductList: this.listSubproduct,
     };
-    console.log(' info product AddUpdte', product);
     product.productid = this.id;
     if (this.id != 0) {
       this.productService.Update(this.id, product).subscribe((result) => {
@@ -107,23 +130,21 @@ export class AddEditProductsComponent {
             `Producto Actualizado.`
           );
           this.loading = false;
-          this.router.navigate(['/admin/products']);
+          this.router.navigate(['/config/products']);
         } else {
           this.toastr.error(`El producto no pudo ser modificado`, `Error.`);
           this.loading = false;
-          this.router.navigate(['/admin/products']);
+          this.router.navigate(['/config/products']);
         }
       });
     } else {
       this.productService.Create(product).subscribe((result) => {
-        console.log('result CreateProducts: ', result);
         if (result.wasSuccessful == true) {
-          console.log('informacion de product en agregar: ', product);
           this.toastr.success(
             `El producto ${product.name} fue creado Exitosamente`,
             `Producto Creado`
           );
-          this.router.navigate(['/admin/products']);
+          this.router.navigate(['/config/products']);
         } else {
           this.toastr.error(result.statusMessage, `Error.`);
         }
@@ -146,11 +167,11 @@ export class AddEditProductsComponent {
         ' ' +
         this.formSubproduct.value.nameSubproduct,
       code: this.formProduct.value.code + (this.listSubproduct.length + 1),
+      buyprice: this.formProduct.value.buyprice,
+      sellprice: this.formSubproduct.value.sellpriceSubproduct,
       issubtype: true,
     };
-    console.log('subproducto: ', subproduct);
     this.listSubproduct.push(subproduct);
-    console.log('lista de subp: ', this.listSubproduct);
     this.formSubproduct.reset();
   }
   DeleteSubproduct(index: number) {

@@ -84,7 +84,7 @@ export class WeightControlDetailComponent {
   }
   SaveAll() {
     const weightcontrol: WeightControlModel = {
-      Employeeid: this.employeeid,
+      employeeid: this.employeeid,
       weightdetail: this.weightcontroldetaillist,
     };
     this.weightControlService.CreateSeparation(weightcontrol).subscribe((r) => {

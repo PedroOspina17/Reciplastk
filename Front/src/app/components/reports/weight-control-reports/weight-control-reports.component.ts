@@ -57,14 +57,13 @@ export class WeightControlReportsComponent {
   }
   Filter() {
     const model: WeightControlReportParams = {
-      StartDate: this.FormGroupControl.value.StartDate,
-      EndDate: this.FormGroupControl.value.EndDate,
-      ProductId: this.FormGroupControl.value.Productsid,
-      EmployeeId: this.FormGroupControl.value.Employeeid,
-      Ispaid: this.FormGroupControl.value.Ispaid,
-      Type: this.FormGroupControl.value.Typeid,
+      startDate: this.FormGroupControl.value.StartDate,
+      endDate: this.FormGroupControl.value.EndDate,
+      productId: this.FormGroupControl.value.Productsid,
+      employeeId: this.FormGroupControl.value.Employeeid,
+      ispaid: this.FormGroupControl.value.Ispaid,
+      type: this.FormGroupControl.value.Typeid,
     };
-    console.log('Model', model);
     this.weightControlService.Filter(model).subscribe((r) => {
       if (r.wasSuccessful == true) {
         this.weightControlReport = r.data

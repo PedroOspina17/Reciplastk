@@ -32,7 +32,6 @@ export class AddEditWeightControlTypeComponent {
     this.id = Number(this.aRoute.snapshot.paramMap.get('id'))
   }
   ngOnInit():void {
-    console.log(this.id);
     if (this.id != 0) {
       this.AddEdit = 'Editar';
       this.GetById(this.id)
@@ -48,7 +47,6 @@ export class AddEditWeightControlTypeComponent {
         })
       } else {
         this.toastr.error("No se pudo recopilar la informacion de la base de datos",'Error')
-        console.log('Error con el GetById')
       }
     })
   }
@@ -58,7 +56,6 @@ export class AddEditWeightControlTypeComponent {
       description: this.formcontroltype.value.description,
       isactive: this.formcontroltype.value.isactive
     };
-    console.log('Edit or create ControlType', ControlType)
     if (this.id != 0) {
       ControlType.weightcontroltypeid = this.id;
       this.weightCotrolTypeService.Update(ControlType).subscribe(r=>{

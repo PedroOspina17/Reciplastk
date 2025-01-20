@@ -56,6 +56,9 @@ public partial class Product
     public virtual Product Parent { get; set; }
 
     [InverseProperty("Product")]
+    public virtual ICollection<Payrollconfig> Payrollconfigs { get; set; } = new List<Payrollconfig>();
+
+    [InverseProperty("Product")]
     public virtual ICollection<Productprice> Productprices { get; set; } = new List<Productprice>();
 
     [InverseProperty("Product")]

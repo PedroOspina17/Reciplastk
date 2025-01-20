@@ -84,16 +84,15 @@ export class WeightControlGrindingComponent {
   }
   SaveRemainig() {
     const remainingModel: WeightControlGrindingModel = {
-      ProductId: this.specificproductid,
-      PackageCount: this.FormRemaining.value.Package,
-      Remainig: this.FormRemaining.value.Spare,
+      productId: this.specificproductid,
+      packageCount: this.FormRemaining.value.Package,
+      remainig: this.FormRemaining.value.Spare,
     };
     this.weightControlService.CreateGrinding(remainingModel).subscribe((p) => {
       if (p.wasSuccessful == true) {
         this.toastr.success(p.statusMessage);
         this.ClearForm();
         this.GetTodaysDetails();
-        console.log('Productos:', this.todaysProductList);
       } else {
         this.toastr.error('No se puedo crear el producto');
       }
@@ -138,7 +137,6 @@ export class WeightControlGrindingComponent {
     });
   }
   DeleteRemaining(id: number) {
-    console.log('id: ', id);
     this.weightControlService.Delete(id).subscribe((r) => {
       if (r.wasSuccessful == true) {
         this.toastr.info('Elemento eliminado con exito');

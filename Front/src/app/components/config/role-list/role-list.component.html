@@ -1,0 +1,55 @@
+<div class="w-75 mx-auto">
+    <div class="row-md-12 p-1">
+        <form [formGroup]="formRoles">
+            <div class="panel panel-default">
+                <div class="panel-heading ComponentTittle">
+                    <h3>Roles</h3>
+                    <button type="button" class="btn btn-outline-success" (click)="ShowRole()">
+                        Agregar rol
+                    </button>
+                </div>
+                <div *ngIf="showCreate" class="d-flex justify-content-center align-items-center text-center pb-3"
+                    style="height: 100%;">
+                    <div class="p-5 w-50">
+                        <div class="mb-4">
+                            <label for="role" class="form-label">Crear nombre del rol</label>
+                            <input formControlName="role" class="form-control" type="text" name="role" id="role">
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-success w-50 me-2"
+                                (click)="SaveRole()">Guardar</button>
+                            <button type="button" class="btn btn-secondary w-50" (click)="CancelRole()">Volver</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-condensed table-striped">
+                        <thead>
+                            <tr>
+                                <th>Nombre del rol</th>
+                                <th class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let i of rolesList">
+                                <td>{{i.name}}</td>
+                                <td class="text-center">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-outline-warning" title="Editar producto">
+                                            <i class="bi bi-pencil"></i>
+                                        </button>
+
+                                        <button type="button" class="btn btn-outline-danger" (click)="Delete(i.roleid)"
+                                            title="Eliminar producto">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

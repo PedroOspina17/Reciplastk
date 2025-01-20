@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-7">
                     <select formControlName="ColorSelection" class="form-select" name="ColorSelection" id="ColorSelection" (change)="onColorChange($event)">
-                        <option value="-1">Selecione el producto especifico</option>
+                        <option value="-1">Selecione color</option>
                         <option *ngFor="let i of filterProductList" value="{{i.productid}}">{{i.name}}</option>
                     </select>
                 </div>

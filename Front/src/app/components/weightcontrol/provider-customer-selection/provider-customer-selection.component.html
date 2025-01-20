@@ -42,4 +42,4 @@
     </div>
 </div>
 <app-shipment-detail *ngIf="showShipmentDetail" id="ShipmentDetailComponent" type="{{type}}" personname="{{personname}}"
-    personid="{{id}}" (onComplete)="Clear()"></app-shipment-detail>
+    [personid]="id" (onComplete)="Clear()"></app-shipment-detail>

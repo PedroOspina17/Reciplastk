@@ -1,8 +1,8 @@
 export class ShipmentReportParamsModel {
-    StartDate?: string; 
-    EndDate?: string; 
-    EmployeeId?: number; 
-    ProductId?: number; 
-    IsPaid?: boolean; 
-    Type?: number; 
+    startDate?: string; 
+    endDate?: string; 
+    employeeId?: number; 
+    productId?: number; 
+    isPaid?: boolean; 
+    type?: number; 
 }

@@ -15,6 +15,8 @@
             services.AddScoped<CustomerTypeService>();
             services.AddScoped<ChartsService>();
             services.AddScoped<KpiService>();
+            services.AddScoped<ProductPricesService>();
+            services.AddScoped<PayrollConfigService>();
             return services;
         }
     }

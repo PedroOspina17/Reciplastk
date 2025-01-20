@@ -25,6 +25,10 @@ public partial class ReciplastkContext : DbContext
 
     public virtual DbSet<Paymentdetail> Paymentdetails { get; set; }
 
+    public virtual DbSet<Payrollconfig> Payrollconfigs { get; set; }
+
+    public virtual DbSet<Pricetype> Pricetypes { get; set; }
+
     public virtual DbSet<Product> Products { get; set; }
 
     public virtual DbSet<Productprice> Productprices { get; set; }
@@ -33,15 +37,11 @@ public partial class ReciplastkContext : DbContext
 
     public virtual DbSet<Rol> Rols { get; set; }
 
-    public virtual DbSet<Secondarytabletest> Secondarytabletests { get; set; }
-
     public virtual DbSet<Shipment> Shipments { get; set; }
 
     public virtual DbSet<Shipmentdetail> Shipmentdetails { get; set; }
 
     public virtual DbSet<Shipmenttype> Shipmenttypes { get; set; }
-
-    public virtual DbSet<Test> Tests { get; set; }
 
     public virtual DbSet<Weightcontrol> Weightcontrols { get; set; }
 
@@ -100,6 +100,24 @@ public partial class ReciplastkContext : DbContext
             entity.HasOne(d => d.Weightcontroldetail).WithMany(p => p.Paymentdetails).HasConstraintName("paymentdetails_weightcontroldetailid_fkey");
         });
 
+        modelBuilder.Entity<Payrollconfig>(entity =>
+        {
+            entity.HasKey(e => e.Payrollconfigid).HasName("payrollconfig_pkey");
+
+            entity.HasOne(d => d.Employee).WithMany(p => p.Payrollconfigs)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("payrollconfig_employeeid_fkey");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.Payrollconfigs)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("payrollconfig_productid_fkey");
+        });
+
+        modelBuilder.Entity<Pricetype>(entity =>
+        {
+            entity.HasKey(e => e.Pricetypeid).HasName("pricetype_pkey");
+        });
+
         modelBuilder.Entity<Product>(entity =>
         {
             entity.HasKey(e => e.Productid).HasName("products_pkey");
@@ -116,14 +134,19 @@ public partial class ReciplastkContext : DbContext
         {
             entity.HasKey(e => e.Productpriceid).HasName("productprice_pkey");
 
-            entity.Property(e => e.Creationdate).HasDefaultValueSql("now()");
-            entity.Property(e => e.Isactive).HasDefaultValue(true);
-            entity.Property(e => e.Issubtype).HasDefaultValue(false);
-            entity.Property(e => e.Updatedate).HasDefaultValueSql("now()");
+            entity.Property(e => e.Iscurrentprice).HasDefaultValue(false);
 
             entity.HasOne(d => d.Customer).WithMany(p => p.Productprices)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("productprice_customerid_fkey");
+
+            entity.HasOne(d => d.Employee).WithMany(p => p.Productprices)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("productprice_employeeid_fkey");
+
+            entity.HasOne(d => d.Pricetype).WithMany(p => p.Productprices)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("productprice_pricetypeid_fkey");
 
             entity.HasOne(d => d.Product).WithMany(p => p.Productprices)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -149,16 +172,6 @@ public partial class ReciplastkContext : DbContext
 
             entity.Property(e => e.Creationdate).HasDefaultValueSql("now()");
             entity.Property(e => e.Isactive).HasDefaultValue(true);
-        });
-
-        modelBuilder.Entity<Secondarytabletest>(entity =>
-        {
-            entity.HasKey(e => e.Secondarytabletestid).HasName("secondarytabletest_pkey");
-
-            entity.Property(e => e.Createddate).HasDefaultValueSql("now()");
-            entity.Property(e => e.Isactive).HasDefaultValue(true);
-
-            entity.HasOne(d => d.Test).WithMany(p => p.Secondarytabletests).HasConstraintName("secondarytabletest_testid_fkey");
         });
 
         modelBuilder.Entity<Shipment>(entity =>
@@ -200,11 +213,6 @@ public partial class ReciplastkContext : DbContext
 
             entity.Property(e => e.Creationdate).HasDefaultValueSql("CURRENT_TIMESTAMP");
             entity.Property(e => e.Updatedate).HasDefaultValueSql("CURRENT_TIMESTAMP");
-        });
-
-        modelBuilder.Entity<Test>(entity =>
-        {
-            entity.HasKey(e => e.Testid).HasName("test_pkey");
         });
 
         modelBuilder.Entity<Weightcontrol>(entity =>
