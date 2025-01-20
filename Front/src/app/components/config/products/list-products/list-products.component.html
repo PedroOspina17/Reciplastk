@@ -1,10 +1,10 @@
 <!-- <app-progress-bar *ngIf="loading"></app-progress-bar> *ngIf="!loading" -->
-<div  class="w-75 mx-auto">
+<div class="w-75 mx-auto">
   <div class="row-md-12 p-1">
     <div class="panel panel-default">
       <div class="panel-heading ComponentTittle">
         <h3>Productos</h3>
-        <button type="button" class="btn btn-outline-success" routerLink="/admin/addProduct">
+        <button type="button" class="btn btn-outline-success" routerLink="/config/addProduct">
           Agregar Producto
         </button>
       </div>
@@ -13,40 +13,35 @@
           <thead>
             <tr>
               <th></th>
+              <th>Material</th>
               <th>Nombre</th>
-              <th>Apodo</th>
               <th>Código</th>
-              <th>Compra</th>
-              <th>Venta</th>
-              <th>ganancia</th>
-              <th></th>
+              <th class="text-center">Acciones</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let item of listProducts" data-toggle="collapse" data-target="#demo1" class="accordion-toggle">
               <td>
                 <button class="btn btn-default  ">
-                 <i class="bi bi-eye-fill"></i>
+                  <i class="bi bi-eye-fill"></i>
                 </button>
               </td>
               <td>{{ item.name }}</td>
               <td>{{ item.shortname }}</td>
               <td>{{ item.code }}</td>
-              <td>100</td>
-              <td>200</td>
-              <td>100</td>
-              <td>
+              <td class="text-center">
                 <div class="btn-group">
-                  <button [routerLink]="['/admin/editProduct', item.productid]" type="button"
-                    class="btn btn-outline-warning ">
+                  <button [routerLink]="['/config/editProduct', item.productid]" type="button"
+                    class="btn btn-outline-warning " title="Editar producto">
                     <i class="bi bi-pencil"></i>
                   </button>
-                  <button (click)="Delete(item.productid!)" type="button" class="btn btn-outline-danger">
+                  
+                  <button (click)="Delete(item.productid!)" type="button" class="btn btn-outline-danger"  title="Eliminar producto">
                     <i class="bi bi-trash"></i>
                   </button>
-                  <button [routerLink]="['/admin/editProduct', item.productid]" type="button"
-                    class="btn btn-outline-success">
-                  <i class="bi bi-plus-circle"></i>
+                  <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                    data-bs-target="#exampleModalCenter" (click)="ChangePrice(item.productid ?? -1)"  title="Cambiar precio de producto"> 
+                    <i class="bi bi-currency-dollar"></i>
                   </button>
                 </div>
               </td>
@@ -85,4 +80,23 @@
       </div>
     </div>
   </div>
+</div>
+<div class="modal fade modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Cambio de precios</h5>
+                <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close">
+                   
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-product-price-inner [productid]="producttochangeprice" [isCreate]="true"></app-product-price-inner>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>

@@ -12,6 +12,8 @@ import { ShipmentDetailModel } from '../../../models/ShipmentDetailModel';
 import { ShipmentModel } from '../../../models/ShipmentModel';
 import { ProductsService } from '../../../services/products.service';
 import { ProductModel } from '../../../models/ProductModel';
+import { ProductPriceService } from '../../../services/product-price.service';
+import { ProductPriceInnerComponent } from "../../admin/product-price-inner/product-price-inner.component";
 
 @Component({
   selector: 'app-shipment-detail',
@@ -19,6 +21,7 @@ import { ProductModel } from '../../../models/ProductModel';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    ProductPriceInnerComponent
   ],
   templateUrl: './shipment-detail.component.html',
   styleUrl: './shipment-detail.component.css',
@@ -26,7 +29,7 @@ import { ProductModel } from '../../../models/ProductModel';
 export class ShipmentDetailComponent {
   @Input() type = '1';
   @Input() personname = '';
-  @Input() personid: string = '';
+  @Input() personid = -1;
   @Output() onComplete = new EventEmitter();
   shipmentDetailList: ShipmentDetailModel[] = [];
   formShipment: FormGroup;
@@ -37,20 +40,25 @@ export class ShipmentDetailComponent {
   productPrice: number = 0;
   subtotal: number = 0;
   TotalPrice: number = 0;
+  producttochangeprice: number = -1;
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
     private shipmentService: ShipmentService,
-    private productsService: ProductsService ) {
+    private productsService: ProductsService,
+    private productPriceService: ProductPriceService) {
     this.formShipment = this.fb.group({
       productid: ['-1', [Validators.required, Validators.min(0)]],
       weight: ['', [Validators.required]],
     });
   }
+  ChangePrice(productid: number) {
+    this.producttochangeprice = productid
+  }
   onSelectedProductChange(value: any) { // To do: send the id when the real EndPoint is created
     if (this.type == '1') {
       this.shipmenttypeid = 1;
-      this.shipmentService.ProductBuyPrice().subscribe(r => {
+      this.productPriceService.GetCurrentPrice(value.target.value, this.personid, this.shipmenttypeid).subscribe(r => {
         if (r.wasSuccessful) {
           this.productPrice = r.data;
         } else {
@@ -59,10 +67,9 @@ export class ShipmentDetailComponent {
       })
     } else {
       this.shipmenttypeid = 2;
-      this.shipmentService.ProductSellPrice().subscribe(r => {
+      this.productPriceService.GetCurrentPrice(value.target.value, this.personid, this.shipmenttypeid).subscribe(r => {
         if (r.wasSuccessful) {
           this.productPrice = r.data;
-          console.log(this.productPrice)
         } else {
           this.toastr.error('No se encontro el precio de venta');
         }
@@ -78,9 +85,7 @@ export class ShipmentDetailComponent {
       price: this.productPrice,
       subtotal: this.productPrice * this.formShipment.value.weight
     };
-    console.log('shipmentDetail', shipmentDetail)
     this.TotalPrice += shipmentDetail.subtotal;
-    console.log(this.TotalPrice)
     this.shipmentDetailList.unshift(shipmentDetail);
     this.formShipment = this.fb.group({
       productid: ['-1', [Validators.required, Validators.min(0)]],
@@ -135,7 +140,6 @@ export class ShipmentDetailComponent {
       totalprice: this.TotalPrice,
       details: this.shipmentDetailList,
     };
-    console.log('shipmentDetail', shipment);
     this.shipmentService.Create(shipment).subscribe((result) => {
       if (result.wasSuccessful == true) {
         this.loader = false;
@@ -149,6 +153,8 @@ export class ShipmentDetailComponent {
     });
   }
   cancelDetil() {
-    this.onComplete.emit()
+    this.onComplete.emit();
+    // this.onComplete.emit({idSelected: 9}); To send parameter.
+
   }
 }

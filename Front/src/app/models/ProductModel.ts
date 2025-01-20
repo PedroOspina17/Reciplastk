@@ -4,7 +4,8 @@ export class ProductModel{
   name: string = "";
   description: string = "";
   code: string = "";
-  issubtype: boolean = false;
+  buyprice: number = 0;
+  sellprice: number = 0;
   parentid?: number = 0;
-  SubtypeProductList?: ProductModel[] = [];
+  subtypeProductList?: ProductModel[] = [];
 }

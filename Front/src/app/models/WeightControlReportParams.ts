@@ -1,8 +1,8 @@
 export class WeightControlReportParams {
-  StartDate?: string;
-  EndDate?: string;
-  ProductId?: number;
-  EmployeeId?: number;
-  Ispaid?: boolean;
-  Type?: number;
+  startDate?: string;
+  endDate?: string;
+  productId?: number;
+  employeeId?: number;
+  ispaid?: boolean;
+  type?: number;
 }

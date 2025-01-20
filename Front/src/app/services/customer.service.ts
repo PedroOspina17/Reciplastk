@@ -28,8 +28,8 @@ export class CustomerService {
   GetProvider(id: number): Observable<HttpResponseModel> {
     return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'/GetProvider?id='+id)
   }
-  Create(customerModel: CustomerViewModel): Observable<HttpResponseModel> {
-    return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/Create', customerModel)
+  Create(customerModel: CustomerViewModel):Observable<HttpResponseModel>{
+    return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/Create',customerModel)
   }
   Update(customerModel: CustomerViewModel, customerId: number): Observable<HttpResponseModel> {
     return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/Update',customerModel)

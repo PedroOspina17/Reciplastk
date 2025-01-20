@@ -41,7 +41,12 @@
                         <tr *ngFor="let i of shipmentDetailList">
                             <td>{{i.productname}}</td>
                             <td>{{i.weight}}</td>
-                            <td>{{i.price}}</td>
+                            <td>{{i.price | currency:'USD':'symbol':'1.0-0'}}
+                                <button type="button" class="btn btn-sm btn-outline-success ms-3" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModalCenter" (click)="ChangePrice(i.productid)">
+                                    <i class="bi bi-currency-dollar"></i>
+                                </button>
+                            </td>
                             <td>{{i.subtotal | currency:'USD':'symbol':'1.0-0'}}</td>
                             <td>
                                 <button (click)="ShipmentDetailDelete(i.productid)" type="button"
@@ -55,11 +60,32 @@
                 <div class="d-flex justify-content-between mt-3">
                     <button (click)="cancelDetil()" type="button" class="btn btn-secondary">Cancelar</button>
                     <div>
-                        <label class="me-3"><strong>Precio total: </strong>{{TotalPrice | currency:'USD':'symbol':'1.0-0'}}</label>
+                        <label class="me-3"><strong>Precio total: </strong>{{TotalPrice |
+                            currency:'USD':'symbol':'1.0-0'}}</label>
                         <button (click)="Save()" type="button" class="btn btn-success me-2">Guardar</button>
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Cambio de precios</h5>
+                <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close">
+                   
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-product-price-inner [customerid]="personid" [productPriceTypeId]="type"
+                    [productid]="producttochangeprice" [isCreate]="true"></app-product-price-inner>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
 </div>

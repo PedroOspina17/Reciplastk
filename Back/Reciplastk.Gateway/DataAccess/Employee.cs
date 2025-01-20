@@ -48,6 +48,12 @@ public partial class Employee
     [InverseProperty("Employe")]
     public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
 
+    [InverseProperty("Employee")]
+    public virtual ICollection<Payrollconfig> Payrollconfigs { get; set; } = new List<Payrollconfig>();
+
+    [InverseProperty("Employee")]
+    public virtual ICollection<Productprice> Productprices { get; set; } = new List<Productprice>();
+
     [ForeignKey("Roleid")]
     [InverseProperty("Employees")]
     public virtual Rol Role { get; set; }

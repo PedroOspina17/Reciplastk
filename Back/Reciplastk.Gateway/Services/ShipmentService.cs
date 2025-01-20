@@ -102,8 +102,6 @@ namespace Reciplastk.Gateway.Services
                     db.Shipmentdetails.Add(detail);
                 }
                 db.SaveChanges();
-                response.WasSuccessful = true;
-                response.Data = newShipment;
                 response.StatusMessage = "El cargamento se creo exitosamnete";
             
             return response;

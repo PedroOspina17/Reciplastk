@@ -1,5 +1,5 @@
 export class WeightControlGrindingModel {
-    ProductId: number = -1;
-    PackageCount: number = -1;
-    Remainig: number = -1;
+    productId: number = -1;
+    packageCount: number = -1;
+    remainig: number = -1;
 }

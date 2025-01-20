@@ -13,6 +13,8 @@
             services.AddScoped<WeightControlService>();
             services.AddScoped<ProductsService>();
             services.AddScoped<CustomerTypeService>();
+            services.AddScoped<ProductPricesService>();
+            services.AddScoped<PayrollConfigService>();
             return services;
         }
     }

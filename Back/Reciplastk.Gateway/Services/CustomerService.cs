@@ -10,11 +10,12 @@ namespace Reciplastk.Gateway.Services
     public class CustomerService
     {
         private readonly ReciplastkContext db;
+        private readonly ProductPricesService productPricesService;
 
-        public CustomerService(ReciplastkContext db)
+        public CustomerService(ReciplastkContext db, ProductPricesService productPricesService)
         {
             this.db = db;
-
+            this.productPricesService = productPricesService;
         }
         public HttpResponseModel GetAll()
         {
@@ -38,7 +39,7 @@ namespace Reciplastk.Gateway.Services
         }
         public HttpResponseModel GetAllCustomer()
         {
-            var customer = db.Customers.Include(p=> p.Customertype).Where(x => x.Isactive == true && x.Customertypeid == 2).Select(y=> new CustomerViewModel()
+            var customer = db.Customers.Include(p=> p.Customertype).Where(x => x.Isactive == true && x.Customertypeid == (int)Enums.CustomerTypeEnum.customer).Select(y=> new CustomerViewModel()
             {
                 customerid = y.Customerid,
                 customertypeid = y.Customertypeid,
@@ -58,7 +59,7 @@ namespace Reciplastk.Gateway.Services
         }
         public HttpResponseModel GetAllProviders()
         {
-            var customer = db.Customers.Include(p => p.Customertype).Where(x => x.Isactive == true && x.Customertypeid == 1).Select(y => new CustomerViewModel()
+            var customer = db.Customers.Include(p => p.Customertype).Where(x => x.Isactive == true && x.Customertypeid == (int)Enums.CustomerTypeEnum.provider).Select(y => new CustomerViewModel()
             {
                 customerid = y.Customerid,
                 customertypeid = y.Customertypeid,
@@ -127,9 +128,9 @@ namespace Reciplastk.Gateway.Services
         {
             var response = new HttpResponseModel();
             var customer = GetByNit(customerViewModel.nit);
-            if (customer == null) // Customer exists with the same nit
+            if (customer == null)
             {
-                var newCustomer = new Customer(); // se hace instancia cuando no hay datos en la db
+                var newCustomer = new Customer(); 
                 newCustomer.Nit = customerViewModel.nit;
                 newCustomer.Customertypeid = customerViewModel.customertypeid;
                 newCustomer.Name = customerViewModel.name;
@@ -141,8 +142,7 @@ namespace Reciplastk.Gateway.Services
                 newCustomer.Createddate = DateTime.Now;
                 db.Customers.Add(newCustomer);
                 db.SaveChanges();
-                response.WasSuccessful = true;
-                response.Data = newCustomer;
+                this.productPricesService.CreatePriceForNewCustomer(newCustomer);
                 response.StatusMessage = "El cliente fue creado exitosamente";
             }
             else
@@ -153,6 +153,7 @@ namespace Reciplastk.Gateway.Services
 
             return response;
         }
+        
         public HttpResponseModel Update(CustomerViewModel customerViewModel)
         {
             var response = new HttpResponseModel();
@@ -174,8 +175,27 @@ namespace Reciplastk.Gateway.Services
             }
             else
             {
-                response.WasSuccessful = false;
-                response.StatusMessage = "No existe ningun cliente con el Id especificado";
+                customer = GetProviderById(customerViewModel.customerid ?? -1);
+                if (customer != null)
+                {
+                    customer.Nit = customerViewModel.nit;
+                    customer.Name = customerViewModel.name;
+                    customer.Lastname = customerViewModel.lastname;
+                    customer.Address = customerViewModel.address;
+                    customer.Cell = customerViewModel.cell;
+                    customer.Clientsince = customerViewModel.clientsince;
+                    customer.Needspickup = customerViewModel.needspickup;
+                    customer.Updateddate = DateTime.Now;
+                    db.SaveChanges();
+                    response.WasSuccessful = true;
+                    response.Data = customer;
+                    response.StatusMessage = "El cliente fue editado exitosamente";
+                }
+                else
+                {
+                    response.WasSuccessful = false;
+                    response.StatusMessage = "No existe ningun cliente con el Id especificado";
+                }                
             }
             return response;
         }
@@ -192,8 +212,20 @@ namespace Reciplastk.Gateway.Services
             }
             else
             {
-                response.WasSuccessful = false;
-                response.StatusMessage = "No se encontró ningún cliente con el Id especificado";
+                customer = GetProviderById(customerId);
+                if (customer != null)
+                {
+                    customer.Isactive = false;
+                    db.SaveChanges();
+                    response.WasSuccessful = true;
+                    response.StatusMessage = "El cliente fue eliminado exitosamente";
+                }
+                else
+                {
+                    response.WasSuccessful = false;
+                    response.StatusMessage = "No se encontró ningún cliente con el Id especificado";
+                }
+
             }
             return response;
         }

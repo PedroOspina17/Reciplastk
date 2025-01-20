@@ -11,8 +11,6 @@ import { RemainingModel } from '../../../models/RemainigModel';
   selector: 'app-remainig',
   standalone: true,
   imports: [
-    RouterLink,
-    LoaderComponent,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -34,7 +32,6 @@ export class RemainigComponent {
     this.weightControlService.Remainings(viewAll).subscribe((r) => {
       if (r.wasSuccessful == true) {
         this.remaining = r.data;
-        console.log(r.data);
       } else {
         this.toastr.error('No se encontraron los materiales restantes');
       }
@@ -42,7 +39,6 @@ export class RemainigComponent {
   }
   onCheckChange(value: any) {
     const selected = value.target.checked;
-    console.log(selected);
     this.GetRemaining(selected);
   }
 }

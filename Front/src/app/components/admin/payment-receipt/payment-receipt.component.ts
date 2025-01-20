@@ -23,7 +23,6 @@ export class PaymentReceiptComponent {
   id: number;
   @Input() BillInfo!: PaymentReceipt;
   ngOnInit(): void {
-    console.log('BillInfo', this.BillInfo);
     this.GetReceipt(this.id);
   }
   GetReceipt(id: number) {
@@ -31,10 +30,6 @@ export class PaymentReceiptComponent {
       if (r.wasSuccessful == true) {
         this.fromBillList = true;
         this.BillInfo = r.data;
-        console.log('data', r.data);
-        console.log('BillInfo', this.BillInfo);
-      } else {
-        console.log(r.statusMessage);
       }
     });
   }
