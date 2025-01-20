@@ -217,17 +217,6 @@ namespace Reciplastk.Gateway.Services
                         };
                         db.Products.Add(newSubproduct);
                     }
-                    else
-                    {
-                        var existingSubproduct = db.Products.Where(p => p.Productid == subtype.Productid).FirstOrDefault();
-                        if (existingSubproduct != null)
-                        {
-                            existingSubproduct.Name = subtype.Name;
-                            existingSubproduct.Shortname = subtype.Shortname;
-                            existingSubproduct.Description = subtype.Description;
-                            existingSubproduct.Code = subtype.Code;
-                        }
-                    }
                 }
                 db.SaveChanges();
                 response.WasSuccessful = true;

@@ -50,8 +50,7 @@
                             <label for="role" class="control-label">Roles</label>
                             <select name="role" formControlName="role" class="form-select mt-2" id="role">
                                 <option value="" disabled selected>Seleccione un rol</option>
-                                <option value="5">5</option>
-                                <option *ngFor="let i of roleList" value="{{i.roleid}}">{{i.name}}</option>
+                                <option *ngFor="let i of roleList" value="{{i.roleId}}">{{i.name}}</option>
                             </select>
                             <div>
                                 <span *ngIf="
