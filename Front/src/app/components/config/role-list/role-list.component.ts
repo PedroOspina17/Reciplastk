@@ -1,10 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { RoleService } from '../../../services/role.service';
-import { RoleParams } from '../../../models/RoleParams';
 import { RoleViewModel } from '../../../models/RoleViewModel';
 
 @Component({
@@ -25,7 +23,7 @@ export class RoleListComponent {
     })
   }
   formRoles: FormGroup;
-  rolesList: RoleParams[] = [];
+  rolesList: RoleViewModel[] = [];
   showCreate: boolean = false;
   ngOnInit(): void {
     this.GetAllRoles();

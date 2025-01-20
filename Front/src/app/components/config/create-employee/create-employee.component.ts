@@ -4,9 +4,9 @@ import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModu
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { RoleService } from '../../../services/role.service';
-import { RoleParams } from '../../../models/RoleParams';
 import { EmployeeViewModel } from '../../../models/EmployeeViewModel';
 import { EmployeeService } from '../../../services/employee.service';
+import { RoleViewModel } from '../../../models/RoleViewModel';
 
 @Component({
   selector: 'app-create-employee',
@@ -48,7 +48,7 @@ export class CreateEmployeeComponent {
     return password === repPassword ? null : { passwordsMismatch: true };
   };
   formEmployee: FormGroup;
-  roleList: RoleParams[] = [];
+  roleList: RoleViewModel[] = [];
   isCreate: string = "";
   id: number;
   ngOnInit(): void {
