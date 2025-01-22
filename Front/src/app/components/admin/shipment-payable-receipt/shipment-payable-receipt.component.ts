@@ -1,6 +1,6 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ReceivableModel } from '../../../models/ReceivableModel';
 import { ShipmentService } from '../../../services/shipment.service';
@@ -8,7 +8,7 @@ import { ShipmentService } from '../../../services/shipment.service';
 @Component({
   selector: 'app-shipment-payable-receipt',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterLink],
   providers: [DatePipe],
   templateUrl: './shipment-payable-receipt.component.html',
   styleUrl: './shipment-payable-receipt.component.css'

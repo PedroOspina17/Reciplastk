@@ -2,7 +2,8 @@
     <h3 class="text-center mb-4">{{Receivable.shipmenttype == 1 ? 'Recibo de compra':'Recibo de venta'}} </h3>
     <div class="mb-3">
         <p><strong>Tipo: </strong>{{Receivable.shipmenttypename}}</p>
-        <p><strong>{{Receivable.shipmenttype == 1 ? 'Recibido de: ':'Enviado a: '}} </strong>{{Receivable.customername}}</p>
+        <p><strong>{{Receivable.shipmenttype == 1 ? 'Recibido de: ':'Enviado a: '}} </strong>{{Receivable.customername}}
+        </p>
         <div>
             <table class="table table-bordered">
                 <thead>
@@ -28,6 +29,12 @@
         </div>
     </div>
 </div>
-<div class="container mt-4 text-end">
-    <input class="btn btn-primary" type="button" value="Imprimir factura" (click)="print()">
+<div class="row">
+    <div class="container mt-4 col-6">
+        <button type="button" class="btn btn-secondary"
+            [routerLink]="Receivable.shipmenttype == 1 ? ['/admin/ShipmentPayableComponent/1'] : ['/admin/ShipmentReceivablesComponent/2']">Volver</button>
+    </div>
+    <div class="container mt-4 text-end col-6">
+        <input class="btn btn-primary" type="button" value="Imprimir factura" (click)="print()">
+    </div>
 </div>

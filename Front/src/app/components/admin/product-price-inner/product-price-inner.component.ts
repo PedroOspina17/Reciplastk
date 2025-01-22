@@ -29,6 +29,7 @@ export class ProductPriceInnerComponent {
   @Input() productid: number = -1;
   @Input() isCreate: boolean = false;
   @Input() customerid?: number = -1;
+  @Input() readOnly: boolean = false;
 
   filterList: ProductPriceInnerParams[] = [];
   formSelects: FormGroup;
