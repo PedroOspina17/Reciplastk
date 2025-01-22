@@ -84,7 +84,7 @@ export class AddEditProductsComponent {
               name: result.data.name,
               description: result.data.description,
               code: result.data.code,
-              issubtype: result.data.inverseParent.length > 0,
+              issubtype: result.data.subproducts.length > 0,
               buyprice: r.data.buy,
               sellprice: r.data.sell,
             });
@@ -92,7 +92,7 @@ export class AddEditProductsComponent {
         });
 
 
-        result.data.inverseParent.forEach((element: ProductModel) => {
+        result.data.subproducts.forEach((element: ProductModel) => {
           this.productPriceService.GetProductCurrentPrice(element.productid!, PriceType.Sell).subscribe(r => {
             if (r.wasSuccessful) {
               const productPrice = r.data;
