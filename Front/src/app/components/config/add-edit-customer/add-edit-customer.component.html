@@ -89,7 +89,7 @@
                                 <input type="date" class="form-control" id="clientsince" formControlName="clientsince">
                             </div>
                         </div>
-                        <div *ngIf="formCustomer.value.customertypeid == customeTypeEnum.Provider" class="col-6">
+                       <!--  <div *ngIf="formCustomer.value.customertypeid == customeTypeEnum.Provider" class="col-6">
                             <label for="needspickup" class="control-label">Recoger</label>
                             <br>
                             <div class="radio-group mt-3 ms-1">
@@ -100,7 +100,7 @@
                                     name="needspickup" [value]="false">
                                 <label for="needspickupNo">No</label>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="text-center mt-5">
                         <button [disabled]="formCustomer.invalid" type="submit"
