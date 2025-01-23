@@ -29,6 +29,7 @@ export class ProductPriceInnerComponent {
   @Input() productid: number = -1;
   @Input() isCreate: boolean = false;
   @Input() customerid?: number = -1;
+  @Input() readOnly: boolean = false;
 
   filterList: ProductPriceInnerParams[] = [];
   formSelects: FormGroup;
@@ -69,7 +70,7 @@ export class ProductPriceInnerComponent {
     })
   }
   GetCustomers(id: number) {
-    if (id == 1) {
+    if (id == PriceType.Buy) {
       this.customerService.GetAllProviders().subscribe((r) => {
         if (r.wasSuccessful) {
           this.CustomerList = r.data;
@@ -77,7 +78,7 @@ export class ProductPriceInnerComponent {
           this.toastr.info('No se encontro ningun proveedor');
         }
       });
-    } else if (id == 2) {
+    } else if (id == PriceType.Sell) {
       this.customerService.GetAllCustomer().subscribe((r) => {
         if (r.wasSuccessful) {
           this.CustomerList = r.data;

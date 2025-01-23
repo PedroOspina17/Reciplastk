@@ -54,12 +54,9 @@ export class CopyCustomerPricesComponent {
   SaveInfo() {
     if (this.FormSelects.value.CustomerToCopyId == this.FormSelects.value.CustomerToAssignId) {
       this.toastr.error("El cliente a asignar no puede ser el mismo que el cliente a copiar");
-
-      this.FormSelects.setValue({
-        CustomerToCopyId: [-1,],
-        CustomerToAssignId: [-1]
-      })
-
+      this.FormSelects.patchValue({
+        CustomerToAssignId: -1 
+      });
     } else {
       const copyCustomerPricesViewModel: CopyCustomerPricesViewModel = {
         customerFrom: this.FormSelects.value.CustomerToCopyId,
