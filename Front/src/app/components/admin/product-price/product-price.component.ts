@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CustomerService } from '../../../services/customer.service';
 import { ProductPriceInnerParams } from '../../../models/ProductPriceInnerParams';
+import { PriceType } from '../../../models/Enums';
 
 @Component({
   selector: 'app-product-price',
@@ -28,6 +29,7 @@ export class ProductPriceComponent {
   PriceTypesList: any[] = []
   ProductsList: ProductModel[] = [];
   productPriceTypeId = -1;
+  priceType = PriceType;
   @ViewChild(ProductPriceInnerComponent) child!: ProductPriceInnerComponent;
   ngOnInit(): void {
     this.GetAllPriceTypes();
@@ -64,7 +66,7 @@ export class ProductPriceComponent {
     });
   }
   GetProduct(id: number) {
-    if (id == 1) {
+    if (id == this.priceType.Buy) {
       this.productsService.GetMain().subscribe(r => {
         if (r.wasSuccessful) {
           this.ProductsList = r.data;

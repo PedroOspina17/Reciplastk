@@ -1,8 +1,8 @@
 <div class="border rounded shadow-sm px-4 py-2" id="elementIdToPrint">
-    <h3 class="text-center mb-4">{{Receivable.shipmenttype == 1 ? 'Recibo de compra':'Recibo de venta'}} </h3>
+    <h3 class="text-center mb-4">{{Receivable.shipmenttype == priceType.Buy ? 'Recibo de compra':'Recibo de venta'}} </h3>
     <div class="mb-3">
         <p><strong>Tipo: </strong>{{Receivable.shipmenttypename}}</p>
-        <p><strong>{{Receivable.shipmenttype == 1 ? 'Recibido de: ':'Enviado a: '}} </strong>{{Receivable.customername}}
+        <p><strong>{{Receivable.shipmenttype == priceType.Buy ? 'Recibido de: ':'Enviado a: '}} </strong>{{Receivable.customername}}
         </p>
         <div>
             <table class="table table-bordered">
@@ -32,7 +32,7 @@
 <div class="row">
     <div class="container mt-4 col-6">
         <button type="button" class="btn btn-secondary"
-            [routerLink]="Receivable.shipmenttype == 1 ? ['/admin/ShipmentPayableComponent/1'] : ['/admin/ShipmentReceivablesComponent/2']">Volver</button>
+            [routerLink]="Receivable.shipmenttype == priceType.Buy ? ['/admin/ShipmentPayableComponent/1'] : ['/admin/ShipmentReceivablesComponent/2']">Volver</button>
     </div>
     <div class="container mt-4 text-end col-6">
         <input class="btn btn-primary" type="button" value="Imprimir factura" (click)="print()">

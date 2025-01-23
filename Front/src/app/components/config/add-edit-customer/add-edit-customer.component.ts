@@ -34,6 +34,7 @@ export class AddEditCustomerComponent {
   operacion: string = 'Agregar';
   loader: boolean = false;
   customertypeList: CustomerTypeModel[] = [];
+  customeTypeEnum = CustomeTypeEnum;
   constructor(
     private fb: FormBuilder,
     private customerServises: CustomerService,

@@ -89,7 +89,7 @@
                                 <input type="date" class="form-control" id="clientsince" formControlName="clientsince">
                             </div>
                         </div>
-                        <div *ngIf="formCustomer.value.customertypeid == 1" class="col-6">
+                        <div *ngIf="formCustomer.value.customertypeid == customeTypeEnum.Provider" class="col-6">
                             <label for="needspickup" class="control-label">Recoger</label>
                             <br>
                             <div class="radio-group mt-3 ms-1">

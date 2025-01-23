@@ -4,6 +4,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ReceivableModel } from '../../../models/ReceivableModel';
 import { ShipmentService } from '../../../services/shipment.service';
+import { PriceType } from '../../../models/Enums';
 
 @Component({
   selector: 'app-shipment-payable-receipt',
@@ -18,6 +19,7 @@ export class ShipmentPayableReceiptComponent {
     this.id = Number(this.aRoute.snapshot.paramMap.get('id'));
   }
   Receivable: ReceivableModel = new ReceivableModel;
+  priceType = PriceType;
   id: number;
   ngOnInit(): void {
     this.GetById();
