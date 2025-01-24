@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RecuperApp.Common.Models;
-using RecuperApp.Domain.Models.ViewModels;
+using RecuperApp.Domain.Models.Requests;
 using RecuperApp.Domain.Services;
 
 namespace RecuperApp.Web.Gateway.Controllers
@@ -51,14 +51,14 @@ namespace RecuperApp.Web.Gateway.Controllers
 
         [HttpPost("Create")]
 
-        public HttpResponseModel Create(ProductsViewModel productModel)
+        public HttpResponseModel Create(ProductsRequest productModel)
         {
             return productsService.Create(productModel);
         }
 
         [HttpPut("Update")]
 
-        public HttpResponseModel Update(ProductsViewModel productModel)
+        public HttpResponseModel Update(ProductsRequest productModel)
         {
             return productsService.Update(productModel);
         }

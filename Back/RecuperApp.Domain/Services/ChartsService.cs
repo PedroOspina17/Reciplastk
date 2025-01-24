@@ -39,8 +39,8 @@ namespace RecuperApp.Domain.Services
                     group.Select(p => new EmployeeComparisonsViewModel
                     {
                         EmployeeId = p.EmployeeId,
-                        label = p.Name,
-                        data = bins.Select(x => g.ContainsKey(x) ? g[x].Value : 0).ToList(),
+                        Label = p.Name,
+                        Data = bins.Select(x => g.ContainsKey(x) ? g[x].Value : 0).ToList(),
                         //chartLabels = bins.Select(x => x.ToString()).ToList()
                     }).FirstOrDefault()
                 );

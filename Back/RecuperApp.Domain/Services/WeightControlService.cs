@@ -49,13 +49,13 @@ namespace RecuperApp.Domain.Services
             return response;
         }
 
-        public HttpResponseModel CreateSeparation(WeightControlRequest model)
+        public HttpResponseModel CreateSeparation(WeightControlSeparationRequest model)
         {
             var response = new HttpResponseModel();
 
             var newWeightControl = new WeightControl
             {
-                EmployeeId = model.Employeeid,
+                EmployeeId = model.EmployeeId,
                 WeightControlTypeId = 1, // To do: Change to config value.
                 DateStart = DateTime.Now,
                 IsPaid = false,
@@ -63,7 +63,7 @@ namespace RecuperApp.Domain.Services
                 IsActive = true
             };
             db.WeightControls.Add(newWeightControl);
-            foreach (var i in model.weightdetail)
+            foreach (var i in model.WeightDetail)
             {
                 var detail = new WeightControlDetail
                 {
@@ -78,7 +78,7 @@ namespace RecuperApp.Domain.Services
             response.StatusMessage = "El dato fue agregado correctamente";
             return response;
         }
-        public HttpResponseModel CreateGrinding(GrindingRequest model)
+        public HttpResponseModel CreateGrinding(WeightControlGrindingRequest model)
         {
             var response = new HttpResponseModel();
             var newWeightControl = new WeightControl
@@ -115,13 +115,13 @@ namespace RecuperApp.Domain.Services
             response.StatusMessage = "El dato fue agregado correctamente";
             return response;
         }
-        public HttpResponseModel Update(WeightControlRequest model)
+        public HttpResponseModel Update(WeightControlSeparationRequest model)
         {
-            var weightcontrol = FindById(model.Weightcontrolid ?? -1);
+            var weightcontrol = FindById(model.WeightControlId ?? -1);
             var response = new HttpResponseModel();
             if (weightcontrol != null)
             {
-                weightcontrol.EmployeeId = model.Employeeid;
+                weightcontrol.EmployeeId = model.EmployeeId;
                 weightcontrol.IsPaid = false;
                 weightcontrol.UpdatedDate = DateTime.Now;
                 weightcontrol.IsActive = false;
@@ -164,14 +164,14 @@ namespace RecuperApp.Domain.Services
                 .Where(w => w.WeightControl.IsActive && w.WeightControl.WeightControlTypeId == 2 && w.WeightControl.DateStart > DateTime.Today && w.WeightControl.DateStart < DateTime.Today.AddDays(1))
                 .Select(w => new GroundProductViewModel()
                 {
-                    detailId = w.WeightControlDetailId,
-                    controlId = w.WeightControlId,
+                    DetailId = w.WeightControlDetailId,
+                    ControlId = w.WeightControlId,
                     Weight = w.Weight,
                     ProductName = w.Product.Name,
                     DateStart = w.WeightControl.DateStart,
                     Remaining = db.Remainings.Where(r => r.WeightControlId == w.WeightControlId).FirstOrDefault().Weight,
                 })
-            .OrderByDescending(w => w.detailId)
+            .OrderByDescending(w => w.DetailId)
             .ToList();
 
             response.WasSuccessful = true;
@@ -199,9 +199,9 @@ namespace RecuperApp.Domain.Services
             {
                 query = query.Where(p => p.WeightControl.DateStart <= viewModel.EndDate);
             }
-            if (viewModel.Ispaid != null)
+            if (viewModel.IsPaid != null)
             {
-                query = query.Where(p => p.WeightControl.IsPaid == viewModel.Ispaid);
+                query = query.Where(p => p.WeightControl.IsPaid == viewModel.IsPaid);
             }
             if (viewModel.Type != null && viewModel.Type != -1)
             {
@@ -209,13 +209,13 @@ namespace RecuperApp.Domain.Services
             }
             var result = query.Select(p => new WeightControlReportViewModel
             {
-                productid = p.ProductId,
-                weightcontroldetailid = p.WeightControlDetailId,
-                date = p.WeightControl.DateStart,
-                productName = p.Product.Name,
-                employeeName = p.WeightControl.Employee.Name,
-                weight = p.Weight,
-                type = p.WeightControl.WeightControlType.Name,
+                ProductId = p.ProductId,
+                WeightControlDetailId = p.WeightControlDetailId,
+                Date = p.WeightControl.DateStart,
+                ProductName = p.Product.Name,
+                EmployeeName = p.WeightControl.Employee.Name,
+                Weight = p.Weight,
+                Type = p.WeightControl.WeightControlType.Name,
             }).ToList();
 
             response.Data = result;
@@ -238,8 +238,8 @@ namespace RecuperApp.Domain.Services
             }
             var result = query.Select(p => new RemainigsViewModel
             {
-                productName = p.Product.Name,
-                weight = p.Weight,
+                ProductName = p.Product.Name,
+                Weight = p.Weight,
             }).ToList();
             response.Data = result;
             return response;
@@ -248,9 +248,9 @@ namespace RecuperApp.Domain.Services
         public HttpResponseModel PayAndSave(PaymentReceiptRequest viewModel) 
         { 
             var response = new HttpResponseModel();
-            foreach (var i in viewModel.products)
+            foreach (var i in viewModel.Products)
             {
-                var detail = db.WeightControlDetails.Where(x => x.WeightControlDetailId == i.weightcontroldetailid).FirstOrDefault();
+                var detail = db.WeightControlDetails.Where(x => x.WeightControlDetailId == i.WeightControlDetailId).FirstOrDefault();
                 if (detail != null)
                 {
                     var weightcontrol = db.WeightControls.Where(x=> x.WeightControlId == detail.WeightControlId ).FirstOrDefault();
@@ -273,19 +273,19 @@ namespace RecuperApp.Domain.Services
 
             var newpayment = new Payment
             {
-                EmployeeId = viewModel.employeeId,
+                EmployeeId = viewModel.EmployeeId,
                 Date = DateTime.Now,
-                TotalWeight = viewModel.totalWeight,
-                TotalPrice = viewModel.totalToPay
+                TotalWeight = viewModel.TotalWeight,
+                TotalPrice = viewModel.TotalToPay
             };
             db.Payments.Add(newpayment);
-            foreach (var i in viewModel.products)
+            foreach (var i in viewModel.Products)
             {
                 var newDetail = new PaymentDetail
                 {
                     Payment = newpayment,
-                    WeightControlDetailId = i.weightcontroldetailid,
-                    ProductPrice = i.price
+                    WeightControlDetailId = i.WeightControlDetailId,
+                    ProductPrice = i.Price
                 };
                 db.PaymentDetails.Add(newDetail);
             }

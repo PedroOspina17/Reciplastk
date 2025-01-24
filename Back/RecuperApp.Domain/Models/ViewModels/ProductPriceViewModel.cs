@@ -2,12 +2,12 @@
 {
     public class ProductPriceViewModel
     {
-        public DateTime date { get; set; }
-        public string employee { get; set; }
-        public string customer { get; set; }
-        public double price { get; set; }
-        public bool iscurrentprice { get; set; }
-        public string product { get; set; }
-        public string type { get; set; }
+        public DateTime Date { get; set; }
+        public string Employee { get; set; }
+        public string Customer { get; set; }
+        public double Price { get; set; }
+        public bool IsCurrentPrice { get; set; }
+        public string Product { get; set; }
+        public string Type { get; set; }
     }
 }

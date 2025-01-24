@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RecuperApp.Common.Helpers;
 using RecuperApp.Common.Models;
-using RecuperApp.Domain.Models.ViewModels;
+using RecuperApp.Domain.Models.Requests;
 using RecuperApp.Domain.Services;
 
 namespace RecuperApp.Web.Gateway.Controllers
@@ -34,7 +34,7 @@ namespace RecuperApp.Web.Gateway.Controllers
 
 
         [HttpPost]
-        public async Task<HttpResponseModel> Create([FromBody] EmployeeViewModel employeeViewModel)
+        public async Task<HttpResponseModel> Create([FromBody] EmployeeRequest employeeViewModel)
         {
             var result = await employeeService.Create(employeeViewModel);
             return new HttpResponseModel(result, $"El empleado ${result.Name} fué creado con exito, con el id #${result.EmployeeId}");
@@ -42,7 +42,7 @@ namespace RecuperApp.Web.Gateway.Controllers
 
 
         [HttpPut]
-        public async Task<HttpResponseModel> Update([FromBody] EmployeeViewModel employeeViewModel)
+        public async Task<HttpResponseModel> Update([FromBody] EmployeeRequest employeeViewModel)
         {
             var result = await employeeService.Create(employeeViewModel);
             return new HttpResponseModel(result, $"El empleado ${result.Name} fué modificado con exito");

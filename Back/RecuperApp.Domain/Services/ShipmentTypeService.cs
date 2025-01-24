@@ -53,7 +53,7 @@ namespace RecuperApp.Domain.Services
         public HttpResponseModel Create(ShipmentTypeRequest shipmentTypeViewModel)
         {
             var response = new HttpResponseModel();
-            var shipmentType = GetByName(shipmentTypeViewModel.name);
+            var shipmentType = GetByName(shipmentTypeViewModel.Name);
             if (shipmentType != null)
             {
                 response.WasSuccessful = false;
@@ -65,8 +65,8 @@ namespace RecuperApp.Domain.Services
 
                 var newShipmentType = new ShipmentType
                 {
-                    Name = shipmentTypeViewModel.name,
-                    Description = shipmentTypeViewModel.description,
+                    Name = shipmentTypeViewModel.Name,
+                    Description = shipmentTypeViewModel.Description,
                     CreatedDate = DateTime.Now,
                     IsActive = true
                 };
@@ -80,12 +80,12 @@ namespace RecuperApp.Domain.Services
         public HttpResponseModel Update(ShipmentTypeRequest shipmentTypeViewModel)
         {
             var response = new HttpResponseModel();
-            var shipmentType = GetByid(shipmentTypeViewModel.shipmenttypeid);
+            var shipmentType = GetByid(shipmentTypeViewModel.ShipmentTypeId);
             if (shipmentType != null)
             {
-                shipmentType.ShipmentTypeId = shipmentTypeViewModel.shipmenttypeid;
-                shipmentType.Name = shipmentTypeViewModel.name;
-                shipmentType.Description = shipmentTypeViewModel.description;
+                shipmentType.ShipmentTypeId = shipmentTypeViewModel.ShipmentTypeId;
+                shipmentType.Name = shipmentTypeViewModel.Name;
+                shipmentType.Description = shipmentTypeViewModel.Description;
                 shipmentType.UpdatedDate = DateTime.Now;
                 shipmentType.IsActive = true;
                 db.SaveChanges();

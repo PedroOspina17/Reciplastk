@@ -31,19 +31,19 @@ namespace RecuperApp.Web.Gateway.Controllers
 
         [HttpPost("CreateSeparation")]
 
-        public HttpResponseModel Create(WeightControlRequest viewModel)
+        public HttpResponseModel Create(WeightControlSeparationRequest viewModel)
         {
             return weightControlService.CreateSeparation(viewModel);
         }
 
         [HttpPost("CreateGrinding")]
-        public HttpResponseModel CreateGrinding(GrindingRequest grindingViewModel)
+        public HttpResponseModel CreateGrinding(WeightControlGrindingRequest grindingViewModel)
         {
             return weightControlService.CreateGrinding(grindingViewModel);
         }
 
         [HttpPost("Update")]
-        public HttpResponseModel Update(WeightControlRequest viewModel)
+        public HttpResponseModel Update(WeightControlSeparationRequest viewModel)
         {
             return weightControlService.Update(viewModel);
         }

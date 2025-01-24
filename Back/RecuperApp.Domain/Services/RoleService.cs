@@ -59,7 +59,7 @@ namespace RecuperApp.Domain.Services
 
         public async Task<Role> Update(RoleViewModel roleViewModel)
         {
-            var role = await GetById(roleViewModel.Roleid ?? 0);
+            var role = await GetById(roleViewModel.RoleId ?? 0);
             role = mapper.Map(roleViewModel, role);
             return await repository.UpdateAsync(role);
 

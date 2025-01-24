@@ -21,16 +21,16 @@ namespace RecuperApp.Domain.Services
         {
             var customer = db.Customers.Include(p => p.CustomerType).Where(x => x.IsActive == true).Select(y => new CustomerViewModel()
             {
-                customerid = y.CustomerId,
-                customertypeid = y.CustomerTypeId,
-                customertypename = y.CustomerType.Name,
-                nit = y.Nit,
-                name = y.Name,
-                lastname = y.LastName,
-                address = y.Address,
-                cell = y.Cell,
-                needspickup = y.NeedsPickup,
-                clientsince = y.ClientSince,
+                CustomerId = y.CustomerId,
+                CustomerTypeId = y.CustomerTypeId,
+                CustomerTypeName = y.CustomerType.Name,
+                Nit = y.Nit,
+                Name = y.Name,
+                LastName = y.LastName,
+                Address = y.Address,
+                Cell = y.Cell,
+                NeedsPickup = y.NeedsPickup,
+                ClientSince = y.ClientSince,
             }).ToList();
             var response = new HttpResponseModel
             {
@@ -43,16 +43,16 @@ namespace RecuperApp.Domain.Services
         {
             var customer = db.Customers.Include(p=> p.CustomerType).Where(x => x.IsActive == true && x.CustomerTypeId == (int)Enums.CustomerTypeEnum.Customer).Select(y=> new CustomerViewModel()
             {
-                customerid = y.CustomerId,
-                customertypeid = y.CustomerTypeId,
-                customertypename = y.CustomerType.Name,
-                nit = y.Nit,
-                name = y.Name,
-                lastname = y.LastName,
-                address = y.Address,
-                cell = y.Cell,
-                needspickup = y.NeedsPickup,
-                clientsince = y.ClientSince,
+                CustomerId = y.CustomerId,
+                CustomerTypeId = y.CustomerTypeId,
+                CustomerTypeName = y.CustomerType.Name,
+                Nit = y.Nit,
+                Name = y.Name,
+                LastName = y.LastName,
+                Address = y.Address,
+                Cell = y.Cell,
+                NeedsPickup = y.NeedsPickup,
+                ClientSince = y.ClientSince,
             }).ToList();
             var response = new HttpResponseModel
             {
@@ -65,16 +65,16 @@ namespace RecuperApp.Domain.Services
         {
             var customer = db.Customers.Include(p => p.CustomerType).Where(x => x.IsActive == true && x.CustomerTypeId == (int)Enums.CustomerTypeEnum.Provider).Select(y => new CustomerViewModel()
             {
-                customerid = y.CustomerId,
-                customertypeid = y.CustomerTypeId,
-                customertypename = y.CustomerType.Name,
-                nit = y.Nit,
-                name = y.Name,
-                lastname = y.LastName,
-                address = y.Address,
-                cell = y.Cell,
-                needspickup = y.NeedsPickup,
-                clientsince = y.ClientSince,
+                CustomerId = y.CustomerId,
+                CustomerTypeId = y.CustomerTypeId,
+                CustomerTypeName = y.CustomerType.Name,
+                Nit = y.Nit,
+                Name = y.Name,
+                LastName = y.LastName,
+                Address = y.Address,
+                Cell = y.Cell,
+                NeedsPickup = y.NeedsPickup,
+                ClientSince = y.ClientSince,
             }).ToList();
             var response = new HttpResponseModel
             {
@@ -133,19 +133,19 @@ namespace RecuperApp.Domain.Services
         public HttpResponseModel Create(CustomerViewModel customerViewModel)
         {
             var response = new HttpResponseModel();
-            var customer = GetByNit(customerViewModel.nit);
+            var customer = GetByNit(customerViewModel.Nit);
             if (customer == null)
             {
                 var newCustomer = new Customer
                 {
-                    Nit = customerViewModel.nit,
-                    CustomerTypeId = customerViewModel.customertypeid,
-                    Name = customerViewModel.name,
-                    LastName = customerViewModel.lastname,
-                    Address = customerViewModel.address,
-                    Cell = customerViewModel.cell,
-                    NeedsPickup = customerViewModel.needspickup,
-                    ClientSince = customerViewModel.clientsince,
+                    Nit = customerViewModel.Nit,
+                    CustomerTypeId = customerViewModel.CustomerTypeId,
+                    Name = customerViewModel.Name,
+                    LastName = customerViewModel.LastName,
+                    Address = customerViewModel.Address,
+                    Cell = customerViewModel.Cell,
+                    NeedsPickup = customerViewModel.NeedsPickup,
+                    ClientSince = customerViewModel.ClientSince,
                     CreatedDate = DateTime.Now
                 };
                 db.Customers.Add(newCustomer);
@@ -165,16 +165,16 @@ namespace RecuperApp.Domain.Services
         public HttpResponseModel Update(CustomerViewModel customerViewModel)
         {
             var response = new HttpResponseModel();
-            var customer = GetCustomerById(customerViewModel.customerid ?? -1);
+            var customer = GetCustomerById(customerViewModel.CustomerId ?? -1);
             if (customer != null)
             {
-                customer.Nit = customerViewModel.nit;
-                customer.Name = customerViewModel.name;
-                customer.LastName = customerViewModel.lastname;
-                customer.Address = customerViewModel.address;
-                customer.Cell = customerViewModel.cell;
-                customer.ClientSince = customerViewModel.clientsince;
-                customer.NeedsPickup = customerViewModel.needspickup;
+                customer.Nit = customerViewModel.Nit;
+                customer.Name = customerViewModel.Name;
+                customer.LastName = customerViewModel.LastName;
+                customer.Address = customerViewModel.Address;
+                customer.Cell = customerViewModel.Cell;
+                customer.ClientSince = customerViewModel.ClientSince;
+                customer.NeedsPickup = customerViewModel.NeedsPickup;
                 customer.UpdatedDate = DateTime.Now;
                 db.SaveChanges();
                 response.WasSuccessful = true;
@@ -183,16 +183,16 @@ namespace RecuperApp.Domain.Services
             }
             else
             {
-                customer = GetProviderById(customerViewModel.customerid ?? -1);
+                customer = GetProviderById(customerViewModel.CustomerId ?? -1);
                 if (customer != null)
                 {
-                    customer.Nit = customerViewModel.nit;
-                    customer.Name = customerViewModel.name;
-                    customer.LastName = customerViewModel.lastname;
-                    customer.Address = customerViewModel.address;
-                    customer.Cell = customerViewModel.cell;
-                    customer.ClientSince = customerViewModel.clientsince;
-                    customer.NeedsPickup = customerViewModel.needspickup;
+                    customer.Nit = customerViewModel.Nit;
+                    customer.Name = customerViewModel.Name;
+                    customer.LastName = customerViewModel.LastName;
+                    customer.Address = customerViewModel.Address;
+                    customer.Cell = customerViewModel.Cell;
+                    customer.ClientSince = customerViewModel.ClientSince;
+                    customer.NeedsPickup = customerViewModel.NeedsPickup;
                     customer.UpdatedDate = DateTime.Now;
                     db.SaveChanges();
                     response.WasSuccessful = true;

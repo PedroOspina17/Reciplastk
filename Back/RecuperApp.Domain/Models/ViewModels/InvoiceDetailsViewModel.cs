@@ -2,9 +2,9 @@
 {
     public class RecivableDetails
     {
-        public string productname { get; set; }
-        public double weight { get; set; }
-        public double productprice { get; set; }
-        public double subtotal { get; set; }
+        public string ProductName { get; set; }
+        public double Weight { get; set; }
+        public double ProductPrice { get; set; }
+        public double Subtotal { get; set; }
     }
 }

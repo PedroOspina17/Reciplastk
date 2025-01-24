@@ -2,7 +2,7 @@
 {
     public class RoleViewModel
     {
-        public int? Roleid { get; set; }
+        public int? RoleId { get; set; }
         public string Name { get; set; }
     }
 }

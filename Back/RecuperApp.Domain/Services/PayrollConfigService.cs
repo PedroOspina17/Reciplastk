@@ -20,10 +20,10 @@ namespace RecuperApp.Domain.Services
             var query = db.PayrollConfigs.Where(x=> x.IsActive && x.IsCurrentPrice == true).OrderByDescending(x=> x.IsCurrentPrice).Select(x=> new PayrollConfigViewModel
             {
                 CreatedDate = x.CreatedDate,
-                employee = x.Employee.UserName,
-                product = x.Product.ShortName,
-                buyPrice = x.PricePerKilo,
-                isCurrentePrice = x.IsCurrentPrice,
+                Employee = x.Employee.UserName,
+                Product = x.Product.ShortName,
+                BuyPrice = x.PricePerKilo,
+                IsCurrentePrice = x.IsCurrentPrice,
             }).ToList();
             response.Data = query;
             return response;
@@ -38,16 +38,16 @@ namespace RecuperApp.Domain.Services
         public HttpResponseModel Create(PayrollConfigRequest payrollConfigViewModel) 
         {
             var response = new HttpResponseModel();
-            var query = db.PayrollConfigs.Where(x=> x.EmployeeId == payrollConfigViewModel.employeeid && x.ProductId == payrollConfigViewModel.productid && x.IsCurrentPrice == true).OrderByDescending(x=> x.CreatedDate).FirstOrDefault();
+            var query = db.PayrollConfigs.Where(x=> x.EmployeeId == payrollConfigViewModel.EmployeeId && x.ProductId == payrollConfigViewModel.ProductId && x.IsCurrentPrice == true).OrderByDescending(x=> x.CreatedDate).FirstOrDefault();
             if (query != null)
             {
                 query.IsCurrentPrice = false;
             }
             var newPayrollConfig = new PayrollConfig
             {
-                ProductId = payrollConfigViewModel.productid,
-                EmployeeId = payrollConfigViewModel.employeeid,
-                PricePerKilo = payrollConfigViewModel.priceperkilo,
+                ProductId = payrollConfigViewModel.ProductId,
+                EmployeeId = payrollConfigViewModel.EmployeeId,
+                PricePerKilo = payrollConfigViewModel.PricePerKilo,
                 IsCurrentPrice = true,
                 CreatedDate = DateTime.Now,
                 IsActive = true
@@ -61,15 +61,15 @@ namespace RecuperApp.Domain.Services
         {
             var response = new HttpResponseModel();
             var query = db.PayrollConfigs.Where(x => x.IsActive);
-            if (payrollConfigViewModel.employeeid != -1)
+            if (payrollConfigViewModel.EmployeeId != -1)
             {
-                query = query.Where(x => x.EmployeeId == payrollConfigViewModel.employeeid);
+                query = query.Where(x => x.EmployeeId == payrollConfigViewModel.EmployeeId);
             };
-            if (payrollConfigViewModel.productid != -1)
+            if (payrollConfigViewModel.ProductId != -1)
             {
-                query = query.Where(x => x.ProductId == payrollConfigViewModel.productid);
+                query = query.Where(x => x.ProductId == payrollConfigViewModel.ProductId);
             };
-            if (payrollConfigViewModel.showAll == false || payrollConfigViewModel.showAll == null)
+            if (payrollConfigViewModel.ShowAll == false || payrollConfigViewModel.ShowAll == null)
             {
                 query = query.Where(x => x.IsCurrentPrice == true);
             };
@@ -78,10 +78,10 @@ namespace RecuperApp.Domain.Services
             .Select(x => new PayrollConfigViewModel
             {
                 CreatedDate = x.CreatedDate,
-                employee = x.Employee.Name +" "+ x.Employee.LastName,
-                product = x.Product.ShortName,
-                buyPrice = x.PricePerKilo,
-                isCurrentePrice = x.IsCurrentPrice,
+                Employee = x.Employee.Name +" "+ x.Employee.LastName,
+                Product = x.Product.ShortName,
+                BuyPrice = x.PricePerKilo,
+                IsCurrentePrice = x.IsCurrentPrice,
             }).ToList();
             response.Data = result;
             response.StatusMessage = "Se filtro correctamente";

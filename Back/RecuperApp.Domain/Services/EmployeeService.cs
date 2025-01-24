@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using RecuperApp.Common.Exceptions;
 using RecuperApp.Domain.Models.EntityModels;
-using RecuperApp.Domain.Models.ViewModels;
+using RecuperApp.Domain.Models.Requests;
 using RecuperApp.Domain.Repositories;
 
 namespace RecuperApp.Domain.Services
@@ -40,7 +40,7 @@ namespace RecuperApp.Domain.Services
             return await repository.GetByParam(x => x.UserName == userName);
         }
 
-        public async Task<Employee> Create(EmployeeViewModel viewModel)
+        public async Task<Employee> Create(EmployeeRequest viewModel)
         {
             await ValidateEntity(viewModel);
             var employee = mapper.Map<Employee>(viewModel);
@@ -48,7 +48,7 @@ namespace RecuperApp.Domain.Services
 
         }
 
-        public async Task<Employee> Update(EmployeeViewModel viewModel)
+        public async Task<Employee> Update(EmployeeRequest viewModel)
         {
             var employee = await GetById(viewModel.Employeeid ?? 0);
             employee = mapper.Map(viewModel, employee);
@@ -63,7 +63,7 @@ namespace RecuperApp.Domain.Services
             return employee;
         }
 
-        protected virtual async Task<bool> ValidateEntity(EmployeeViewModel viewModel)
+        protected virtual async Task<bool> ValidateEntity(EmployeeRequest viewModel)
         {
             var result = true;
             var existEmployee = await GetByUserName(viewModel.Name);

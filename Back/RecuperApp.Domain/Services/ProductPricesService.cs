@@ -81,8 +81,8 @@ namespace RecuperApp.Domain.Services
             var response = new HttpResponseModel();
             var newObject = new PriceType
             {
-                Name = priceTypeViewModel.name,
-                Description = priceTypeViewModel.description,
+                Name = priceTypeViewModel.Name,
+                Description = priceTypeViewModel.Description,
                 CreatedDate = DateTime.Now,
                 IsActive = true
             };
@@ -119,20 +119,20 @@ namespace RecuperApp.Domain.Services
         public HttpResponseModel CreateProductPrices(ProductPricesRequest productPricesViewModel)
         {
             var response = new HttpResponseModel();
-            if (productPricesViewModel.customerid != null)
+            if (productPricesViewModel.CustomerId != null)
             {
                 var query = db.ProductPrices
-                    .Where(x => x.ProductId == productPricesViewModel.productid && x.CustomerId == productPricesViewModel.customerid.Value && x.PricetypeId == productPricesViewModel.pricetypeid && x.IsCurrentPrice == true).FirstOrDefault();
+                    .Where(x => x.ProductId == productPricesViewModel.ProductId && x.CustomerId == productPricesViewModel.CustomerId.Value && x.PricetypeId == productPricesViewModel.PriceTypeId && x.IsCurrentPrice == true).FirstOrDefault();
                 query.IsCurrentPrice = false;
                 var newObject = new ProductPrice
                 {
-                    ProductId = productPricesViewModel.productid,
-                    CustomerId = productPricesViewModel.customerid.Value,
-                    PricetypeId = productPricesViewModel.pricetypeid,
+                    ProductId = productPricesViewModel.ProductId,
+                    CustomerId = productPricesViewModel.CustomerId.Value,
+                    PricetypeId = productPricesViewModel.PriceTypeId,
                     EmployeeId = 29
                 };
                 ; // To do: get from logged in user
-                newObject.Price = productPricesViewModel.price;
+                newObject.Price = productPricesViewModel.Price;
                 newObject.CreatedDate = DateTime.Now;
                 newObject.IsActive = true;
                 newObject.IsCurrentPrice = true;
@@ -150,7 +150,7 @@ namespace RecuperApp.Domain.Services
         {
             var response = new HttpResponseModel();
             List<Customer> customers;
-            if (productPricesViewModel.pricetypeid == (int)Enums.PriceTypeEnum.Buy)
+            if (productPricesViewModel.PriceTypeId == (int)Enums.PriceTypeEnum.Buy)
             {
                 customers = db.Customers.Where(x => x.IsActive == true && x.CustomerTypeId == (int)Enums.CustomerTypeEnum.Provider).ToList();
             }
@@ -158,21 +158,21 @@ namespace RecuperApp.Domain.Services
             {
                 customers = db.Customers.Where(x => x.IsActive == true && x.CustomerTypeId == (int)Enums.CustomerTypeEnum.Customer).ToList();
             }
-            var query = db.ProductPrices.Where(x => x.ProductId == productPricesViewModel.productid && x.PricetypeId == productPricesViewModel.pricetypeid && x.IsCurrentPrice == true).ToList();
+            var query = db.ProductPrices.Where(x => x.ProductId == productPricesViewModel.ProductId && x.PricetypeId == productPricesViewModel.PriceTypeId && x.IsCurrentPrice == true).ToList();
             query.ForEach(x => x.IsCurrentPrice = false);
             foreach (var customer in customers)
             {
                 //customer.Iscurrentprice = false;
-                var currentprice = (double)this.GetCurrentPrice(productPricesViewModel.productid, customer.CustomerId, productPricesViewModel.pricetypeid).Data;
+                var currentprice = (double)this.GetCurrentPrice(productPricesViewModel.ProductId, customer.CustomerId, productPricesViewModel.PriceTypeId).Data;
                 var newObject = new ProductPrice
                 {
-                    ProductId = productPricesViewModel.productid,
+                    ProductId = productPricesViewModel.ProductId,
                     CustomerId = customer.CustomerId,
-                    PricetypeId = productPricesViewModel.pricetypeid,
+                    PricetypeId = productPricesViewModel.PriceTypeId,
                     EmployeeId = 29
                 };
                 ; // To do: get from logged in user
-                newObject.Price = currentprice + productPricesViewModel.price;
+                newObject.Price = currentprice + productPricesViewModel.Price;
                 newObject.CreatedDate = DateTime.Now;
                 newObject.IsActive = true;
                 newObject.IsCurrentPrice = true;
@@ -187,17 +187,17 @@ namespace RecuperApp.Domain.Services
         {
             var response = new HttpResponseModel();
             var query = db.ProductPrices.Where(x => x.Customer.IsActive == true);
-            if (filterViewModel.customerid != null && filterViewModel.customerid != -1)
+            if (filterViewModel.CustomerId != null && filterViewModel.CustomerId != -1)
             {
-                query = query.Where(x => x.CustomerId == filterViewModel.customerid);
+                query = query.Where(x => x.CustomerId == filterViewModel.CustomerId);
             };
-            if (filterViewModel.productid != null && filterViewModel.productid != -1)
+            if (filterViewModel.ProductId != null && filterViewModel.ProductId != -1)
             {
-                query = query.Where(x => x.ProductId == filterViewModel.productid);
+                query = query.Where(x => x.ProductId == filterViewModel.ProductId);
             };
-            if (filterViewModel.pricetypeid != null && filterViewModel.pricetypeid != -1)
+            if (filterViewModel.PriceTypeId != null && filterViewModel.PriceTypeId != -1)
             {
-                query = query.Where(x => x.PricetypeId == filterViewModel.pricetypeid);
+                query = query.Where(x => x.PricetypeId == filterViewModel.PriceTypeId);
             };
             if (filterViewModel.ShowHistory != null && filterViewModel.ShowHistory == false)
             {
@@ -209,19 +209,19 @@ namespace RecuperApp.Domain.Services
             .ThenByDescending(x => x.CustomerId)
             .Select(x => new ProductPriceViewModel
             {
-                date = x.CreatedDate,
-                employee = x.Employee.Name,
-                customer = x.Customer.Name,
-                price = x.Price,
-                iscurrentprice = x.IsCurrentPrice,
-                product = x.Product.Name,
-                type = x.Pricetype.Name,
+                Date = x.CreatedDate,
+                Employee = x.Employee.Name,
+                Customer = x.Customer.Name,
+                Price = x.Price,
+                IsCurrentPrice = x.IsCurrentPrice,
+                Product = x.Product.Name,
+                Type = x.Pricetype.Name,
             });
             response.Data = result;
             response.StatusMessage = "Se filtro correctamente";
             return response;
         }
-        public HttpResponseModel CreatePricesForNewProducts(ProductsViewModel ProductsModel)
+        public HttpResponseModel CreatePricesForNewProducts(ProductsRequest ProductsModel)
         {
             var response = new HttpResponseModel();
             this.CreatePriceForNewProducts(ProductsModel); // Create prices for parent product 
@@ -233,24 +233,24 @@ namespace RecuperApp.Domain.Services
 
             return response;
         }
-        private bool CreatePriceForNewProducts(ProductsViewModel ProductsModel)
+        private bool CreatePriceForNewProducts(ProductsRequest ProductsModel)
         {
             var BuyPriceViewModel = new ProductPricesRequest()
             {
-                productid = ProductsModel.productref.ProductId,
-                pricetypeid = (int)Enums.PriceTypeEnum.Buy,
-                employeeid = 29, // To do: replace for a config value
-                price = ProductsModel.Buyprice,
+                ProductId = ProductsModel.ProductRef.ProductId,
+                PriceTypeId = (int)Enums.PriceTypeEnum.Buy,
+                EmployeeId = 29, // To do: replace for a config value
+                Price = ProductsModel.BuyPrice,
             };
             var result = this.CreatePriceForAllCustomers(BuyPriceViewModel).WasSuccessful;
             if (result)
             {
                 BuyPriceViewModel = new ProductPricesRequest()
                 {
-                    productid = ProductsModel.productref.ProductId,
-                    pricetypeid = (int)Enums.PriceTypeEnum.Sell,
-                    employeeid = 29, // To do: replace for a config value
-                    price = ProductsModel.Sellprice,
+                    ProductId = ProductsModel.ProductRef.ProductId,
+                    PriceTypeId = (int)Enums.PriceTypeEnum.Sell,
+                    EmployeeId = 29, // To do: replace for a config value
+                    Price = ProductsModel.SellPrice,
                 };
                 return this.CreatePriceForAllCustomers(BuyPriceViewModel).WasSuccessful;
             }

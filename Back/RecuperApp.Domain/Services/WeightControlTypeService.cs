@@ -45,8 +45,8 @@ namespace RecuperApp.Domain.Services
             var response = new HttpResponseModel();
             var newcontroltype = new WeightControlType
             {
-                Name = weightControlTypeViewModel.name,
-                Description = weightControlTypeViewModel.description,
+                Name = weightControlTypeViewModel.Name,
+                Description = weightControlTypeViewModel.Description,
                 CreatedDate = DateTime.Now,
                 IsActive = true
             };
@@ -59,12 +59,12 @@ namespace RecuperApp.Domain.Services
 
         public HttpResponseModel Update(WeightControlTypeRequest weightControlTypeViewModel)
         {
-            var controltype = ById(weightControlTypeViewModel.weightcontroltypeid);
+            var controltype = ById(weightControlTypeViewModel.WeightControlTypeId);
             var response = new HttpResponseModel();
             if (controltype != null)
             {
-                controltype.Name = weightControlTypeViewModel.name;
-                controltype.Description = weightControlTypeViewModel.description;
+                controltype.Name = weightControlTypeViewModel.Name;
+                controltype.Description = weightControlTypeViewModel.Description;
                 controltype.UpdatedDate = DateTime.Now;
                 db.SaveChanges();
                 response.WasSuccessful = true;

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RecuperApp.Common.Models;
 using RecuperApp.Domain.Models.EntityModels;
-using RecuperApp.Domain.Models.ViewModels;
+using RecuperApp.Domain.Models.Requests;
 using RecuperApp.Domain.Repositories;
 
 namespace RecuperApp.Domain.Services
@@ -24,7 +24,7 @@ namespace RecuperApp.Domain.Services
             return product;
         }
 
-        private HttpResponseModel Validate(ProductsViewModel ProductsModel)
+        private HttpResponseModel Validate(ProductsRequest ProductsModel)
         {
             var response = new HttpResponseModel();
 
@@ -35,7 +35,7 @@ namespace RecuperApp.Domain.Services
                 return response;
             }
 
-            if (ProductsModel.Shortname == null)
+            if (ProductsModel.ShortName == null)
             {
                 response.WasSuccessful = false;
                 response.StatusMessage = "El nombre es requerido.";
@@ -44,7 +44,7 @@ namespace RecuperApp.Domain.Services
             }
             else
             {
-                var product = db.Products.Where(p => p.ShortName.ToLower().Trim() == ProductsModel.Shortname.ToLower().Trim()).FirstOrDefault();
+                var product = db.Products.Where(p => p.ShortName.ToLower().Trim() == ProductsModel.ShortName.ToLower().Trim()).FirstOrDefault();
 
                 if (product != null)
                 {
@@ -152,7 +152,7 @@ namespace RecuperApp.Domain.Services
             return response;
         }
 
-        public HttpResponseModel Create(ProductsViewModel ProductsModel)
+        public HttpResponseModel Create(ProductsRequest ProductsModel)
         {
             var response = Validate(ProductsModel);
 
@@ -160,7 +160,7 @@ namespace RecuperApp.Domain.Services
             {
                 var parentProduct = new Product
                 {
-                    ShortName = ProductsModel.Shortname,
+                    ShortName = ProductsModel.ShortName,
                     Name = ProductsModel.Name,
                     Description = ProductsModel.Description,
                     Code = ProductsModel.Code,
@@ -169,21 +169,21 @@ namespace RecuperApp.Domain.Services
                 };
 
                 db.Products.Add(parentProduct);
-                ProductsModel.productref = parentProduct;
+                ProductsModel.ProductRef = parentProduct;
                 foreach (var subproduct in ProductsModel.SubtypeProductList)
                 {
                     var newSubproduct = new Product
                     {
                         Parent = parentProduct,
                         Name = subproduct.Name,
-                        ShortName = subproduct.Shortname,
+                        ShortName = subproduct.ShortName,
                         Description = subproduct.Description,
                         Code = subproduct.Code,
                         IsActive = true,
                         IsSubtype = true
                     };
                     db.Products.Add(newSubproduct);
-                    subproduct.productref = newSubproduct;
+                    subproduct.ProductRef = newSubproduct;
                 }
 
                 db.SaveChanges();
@@ -194,9 +194,9 @@ namespace RecuperApp.Domain.Services
             return response;
         }
 
-        public HttpResponseModel Update(ProductsViewModel ProductsModel)
+        public HttpResponseModel Update(ProductsRequest ProductsModel)
         {
-            var id = ProductsModel.Productid ?? -1;
+            var id = ProductsModel.ProductId ?? -1;
             var productInfo = FindById(id);
             var response = new HttpResponseModel();
 
@@ -213,13 +213,13 @@ namespace RecuperApp.Domain.Services
 
                 foreach (var subtype in ProductsModel.SubtypeProductList)
                 {
-                    if (subtype.Productid == null || subtype.Productid <= 0)
+                    if (subtype.ProductId == null || subtype.ProductId <= 0)
                     {
                         var newSubproduct = new Product
                         {
                             Parent = productInfo, 
                             Name = subtype.Name,
-                            ShortName = subtype.Shortname,
+                            ShortName = subtype.ShortName,
                             Description = subtype.Description,
                             Code = subtype.Code,
                             IsActive = true,

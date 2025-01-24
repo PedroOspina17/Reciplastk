@@ -52,7 +52,7 @@ namespace RecuperApp.Domain.Services
         public HttpResponseModel Create(CustomerTypeRequest customerTypeModel)
         {
             var response = new HttpResponseModel();
-            var customerType = GetByName(customerTypeModel.name);
+            var customerType = GetByName(customerTypeModel.Name);
             if (customerType != null)
             {
                 response.WasSuccessful = false;
@@ -63,8 +63,8 @@ namespace RecuperApp.Domain.Services
             {
                 var newCustomer = new CustomerType
                 {
-                    Name = customerTypeModel.name,
-                    Description = customerTypeModel.description,
+                    Name = customerTypeModel.Name,
+                    Description = customerTypeModel.Description,
                     CreatedDate = DateTime.Now,
                     IsActive = true
                 };
@@ -78,12 +78,12 @@ namespace RecuperApp.Domain.Services
         public HttpResponseModel Update(CustomerTypeRequest customerTypeModel)
         {
             var response = new HttpResponseModel();
-            var customerType = GetByid(customerTypeModel.customerTypeId);
+            var customerType = GetByid(customerTypeModel.CustomerTypeId);
             if (customerType != null)
             {
-                customerType.CustomerTypeId = customerTypeModel.customerTypeId;
-                customerType.Name = customerTypeModel.name;
-                customerType.Description = customerTypeModel.description;
+                customerType.CustomerTypeId = customerTypeModel.CustomerTypeId;
+                customerType.Name = customerTypeModel.Name;
+                customerType.Description = customerTypeModel.Description;
                 customerType.UpdatedDate = DateTime.Now;
                 customerType.IsActive = true;
                 db.SaveChanges();

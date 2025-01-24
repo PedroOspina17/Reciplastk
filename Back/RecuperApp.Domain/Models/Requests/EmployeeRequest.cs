@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RecuperApp.Domain.Models.ViewModels
+namespace RecuperApp.Domain.Models.Requests
 {
-    public class EmployeeViewModel
+    public class EmployeeRequest
     {
         public int? Employeeid { get; set; }
 

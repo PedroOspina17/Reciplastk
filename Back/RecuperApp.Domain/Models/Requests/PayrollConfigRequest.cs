@@ -2,9 +2,9 @@
 {
     public class PayrollConfigRequest
     {
-        public int productid { get; set; }
-        public int employeeid { get; set; }
-        public double priceperkilo { get; set; }
-        public bool? showAll { get; set; }
+        public int ProductId { get; set; }
+        public int EmployeeId { get; set; }
+        public double PricePerKilo { get; set; }
+        public bool? ShowAll { get; set; }
     }
 }
