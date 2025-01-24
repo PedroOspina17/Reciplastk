@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { CustomerTypeModel } from '../../../models/CustomerTypeModel';
+import { CustomerTypeRequest } from '../../../models/Requests/CustomerTypeRequest';
 import { CustomerTypeService } from '../../../services/customer-type.service';
 import Swal from 'sweetalert2';
 
@@ -21,7 +21,7 @@ export class CustomerTypeComponent {
     private customerTypeService: CustomerTypeService,
     private toastr: ToastrService
   ) { }
-  customertypelist: CustomerTypeModel[] = [];
+  customertypelist: CustomerTypeRequest[] = [];
   DeletePopUp: boolean = false;
   ngOnInit(): void {
     this.GetAll();
@@ -30,13 +30,15 @@ export class CustomerTypeComponent {
     this.customerTypeService.GetAll().subscribe((r) => {
       if (r.wasSuccessful == true) {
         this.customertypelist = r.data;
+        console.log('Data2', r.data);
+        console.log('Data', this.customertypelist);
       } else {
         this.toastr.info(r.statusMessage);
       }
     });
   }
   Delete(id: number) {
-
+    console.log('Este es el id seleccionado:', id)
     this.DeletePopUp = true
     Swal.fire({
       title: '¿Estás seguro?',

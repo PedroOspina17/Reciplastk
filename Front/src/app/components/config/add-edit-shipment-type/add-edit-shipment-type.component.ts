@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ShipmentTypeViewModel } from '../../../models/ShipmentTypeViewModel';
+import { ShipmentTypeRequest } from '../../../models/Requests/ShipmentTypeRequest';
 import {
   FormBuilder,
   FormGroup,
@@ -62,10 +62,10 @@ export class AddEditShipmentTypeComponent {
   }
   AddEditShipment() {
     this.loader = true;
-    const shipment : ShipmentTypeViewModel = {
-      name: this.formShipment.value.name,
-      description: this.formShipment.value.description,
-      isactive: this.formShipment.value.isactive
+    const shipment : ShipmentTypeRequest = {
+      Name: this.formShipment.value.name,
+      Description: this.formShipment.value.description,
+      IsActive: this.formShipment.value.isactive
     };
     if (this.id == 0) {
       this.shipmentTypeservice.Create(shipment).subscribe((result)=>{
@@ -79,7 +79,7 @@ export class AddEditShipmentTypeComponent {
         }
       })
     } else {
-      shipment.shipmenttypeid = this.id;
+      shipment.Id = this.id;
       this.shipmentTypeservice.Update(shipment,this.id).subscribe((result)=>{
         if (result.wasSuccessful == true) {
           this.loader = false;

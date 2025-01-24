@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { WeightControlService } from '../../../services/weight-control-service';
-import { WeightControlGrindingModel } from '../../../models/WeightControlGrindingModel';
+import { WeightControlGrindingRequest } from '../../../models/Requests/WeightControlGrindingRequest';
 import {
   FormBuilder,
   FormControl,
@@ -13,7 +13,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import {  } from '../../shared/loader/loader.component';
 import { ToastrService } from 'ngx-toastr';
 import { ProductsService } from '../../../services/products.service';
-import { ProductModel } from '../../../models/ProductModel';
+import { ProductsRequest } from '../../../models/Requests/ProductsRequest';
 
 
 @Component({
@@ -57,9 +57,9 @@ export class WeightControlGrindingComponent {
   FormSelection: FormGroup;
   FormRemaining: FormGroup;
   todaysProductList: any[] = [];
-  generalProductList: ProductModel[] = [];
-  specificProductList: ProductModel[] = [];
-  filterProductList: ProductModel[] = [];
+  generalProductList: ProductsRequest[] = [];
+  specificProductList: ProductsRequest[] = [];
+  filterProductList: ProductsRequest[] = [];
   formattedDate: string | null = '';
   ngOnInit(): void {
     this.getProducts();
@@ -69,7 +69,7 @@ export class WeightControlGrindingComponent {
     const selectElement = value.target;
     this.productid = selectElement.value;
     this.filterProductList = this.specificProductList.filter(
-      (p) => p.parentid == this.productid
+      (p) => p.ParentId == this.productid
     );
     this.FormSelection.get('ColorSelection')?.enable();
   }
@@ -83,10 +83,10 @@ export class WeightControlGrindingComponent {
     }
   }
   SaveRemainig() {
-    const remainingModel: WeightControlGrindingModel = {
-      productId: this.specificproductid,
-      packageCount: this.FormRemaining.value.Package,
-      remainig: this.FormRemaining.value.Spare,
+    const remainingModel: WeightControlGrindingRequest = {
+      Id: this.specificproductid,
+      PackageCount: this.FormRemaining.value.Package,
+      Remainig: this.FormRemaining.value.Spare,
     };
     this.weightControlService.CreateGrinding(remainingModel).subscribe((p) => {
       if (p.wasSuccessful == true) {

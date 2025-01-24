@@ -12,7 +12,7 @@ import { WeightControlService } from '../../../services/weight-control-service';
 import { ProductsService } from '../../../services/products.service';
 import { WeightControlDetailComponent } from '../weight-control-detail/weight-control-detail.component';
 import Swal from 'sweetalert2';
-import { ProductModel } from '../../../models/ProductModel';
+import { ProductsRequest } from '../../../models/Requests/ProductsRequest';
 
 @Component({
   selector: 'app-weight-control',
@@ -37,7 +37,7 @@ export class WeightControlComponent {
   ) { }
   disable: boolean = true;
   employeeList: any[] = [];
-  generalProductList: ProductModel[] = [];
+  generalProductList: ProductsRequest[] = [];
   employeeid: number = -1;
   employeename: string = '';
   productid: number = -1;

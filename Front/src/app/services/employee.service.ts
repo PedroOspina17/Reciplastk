@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AppConfig } from '../common/app-config';
 import { HttpResponseModel } from '../models/HttpResponseModel';
 import { Observable } from 'rxjs/internal/Observable';
-import { EmployeeViewModel } from '../models/EmployeeViewModel';
+import { EmployeeRequest } from '../models/Requests/EmployeeRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -21,12 +21,12 @@ export class EmployeeService {
     return this.http.get<HttpResponseModel>(this.ServiceEndpoint + 'GetEmployeeById?Id=' + id)
   }
 
-  Create(employeeModel: EmployeeViewModel): Observable<HttpResponseModel> {
-    return this.http.post<HttpResponseModel>(this.ServiceEndpoint + 'AddEmployee', employeeModel)
+  Create(Model: EmployeeRequest): Observable<HttpResponseModel> {
+    return this.http.post<HttpResponseModel>(this.ServiceEndpoint + 'AddEmployee', Model)
   }
 
-  Update(employeeModel: EmployeeViewModel): Observable<HttpResponseModel> {
-    return this.http.post<HttpResponseModel>(this.ServiceEndpoint + 'UpdateEmployee', employeeModel)
+  Update(Model: EmployeeRequest): Observable<HttpResponseModel> {
+    return this.http.post<HttpResponseModel>(this.ServiceEndpoint + 'UpdateEmployee', Model)
   }
 
   Delete(id: number): Observable<HttpResponseModel> {

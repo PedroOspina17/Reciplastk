@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { WeightControlReportParams } from '../../../models/WeightControlReportParams';
+import { WeightControlReportRequest } from '../../../models/Requests/WeightControlReportRequest';
 import {
   FormBuilder,
   FormGroup,
@@ -12,7 +12,7 @@ import { WeightControlService } from '../../../services/weight-control-service';
 import { ProductsService } from '../../../services/products.service';
 import { WeightCotrolTypeService } from '../../../services/weight-cotrol-type.service';
 import { WeightControlReport } from '../../../models/WeightControlReport';
-import { ProductModel } from '../../../models/ProductModel';
+import { ProductsRequest } from '../../../models/Requests/ProductsRequest';
 
 @Component({
   selector: 'app-weight-control-reports',
@@ -48,7 +48,7 @@ export class WeightControlReportsComponent {
   TypeValue: string = '';
   ShowTable: boolean = false;
   weightControlReport: WeightControlReport[] = [];
-  ProductList: ProductModel[] = [];
+  ProductList: ProductsRequest[] = [];
   WeightControlTypeList: any[] = [];
   EmployeeList: any[] = [];
   typeList: any[] = [];
@@ -56,13 +56,13 @@ export class WeightControlReportsComponent {
     this.GetInfo();
   }
   Filter() {
-    const model: WeightControlReportParams = {
-      startDate: this.FormGroupControl.value.StartDate,
+    const model: WeightControlReportRequest = {
+      StartDate: this.FormGroupControl.value.StartDate,
       endDate: this.FormGroupControl.value.EndDate,
-      productId: this.FormGroupControl.value.Productsid,
-      employeeId: this.FormGroupControl.value.Employeeid,
-      ispaid: this.FormGroupControl.value.Ispaid,
-      type: this.FormGroupControl.value.Typeid,
+      ProductId: this.FormGroupControl.value.Productsid,
+      EmployeeId: this.FormGroupControl.value.Employeeid,
+      IsPaid: this.FormGroupControl.value.Ispaid,
+      Type: this.FormGroupControl.value.Typeid,
     };
     this.weightControlService.Filter(model).subscribe((r) => {
       if (r.wasSuccessful == true) {

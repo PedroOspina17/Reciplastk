@@ -4,7 +4,7 @@ import { CustomerService } from '../../../services/customer.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ProductPriceModel } from '../../../models/ProductPriceModel';
+import { PriceTypeRequest } from '../../../models/Requests/PriceTypeRequest';
 import { ProductPriceInnerParams } from '../../../models/ProductPriceInnerParams';
 import { ProductPriceService } from '../../../services/product-price.service';
 import { PriceType } from '../../../models/Enums';
@@ -54,11 +54,11 @@ export class ProductPriceInnerComponent {
     this.filter();
   }
   filter() {
-    const productPriceModel: ProductPriceModel = {
-      pricetypeid: this.productPriceTypeId,
-      productid: this.productid,
-      customerid: this.customerid,
-      showHistory: this.value?.checked ?? false,
+    const productPriceModel: PriceTypeRequest = {
+      PriceTypeId: this.productPriceTypeId,
+      Id: this.productid,
+      CustomerId: this.customerid,
+      ShowHistory: this.value?.checked ?? false,
     }
     this.productPriceService.Filter(productPriceModel).subscribe(r => {
       if (r.wasSuccessful) {
@@ -92,11 +92,11 @@ export class ProductPriceInnerComponent {
     this.filter();
   }
   CreateProductPrice() {
-    const productPriceModel: ProductPriceModel = {
-      pricetypeid: this.productPriceTypeId,
-      productid: this.productid,
-      customerid: this.isCreate == true ? this.customerid : undefined,
-      price: this.IsNegative && this.isCreate == false ? this.formSelects.value.price * -1 : this.formSelects.value.price
+    const productPriceModel: PriceTypeRequest = {
+      PriceTypeId: this.productPriceTypeId,
+      Id: this.productid,
+      CustomerId: this.isCreate == true ? this.customerid : undefined,
+      Price: this.IsNegative && this.isCreate == false ? this.formSelects.value.price * -1 : this.formSelects.value.price
     }
     this.productPriceService.CreateProductPrices(productPriceModel).subscribe(r => {
       if (r.wasSuccessful) {

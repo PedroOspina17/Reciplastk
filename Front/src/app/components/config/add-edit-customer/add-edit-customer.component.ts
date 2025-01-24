@@ -12,7 +12,7 @@ import { CustomerService } from '../../../services/customer.service';
 import { CustomerViewModel } from '../../../models/CustomerModel';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { ToastrService } from 'ngx-toastr';
-import { CustomerTypeModel } from '../../../models/CustomerTypeModel';
+import { CustomerTypeRequest } from '../../../models/Requests/CustomerTypeRequest';
 import { CustomerTypeService } from '../../../services/customer-type.service';
 
 @Component({
@@ -33,7 +33,7 @@ export class AddEditCustomerComponent {
   id: number;
   operacion: string = 'Agregar';
   loader: boolean = false;
-  customertypeList: CustomerTypeModel[] = [];
+  customertypeList: CustomerTypeRequest[] = [];
   constructor(
     private fb: FormBuilder,
     private customerServises: CustomerService,

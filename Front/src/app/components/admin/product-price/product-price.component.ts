@@ -3,7 +3,7 @@ import { ProductPriceInnerComponent } from "../product-price-inner/product-price
 import { ProductPriceService } from '../../../services/product-price.service';
 import { ToastrService } from 'ngx-toastr';
 import { ProductsService } from '../../../services/products.service';
-import { ProductModel } from '../../../models/ProductModel';
+import { ProductsRequest } from '../../../models/Requests/ProductsRequest';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CustomerService } from '../../../services/customer.service';
@@ -26,7 +26,7 @@ export class ProductPriceComponent {
   }
   formSelects: FormGroup;
   PriceTypesList: any[] = []
-  ProductsList: ProductModel[] = [];
+  ProductsList: ProductsRequest[] = [];
   productPriceTypeId = -1;
   @ViewChild(ProductPriceInnerComponent) child!: ProductPriceInnerComponent;
   ngOnInit(): void {

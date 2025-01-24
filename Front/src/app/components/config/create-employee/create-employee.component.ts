@@ -4,7 +4,7 @@ import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModu
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { RoleService } from '../../../services/role.service';
-import { EmployeeViewModel } from '../../../models/EmployeeViewModel';
+import { EmployeeRequest } from '../../../models/Requests/EmployeeRequest';
 import { EmployeeService } from '../../../services/employee.service';
 import { RoleViewModel } from '../../../models/RoleViewModel';
 
@@ -68,12 +68,12 @@ export class CreateEmployeeComponent {
     })
   }
   CreateOrEdit() {
-    const model: EmployeeViewModel = {
-      roleid: this.formEmployee.value.role,
-      name: this.formEmployee.value.name,
-      lastName: this.formEmployee.value.lastName,
-      userName: this.formEmployee.value.userName,
-      password: this.formEmployee.value.password,
+    const model: EmployeeRequest = {
+      RoleId: this.formEmployee.value.role,
+      Name: this.formEmployee.value.name,
+      LastName: this.formEmployee.value.lastName,
+      UserName: this.formEmployee.value.userName,
+      Password: this.formEmployee.value.password,
     };
     if (this.id == null) {
       this.employeeService.Create(model).subscribe(r => {
@@ -85,7 +85,7 @@ export class CreateEmployeeComponent {
         }
       })
     } else {
-      model.employeeId = this.id;
+      model.Id = this.id;
       this.employeeService.Update(model).subscribe(r => {
         if (r.wasSuccessful) {
           this.toastr.success(r.statusMessage);

@@ -6,7 +6,7 @@ import { CustomerViewModel } from '../../../models/CustomerModel';
 import { CustomerService } from '../../../services/customer.service';
 import { CopyCustomerPricesViewModel } from '../../../models/CopyCustomerPricesViewModel';
 import { ProductPriceService } from '../../../services/product-price.service';
-import { ProductPriceModel } from '../../../models/ProductPriceModel';
+import { PriceTypeRequest } from '../../../models/Requests/PriceTypeRequest';
 import { ProductPriceInnerParams } from '../../../models/ProductPriceInnerParams';
 
 @Component({
@@ -40,8 +40,8 @@ export class CopyCustomerPricesComponent {
     });
   }
   Filter() {
-    const productPriceModel: ProductPriceModel = {
-      customerid: this.FormSelects.value.CustomerToCopyId
+    const productPriceModel: PriceTypeRequest = {
+      CustomerId: this.FormSelects.value.CustomerToCopyId
     }
     this.productPriceService.Filter(productPriceModel).subscribe(r => {
       if (r.wasSuccessful) {

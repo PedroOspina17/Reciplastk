@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { PaymentReceipt } from '../../../models/PaymentReceipt';
+import { PaymentReceiptRequest } from '../../../models/Requests/PaymentReceiptRequest';
 import { CommonModule, DatePipe } from '@angular/common';
 import { WeightControlService } from '../../../services/weight-control-service';
 import { ActivatedRoute } from '@angular/router';
@@ -21,7 +21,7 @@ export class PaymentReceiptComponent {
   }
   fromBillList: boolean = false;
   id: number;
-  @Input() BillInfo!: PaymentReceipt;
+  @Input() BillInfo!: PaymentReceiptRequest;
   ngOnInit(): void {
     this.GetReceipt(this.id);
   }

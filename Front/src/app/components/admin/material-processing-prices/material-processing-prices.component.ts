@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { ProductsService } from '../../../services/products.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { ProductModel } from '../../../models/ProductModel';
+import { ProductsRequest } from '../../../models/Requests/ProductsRequest';
 import { WeightControlService } from '../../../services/weight-control-service';
 import { CommonModule } from '@angular/common';
 import { PayrollconfigService } from '../../../services/payrollconfig.service';
-import { PayrollConfig } from '../../../models/PayrollConfigViewModel';
+import { PayrollConfigRequest } from '../../../models/Requests/PayrollConfigRequest';
 import { PayrollConfigParams } from '../../../models/PayrollConfigParams';
 
 @Component({
@@ -31,7 +31,7 @@ export class MaterialProcessingPricesComponent {
     })
   }
   formSelect: FormGroup;
-  SpecificProductsList: ProductModel[] = [];
+  SpecificProductsList: ProductsRequest[] = [];
   payrollConfigList: PayrollConfigParams[] = [];
   employeeList: any[] = [];
   employeeId: number = -1;
@@ -55,10 +55,10 @@ export class MaterialProcessingPricesComponent {
     this.Filter();
   }
   Filter() {
-    const payrollConfig: PayrollConfig = {
-      employeeId: this.formSelect.value.Employee,
-      productId: this.formSelect.value.Product,
-      showAll: this.showAll
+    const payrollConfig: PayrollConfigRequest = {
+      EmployeeId: this.formSelect.value.Employee,
+      Id: this.formSelect.value.Product,
+      ShowAll: this.showAll
     };
     this.payrollconfigService.Filter(payrollConfig).subscribe(r => {
       if (r.wasSuccessful) {
@@ -87,10 +87,10 @@ export class MaterialProcessingPricesComponent {
     });
   }
   saveConfig() {
-    const model: PayrollConfig = {
-      productId: this.formSelect.value.Product,
-      employeeId: this.formSelect.value.Employee,
-      pricePerKilo: this.formSelect.value.price,
+    const model: PayrollConfigRequest = {
+      Id: this.formSelect.value.Product,
+      EmployeeId: this.formSelect.value.Employee,
+      PricePerKilo: this.formSelect.value.price,
     }
     this.payrollconfigService.Create(model).subscribe(r => {
       if (r.wasSuccessful) {

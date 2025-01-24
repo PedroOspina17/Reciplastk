@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ShipmentTypeViewModel } from '../../../models/ShipmentTypeViewModel';
+import { ShipmentTypeRequest } from '../../../models/Requests/ShipmentTypeRequest';
 import { FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ShipmentTypeService } from '../../../services/shipment-type.service';
@@ -16,7 +16,7 @@ import Swal from 'sweetalert2';
   styleUrl: './shipment-type.component.css',
 })
 export class ShipmentTypeComponent {
-  ShipmentTypeList: ShipmentTypeViewModel[] = [];
+  ShipmentTypeList: ShipmentTypeRequest[] = [];
   loader: boolean = false;
   DeletePopUp: boolean = false;
   constructor(
