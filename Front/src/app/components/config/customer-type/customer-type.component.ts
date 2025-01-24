@@ -5,6 +5,7 @@ import { RouterLink, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CustomerTypeModel } from '../../../models/CustomerTypeModel';
 import { CustomerTypeService } from '../../../services/customer-type.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-customer-type',
@@ -19,8 +20,9 @@ export class CustomerTypeComponent {
     private router: Router,
     private customerTypeService: CustomerTypeService,
     private toastr: ToastrService
-  ) {}
+  ) { }
   customertypelist: CustomerTypeModel[] = [];
+  DeletePopUp: boolean = false;
   ngOnInit(): void {
     this.GetAll();
   }
@@ -34,13 +36,30 @@ export class CustomerTypeComponent {
     });
   }
   Delete(id: number) {
-    this.customerTypeService.Delete(id).subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.toastr.info(r.statusMessage);
+
+    this.DeletePopUp = true
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Esto borrara todos los datos previamente almacenados en la tabla.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#FFA500 ',
+      cancelButtonColor: '#6c757d',
+      confirmButtonText: 'Sí, Eliminar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.customerTypeService.Delete(id).subscribe((r) => {
+          if (r.wasSuccessful == true) {
+            this.toastr.info(r.statusMessage);
+          } else {
+            this.toastr.error(r.statusMessage, 'Error');
+          }
+          this.GetAll();
+        });
       } else {
-        this.toastr.error(r.statusMessage, 'Error');
+        this.DeletePopUp = false;
       }
-      this.GetAll();
     });
   }
 }

@@ -5,6 +5,7 @@ import { RouterLink, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { EmployeeService } from '../../../services/employee.service';
 import { EmployeeParams } from '../../../models/EmployeeParams';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-employee-list',
@@ -20,6 +21,7 @@ export class EmployeeListComponent {
     private employeeService: EmployeeService,
   ) { }
   employeeList: EmployeeParams[] = [];
+  DeletePopUp: boolean = false;
   GetAll() {
     this.employeeService.GetAll().subscribe(r => {
       if (r.wasSuccessful) {
@@ -29,13 +31,30 @@ export class EmployeeListComponent {
       }
     })
   }
-  Delete(employeeid: number){
-    this.employeeService.Delete(employeeid).subscribe(r => {
-      if (r.wasSuccessful) {
-        this.toastr.success(r.statusMessage);
+  Delete(employeeid: number) {
+
+    this.DeletePopUp = true
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Esto borrara todos los datos previamente almacenados en la tabla.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#FFA500 ',
+      cancelButtonColor: '#6c757d',
+      confirmButtonText: 'Sí, Eliminar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.employeeService.Delete(employeeid).subscribe(r => {
+          if (r.wasSuccessful) {
+            this.toastr.success(r.statusMessage);
+          } else {
+            this.toastr.error(r.statusMessage);
+          }
+        })
       } else {
-        this.toastr.error(r.statusMessage);
+        this.DeletePopUp = false;
       }
-    })
+    });
   }
 }

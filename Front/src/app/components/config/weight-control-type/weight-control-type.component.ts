@@ -4,6 +4,7 @@ import { WeightCotrolTypeService } from '../../../services/weight-cotrol-type.se
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-weight-control-type',
@@ -16,9 +17,10 @@ export class WeightControlTypeComponent {
   constructor(
     private controlType: WeightCotrolTypeService,
     private toastr: ToastrService
-  ) {}
+  ) { }
   controlTypeList: WeightControlTypeModel[] = [];
   loader: boolean = false;
+  DeletePopUp: boolean = false;
   ngOnInit(): void {
     this.GetAll();
   }
@@ -33,14 +35,31 @@ export class WeightControlTypeComponent {
     });
     this.loader = false;
   }
-  Delete(id:number){
-    this.controlType.Delete(id).subscribe(r=>{
-      if (r.wasSuccessful == true) {
-        this.toastr.info(r.statusMessage);
+  Delete(id: number) {
+
+    this.DeletePopUp = true
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Esto borrara todos los datos previamente almacenados en la tabla.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#FFA500 ',
+      cancelButtonColor: '#6c757d',
+      confirmButtonText: 'Sí, Eliminar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.controlType.Delete(id).subscribe(r => {
+          if (r.wasSuccessful == true) {
+            this.toastr.info(r.statusMessage);
+          } else {
+            this.toastr.info(r.statusMessage);
+          }
+          this.GetAll();
+        });
       } else {
-        this.toastr.info(r.statusMessage);
+        this.DeletePopUp = false;
       }
-      this.GetAll();
     });
   }
 }

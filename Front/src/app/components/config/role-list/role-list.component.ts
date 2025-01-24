@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { ToastrService } from 'ngx-toastr';
 import { RoleService } from '../../../services/role.service';
 import { RoleViewModel } from '../../../models/RoleViewModel';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-role-list',
@@ -19,12 +20,13 @@ export class RoleListComponent {
     private roleService: RoleService,
   ) {
     this.formRoles = this.fb.group({
-      role: ['',Validators.required]
+      role: ['', Validators.required]
     })
   }
   formRoles: FormGroup;
   rolesList: RoleViewModel[] = [];
   showCreate: boolean = false;
+  DeletePopUp: boolean = false;
   ngOnInit(): void {
     this.GetAllRoles();
   }
@@ -60,13 +62,30 @@ export class RoleListComponent {
     })
   }
   Delete(roleId: number) {
-    this.roleService.Delete(roleId).subscribe(r => {
-      if (r.wasSuccessful) {
-        this.toastr.success(r.statusMessage);
-        this.GetAllRoles();
+
+    this.DeletePopUp = true
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Esto borrara todos los datos previamente almacenados en la tabla.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#FFA500 ',
+      cancelButtonColor: '#6c757d',
+      confirmButtonText: 'Sí, Eliminar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.roleService.Delete(roleId).subscribe(r => {
+          if (r.wasSuccessful) {
+            this.toastr.success(r.statusMessage);
+            this.GetAllRoles();
+          } else {
+            this.toastr.error(r.statusMessage);
+          }
+        })
       } else {
-        this.toastr.error(r.statusMessage);
+        this.DeletePopUp = false;
       }
-    })
+    });
   }
 }
