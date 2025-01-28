@@ -9,6 +9,7 @@ import { CustomerService } from '../../../services/customer.service';
 import { ToastrService } from 'ngx-toastr';
 import { ShipmentDetailComponent } from '../shipment-detail/shipment-detail.component';
 import Swal from 'sweetalert2';
+import { PriceType } from '../../../models/Enums';
 
 @Component({
   selector: 'app-provider-customer-selection',
@@ -31,6 +32,7 @@ export class ProviderCustomerSelectionComponent {
   CustomerList: CustomerViewModel[] = [];
   showShipmentDetail: boolean = false;
   edit: boolean = false;
+  priceType = PriceType;
   constructor(
     private customerService: CustomerService,
     private toastr: ToastrService
@@ -61,7 +63,7 @@ export class ProviderCustomerSelectionComponent {
 
   CustomerProviderSelect(value: any) {
     this.loader = true;
-    if (this.type == 1) {
+    if (this.type == this.priceType.Buy) {
       this.ShowProvider = true;
       this.customerService.GetAllProviders().subscribe((resultProvider) => {
         if (resultProvider.wasSuccessful == true) {

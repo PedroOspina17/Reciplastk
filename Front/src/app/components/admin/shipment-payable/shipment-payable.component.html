@@ -1,6 +1,6 @@
 <div class="w-75 mx-auto">
     <div class="text-center">
-        <h3>{{id == 1 ? 'Cuentas por pagar':'Cuentas por cobrar'}}</h3>
+        <h3>{{id == priceType.Buy ? 'Cuentas por pagar':'Cuentas por cobrar'}}</h3>
     </div>
 
     <div class="mt-4">
@@ -9,7 +9,7 @@
                 <tr>
                     <th>Id recivo</th>
                     <th>Tipo</th>
-                    <th>{{id == 1 ? 'Proveedor':'Cliente'}}</th>
+                    <th>{{id == priceType.Buy ? 'Proveedor':'Cliente'}}</th>
                     <th>Empleado</th>
                     <th>Fecha</th>
                     <th>Total pagado</th>
