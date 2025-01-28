@@ -68,7 +68,7 @@ export class WeightControlForPaymentsComponent {
     const selectedEmployee = this.FormPayments.value.Employee;
     const Model: WeightControlReportRequest = {
       StartDate: this.FormPayments.value.StartDate,
-      endDate: this.FormPayments.value.EndDate,
+      EndDate: this.FormPayments.value.EndDate,
       EmployeeId: selectedEmployee?.id,
       IsPaid: false,
     };
@@ -103,10 +103,10 @@ export class WeightControlForPaymentsComponent {
 
     if (isChecked) {
       this.BillInfo.Products = this.Filtered.map((item) => ({
-        weightcontroldetailid: item.weightcontroldetailid,
-        name: item.productName,
-        weight: item.weight,
-        price: item.weight * 150, // To do: replace for a config value
+        WeightControlDetailId: item.weightcontroldetailid,
+        Name: item.productName,
+        Weight: item.weight,
+        Price: item.weight * 150, // To do: replace for a config value
       }));
 
       this.BillInfo.TotalWeight = this.BillInfo.Products.reduce(

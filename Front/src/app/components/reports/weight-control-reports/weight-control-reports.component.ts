@@ -58,7 +58,7 @@ export class WeightControlReportsComponent {
   Filter() {
     const model: WeightControlReportRequest = {
       StartDate: this.FormGroupControl.value.StartDate,
-      endDate: this.FormGroupControl.value.EndDate,
+      EndDate: this.FormGroupControl.value.EndDate,
       ProductId: this.FormGroupControl.value.Productsid,
       EmployeeId: this.FormGroupControl.value.Employeeid,
       IsPaid: this.FormGroupControl.value.Ispaid,

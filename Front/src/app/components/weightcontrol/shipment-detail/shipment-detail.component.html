@@ -16,8 +16,8 @@
                             (change)="onSelectedProductChange($event)">
                             <option value="-1">Productos {{type=='1'?'generales':'especificos'}}</option>
                             <option *ngFor="let i of type == '1' ? GeneralProductsList:SpecificProductsList "
-                                value="{{i.productid}}">
-                                {{i.name}}</option>
+                                value="{{i.Id}}">
+                                {{i.Name}}</option>
                         </select>
                     </div>
                     <div class="me-3">

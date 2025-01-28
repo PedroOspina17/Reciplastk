@@ -3,8 +3,8 @@
         <h3>Recibo de pago</h3>
     </div>
     <div>
-        <p><strong>Empleado: </strong>{{BillInfo.employeeName}}</p>
-        <p><strong>Fecha: </strong> {{ BillInfo.date | date:'MM/dd/yyyy' }}</p>
+        <p><strong>Empleado: </strong>{{BillInfo.EmployeeName}}</p>
+        <p><strong>Fecha: </strong> {{ BillInfo.Date| date:'MM/dd/yyyy' }}</p>
     </div>
     <div class="mt-3 mb-4">
         <h4>Valores pagados</h4>
@@ -17,17 +17,17 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let product of BillInfo.products">
-                    <td>{{ product.name }}</td>
-                    <td>{{ product.weight }} kg</td>
-                    <td>{{ product.price | currency:'USD':'symbol':'1.0-0'}}</td>
+                <tr *ngFor="let product of BillInfo.Products">
+                    <td>{{ product.Name }}</td>
+                    <td>{{ product.Weight }} kg</td>
+                    <td>{{ product.Price| currency:'USD':'symbol':'1.0-0'}}</td>
                 </tr>
             </tbody>
         </table>
     </div>
     <div>
-        <p><strong>Total Peso Seleccionado:</strong> {{ BillInfo.totalWeight }} kg</p>
-        <p><strong>Total a Pagar:</strong> {{ BillInfo.totalToPay | currency:'USD':'symbol':'1.0-0'}}</p>
+        <p><strong>Total Peso Seleccionado:</strong> {{ BillInfo.TotalWeight }} kg</p>
+        <p><strong>Total a Pagar:</strong> {{ BillInfo.TotalToPay| currency:'USD':'symbol':'1.0-0'}}</p>
     </div>
 </div>
 <div class="container w-75 mt-4 text-end">

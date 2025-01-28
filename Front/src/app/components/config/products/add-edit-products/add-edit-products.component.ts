@@ -154,21 +154,21 @@ export class AddEditProductsComponent {
   }
   AddSubproduct() {
     const subproduct = {
-      shortname:
+      ShortName:
         this.formProduct.value.shortname +
         ' - ' +
         this.formSubproduct.value.nameSubproduct,
-      name:
+      Name:
         this.formProduct.value.name +
         ' ' +
         this.formSubproduct.value.nameSubproduct,
-      description:
+      Description:
         this.formProduct.value.description +
         ' ' +
         this.formSubproduct.value.nameSubproduct,
-      code: this.formProduct.value.code + (this.listSubproduct.length + 1),
-      buyprice: this.formProduct.value.buyprice,
-      sellprice: this.formSubproduct.value.sellpriceSubproduct,
+      Code: this.formProduct.value.code + (this.listSubproduct.length + 1),
+      BuyPrice: this.formProduct.value.buyprice,
+      SellPrice: this.formSubproduct.value.sellpriceSubproduct,
       issubtype: true,
     };
     this.listSubproduct.push(subproduct);
