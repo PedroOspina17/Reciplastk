@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ProductModel } from '../models/ProductModel';
+import { ProductsRequest } from '../models/Requests/ProductsRequest';
 import { HttpResponseModel } from '../models/HttpResponseModel';
 import { AppConfig } from '../common/app-config';
 
@@ -30,11 +30,11 @@ export class ProductsService {
     return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'GetParentId?id='+id)
   }
 
-  Create(productModel: ProductModel): Observable<HttpResponseModel>{
+  Create(productModel: ProductsRequest): Observable<HttpResponseModel>{
     return this.http.post<HttpResponseModel>(this.ServiceEndpoint+"Create", productModel)
   }
 
-  Update (productid: number, productModel: ProductModel): Observable<HttpResponseModel>{
+  Update (productid: number, productModel: ProductsRequest): Observable<HttpResponseModel>{
     return this.http.put<HttpResponseModel>(this.ServiceEndpoint+'Update', productModel)
   }
 

@@ -1,5 +1,5 @@
 import { ToastrService } from 'ngx-toastr';
-import { ProductModel } from '../../../../models/ProductModel';
+import { ProductsRequest } from '../../../../models/Requests/ProductsRequest';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -16,8 +16,8 @@ import Swal from 'sweetalert2';
   styleUrl: './list-products.component.css'
 })
 export class ListProductsComponent {
-  listProducts: ProductModel[] = [];
-  subProductsList: ProductModel[] = [];
+  listProducts: ProductsRequest[] = [];
+  subProductsList: ProductsRequest[] = [];
   loading: boolean = false;
   expandedArea: boolean = true;
   id: number;

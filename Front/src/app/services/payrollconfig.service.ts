@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AppConfig } from '../common/app-config';
 import { HttpResponseModel } from '../models/HttpResponseModel';
-import { PayrollConfig } from '../models/PayrollConfigViewModel';
+import { PayrollConfigRequest } from '../models/Requests/PayrollConfigRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -21,15 +21,15 @@ export class PayrollconfigService {
       return this.http.get<HttpResponseModel>(this.ServiceEndpoint + 'GetById?Id=' + id)
     }
   
-    Create(payrollConfig:PayrollConfig): Observable<HttpResponseModel> {
+    Create(payrollConfig:PayrollConfigRequest): Observable<HttpResponseModel> {
       return this.http.post<HttpResponseModel>(this.ServiceEndpoint + 'Create', payrollConfig)
     }
 
-    Filter(payrollConfig:PayrollConfig): Observable<HttpResponseModel> {
+    Filter(payrollConfig:PayrollConfigRequest): Observable<HttpResponseModel> {
       return this.http.post<HttpResponseModel>(this.ServiceEndpoint + 'Filter', payrollConfig)
     }
 
-    Update(payrollConfig:PayrollConfig): Observable<HttpResponseModel> {
+    Update(payrollConfig:PayrollConfigRequest): Observable<HttpResponseModel> {
       return this.http.post<HttpResponseModel>(this.ServiceEndpoint + 'Update', payrollConfig)
     }
   

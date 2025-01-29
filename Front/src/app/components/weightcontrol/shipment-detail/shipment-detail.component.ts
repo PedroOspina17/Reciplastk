@@ -9,9 +9,9 @@ import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { ShipmentService } from '../../../services/shipment.service';
 import { ShipmentDetailModel } from '../../../models/ShipmentDetailModel';
-import { ShipmentModel } from '../../../models/ShipmentModel';
+import { ShipmentRequest } from '../../../models/Requests/ShipmentRequest';
 import { ProductsService } from '../../../services/products.service';
-import { ProductModel } from '../../../models/ProductModel';
+import { ProductsRequest } from '../../../models/Requests/ProductsRequest';
 import { ProductPriceService } from '../../../services/product-price.service';
 import { ProductPriceInnerComponent } from "../../admin/product-price-inner/product-price-inner.component";
 
@@ -34,8 +34,8 @@ export class ShipmentDetailComponent {
   shipmentDetailList: ShipmentDetailModel[] = [];
   formShipment: FormGroup;
   loader: boolean = false;
-  GeneralProductsList: ProductModel[] = [];
-  SpecificProductsList: ProductModel[] = [];
+  GeneralProductsList: ProductsRequest[] = [];
+  SpecificProductsList: ProductsRequest[] = [];
   shipmenttypeid: number = -1;
   productPrice: number = 0;
   subtotal: number = 0;
@@ -95,9 +95,9 @@ export class ShipmentDetailComponent {
   }
   getProductName(id: number): string {
     if (this.type == '1') {
-      return this.GeneralProductsList.find((p) => p.productid == id)?.name ?? '';
+      return this.GeneralProductsList.find((p) => p.Id == id)?.Name ?? '';
     } else {
-      return this.SpecificProductsList.find((p) => p.productid == id)?.name ?? '';
+      return this.SpecificProductsList.find((p) => p.Id == id)?.Name ?? '';
     }
   }
   ngOnInit(): void {
@@ -134,11 +134,11 @@ export class ShipmentDetailComponent {
     this.loader = false;
   }
   Save() {
-    const shipment: ShipmentModel = {
-      shipmenttypeid: this.shipmenttypeid,
-      customerid: Number(this.personid),
-      totalprice: this.TotalPrice,
-      details: this.shipmentDetailList,
+    const shipment: ShipmentRequest = {
+      ShipmentTypeId: this.shipmenttypeid,
+      CustomerId: Number(this.personid),
+      TotalPrice: this.TotalPrice,
+      Details: this.shipmentDetailList,
     };
     this.shipmentService.Create(shipment).subscribe((result) => {
       if (result.wasSuccessful == true) {

@@ -22,11 +22,8 @@
                         <td>{{i.date | date: 'MM/dd/yyyy' }}</td>
                         <td>{{i.totalweight}} kg</td>
                         <td>{{i.totalprice | currency:'USD':'symbol':'1.0-0'}}</td>
-                        <td>
+                        <td class="text-center">
                             <div class="btn-group">
-                                <button routerLink="/admin/PaymentReceiptComponent/{{i.paymentid}}" type="button" class="btn btn-outline-warning">
-                                    <i class="bi bi-currency-dollar"></i>
-                                </button>
                                 <button type="button" routerLink="/admin/PaymentReceiptComponent/{{i.paymentid}}" class="btn btn-outline-primary">
                                     <i class="bi bi-eye"></i>
                                 </button>

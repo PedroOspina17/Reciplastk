@@ -4,7 +4,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { WeightCotrolTypeService } from '../../../services/weight-cotrol-type.service';
-import { WeightControlTypeModel } from '../../../models/WeightControlTypeModel';
+import { WeightControlTypeRequest } from '../../../models/Requests/WeightControlTypeRequest';
 
 @Component({
   selector: 'app-add-edit-weight-control-type',
@@ -51,13 +51,13 @@ export class AddEditWeightControlTypeComponent {
     })
   }
   CreateOrEdit(){
-    const ControlType: WeightControlTypeModel ={
-      name: this.formcontroltype.value.name,
-      description: this.formcontroltype.value.description,
-      isactive: this.formcontroltype.value.isactive
+    const ControlType: WeightControlTypeRequest ={
+      Name: this.formcontroltype.value.name,
+      Description: this.formcontroltype.value.description,
+      IsActive: this.formcontroltype.value.isactive
     };
     if (this.id != 0) {
-      ControlType.weightcontroltypeid = this.id;
+      ControlType.WeightControlTypeId = this.id;
       this.weightCotrolTypeService.Update(ControlType).subscribe(r=>{
         if (r.wasSuccessful == true) {
           this.toastr.success(r.statusMessage)

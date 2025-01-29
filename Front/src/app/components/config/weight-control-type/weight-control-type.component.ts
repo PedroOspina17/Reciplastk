@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { WeightControlTypeModel } from '../../../models/WeightControlTypeModel';
+import { WeightControlTypeRequest } from '../../../models/Requests/WeightControlTypeRequest';
 import { WeightCotrolTypeService } from '../../../services/weight-cotrol-type.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
@@ -18,7 +18,7 @@ export class WeightControlTypeComponent {
     private controlType: WeightCotrolTypeService,
     private toastr: ToastrService
   ) { }
-  controlTypeList: WeightControlTypeModel[] = [];
+  controlTypeList: WeightControlTypeRequest[] = [];
   loader: boolean = false;
   DeletePopUp: boolean = false;
   ngOnInit(): void {

@@ -23,7 +23,7 @@
                         <select formControlName="Product" class="form-select" name="" id="Product"
                             (change)="Filter()">
                             <option value="-1">Seleccione un producto</option>
-                            <option *ngFor="let i of SpecificProductsList" value="{{i.productid}}">{{i.shortname}}
+                            <option *ngFor="let i of SpecificProductsList" value="{{i.Id}}">{{i.ShortName}}
                             </option>
                         </select>
                     </div>

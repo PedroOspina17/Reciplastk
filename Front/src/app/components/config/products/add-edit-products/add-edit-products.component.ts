@@ -1,4 +1,4 @@
-import { ProductModel } from '../../../../models/ProductModel';
+import { ProductsRequest } from '../../../../models/Requests/ProductsRequest';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {
@@ -33,7 +33,7 @@ export class AddEditProductsComponent {
   id: number;
   operation: string = '';
   loading: boolean = false;
-  listSubproduct: ProductModel[] = [];
+  listSubproduct: ProductsRequest[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -92,8 +92,8 @@ export class AddEditProductsComponent {
         });
 
 
-        result.data.subproducts.forEach((element: ProductModel) => {
-          this.productPriceService.GetProductCurrentPrice(element.productid!, PriceType.Sell).subscribe(r => {
+        result.data.subproducts.forEach((element: ProductsRequest) => {
+          this.productPriceService.GetProductCurrentPrice(element.Id!, PriceType.Sell).subscribe(r => {
             if (r.wasSuccessful) {
               const productPrice = r.data;
               const product = {
@@ -112,21 +112,21 @@ export class AddEditProductsComponent {
     });
   }
   AddandUpdate() {
-    const product: ProductModel = {
-      shortname: this.formProduct.value.shortname,
-      name: this.formProduct.value.name,
-      description: this.formProduct.value.description,
-      code: this.formProduct.value.code,
-      buyprice: this.formProduct.value.buyprice,
-      sellprice: this.formProduct.value.sellprice,
-      subtypeProductList: this.listSubproduct,
+    const product: ProductsRequest = {
+      ShortName: this.formProduct.value.shortname,
+      Name: this.formProduct.value.name,
+      Description: this.formProduct.value.description,
+      Code: this.formProduct.value.code,
+      BuyPrice: this.formProduct.value.buyprice,
+      SellPrice: this.formProduct.value.sellprice,
+      SubTypeProductList: this.listSubproduct,
     };
-    product.productid = this.id;
+    product.Id = this.id;
     if (this.id != 0) {
       this.productService.Update(this.id, product).subscribe((result) => {
         if (result.wasSuccessful == true) {
           this.toastr.success(
-            `El producto ${product.name} fue actualizado con exito`,
+            `El producto ${product.Name} fue actualizado con exito`,
             `Producto Actualizado.`
           );
           this.loading = false;
@@ -141,7 +141,7 @@ export class AddEditProductsComponent {
       this.productService.Create(product).subscribe((result) => {
         if (result.wasSuccessful == true) {
           this.toastr.success(
-            `El producto ${product.name} fue creado Exitosamente`,
+            `El producto ${product.Name} fue creado Exitosamente`,
             `Producto Creado`
           );
           this.router.navigate(['/config/products']);
@@ -154,21 +154,21 @@ export class AddEditProductsComponent {
   }
   AddSubproduct() {
     const subproduct = {
-      shortname:
+      ShortName:
         this.formProduct.value.shortname +
         ' - ' +
         this.formSubproduct.value.nameSubproduct,
-      name:
+      Name:
         this.formProduct.value.name +
         ' ' +
         this.formSubproduct.value.nameSubproduct,
-      description:
+      Description:
         this.formProduct.value.description +
         ' ' +
         this.formSubproduct.value.nameSubproduct,
-      code: this.formProduct.value.code + (this.listSubproduct.length + 1),
-      buyprice: this.formProduct.value.buyprice,
-      sellprice: this.formSubproduct.value.sellpriceSubproduct,
+      Code: this.formProduct.value.code + (this.listSubproduct.length + 1),
+      BuyPrice: this.formProduct.value.buyprice,
+      SellPrice: this.formSubproduct.value.sellpriceSubproduct,
       issubtype: true,
     };
     this.listSubproduct.push(subproduct);

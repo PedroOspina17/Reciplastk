@@ -9,10 +9,10 @@ import {
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { WeightControlService } from '../../../services/weight-control-service';
-import { WeightControlReportParams } from '../../../models/WeightControlReportParams';
+import { WeightControlReportRequest } from '../../../models/Requests/WeightControlReportRequest';
 import { WeightControlReport } from '../../../models/WeightControlReport';
 import { DatePipe } from '@angular/common';
-import { PaymentReceipt } from '../../../models/PaymentReceipt';
+import { PaymentReceiptRequest } from '../../../models/Requests/PaymentReceiptRequest';
 import { PaymentReceiptComponent } from '../payment-receipt/payment-receipt.component';
 
 @Component({
@@ -40,14 +40,14 @@ export class WeightControlForPaymentsComponent {
       EndDate: [],
       Employee: [-1, [Validators.required, Validators.min(0)]],
     });
-    this.BillInfo = new PaymentReceipt();
+    this.BillInfo = new PaymentReceiptRequest();
   }
 
   FormPayments: FormGroup;
   EmployeeList: any[] = [];
   Filtered: (WeightControlReport & { selected: boolean })[] = [];
   isVisible: boolean = false;
-  BillInfo: PaymentReceipt;
+  BillInfo: PaymentReceiptRequest;
   ShowBill: boolean = false;
 
   ngOnInit(): void {
@@ -66,16 +66,16 @@ export class WeightControlForPaymentsComponent {
 
   Filter() {
     const selectedEmployee = this.FormPayments.value.Employee;
-    const Model: WeightControlReportParams = {
-      startDate: this.FormPayments.value.StartDate,
-      endDate: this.FormPayments.value.EndDate,
-      employeeId: selectedEmployee?.id,
-      ispaid: false,
+    const Model: WeightControlReportRequest = {
+      StartDate: this.FormPayments.value.StartDate,
+      EndDate: this.FormPayments.value.EndDate,
+      EmployeeId: selectedEmployee?.id,
+      IsPaid: false,
     };
-    this.BillInfo.employeeName = selectedEmployee.name;
-    this.BillInfo.employeeId = selectedEmployee.employeeid;
+    this.BillInfo.EmployeeName = selectedEmployee.name;
+    this.BillInfo.EmployeeId = selectedEmployee.employeeid;
     this.weightControlService.Filter(Model).subscribe((r) => {
-      this.BillInfo.date = this.datePipe.transform(new Date(), 'MM/dd/yyyy') || '';
+      this.BillInfo.Date = this.datePipe.transform(new Date(), 'MM/dd/yyyy') || '';
       if (r.wasSuccessful) {
         this.Filtered = r.data.map((item: WeightControlReport) => ({
           ...item,
@@ -83,9 +83,9 @@ export class WeightControlForPaymentsComponent {
           selected: false,
         }));
         const selectedEmployee = this.EmployeeList.find(
-          (employee) => employee.id === Model.employeeId
+          (employee) => employee.id === Model.EmployeeId
         );
-        this.BillInfo.employeeName = selectedEmployee.name;
+        this.BillInfo.EmployeeName = selectedEmployee.name;
       } else {
         this.toastr.error(
           'No se encontraron los detalles con los filtros aplicados'
@@ -102,22 +102,22 @@ export class WeightControlForPaymentsComponent {
     });
 
     if (isChecked) {
-      this.BillInfo.products = this.Filtered.map((item) => ({
-        weightcontroldetailid: item.weightcontroldetailid,
-        name: item.productName,
-        weight: item.weight,
-        price: item.weight * 150, // To do: replace for a config value
+      this.BillInfo.Products = this.Filtered.map((item) => ({
+        WeightControlDetailId: item.weightcontroldetailid,
+        Name: item.productName,
+        Weight: item.weight,
+        Price: item.weight * 150, // To do: replace for a config value
       }));
 
-      this.BillInfo.totalWeight = this.BillInfo.products.reduce(
-        (sum, product) => sum + product.weight,
+      this.BillInfo.TotalWeight = this.BillInfo.Products.reduce(
+        (sum, product) => sum + product.Weight,
         0
       );
-      this.BillInfo.totalToPay = this.BillInfo.totalWeight * 150; // To do: replace for a config value
+      this.BillInfo.TotalToPay = this.BillInfo.TotalWeight * 150; // To do: replace for a config value
     } else {
-      this.BillInfo.products = [];
-      this.BillInfo.totalWeight = 0;
-      this.BillInfo.totalToPay = 0;
+      this.BillInfo.Products = [];
+      this.BillInfo.TotalWeight = 0;
+      this.BillInfo.TotalToPay = 0;
     }
   }
 
@@ -129,24 +129,24 @@ export class WeightControlForPaymentsComponent {
   ) {
     const checkbox = event.target as HTMLInputElement;
     if (checkbox.checked) {
-      this.BillInfo.products.push({
-        weightcontroldetailid: weightcontroldetailid,
-        name: productName,
-        weight: weight,
-        price: weight * 150, // To do: replace for a config value
+      this.BillInfo.Products.push({
+        WeightControlDetailId: weightcontroldetailid,
+        Name: productName,
+        Weight: weight,
+        Price: weight * 150, // To do: replace for a config value
       });
-      this.BillInfo.totalWeight += weight;
+      this.BillInfo.TotalWeight += weight;
     } else {
-      this.BillInfo.products = this.BillInfo.products.filter(
-        (product) => product.weightcontroldetailid !== weightcontroldetailid
+      this.BillInfo.Products = this.BillInfo.Products.filter(
+        (product) => product.WeightControlDetailId !== weightcontroldetailid
       );
-      this.BillInfo.totalWeight -= weight;
+      this.BillInfo.TotalWeight -= weight;
     }
-    this.BillInfo.totalToPay = this.BillInfo.totalWeight * 150; // To do: replace for a config value
+    this.BillInfo.TotalToPay = this.BillInfo.TotalWeight * 150; // To do: replace for a config value
   }
 
   PayAndSave() {
-    if (this.BillInfo.products.length > 0) {
+    if (this.BillInfo.Products.length > 0) {
       this.weightControlService.PayAndSave(this.BillInfo).subscribe((r) => {
         if (r.wasSuccessful) {
           this.toastr.success('Se modificaron los pagos correctamente');

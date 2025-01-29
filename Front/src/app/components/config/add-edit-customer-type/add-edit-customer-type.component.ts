@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { CustomerTypeModel } from '../../../models/CustomerTypeModel';
+import { CustomerTypeRequest } from '../../../models/Requests/CustomerTypeRequest';
 import { CustomerTypeService } from '../../../services/customer-type.service';
 
 @Component({
@@ -51,10 +51,10 @@ export class AddEditCustomerTypeComponent {
     }
   }
   AddEditCustomer() {
-    const customermodel: CustomerTypeModel = {
-      name: this.FormCustomer.value.name,
-      description: this.FormCustomer.value.description,
-      isactive: this.FormCustomer.value.isactive,
+    const customermodel: CustomerTypeRequest = {
+      Name: this.FormCustomer.value.name,
+      Description: this.FormCustomer.value.description,
+      IsActive: this.FormCustomer.value.isactive,
     };
     if (this.id == 0) {
       this.customerTypeService.Create(customermodel).subscribe((r) => {
@@ -66,7 +66,7 @@ export class AddEditCustomerTypeComponent {
         }
       });
     } else {
-      customermodel.customertypeid = this.id;
+      customermodel.Id = this.id;
       this.customerTypeService.Update(customermodel, this.id).subscribe((r) => {
         if (r.wasSuccessful == true) {
           this.toastr.success(r.statusMessage);

@@ -6,7 +6,7 @@ import { CustomerViewModel } from '../../../models/CustomerModel';
 import { CustomerService } from '../../../services/customer.service';
 import { CopyCustomerPricesViewModel } from '../../../models/CopyCustomerPricesViewModel';
 import { ProductPriceService } from '../../../services/product-price.service';
-import { ProductPriceModel } from '../../../models/ProductPriceModel';
+import { PriceTypeRequest } from '../../../models/Requests/PriceTypeRequest';
 import { ProductPriceInnerParams } from '../../../models/ProductPriceInnerParams';
 
 @Component({
@@ -40,8 +40,8 @@ export class CopyCustomerPricesComponent {
     });
   }
   Filter() {
-    const productPriceModel: ProductPriceModel = {
-      customerid: this.FormSelects.value.CustomerToCopyId
+    const productPriceModel: PriceTypeRequest = {
+      CustomerId: this.FormSelects.value.CustomerToCopyId
     }
     this.productPriceService.Filter(productPriceModel).subscribe(r => {
       if (r.wasSuccessful) {
@@ -54,12 +54,9 @@ export class CopyCustomerPricesComponent {
   SaveInfo() {
     if (this.FormSelects.value.CustomerToCopyId == this.FormSelects.value.CustomerToAssignId) {
       this.toastr.error("El cliente a asignar no puede ser el mismo que el cliente a copiar");
-
-      this.FormSelects.setValue({
-        CustomerToCopyId: [-1,],
-        CustomerToAssignId: [-1]
-      })
-
+      this.FormSelects.patchValue({
+        CustomerToAssignId: -1 
+      });
     } else {
       const copyCustomerPricesViewModel: CopyCustomerPricesViewModel = {
         customerFrom: this.FormSelects.value.CustomerToCopyId,
