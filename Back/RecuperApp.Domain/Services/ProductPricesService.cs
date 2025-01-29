@@ -49,7 +49,7 @@ namespace RecuperApp.Domain.Services
         public HttpResponseModel GetPriceTypesById(int id)
         {
             var response = new HttpResponseModel();
-            var pricestypes = db.PriceTypes.Where(x => x.IsActive == true && x.PriceTypeId == id).FirstOrDefault();
+            var pricestypes = db.PriceTypes.Where(x => x.IsActive == true && x.Id == id).FirstOrDefault();
             if (pricestypes != null)
             {
                 response.Data = pricestypes;
@@ -64,7 +64,7 @@ namespace RecuperApp.Domain.Services
         public HttpResponseModel GetProductPricesById(int id)
         {
             var response = new HttpResponseModel();
-            var productprices = db.ProductPrices.Where(x => x.IsActive == true && x.ProductPriceId == id).FirstOrDefault();
+            var productprices = db.ProductPrices.Where(x => x.IsActive == true && x.Id == id).FirstOrDefault();
             if (productprices != null)
             {
                 response.Data = productprices;
@@ -163,11 +163,11 @@ namespace RecuperApp.Domain.Services
             foreach (var customer in customers)
             {
                 //customer.Iscurrentprice = false;
-                var currentprice = (double)this.GetCurrentPrice(productPricesViewModel.ProductId, customer.CustomerId, productPricesViewModel.PriceTypeId).Data;
+                var currentprice = (double)this.GetCurrentPrice(productPricesViewModel.ProductId, customer.Id, productPricesViewModel.PriceTypeId).Data;
                 var newObject = new ProductPrice
                 {
                     ProductId = productPricesViewModel.ProductId,
-                    CustomerId = customer.CustomerId,
+                    CustomerId = customer.Id,
                     PricetypeId = productPricesViewModel.PriceTypeId,
                     EmployeeId = 29
                 };
@@ -237,7 +237,7 @@ namespace RecuperApp.Domain.Services
         {
             var BuyPriceViewModel = new ProductPricesRequest()
             {
-                ProductId = ProductsModel.ProductRef.ProductId,
+                ProductId = ProductsModel.ProductRef.Id,
                 PriceTypeId = (int)Enums.PriceTypeEnum.Buy,
                 EmployeeId = 29, // To do: replace for a config value
                 Price = ProductsModel.BuyPrice,
@@ -247,7 +247,7 @@ namespace RecuperApp.Domain.Services
             {
                 BuyPriceViewModel = new ProductPricesRequest()
                 {
-                    ProductId = ProductsModel.ProductRef.ProductId,
+                    ProductId = ProductsModel.ProductRef.Id,
                     PriceTypeId = (int)Enums.PriceTypeEnum.Sell,
                     EmployeeId = 29, // To do: replace for a config value
                     Price = ProductsModel.SellPrice,
@@ -304,7 +304,7 @@ namespace RecuperApp.Domain.Services
             var CopyPriceViewModel = new CopyCustomerPricesRequest
             {
                 CustomerFrom = lastestPrice.CustomerId,
-                CustomerTo = customer.CustomerId,
+                CustomerTo = customer.Id,
             };
             return this.CopyPrices(CopyPriceViewModel);
         }

@@ -6,9 +6,6 @@ namespace RecuperApp.Domain.Models.EntityModels;
 
 public partial class Employee : BaseEntity
 {
-    [Key]
-    public int EmployeeId { get; set; }
-
     public int? RoleId { get; set; }
     public virtual Role Role { get; set; }
 
@@ -40,19 +37,4 @@ public partial class Employee : BaseEntity
     [Column(TypeName = "timestamp without time zone")]
     public DateTime DateOfJoin { get; set; }
 
-
-    //[InverseProperty("Employe")]
-    //public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
-
-    //[InverseProperty("Employee")]
-    //public virtual ICollection<Payrollconfig> Payrollconfigs { get; set; } = new List<Payrollconfig>();
-
-    //[InverseProperty("Employee")]
-    //public virtual ICollection<Productprice> Productprices { get; set; } = new List<Productprice>();
-
-    //[InverseProperty("Employee")]
-    //public virtual ICollection<Shipment> Shipments { get; set; } = new List<Shipment>();
-
-    //[InverseProperty("Employee")]
-    //public virtual ICollection<Weightcontrol> Weightcontrols { get; set; } = new List<Weightcontrol>();
 }

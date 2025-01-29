@@ -43,16 +43,16 @@ namespace RecuperApp.Domain.Services
         public HttpResponseModel GetReceivableReceiptInfo(int id)
         {
             var response = new HttpResponseModel();
-            var query = db.Shipments.Where(x => x.ShipmentId == id).Select(z => new RecivableViewModel
+            var query = db.Shipments.Where(x => x.Id == id).Select(z => new RecivableViewModel
             {
-                ShipmentId = z.ShipmentId,
+                Id = z.Id,
                 ShipmentType = z.ShipmenttypeId,
                 ShipmentTypeName = z.Shipmenttype.Name,
                 EmployeeName = z.Employee.Name,
                 CustomerName = z.Customer.Name,
                 Date = z.CreatedDate,
                 TotalPrice = z.TotalPrice,
-                Details = db.ShipmentDetails.Where(sd=> sd.ShipmentId == z.ShipmentId).Select(x => new RecivableDetails
+                Details = db.ShipmentDetails.Where(sd=> sd.ShipmentId == z.Id).Select(x => new RecivableDetails
                 {
                     ProductName = x.Product.Name,
                     Weight = x.Weight,
@@ -73,7 +73,7 @@ namespace RecuperApp.Domain.Services
         }
         private Shipment Exist(int shipmentid)
         {
-            var shipment = db.Shipments.Where(x => x.ShipmentId == shipmentid && x.IsActive).FirstOrDefault();
+            var shipment = db.Shipments.Where(x => x.Id == shipmentid && x.IsActive).FirstOrDefault();
             return shipment;
         }
        
@@ -169,14 +169,14 @@ namespace RecuperApp.Domain.Services
             var response = new HttpResponseModel();
             var query = db.Shipments.Where(x => x.IsPaid == false && x.ShipmenttypeId == id).Select(z => new RecivableViewModel
             {
-                ShipmentId = z.ShipmentId,
+                Id = z.Id,
                 ShipmentType = z.ShipmenttypeId,
                 ShipmentTypeName = z.Shipmenttype.Name,
                 EmployeeName = z.Employee.Name,
                 CustomerName = z.Customer.Name,
                 Date = z.CreatedDate,
                 TotalPrice = z.TotalPrice,
-                Details = db.ShipmentDetails.Where(sd => sd.ShipmentId == z.ShipmentId).Select(x => new RecivableDetails
+                Details = db.ShipmentDetails.Where(sd => sd.ShipmentId == z.Id).Select(x => new RecivableDetails
                 {
                     ProductName = x.Product.Name,
                     Weight = x.Weight,

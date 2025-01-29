@@ -10,7 +10,7 @@ namespace RecuperApp.Domain.Repositories.Seeders
         {
             builder.HasData(new Role
             {
-                RoleId = 1,
+                Id = 1,
                 Name = "Admin",
                 CreatedDate = DateTime.Parse("01/22/2025 10:45:45"),
                 IsActive = true,

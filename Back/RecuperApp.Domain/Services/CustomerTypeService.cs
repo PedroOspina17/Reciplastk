@@ -41,7 +41,7 @@ namespace RecuperApp.Domain.Services
         }
         private CustomerType GetByid(int customerTypeId)
         {
-            var customerType = db.CustomerTypes.Where(x => x.CustomerTypeId == customerTypeId && x.IsActive == true).FirstOrDefault();
+            var customerType = db.CustomerTypes.Where(x => x.Id == customerTypeId && x.IsActive == true).FirstOrDefault();
             return customerType;
         }
         private CustomerType GetByName(string customerTypeName)
@@ -81,8 +81,6 @@ namespace RecuperApp.Domain.Services
             var customerType = GetByid(customerTypeModel.CustomerTypeId);
             if (customerType != null)
             {
-                customerType.CustomerTypeId = customerTypeModel.CustomerTypeId;
-                customerType.Name = customerTypeModel.Name;
                 customerType.Description = customerTypeModel.Description;
                 customerType.UpdatedDate = DateTime.Now;
                 customerType.IsActive = true;

@@ -31,7 +31,7 @@ namespace RecuperApp.Domain.Services
         public HttpResponseModel GetById(int id)
         {
             var response = new HttpResponseModel();
-            var query = db.PayrollConfigs.Where(x => x.PayrollConfigId == id).FirstOrDefault();
+            var query = db.PayrollConfigs.Where(x => x.Id == id).FirstOrDefault();
             response.Data = query;
             return response;
         }
@@ -90,7 +90,7 @@ namespace RecuperApp.Domain.Services
         public HttpResponseModel Delete(int id) 
         {
             var response = new HttpResponseModel();
-            var payRoll = db.PayrollConfigs.Where(x=> x.PayrollConfigId == id).FirstOrDefault();
+            var payRoll = db.PayrollConfigs.Where(x=> x.Id == id).FirstOrDefault();
             if (payRoll != null)
             {
                 payRoll.IsActive = false;

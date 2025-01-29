@@ -11,10 +11,10 @@ var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
-builder.Services.AddApplicationDataAccess(config);
 builder.Services.AddApplicationAutoMapper();
-builder.Services.AddApplicationServices();
+builder.Services.AddApplicationDataAccess(config);
 builder.Services.AddApplicationRepositories();
+builder.Services.AddApplicationServices();
 builder.Services.AddCors(options => options.AddPolicy("AllowWebApp", builder =>
                             builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).

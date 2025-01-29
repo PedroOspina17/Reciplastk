@@ -5,9 +5,6 @@ namespace RecuperApp.Domain.Models.EntityModels;
 
 public class PayrollConfig : BaseEntity
 {
-    [Key]
-    public int PayrollConfigId { get; set; }
-
     public int ProductId { get; set; }
     public virtual Product Product { get; set; }
 

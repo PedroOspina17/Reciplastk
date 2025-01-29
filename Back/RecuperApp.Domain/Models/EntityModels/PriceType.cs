@@ -5,8 +5,6 @@ namespace RecuperApp.Domain.Models.EntityModels;
 
 public class PriceType : BaseEntity
 {
-    [Key]
-    public int PriceTypeId { get; set; }
 
     [Required]
     [StringLength(50)]
