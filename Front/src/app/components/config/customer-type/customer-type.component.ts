@@ -28,12 +28,12 @@ export class CustomerTypeComponent {
   }
   GetAll() {
     this.customerTypeService.GetAll().subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.customertypelist = r.data;
-        console.log('Data2', r.data);
+      if (r.WasSuccessful == true) {
+        this.customertypelist = r.Data;
+        console.log('Data2', r.Data);
         console.log('Data', this.customertypelist);
       } else {
-        this.toastr.info(r.statusMessage);
+        this.toastr.info(r.StatusMessage);
       }
     });
   }
@@ -52,10 +52,10 @@ export class CustomerTypeComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         this.customerTypeService.Delete(id).subscribe((r) => {
-          if (r.wasSuccessful == true) {
-            this.toastr.info(r.statusMessage);
+          if (r.WasSuccessful == true) {
+            this.toastr.info(r.StatusMessage);
           } else {
-            this.toastr.error(r.statusMessage, 'Error');
+            this.toastr.error(r.StatusMessage, 'Error');
           }
           this.GetAll();
         });

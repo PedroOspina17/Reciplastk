@@ -27,9 +27,9 @@ export class PaymentReceiptComponent {
   }
   GetReceipt(id: number) {
     this.weightcontrolservice.GetReceipt(id).subscribe((r) => {
-      if (r.wasSuccessful == true) {
+      if (r.WasSuccessful == true) {
         this.fromBillList = true;
-        this.BillInfo = r.data;
+        this.BillInfo = r.Data;
       }
     });
   }

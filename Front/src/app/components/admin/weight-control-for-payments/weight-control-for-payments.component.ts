@@ -56,8 +56,8 @@ export class WeightControlForPaymentsComponent {
 
   GetEmployee() {
     this.weightControlService.GetEmployee().subscribe((r) => {
-      if (r.wasSuccessful) {
-        this.EmployeeList = r.data;
+      if (r.WasSuccessful) {
+        this.EmployeeList = r.Data;
       } else {
         this.toastr.error('No se encontró ningún empleado');
       }
@@ -76,8 +76,8 @@ export class WeightControlForPaymentsComponent {
     this.BillInfo.EmployeeId = selectedEmployee.employeeid;
     this.weightControlService.Filter(Model).subscribe((r) => {
       this.BillInfo.Date = this.datePipe.transform(new Date(), 'MM/dd/yyyy') || '';
-      if (r.wasSuccessful) {
-        this.Filtered = r.data.map((item: WeightControlReport) => ({
+      if (r.WasSuccessful) {
+        this.Filtered = r.Data.map((item: WeightControlReport) => ({
           ...item,
           date: this.datePipe.transform(item.date, 'short') || '',
           selected: false,
@@ -148,7 +148,7 @@ export class WeightControlForPaymentsComponent {
   PayAndSave() {
     if (this.BillInfo.Products.length > 0) {
       this.weightControlService.PayAndSave(this.BillInfo).subscribe((r) => {
-        if (r.wasSuccessful) {
+        if (r.WasSuccessful) {
           this.toastr.success('Se modificaron los pagos correctamente');
           this.Filter();
           this.ShowBill = true;

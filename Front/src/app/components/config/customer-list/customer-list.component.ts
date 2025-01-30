@@ -31,8 +31,8 @@ export class CustomerListComponent {
   ShowAllCustomers() {
     this.loader = true;
     this.customerService.GetAll().subscribe((result) => {
-      if (result.wasSuccessful == true) {
-        this.CustomerList = result.data;
+      if (result.WasSuccessful == true) {
+        this.CustomerList = result.Data;
         this.loader = false;
       } else {
         this.toastr.info('No se encontro ningun cliente');
@@ -56,11 +56,11 @@ export class CustomerListComponent {
       if (result.isConfirmed) {
         this.loader = true;
         this.customerService.Delete(customerId).subscribe((result) => {
-          if (result.wasSuccessful) {
+          if (result.WasSuccessful) {
             this.loader = false;
-            this.toastr.info(result.statusMessage, 'Cliente eliminado');
+            this.toastr.info(result.StatusMessage, 'Cliente eliminado');
           } else {
-            this.toastr.error(result.statusMessage, 'error');
+            this.toastr.error(result.StatusMessage, 'error');
           }
           this.ShowAllCustomers();
         });

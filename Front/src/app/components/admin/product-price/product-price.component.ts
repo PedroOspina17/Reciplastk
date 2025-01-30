@@ -58,28 +58,28 @@ export class ProductPriceComponent {
 
   GetAllPriceTypes() {
     this.productPriceService.GetAllPriceTypes().subscribe(r => {
-      if (r.wasSuccessful) {
-        this.PriceTypesList = r.data;
+      if (r.WasSuccessful) {
+        this.PriceTypesList = r.Data;
       } else {
-        this.toastr.error(r.statusMessage)
+        this.toastr.error(r.StatusMessage)
       }
     });
   }
   GetProduct(id: number) {
     if (id == this.priceType.Buy) {
       this.productsService.GetMain().subscribe(r => {
-        if (r.wasSuccessful) {
-          this.ProductsList = r.data;
+        if (r.WasSuccessful) {
+          this.ProductsList = r.Data;
         } else {
-          this.toastr.error(r.statusMessage);
+          this.toastr.error(r.StatusMessage);
         }
       })
     } else {
       this.productsService.GetAll().subscribe(r => {
-        if (r.wasSuccessful) {
-          this.ProductsList = r.data;
+        if (r.WasSuccessful) {
+          this.ProductsList = r.Data;
         } else {
-          this.toastr.error(r.statusMessage);
+          this.toastr.error(r.StatusMessage);
         }
       })
     }

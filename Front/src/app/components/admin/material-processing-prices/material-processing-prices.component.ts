@@ -61,26 +61,26 @@ export class MaterialProcessingPricesComponent {
       ShowAll: this.showAll
     };
     this.payrollconfigService.Filter(payrollConfig).subscribe(r => {
-      if (r.wasSuccessful) {
-        this.payrollConfigList = r.data
+      if (r.WasSuccessful) {
+        this.payrollConfigList = r.Data
       } else {
-        this.toastr.info(r.statusMessage);
+        this.toastr.info(r.StatusMessage);
       }
     })
   }
   GetProduct() {
     this.productsService.GetSpecificProducts().subscribe(r => {
-      if (r.wasSuccessful) {
-        this.SpecificProductsList = r.data;
+      if (r.WasSuccessful) {
+        this.SpecificProductsList = r.Data;
       } else {
-        this.toastr.info(r.statusMessage);
+        this.toastr.info(r.StatusMessage);
       }
     })
   }
   GetEmployee() {
     this.weightControlService.GetEmployee().subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.employeeList = r.data;
+      if (r.WasSuccessful == true) {
+        this.employeeList = r.Data;
       } else {
         this.toastr.info('No se encontro ningun empleado');
       }
@@ -93,15 +93,15 @@ export class MaterialProcessingPricesComponent {
       PricePerKilo: this.formSelect.value.price,
     }
     this.payrollconfigService.Create(model).subscribe(r => {
-      if (r.wasSuccessful) {
-        this.toastr.success(r.statusMessage)
+      if (r.WasSuccessful) {
+        this.toastr.success(r.StatusMessage)
         this.Filter()
         this.formSelect.reset({
           Product: -1,
           Employee: -1,
         });
       } else {
-        this.toastr.error(r.statusMessage)
+        this.toastr.error(r.StatusMessage)
       }
     })
   }

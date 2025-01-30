@@ -9,7 +9,7 @@ import { CustomerService } from '../../../services/customer.service';
 import { ToastrService } from 'ngx-toastr';
 import { ShipmentDetailComponent } from '../shipment-detail/shipment-detail.component';
 import Swal from 'sweetalert2';
-import { PriceType } from '../../../models/Enums';
+import { CustomerTypeEnum } from '../../../models/Enums';
 
 @Component({
   selector: 'app-provider-customer-selection',
@@ -32,7 +32,7 @@ export class ProviderCustomerSelectionComponent {
   CustomerList: CustomerViewModel[] = [];
   showShipmentDetail: boolean = false;
   edit: boolean = false;
-  priceType = PriceType;
+  CustomerEnum = CustomerTypeEnum;
   constructor(
     private customerService: CustomerService,
     private toastr: ToastrService
@@ -63,20 +63,20 @@ export class ProviderCustomerSelectionComponent {
 
   CustomerProviderSelect(value: any) {
     this.loader = true;
-    if (this.type == this.priceType.Buy) {
+    if (this.type == this.CustomerEnum.Provider) {
       this.ShowProvider = true;
       this.customerService.GetAllProviders().subscribe((resultProvider) => {
-        if (resultProvider.wasSuccessful == true) {
-          this.CustomerList = resultProvider.data;
+        if (resultProvider.WasSuccessful == true) {
+          this.CustomerList = resultProvider.Data;
         } else {
           this.toastr.info('No se encontro ningun proveedor');
         }
       });
-    } else if (this.type == 2) {
+    } else if (this.type == this.CustomerEnum.Customer) {
       this.ShowProvider = false;
       this.customerService.GetAllCustomer().subscribe((resultCustomer) => {
-        if (resultCustomer.wasSuccessful == true) {
-          this.CustomerList = resultCustomer.data;
+        if (resultCustomer.WasSuccessful == true) {
+          this.CustomerList = resultCustomer.Data;
         } else {
           this.toastr.info('No se encontron ningun cliente');
         }

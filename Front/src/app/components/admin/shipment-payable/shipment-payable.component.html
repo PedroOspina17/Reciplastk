@@ -1,6 +1,6 @@
 <div class="w-75 mx-auto">
     <div class="text-center">
-        <h3>{{id == priceType.Buy ? 'Cuentas por pagar':'Cuentas por cobrar'}}</h3>
+        <h3>{{id == ShipmentMovement.In ? 'Cuentas por pagar':'Cuentas por cobrar'}}</h3>
     </div>
 
     <div class="mt-4">
@@ -9,7 +9,7 @@
                 <tr>
                     <th>Id recivo</th>
                     <th>Tipo</th>
-                    <th>{{id == priceType.Buy ? 'Proveedor':'Cliente'}}</th>
+                    <th>{{id == ShipmentMovement.In ? 'Proveedor':'Cliente'}}</th>
                     <th>Empleado</th>
                     <th>Fecha</th>
                     <th>Total pagado</th>
@@ -28,10 +28,12 @@
                     <td>{{i.totalprice | currency:'USD':'symbol':'1.0-0'}}</td>
                     <td>
                         <div class="btn-group">
-                            <button routerLink="/admin/ShipmentPayableReceiptComponent/{{i.shipmentid}}"  type="button" class="btn btn-outline-warning">
+                            <button routerLink="/admin/ShipmentPayableReceiptComponent/{{i.shipmentid}}" type="button"
+                                class="btn btn-outline-warning">
                                 <i class="bi bi-currency-dollar"></i>
                             </button>
-                            <button  routerLink="/admin/ShipmentPayableReceiptComponent/{{i.shipmentid}}"  type="button" class="btn btn-outline-primary">
+                            <button routerLink="/admin/ShipmentPayableReceiptComponent/{{i.shipmentid}}" type="button"
+                                class="btn btn-outline-primary">
                                 <i class="bi bi-eye"></i>
                             </button>
                             <button type="button" class="btn btn-outline-success">
@@ -44,5 +46,3 @@
         </table>
     </div>
 </div>
-
-

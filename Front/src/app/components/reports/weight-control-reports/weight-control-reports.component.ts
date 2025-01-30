@@ -65,8 +65,8 @@ export class WeightControlReportsComponent {
       Type: this.FormGroupControl.value.Typeid,
     };
     this.weightControlService.Filter(model).subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.weightControlReport = r.data
+      if (r.WasSuccessful == true) {
+        this.weightControlReport = r.Data
         this.ShowTable = true;
       } else {
         this.toastr.error('No se encontraron productos con los filtros aplicados')
@@ -75,22 +75,22 @@ export class WeightControlReportsComponent {
   }
   GetInfo() {
     this.weightControlService.GetEmployee().subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.EmployeeList = r.data;
+      if (r.WasSuccessful == true) {
+        this.EmployeeList = r.Data;
       } else {
         this.toastr.info('No se encontraron los empleados');
       }
     });
     this.productsService.GetAll().subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.ProductList = r.data;
+      if (r.WasSuccessful == true) {
+        this.ProductList = r.Data;
       } else {
         this.toastr.info('No se encontraron los productos');
       }
     });
     this.weightControloTypeService.GetAll().subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.WeightControlTypeList = r.data;
+      if (r.WasSuccessful == true) {
+        this.WeightControlTypeList = r.Data;
       } else {
         this.toastr.info('No se encontraron los tipos de envio');
       }

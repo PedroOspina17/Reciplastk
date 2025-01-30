@@ -58,21 +58,21 @@ export class AddEditCustomerTypeComponent {
     };
     if (this.id == 0) {
       this.customerTypeService.Create(customermodel).subscribe((r) => {
-        if (r.wasSuccessful == true) {
-          this.toastr.success(r.statusMessage);
+        if (r.WasSuccessful == true) {
+          this.toastr.success(r.StatusMessage);
           this.router.navigate(['/config/CustomerTypeComponent']);
         } else {
-          this.toastr.error(r.statusMessage, 'Error');
+          this.toastr.error(r.StatusMessage, 'Error');
         }
       });
     } else {
       customermodel.Id = this.id;
       this.customerTypeService.Update(customermodel, this.id).subscribe((r) => {
-        if (r.wasSuccessful == true) {
-          this.toastr.success(r.statusMessage);
+        if (r.WasSuccessful == true) {
+          this.toastr.success(r.StatusMessage);
           this.router.navigate(['/config/CustomerTypeComponent']);
         } else {
-          this.toastr.error(r.statusMessage, 'Error');
+          this.toastr.error(r.StatusMessage, 'Error');
         }
       });
     }
@@ -80,14 +80,14 @@ export class AddEditCustomerTypeComponent {
 
   GetById(id: number) {
     this.customerTypeService.GetById(id).subscribe((result) => {
-      if (result.wasSuccessful == true) {
+      if (result.WasSuccessful == true) {
         this.FormCustomer.setValue({
-          name: result.data.name,
-          description: result.data.description,
-          isactive: result.data.isactive
+          name: result.Data.name,
+          description: result.Data.description,
+          isactive: result.Data.isactive
         });
       } else {
-        this.toastr.error(result.data);
+        this.toastr.error(result.Data);
       }
     });
   }

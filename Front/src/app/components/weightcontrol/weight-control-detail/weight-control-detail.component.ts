@@ -50,8 +50,8 @@ export class WeightControlDetailComponent {
   }
   GetSpecificProducts() {
     this.productService.GetSpecificProducts().subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.specificProducts = r.data;
+      if (r.WasSuccessful == true) {
+        this.specificProducts = r.Data;
         this.filterProducts = this.specificProducts.filter(
           (p) => p.ParentId == this.productid
         );
@@ -88,12 +88,12 @@ export class WeightControlDetailComponent {
       WeightDetail: this.weightcontroldetaillist,
     };
     this.weightControlService.CreateSeparation(weightcontrol).subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.toastr.success(r.statusMessage);
+      if (r.WasSuccessful == true) {
+        this.toastr.success(r.StatusMessage);
         this.weightcontroldetaillist = [];
         this.onComplete.emit();
       } else {
-        this.toastr.success(r.statusMessage);
+        this.toastr.success(r.StatusMessage);
       }
     });
   }

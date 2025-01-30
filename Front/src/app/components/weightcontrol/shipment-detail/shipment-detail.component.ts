@@ -59,8 +59,8 @@ export class ShipmentDetailComponent {
     if (this.type == '1') {
       this.shipmenttypeid = 1;
       this.productPriceService.GetCurrentPrice(value.target.value, this.personid, this.shipmenttypeid).subscribe(r => {
-        if (r.wasSuccessful) {
-          this.productPrice = r.data;
+        if (r.WasSuccessful) {
+          this.productPrice = r.Data;
         } else {
           this.toastr.error('No se encontro el precio de venta');
         }
@@ -68,8 +68,8 @@ export class ShipmentDetailComponent {
     } else {
       this.shipmenttypeid = 2;
       this.productPriceService.GetCurrentPrice(value.target.value, this.personid, this.shipmenttypeid).subscribe(r => {
-        if (r.wasSuccessful) {
-          this.productPrice = r.data;
+        if (r.WasSuccessful) {
+          this.productPrice = r.Data;
         } else {
           this.toastr.error('No se encontro el precio de venta');
         }
@@ -107,16 +107,16 @@ export class ShipmentDetailComponent {
     this.loader = true;
     if (this.type == '1') {
       this.productsService.GetMain().subscribe((GeneralResult) => {
-        if (GeneralResult.wasSuccessful == true) {
-          this.GeneralProductsList = GeneralResult.data;
+        if (GeneralResult.WasSuccessful == true) {
+          this.GeneralProductsList = GeneralResult.Data;
         } else {
           this.toastr.info('No se encontro ningun producto general');
         }
       });
     } else if (this.type == '2') {
       this.productsService.GetSpecificProducts().subscribe((SpecificResult) => {
-        if (SpecificResult.wasSuccessful == true) {
-          this.SpecificProductsList = SpecificResult.data;
+        if (SpecificResult.WasSuccessful == true) {
+          this.SpecificProductsList = SpecificResult.Data;
         } else {
           this.toastr.info('No se encontraron productos espesificos');
         }
@@ -141,9 +141,9 @@ export class ShipmentDetailComponent {
       Details: this.shipmentDetailList,
     };
     this.shipmentService.Create(shipment).subscribe((result) => {
-      if (result.wasSuccessful == true) {
+      if (result.WasSuccessful == true) {
         this.loader = false;
-        this.toastr.success(result.statusMessage, 'Felicitaciones');
+        this.toastr.success(result.StatusMessage, 'Felicitaciones');
         this.shipmentDetailList = [];
         this.onComplete.emit();
       } else {

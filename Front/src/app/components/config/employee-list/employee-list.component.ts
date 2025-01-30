@@ -24,10 +24,10 @@ export class EmployeeListComponent {
   DeletePopUp: boolean = false;
   GetAll() {
     this.employeeService.GetAll().subscribe(r => {
-      if (r.wasSuccessful) {
-        this.employeeList = r.data;
+      if (r.WasSuccessful) {
+        this.employeeList = r.Data;
       } else {
-        this.toastr.error(r.statusMessage);
+        this.toastr.error(r.StatusMessage);
       }
     })
   }
@@ -46,10 +46,10 @@ export class EmployeeListComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         this.employeeService.Delete(employeeid).subscribe(r => {
-          if (r.wasSuccessful) {
-            this.toastr.success(r.statusMessage);
+          if (r.WasSuccessful) {
+            this.toastr.success(r.StatusMessage);
           } else {
-            this.toastr.error(r.statusMessage);
+            this.toastr.error(r.StatusMessage);
           }
         })
       } else {

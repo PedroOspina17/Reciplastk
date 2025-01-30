@@ -62,8 +62,8 @@ export class ProductPriceInnerComponent {
       ShowHistory: this.value?.checked ?? false,
     }
     this.productPriceService.Filter(productPriceModel).subscribe(r => {
-      if (r.wasSuccessful) {
-        this.filterList = r.data;
+      if (r.WasSuccessful) {
+        this.filterList = r.Data;
       } else {
         this.toastr.info("No se encontraron productos con los filtros aplicados")
       }
@@ -72,16 +72,16 @@ export class ProductPriceInnerComponent {
   GetCustomers(id: number) {
     if (id == PriceType.Buy) {
       this.customerService.GetAllProviders().subscribe((r) => {
-        if (r.wasSuccessful) {
-          this.CustomerList = r.data;
+        if (r.WasSuccessful) {
+          this.CustomerList = r.Data;
         } else {
           this.toastr.info('No se encontro ningun proveedor');
         }
       });
     } else if (id == PriceType.Sell) {
       this.customerService.GetAllCustomer().subscribe((r) => {
-        if (r.wasSuccessful) {
-          this.CustomerList = r.data;
+        if (r.WasSuccessful) {
+          this.CustomerList = r.Data;
         } else {
           this.toastr.info('No se encontron ningun cliente');
         }
@@ -100,8 +100,8 @@ export class ProductPriceInnerComponent {
       Price: this.IsNegative && this.isCreate == false ? this.formSelects.value.price * -1 : this.formSelects.value.price
     }
     this.productPriceService.CreateProductPrices(productPriceModel).subscribe(r => {
-      if (r.wasSuccessful) {
-        this.toastr.success(r.statusMessage)
+      if (r.WasSuccessful) {
+        this.toastr.success(r.StatusMessage)
         this.filter();
         this.formSelects.get('price')?.setValue('');
       } else {

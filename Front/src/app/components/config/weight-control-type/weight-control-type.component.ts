@@ -27,8 +27,8 @@ export class WeightControlTypeComponent {
   GetAll() {
     this.loader = true;
     this.controlType.GetAll().subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.controlTypeList = r.data;
+      if (r.WasSuccessful == true) {
+        this.controlTypeList = r.Data;
       } else {
         this.toastr.info('No se encontro nigun tipo de control de peso');
       }
@@ -50,10 +50,10 @@ export class WeightControlTypeComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         this.controlType.Delete(id).subscribe(r => {
-          if (r.wasSuccessful == true) {
-            this.toastr.info(r.statusMessage);
+          if (r.WasSuccessful == true) {
+            this.toastr.info(r.StatusMessage);
           } else {
-            this.toastr.info(r.statusMessage);
+            this.toastr.info(r.StatusMessage);
           }
           this.GetAll();
         });

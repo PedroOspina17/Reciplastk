@@ -31,8 +31,8 @@ export class ShipmentTypeComponent {
   GetAll() {
     this.loader = true;
     this.shipmentTypeservice.GetAll().subscribe(result => {
-      if (result.wasSuccessful == true) {
-        this.ShipmentTypeList = result.data;
+      if (result.WasSuccessful == true) {
+        this.ShipmentTypeList = result.Data;
         this.loader = false;
       } else {
         this.toastr.info("No se encontro ningun cargamento")
@@ -55,11 +55,11 @@ export class ShipmentTypeComponent {
       if (result.isConfirmed) {
         this.loader = true;
         this.shipmentTypeservice.Delete(id2).subscribe(result => {
-          if (result.wasSuccessful == true) {
+          if (result.WasSuccessful == true) {
             this.loader = false;
-            this.toastr.info(result.statusMessage);
+            this.toastr.info(result.StatusMessage);
           } else {
-            this.toastr.error(result.statusMessage, "Error")
+            this.toastr.error(result.StatusMessage, "Error")
           }
           this.GetAll();
         })

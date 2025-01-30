@@ -32,10 +32,10 @@ export class RoleListComponent {
   }
   GetAllRoles() {
     this.roleService.GetAll().subscribe(r => {
-      if (r.wasSuccessful) {
-        this.rolesList = r.data;
+      if (r.WasSuccessful) {
+        this.rolesList = r.Data;
       } else {
-        this.toastr.info(r.statusMessage);
+        this.toastr.info(r.StatusMessage);
       }
     })
   }
@@ -48,16 +48,16 @@ export class RoleListComponent {
   }
   SaveRole() {
     const roleModel: RoleViewModel = {
-      name: this.formRoles.value.role,
+      Name: this.formRoles.value.role,
     }
     this.roleService.Create(roleModel).subscribe(r => {
-      if (r.wasSuccessful) {
-        this.toastr.success(r.statusMessage);
+      if (r.WasSuccessful) {
+        this.toastr.success(r.StatusMessage);
         this.formRoles.reset();
         this.showCreate = false;
         this.GetAllRoles();
       } else {
-        this.toastr.error(r.statusMessage);
+        this.toastr.error(r.StatusMessage);
       }
     })
   }
@@ -76,11 +76,11 @@ export class RoleListComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         this.roleService.Delete(roleId).subscribe(r => {
-          if (r.wasSuccessful) {
-            this.toastr.success(r.statusMessage);
+          if (r.WasSuccessful) {
+            this.toastr.success(r.StatusMessage);
             this.GetAllRoles();
           } else {
-            this.toastr.error(r.statusMessage);
+            this.toastr.error(r.StatusMessage);
           }
         })
       } else {

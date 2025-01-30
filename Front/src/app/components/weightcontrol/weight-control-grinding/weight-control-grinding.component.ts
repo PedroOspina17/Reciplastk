@@ -89,8 +89,8 @@ export class WeightControlGrindingComponent {
       Remainig: this.FormRemaining.value.Spare,
     };
     this.weightControlService.CreateGrinding(remainingModel).subscribe((p) => {
-      if (p.wasSuccessful == true) {
-        this.toastr.success(p.statusMessage);
+      if (p.WasSuccessful == true) {
+        this.toastr.success(p.StatusMessage);
         this.ClearForm();
         this.GetTodaysDetails();
       } else {
@@ -109,15 +109,15 @@ export class WeightControlGrindingComponent {
   }
   getProducts() {
     this.products.GetMain().subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.generalProductList = r.data;
+      if (r.WasSuccessful == true) {
+        this.generalProductList = r.Data;
       } else {
         this.toastr.info('No se encontro ningun producto general');
       }
     });
     this.products.GetSpecificProducts().subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.specificProductList = r.data;
+      if (r.WasSuccessful == true) {
+        this.specificProductList = r.Data;
       } else {
         this.toastr.info('No se encontro ningun producto general');
       }
@@ -126,23 +126,23 @@ export class WeightControlGrindingComponent {
   GetTodaysDetails() {
     this.totalweight = 0;
     this.weightControlService.GetGroundProducts().subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.todaysProductList = r.data;
+      if (r.WasSuccessful == true) {
+        this.todaysProductList = r.Data;
         this.todaysProductList.forEach((element) => {
           this.totalweight += element.weight;
         });
       } else {
-        this.toastr.error(r.statusMessage);
+        this.toastr.error(r.StatusMessage);
       }
     });
   }
   DeleteRemaining(id: number) {
     this.weightControlService.Delete(id).subscribe((r) => {
-      if (r.wasSuccessful == true) {
+      if (r.WasSuccessful == true) {
         this.toastr.info('Elemento eliminado con exito');
         this.GetTodaysDetails();
       } else {
-        this.toastr.info(r.statusMessage);
+        this.toastr.info(r.StatusMessage);
       }
     });
   }

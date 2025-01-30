@@ -50,8 +50,8 @@ export class WeightControlComponent {
   }
   GetEmployee() {
     this.weightControlService.GetEmployee().subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.employeeList = r.data;
+      if (r.WasSuccessful == true) {
+        this.employeeList = r.Data;
       } else {
         this.toastr.info('No se encontro ningun empleado');
       }
@@ -59,8 +59,8 @@ export class WeightControlComponent {
   }
   GetGeneralProducts() {
     this.productsService.GetMain().subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.generalProductList = r.data;
+      if (r.WasSuccessful == true) {
+        this.generalProductList = r.Data;
       } else {
         this.toastr.info('No se encontro ningun producto general');
       }

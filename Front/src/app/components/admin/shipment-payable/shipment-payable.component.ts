@@ -4,7 +4,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ReceivableModel } from '../../../models/ReceivableModel';
 import { ShipmentService } from '../../../services/shipment.service';
-import { PriceType } from '../../../models/Enums';
+import { ShipmentMovementTypeEnum } from '../../../models/Enums';
 
 @Component({
   selector: 'app-shipment-payable',
@@ -19,16 +19,16 @@ export class ShipmentPayableComponent {
   }
   id: number
   ReceivableList: ReceivableModel[] = [];
-  priceType = PriceType;
+  ShipmentMovement = ShipmentMovementTypeEnum;
   ngOnInit(): void {
     this.GetAllReceivables(this.id)
   }
   GetAllReceivables(id: number) {
     this.shipmentService.GetShipmentForPayments(id).subscribe(r => {
-      if (r.wasSuccessful) {
-        this.ReceivableList = r.data;
+      if (r.WasSuccessful) {
+        this.ReceivableList = r.Data;
       } else {
-        this.toastr.error(r.data)
+        this.toastr.error(r.Data)
       }
     })
   }

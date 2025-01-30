@@ -40,8 +40,8 @@ export class ListProductsComponent {
   GetMain() {
     this.loading = true;
     this.productService.GetAll().subscribe(result => {
-      if (result.wasSuccessful == true) {
-        this.listProducts = result.data;
+      if (result.WasSuccessful == true) {
+        this.listProducts = result.Data;
         this.loading = false;
       } else {
       }
@@ -51,8 +51,8 @@ export class ListProductsComponent {
   GetByParentid(id: number) {
     this.loading
     this.productService.GetByParentId(id).subscribe(result => {
-      if (result.wasSuccessful == true) {
-        this.subProductsList = result.data;
+      if (result.WasSuccessful == true) {
+        this.subProductsList = result.Data;
       }
     })
   }
@@ -72,8 +72,8 @@ export class ListProductsComponent {
       if (result.isConfirmed) {
         this.loading = true;
         this.productService.Delete(id).subscribe(result => {
-          if (result.wasSuccessful == true) {
-            this.toastr.info(`El producto ${result.data.name} fue eliminado con exito`, `Producto Eliminado.`)
+          if (result.WasSuccessful == true) {
+            this.toastr.info(`El producto ${result.Data.name} fue eliminado con exito`, `Producto Eliminado.`)
           } else {
             this.toastr.error('El producto no fue eliminado.', 'Error.');
           }
@@ -94,9 +94,9 @@ export class ListProductsComponent {
 
 
     this.productService.GetByParentId(id).subscribe(result => {
-      if (result.wasSuccessful == true) {
+      if (result.WasSuccessful == true) {
         this.expandedArea = true;
-        this.subProductsList = result.data;
+        this.subProductsList = result.Data;
       }
     })
   }
