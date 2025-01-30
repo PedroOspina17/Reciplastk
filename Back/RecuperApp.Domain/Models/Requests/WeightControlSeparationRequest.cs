@@ -7,6 +7,6 @@ namespace RecuperApp.Domain.Models.Requests
         public int? WeightControlId { get; set; }
         public int EmployeeId { get; set; }
 
-        public List<WeightControlSeparationDetailRequest> WeightDetail { get; set; }
+        public List<WeightControlSeparationDetailRequest> WeightControlDetails { get; set; }
     }
 }

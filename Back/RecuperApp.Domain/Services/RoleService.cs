@@ -3,15 +3,17 @@ using RecuperApp.Domain.Models.EntityModels;
 using AutoMapper;
 using RecuperApp.Domain.Models.ViewModels;
 using RecuperApp.Common.Exceptions;
+using RecuperApp.Domain.Models.Requests;
+using RecuperApp.Domain.Services.Interfaces;
 
 namespace RecuperApp.Domain.Services
 {
     public class RoleService : IRoleService
     {
-        private readonly IBaseRepository<Role> repository;
+        private readonly IApplicationRepository<Role> repository;
         private readonly IMapper mapper;
 
-        public RoleService(IBaseRepository<Role> repository, IMapper mapper)
+        public RoleService(IApplicationRepository<Role> repository, IMapper mapper)
         {
             this.repository = repository;
             this.mapper = mapper;
@@ -24,7 +26,7 @@ namespace RecuperApp.Domain.Services
         }
         public async Task<Role> GetById(int id)
         {
-            var existRole = await repository.GetByParam(x => x.RoleId == id);
+            var existRole = await repository.FindByIdAsync(id);
 
             if (existRole != null)
             {
@@ -38,31 +40,32 @@ namespace RecuperApp.Domain.Services
 
         public async Task<Role> GetByName(string name)
         {
-            return await repository.GetByParam(x => x.Name == name);
+            var result = await repository.FindByParamAsync(x => x.Name == name);
+            return result;
         }
 
 
         public async Task<Role> Create(RoleViewModel roleViewModel)
         {
-            var existRole = await GetByName(roleViewModel.Name);
-            if (existRole == null)
-            {
-                var role = mapper.Map<Role>(roleViewModel);
-                return await repository.CreateAsync(role);
-            }
-            else
+            await ValidateEntity(roleViewModel);
+            var role = mapper.Map<Role>(roleViewModel);
+            return await repository.CreateAsync(role);
+        }
+        public async Task<bool> ValidateEntity(RoleViewModel productsModel)
+        {
+            var existRole = await GetByName(productsModel.Name);
+            if (existRole != null)
             {
                 throw new CustomValidationsException("Ya existe un rol con este nombre.");
             }
-
+            return true;
         }
 
         public async Task<Role> Update(RoleViewModel roleViewModel)
         {
-            var role = await GetById(roleViewModel.RoleId ?? 0);
+            var role = await GetById(roleViewModel.Id ?? 0);
             role = mapper.Map(roleViewModel, role);
             return await repository.UpdateAsync(role);
-
         }
 
         public async Task<Role> Delete(int id)

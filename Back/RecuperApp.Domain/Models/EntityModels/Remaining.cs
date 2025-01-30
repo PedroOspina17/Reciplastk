@@ -5,9 +5,6 @@ namespace RecuperApp.Domain.Models.EntityModels;
 
 public class Remaining : BaseEntity
 {
-    [Key]
-    public int RemainingId { get; set; }
-
     public int WeightControlId { get; set; }
     public virtual WeightControl WeightControl { get; set; }
 

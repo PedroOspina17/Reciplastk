@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RecuperApp.Common.Models;
 using RecuperApp.Domain.Models.ViewModels;
-using RecuperApp.Domain.Services;
+using RecuperApp.Domain.Services.Interfaces;
 
 namespace RecuperApp.Web.Gateway.Controllers
 {
@@ -16,7 +16,7 @@ namespace RecuperApp.Web.Gateway.Controllers
             roleService = _roleService;
         }
 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<HttpResponseModel> GetAll()
         {
 
@@ -26,7 +26,7 @@ namespace RecuperApp.Web.Gateway.Controllers
         }
 
 
-        [HttpGet("{id}")]
+        [HttpGet("GetById")]
         public async Task<HttpResponseModel> GetById(int id)
         {
             var role = await roleService.GetById(id);
@@ -35,30 +35,30 @@ namespace RecuperApp.Web.Gateway.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost("Create")]
         public async Task<HttpResponseModel> Create([FromBody] RoleViewModel roleViewModel)
         {
 
             var role = await roleService.Create(roleViewModel);
-            return new HttpResponseModel($"Se creó el rol ${role.Name} exitosamente con id #{role.RoleId}");
+            return new HttpResponseModel(role,$"Se creó el rol {role.Name} exitosamente con id #{role.Id}");
         }
 
 
-        [HttpPut]
+        [HttpPut("Update")]
         public async Task<HttpResponseModel> Update([FromBody] RoleViewModel roleViewModel)
         {
 
             var role = await roleService.Update(roleViewModel);
-            return new HttpResponseModel($"Se actualizó el rol ${role.Name} exitosamente");
+            return new HttpResponseModel(role, $"Se actualizó el rol {role.Name} exitosamente");
 
         }
 
 
-        [HttpDelete("{id}")]
+        [HttpDelete("Delete")]
         public async Task<HttpResponseModel> Delete(int id)
         {
             var role = await roleService.Delete(id);
-            return new HttpResponseModel($"Se eliminó el rol ${role.Name} exitosamente");
+            return new HttpResponseModel($"Se eliminó el rol {role.Name} exitosamente");
 
         }
     }

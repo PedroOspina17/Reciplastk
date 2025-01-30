@@ -6,9 +6,6 @@ namespace RecuperApp.Domain.Models.EntityModels;
 
 public class ShipmentDetail : BaseEntity
 {
-    [Key]
-    public int ShipmentDetailId { get; set; }
-
     public int ShipmentId { get; set; }
     public virtual Shipment Shipment { get; set; }
 

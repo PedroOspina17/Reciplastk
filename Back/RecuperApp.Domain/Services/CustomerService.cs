@@ -21,7 +21,7 @@ namespace RecuperApp.Domain.Services
         {
             var customer = db.Customers.Include(p => p.CustomerType).Where(x => x.IsActive == true).Select(y => new CustomerViewModel()
             {
-                CustomerId = y.CustomerId,
+                Id = y.Id,
                 CustomerTypeId = y.CustomerTypeId,
                 CustomerTypeName = y.CustomerType.Name,
                 Nit = y.Nit,
@@ -43,7 +43,7 @@ namespace RecuperApp.Domain.Services
         {
             var customer = db.Customers.Include(p=> p.CustomerType).Where(x => x.IsActive == true && x.CustomerTypeId == (int)Enums.CustomerTypeEnum.Customer).Select(y=> new CustomerViewModel()
             {
-                CustomerId = y.CustomerId,
+                Id = y.Id,
                 CustomerTypeId = y.CustomerTypeId,
                 CustomerTypeName = y.CustomerType.Name,
                 Nit = y.Nit,
@@ -65,7 +65,7 @@ namespace RecuperApp.Domain.Services
         {
             var customer = db.Customers.Include(p => p.CustomerType).Where(x => x.IsActive == true && x.CustomerTypeId == (int)Enums.CustomerTypeEnum.Provider).Select(y => new CustomerViewModel()
             {
-                CustomerId = y.CustomerId,
+                Id = y.Id,
                 CustomerTypeId = y.CustomerTypeId,
                 CustomerTypeName = y.CustomerType.Name,
                 Nit = y.Nit,
@@ -101,7 +101,7 @@ namespace RecuperApp.Domain.Services
         }
         private Customer GetCustomerById(int customerId)
         {
-            var customer = db.Customers.FirstOrDefault(x => x.CustomerId == customerId && x.IsActive == true && x.CustomerTypeId == 2);
+            var customer = db.Customers.FirstOrDefault(x => x.Id == customerId && x.IsActive == true && x.CustomerTypeId == 2);
             return customer;
         }
         public HttpResponseModel GetProvider(int providerid)
@@ -122,7 +122,7 @@ namespace RecuperApp.Domain.Services
         }
         private Customer GetProviderById(int customerId)
         {
-            var customer = db.Customers.FirstOrDefault(x => x.CustomerId == customerId && x.IsActive == true && x.CustomerTypeId == 1);
+            var customer = db.Customers.FirstOrDefault(x => x.Id == customerId && x.IsActive == true && x.CustomerTypeId == 1);
             return customer;
         }
         private Customer GetByNit(String customerNit)
@@ -165,7 +165,7 @@ namespace RecuperApp.Domain.Services
         public HttpResponseModel Update(CustomerViewModel customerViewModel)
         {
             var response = new HttpResponseModel();
-            var customer = GetCustomerById(customerViewModel.CustomerId ?? -1);
+            var customer = GetCustomerById(customerViewModel.Id ?? -1);
             if (customer != null)
             {
                 customer.Nit = customerViewModel.Nit;
@@ -183,7 +183,7 @@ namespace RecuperApp.Domain.Services
             }
             else
             {
-                customer = GetProviderById(customerViewModel.CustomerId ?? -1);
+                customer = GetProviderById(customerViewModel.Id ?? -1);
                 if (customer != null)
                 {
                     customer.Nit = customerViewModel.Nit;

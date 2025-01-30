@@ -6,9 +6,6 @@ namespace RecuperApp.Domain.Models.EntityModels;
 
 public class Shipment : BaseEntity
 {
-    [Key]
-    public int ShipmentId { get; set; }
-
     public int CustomerId { get; set; }
     public virtual Customer Customer { get; set; }
 
@@ -31,7 +28,7 @@ public class Shipment : BaseEntity
     public double TotalPrice { get; set; }
 
 
-    //[InverseProperty("Shipment")]
-    //public virtual ICollection<Shipmentdetail> Shipmentdetails { get; set; } = new List<Shipmentdetail>();
+    [InverseProperty("Shipment")]
+    public virtual ICollection<ShipmentDetail> ShipmentDetails { get; set; } = new List<ShipmentDetail>();
 
 }

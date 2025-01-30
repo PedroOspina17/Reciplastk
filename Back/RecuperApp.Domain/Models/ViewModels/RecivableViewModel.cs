@@ -2,7 +2,7 @@
 {
     public class RecivableViewModel
     {
-        public int ShipmentId { get; set; }
+        public int Id { get; set; }
         public int ShipmentType { get; set; }
         public string ShipmentTypeName { get; set; }
         public string EmployeeName { get; set; }
