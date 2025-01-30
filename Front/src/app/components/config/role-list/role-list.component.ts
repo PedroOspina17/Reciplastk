@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { ToastrService } from 'ngx-toastr';
 import { RoleService } from '../../../services/role.service';
 import { RoleViewModel } from '../../../models/RoleViewModel';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-role-list',
@@ -19,21 +20,22 @@ export class RoleListComponent {
     private roleService: RoleService,
   ) {
     this.formRoles = this.fb.group({
-      role: ['',Validators.required]
+      role: ['', Validators.required]
     })
   }
   formRoles: FormGroup;
   rolesList: RoleViewModel[] = [];
   showCreate: boolean = false;
+  DeletePopUp: boolean = false;
   ngOnInit(): void {
     this.GetAllRoles();
   }
   GetAllRoles() {
     this.roleService.GetAll().subscribe(r => {
-      if (r.wasSuccessful) {
-        this.rolesList = r.data;
+      if (r.WasSuccessful) {
+        this.rolesList = r.Data;
       } else {
-        this.toastr.info(r.statusMessage);
+        this.toastr.info(r.StatusMessage);
       }
     })
   }
@@ -46,27 +48,44 @@ export class RoleListComponent {
   }
   SaveRole() {
     const roleModel: RoleViewModel = {
-      name: this.formRoles.value.role,
+      Name: this.formRoles.value.role,
     }
     this.roleService.Create(roleModel).subscribe(r => {
-      if (r.wasSuccessful) {
-        this.toastr.success(r.statusMessage);
+      if (r.WasSuccessful) {
+        this.toastr.success(r.StatusMessage);
         this.formRoles.reset();
         this.showCreate = false;
         this.GetAllRoles();
       } else {
-        this.toastr.error(r.statusMessage);
+        this.toastr.error(r.StatusMessage);
       }
     })
   }
   Delete(roleId: number) {
-    this.roleService.Delete(roleId).subscribe(r => {
-      if (r.wasSuccessful) {
-        this.toastr.success(r.statusMessage);
-        this.GetAllRoles();
+
+    this.DeletePopUp = true
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Esto borrara todos los datos previamente almacenados en la tabla.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#FFA500 ',
+      cancelButtonColor: '#6c757d',
+      confirmButtonText: 'Sí, Eliminar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.roleService.Delete(roleId).subscribe(r => {
+          if (r.WasSuccessful) {
+            this.toastr.success(r.StatusMessage);
+            this.GetAllRoles();
+          } else {
+            this.toastr.error(r.StatusMessage);
+          }
+        })
       } else {
-        this.toastr.error(r.statusMessage);
+        this.DeletePopUp = false;
       }
-    })
+    });
   }
 }

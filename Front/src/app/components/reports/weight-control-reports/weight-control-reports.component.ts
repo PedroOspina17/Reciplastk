@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { WeightControlReportParams } from '../../../models/WeightControlReportParams';
+import { WeightControlReportRequest } from '../../../models/Requests/WeightControlReportRequest';
 import {
   FormBuilder,
   FormGroup,
@@ -12,7 +12,7 @@ import { WeightControlService } from '../../../services/weight-control-service';
 import { ProductsService } from '../../../services/products.service';
 import { WeightCotrolTypeService } from '../../../services/weight-cotrol-type.service';
 import { WeightControlReport } from '../../../models/WeightControlReport';
-import { ProductModel } from '../../../models/ProductModel';
+import { ProductsRequest } from '../../../models/Requests/ProductsRequest';
 
 @Component({
   selector: 'app-weight-control-reports',
@@ -48,7 +48,7 @@ export class WeightControlReportsComponent {
   TypeValue: string = '';
   ShowTable: boolean = false;
   weightControlReport: WeightControlReport[] = [];
-  ProductList: ProductModel[] = [];
+  ProductList: ProductsRequest[] = [];
   WeightControlTypeList: any[] = [];
   EmployeeList: any[] = [];
   typeList: any[] = [];
@@ -56,17 +56,17 @@ export class WeightControlReportsComponent {
     this.GetInfo();
   }
   Filter() {
-    const model: WeightControlReportParams = {
-      startDate: this.FormGroupControl.value.StartDate,
-      endDate: this.FormGroupControl.value.EndDate,
-      productId: this.FormGroupControl.value.Productsid,
-      employeeId: this.FormGroupControl.value.Employeeid,
-      ispaid: this.FormGroupControl.value.Ispaid,
-      type: this.FormGroupControl.value.Typeid,
+    const model: WeightControlReportRequest = {
+      StartDate: this.FormGroupControl.value.StartDate,
+      EndDate: this.FormGroupControl.value.EndDate,
+      ProductId: this.FormGroupControl.value.Productsid,
+      EmployeeId: this.FormGroupControl.value.Employeeid,
+      IsPaid: this.FormGroupControl.value.Ispaid,
+      Type: this.FormGroupControl.value.Typeid,
     };
     this.weightControlService.Filter(model).subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.weightControlReport = r.data
+      if (r.WasSuccessful == true) {
+        this.weightControlReport = r.Data
         this.ShowTable = true;
       } else {
         this.toastr.error('No se encontraron productos con los filtros aplicados')
@@ -75,22 +75,22 @@ export class WeightControlReportsComponent {
   }
   GetInfo() {
     this.weightControlService.GetEmployee().subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.EmployeeList = r.data;
+      if (r.WasSuccessful == true) {
+        this.EmployeeList = r.Data;
       } else {
         this.toastr.info('No se encontraron los empleados');
       }
     });
     this.productsService.GetAll().subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.ProductList = r.data;
+      if (r.WasSuccessful == true) {
+        this.ProductList = r.Data;
       } else {
         this.toastr.info('No se encontraron los productos');
       }
     });
     this.weightControloTypeService.GetAll().subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.WeightControlTypeList = r.data;
+      if (r.WasSuccessful == true) {
+        this.WeightControlTypeList = r.Data;
       } else {
         this.toastr.info('No se encontraron los tipos de envio');
       }

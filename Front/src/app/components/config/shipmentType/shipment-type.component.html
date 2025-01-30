@@ -17,15 +17,15 @@
       </thead>
       <tbody>
         <tr *ngFor="let i of ShipmentTypeList">
-          <td>{{i.name}}</td>
-          <td>{{i.description}}</td>
+          <td>{{i.Name}}</td>
+          <td>{{i.Description}}</td>
           <td>
             <div class="btn-group">
-              <button routerLink="/config/editshipmenttype/{{i.shipmenttypeid}}" type="button w-100"
+              <button routerLink="/config/editshipmenttype/{{i.Id}}" type="button w-100"
                 class="btn btn-outline-warning">
                 <i class="bi bi-pencil fs-6"></i>
               </button>
-              <button type="button w-100" class="btn btn-outline-danger" (click)="Delete(i.shipmenttypeid!)">
+              <button type="button w-100" class="btn btn-outline-danger" (click)="Delete(i.Id!)">
                 <i class="bi bi-trash fs-6"></i>
               </button>
             </div>

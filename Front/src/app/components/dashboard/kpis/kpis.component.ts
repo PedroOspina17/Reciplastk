@@ -35,45 +35,45 @@ export class KpisComponent {
   }
   RefreshInformation(){
     this.kpiService.GetBillingGoal(this.isYearly, this.year, this.month).subscribe(result => {
-      if (result.wasSuccessful) {
-        this.BillingGoal = result.data;
+      if (result.WasSuccessful) {
+        this.BillingGoal = result.Data;
       } else {
-        this.toastr.error(result.statusMessage);
+        this.toastr.error(result.StatusMessage);
       }
     });
     this.kpiService.GetShipmentGoal(this.isYearly, this.year, this.month).subscribe(result => { 
-      if (result.wasSuccessful) {
-        this.ShipmentGoal = result.data;
+      if (result.WasSuccessful) {
+        this.ShipmentGoal = result.Data;
       } else {
-        this.toastr.error(result.statusMessage);
+        this.toastr.error(result.StatusMessage);
       }
     });
     this.kpiService.GetBillingSummary(this.isYearly, this.year, this.month).subscribe(result => {
-      if (result.wasSuccessful) {
-        this.BillingSummary = result.data;
+      if (result.WasSuccessful) {
+        this.BillingSummary = result.Data;
       } else {
-        this.toastr.error(result.statusMessage);
+        this.toastr.error(result.StatusMessage);
       }
      });
     this.kpiService.GetGrindingSummary(this.isYearly, this.year, this.month).subscribe(result => {
-      if (result.wasSuccessful) {
-        this.GrindingSummary = result.data;
+      if (result.WasSuccessful) {
+        this.GrindingSummary = result.Data;
       } else {
-        this.toastr.error(result.statusMessage);
+        this.toastr.error(result.StatusMessage);
       }
      });
     this.kpiService.GetSeparationSummary(this.isYearly, this.year, this.month).subscribe(result => { 
-      if (result.wasSuccessful) {
-        this.SeparationSummary = result.data;
+      if (result.WasSuccessful) {
+        this.SeparationSummary = result.Data;
       } else {
-        this.toastr.error(result.statusMessage);
+        this.toastr.error(result.StatusMessage);
       }
     });
     this.kpiService.GetShippingSummary(this.isYearly, this.year, this.month).subscribe(result => { 
-      if (result.wasSuccessful) {
-        this.ShippingSummary = result.data;
+      if (result.WasSuccessful) {
+        this.ShippingSummary = result.Data;
       } else {
-        this.toastr.error(result.statusMessage);
+        this.toastr.error(result.StatusMessage);
       }
     });
   }

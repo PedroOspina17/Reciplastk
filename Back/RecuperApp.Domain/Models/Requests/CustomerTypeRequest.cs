@@ -2,8 +2,8 @@
 {
     public class CustomerTypeRequest
     {
-        public int customerTypeId { get; set; }
-        public string name { get; set; }
-        public string description { get; set; }
+        public int CustomerTypeId { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
     }
 }

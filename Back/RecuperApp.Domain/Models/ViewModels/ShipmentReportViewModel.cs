@@ -1,6 +1,6 @@
 ﻿namespace RecuperApp.Domain.Models.ViewModels
 {
-    public class ShipmentReportsViewModel
+    public class ShipmentReportViewModel
     {
         public string ProductName { get; set; }
         public string EmployeeName { get; set; }

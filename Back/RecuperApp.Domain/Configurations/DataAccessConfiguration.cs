@@ -11,8 +11,10 @@ namespace RecuperApp.Domain.Configurations
     {
         public static IServiceCollection AddApplicationRepositories(this IServiceCollection services)
         {
-            services.AddScoped<IBaseRepository<Employee>, BaseRepository<Employee>>();
-            services.AddScoped<IBaseRepository<Role>, BaseRepository<Role>>();
+            services.AddScoped(typeof(IApplicationRepository<>) , typeof(ApplicationRepository<>));
+            services.AddScoped<IPaymentsRepository, PaymentsRepository>();
+            services.AddScoped<IPaymentsRepository, PaymentsRepository>();
+            services.AddScoped<IWeightControlRepository, WeightControlRepository>();
             return services;
         }
         public static IServiceCollection AddApplicationDataAccess(this IServiceCollection services, IConfiguration config)

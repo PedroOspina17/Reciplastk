@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AppConfig } from '../common/app-config';
 import { HttpResponseModel } from '../models/HttpResponseModel';
-import { CustomerTypeModel } from '../models/CustomerTypeModel';
+import { CustomerTypeRequest } from '../models/Requests/CustomerTypeRequest';
 
 
 @Injectable({
@@ -21,11 +21,11 @@ export class CustomerTypeService {
     return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'/GetById?customerTypeId='+id)
   }
 
-  Create(customerModel: CustomerTypeModel):Observable<HttpResponseModel>{
+  Create(customerModel: CustomerTypeRequest):Observable<HttpResponseModel>{
     return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/Create', customerModel)
   }
 
-  Update(customerModel: CustomerTypeModel, id: number):Observable<HttpResponseModel>{
+  Update(customerModel: CustomerTypeRequest, id: number):Observable<HttpResponseModel>{
     return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/Update', customerModel)
   }
 

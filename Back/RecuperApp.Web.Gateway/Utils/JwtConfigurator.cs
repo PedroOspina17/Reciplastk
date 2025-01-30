@@ -20,7 +20,7 @@ namespace RecuperApp.Web.Gateway.Utils
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, userInfo.UserName),
-                new Claim("idUsuario", userInfo.EmployeeId.ToString()),
+                new Claim("idUsuario", userInfo.Id.ToString()),
             };
 
             var token = new JwtSecurityToken(

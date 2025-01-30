@@ -2,14 +2,14 @@
 {
     public class RecivableViewModel
     {
-        public int shipmentid { get; set; }
-        public int shipmenttype { get; set; }
-        public string shipmenttypename { get; set; }
-        public string employeename { get; set; }
-        public string customername { get; set; }
-        public DateTime date { get; set; }
-        public double totalprice { get; set; }
-        public List<RecivableDetails> details { get; set; }
+        public int Id { get; set; }
+        public int ShipmentType { get; set; }
+        public string ShipmentTypeName { get; set; }
+        public string EmployeeName { get; set; }
+        public string CustomerName { get; set; }
+        public DateTime Date { get; set; }
+        public double TotalPrice { get; set; }
+        public List<RecivableDetails> Details { get; set; }
 
     }
 }

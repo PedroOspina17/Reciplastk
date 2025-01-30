@@ -3,8 +3,9 @@ import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { CustomerTypeModel } from '../../../models/CustomerTypeModel';
+import { CustomerTypeRequest } from '../../../models/Requests/CustomerTypeRequest';
 import { CustomerTypeService } from '../../../services/customer-type.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-customer-type',
@@ -19,28 +20,48 @@ export class CustomerTypeComponent {
     private router: Router,
     private customerTypeService: CustomerTypeService,
     private toastr: ToastrService
-  ) {}
-  customertypelist: CustomerTypeModel[] = [];
+  ) { }
+  customertypelist: CustomerTypeRequest[] = [];
+  DeletePopUp: boolean = false;
   ngOnInit(): void {
     this.GetAll();
   }
   GetAll() {
     this.customerTypeService.GetAll().subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.customertypelist = r.data;
+      if (r.WasSuccessful == true) {
+        this.customertypelist = r.Data;
+        console.log('Data2', r.Data);
+        console.log('Data', this.customertypelist);
       } else {
-        this.toastr.info(r.statusMessage);
+        this.toastr.info(r.StatusMessage);
       }
     });
   }
   Delete(id: number) {
-    this.customerTypeService.Delete(id).subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.toastr.info(r.statusMessage);
+    console.log('Este es el id seleccionado:', id)
+    this.DeletePopUp = true
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Esto borrara todos los datos previamente almacenados en la tabla.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#FFA500 ',
+      cancelButtonColor: '#6c757d',
+      confirmButtonText: 'Sí, Eliminar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.customerTypeService.Delete(id).subscribe((r) => {
+          if (r.WasSuccessful == true) {
+            this.toastr.info(r.StatusMessage);
+          } else {
+            this.toastr.error(r.StatusMessage, 'Error');
+          }
+          this.GetAll();
+        });
       } else {
-        this.toastr.error(r.statusMessage, 'Error');
+        this.DeletePopUp = false;
       }
-      this.GetAll();
     });
   }
 }

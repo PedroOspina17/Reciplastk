@@ -12,7 +12,7 @@ import { CustomerService } from '../../../services/customer.service';
 import { CustomerViewModel } from '../../../models/CustomerModel';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { ToastrService } from 'ngx-toastr';
-import { CustomerTypeModel } from '../../../models/CustomerTypeModel';
+import { CustomerTypeRequest } from '../../../models/Requests/CustomerTypeRequest';
 import { CustomerTypeService } from '../../../services/customer-type.service';
 
 @Component({
@@ -33,8 +33,7 @@ export class AddEditCustomerComponent {
   id: number;
   operacion: string = 'Agregar';
   loader: boolean = false;
-  customertypeList: CustomerTypeModel[] = [];
-  //customeTypeEnum = CustomeTypeEnum;
+  customertypeList: CustomerTypeRequest[] = [];
   constructor(
     private fb: FormBuilder,
     private customerServises: CustomerService,
@@ -67,44 +66,44 @@ export class AddEditCustomerComponent {
   }
   getCustomerType() {
     this.customerTypeService.GetAll().subscribe(r => {
-      if (r.wasSuccessful == true) {
-        this.customertypeList = r.data
+      if (r.WasSuccessful == true) {
+        this.customertypeList = r.Data
       } else {
-        this.toastr.info(r.statusMessage)
+        this.toastr.info(r.StatusMessage)
       }
     })
   }
 
   GetCustomer(customerId: number) {
     this.customerServises.GetProvider(customerId).subscribe((result) => {
-      if (result.wasSuccessful) {
+      if (result.WasSuccessful) {
         this.formCustomer.setValue({
-          nit: result.data.nit,
-          customertypeid: result.data.customertypeid,
-          name: result.data.name,
-          lastname: result.data.lastname,
-          address: result.data.address,
-          cell: result.data.cell,
-          needspickup: result.data.needspickup,
+          nit: result.Data.nit,
+          customertypeid: result.Data.customertypeid,
+          name: result.Data.name,
+          lastname: result.Data.lastname,
+          address: result.Data.address,
+          cell: result.Data.cell,
+          needspickup: result.Data.needspickup,
           clientsince: formatDate(
-            result.data.clientsince,
+            result.Data.clientsince,
             'yyyy-MM-dd',
             this.locale
           ),
         });
       } else {
         this.customerServises.GetCustomer(customerId).subscribe((result) => {
-          if (result.wasSuccessful) {
+          if (result.WasSuccessful) {
             this.formCustomer.setValue({
-              nit: result.data.nit,
-              customertypeid: result.data.customertypeid,
-              name: result.data.name,
-              lastname: result.data.lastname,
-              address: result.data.address,
-              cell: result.data.cell,
-              needspickup: result.data.needspickup,
+              nit: result.Data.nit,
+              customertypeid: result.Data.customertypeid,
+              name: result.Data.name,
+              lastname: result.Data.lastname,
+              address: result.Data.address,
+              cell: result.Data.cell,
+              needspickup: result.Data.needspickup,
               clientsince: formatDate(
-                result.data.clientsince,
+                result.Data.clientsince,
                 'yyyy-MM-dd',
                 this.locale
               ),
@@ -134,7 +133,7 @@ export class AddEditCustomerComponent {
       this.customerServises
         .Update(customer, this.id)
         .subscribe((result) => {
-          if (result.wasSuccessful == true) {
+          if (result.WasSuccessful == true) {
             this.loader = false;
             this.toastr.success(
               `El cliente ${customer.name} fue modificado exitosamente`,
@@ -143,19 +142,19 @@ export class AddEditCustomerComponent {
             this.router.navigate(['/config/customer']);
           } else {
             this.loader = false;
-            this.toastr.error(result.statusMessage, 'Error');
+            this.toastr.error(result.StatusMessage, 'Error');
             this.router.navigate(['/config/customer']);
           }
         });
     } else {
       this.customerServises.Create(customer).subscribe((result) => {
-        if (result.wasSuccessful) {
+        if (result.WasSuccessful) {
           this.loader = false;
-          this.toastr.success(result.statusMessage, 'Felicitaciones');
+          this.toastr.success(result.StatusMessage, 'Felicitaciones');
           this.router.navigate(['/config/customer']);
         } else {
           this.loader = false;
-          this.toastr.error(result.statusMessage, 'Error');          
+          this.toastr.error(result.StatusMessage, 'Error');          
         }
       });
     }

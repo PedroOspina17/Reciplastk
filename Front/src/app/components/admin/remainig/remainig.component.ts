@@ -30,8 +30,8 @@ export class RemainigComponent {
   }
   GetRemaining(viewAll: boolean) {
     this.weightControlService.Remainings(viewAll).subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.remaining = r.data;
+      if (r.WasSuccessful == true) {
+        this.remaining = r.Data;
       } else {
         this.toastr.error('No se encontraron los materiales restantes');
       }

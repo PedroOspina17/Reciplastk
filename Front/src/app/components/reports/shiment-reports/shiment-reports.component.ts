@@ -59,8 +59,8 @@ export class ShimentReportsComponent {
       type: this.FormShipment.value.TypeId,
     };
     this.shipmentService.Filter(Model).subscribe((r) => {
-      if (r.wasSuccessful) {
-        this.ShipmentReports = r.data;
+      if (r.WasSuccessful) {
+        this.ShipmentReports = r.Data;
       } else {
         this.toastr.error(
           'No se encontraron los detalles con los filtros aplicado'
@@ -74,22 +74,22 @@ export class ShimentReportsComponent {
   }
   GetInfo() {
     this.weightControlService.GetEmployee().subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.EmployeeList = r.data;
+      if (r.WasSuccessful == true) {
+        this.EmployeeList = r.Data;
       } else {
         this.toastr.error('No se encontro ningun empleado');
       }
     });
     this.productService.GetAll().subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.ProductList = r.data;
+      if (r.WasSuccessful == true) {
+        this.ProductList = r.Data;
       } else {
         this.toastr.error('No se encontro ningun Producto');
       }
     });
     this.shipmentTypeService.GetAll().subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.ShipmentTypeList = r.data;
+      if (r.WasSuccessful == true) {
+        this.ShipmentTypeList = r.Data;
       } else {
         this.toastr.error('No se encontro ningun tipo de cargamento');
       }

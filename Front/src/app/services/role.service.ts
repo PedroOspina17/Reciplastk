@@ -11,14 +11,14 @@ import { RoleViewModel } from '../models/RoleViewModel';
 export class RoleService {
 
   constructor(private http: HttpClient) { }
-  ServiceEndpoint: string = `${AppConfig.API_URL}/api/Rol/`;
+  ServiceEndpoint: string = `${AppConfig.API_URL}/api/Role`;
 
   GetAll(): Observable<HttpResponseModel> {
-    return this.http.get<HttpResponseModel>(this.ServiceEndpoint + 'GetAllRol')
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint)
   }
 
   GetById(id: number): Observable<HttpResponseModel> {
-    return this.http.get<HttpResponseModel>(this.ServiceEndpoint + 'GetRolById?Id=' + id)
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint + '/' + id)
   }
 
   Create(roleViewModel: RoleViewModel): Observable<HttpResponseModel> {

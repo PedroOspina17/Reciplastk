@@ -6,9 +6,7 @@ namespace RecuperApp.Domain.Models.EntityModels;
 
 public class Product : BaseEntity
 {
-    [Key]
-    public int ProductId { get; set; }
-
+    
     [Required]
     [StringLength(50)]
     public string ShortName { get; set; }

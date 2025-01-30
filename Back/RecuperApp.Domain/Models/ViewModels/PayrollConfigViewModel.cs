@@ -3,9 +3,9 @@
     public class PayrollConfigViewModel
     {
         public DateTime CreatedDate { get; set; }
-        public string employee { get; set; }
-        public string product { get; set; }
-        public double buyPrice { get; set; }
-        public bool isCurrentePrice { get; set; }
+        public string Employee { get; set; }
+        public string Product { get; set; }
+        public double BuyPrice { get; set; }
+        public bool IsCurrentePrice { get; set; }
     }
 }

@@ -36,8 +36,8 @@ export class EmployeeComparisonComponent {
 
   drawChart(){
     this.chartService.GetEmployeeComparisonInfo(this.isYearlyChart,this.year, this.month).subscribe(res => {
-      if(res.wasSuccessful){
-      console.log(res.data.chartLabels);
+      if(res.WasSuccessful){
+      console.log(res.Data.chartLabels);
       let labelsList = this.isYearlyChart ? ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', ' Septiembre','Octubre','Noviembre','Diciembre'] : Array.from(Array(30).keys()).map(x => x + 1);
       var chartExist = Chart.getChart("employee-comparison-canvas"); // <canvas> id
     if (chartExist != undefined)  
@@ -47,7 +47,7 @@ export class EmployeeComparisonComponent {
         data: {
           // labels: ,
           labels: labelsList as string[],
-          datasets: res.data
+          datasets: res.Data
         },
         options: {
           scales: {
@@ -58,7 +58,7 @@ export class EmployeeComparisonComponent {
         },
       });
     }else{
-      this.toastr.error(res.statusMessage);
+      this.toastr.error(res.StatusMessage);
     }
     });
   }

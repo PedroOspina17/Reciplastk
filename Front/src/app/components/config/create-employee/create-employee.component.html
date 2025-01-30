@@ -33,6 +33,58 @@
                         </div>
                     </div>
                     <div class="row mb-3">
+                        <div class="col-6">
+                            <label for="documentNumber" class="control-label">Documento</label>
+                            <input type="number" formControlName="documentNumber" class="form-control mt-2"
+                                name="documentNumber" placeholder="Numero de documento" id="documentNumber">
+                            <div>
+                                <span *ngIf="
+                                    formEmployee.get('documentNumber')?.hasError('required') && 
+                                    formEmployee.get('documentNumber')?.touched" class="form-text m-2 text-danger"> El
+                                    numero de documento es<strong> requerido </strong>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="dateOfBirth">Fecha de nacimiento</label><br>
+                            <input formControlName="dateOfBirth" class="mt-2 w-100" type="date" name="dateOfBirth"
+                                id="dateOfBirth">
+                            <div>
+                                <span *ngIf="
+                                    formEmployee.get('dateOfBirth')?.hasError('required') && 
+                                    formEmployee.get('dateOfBirth')?.touched" class="form-text m-2 text-danger">La
+                                    fecha de nacimiento es<strong> requerida</strong>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6 mb-3">
+                            <label for="dateOfJoin">Fecha de inicio</label><br>
+                            <input formControlName="dateOfJoin" class="mt-1 w-100" type="date" name="dateOfJoin"
+                                id="dateOfJoin">
+                            <div>
+                                <span *ngIf="
+                                    formEmployee.get('dateOfJoin')?.hasError('required') && 
+                                    formEmployee.get('dateOfJoin')?.touched" class="form-text m-2 text-danger"> La
+                                    fecha de ingreso a la empresa es<strong> requerida </strong>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="createdBy">Creado por</label><br>
+                            <input formControlName="createdBy" class="mt-1 form-control"
+                                placeholder="Nombre de quien registra" type="text" name="createdBy" id="dateOfBirth">
+                            <div>
+                                <span *ngIf="
+                                    formEmployee.get('createdBy')?.hasError('required') && 
+                                    formEmployee.get('createdBy')?.touched" class="form-text m-2 text-danger"> El
+                                    nombre de quien esta registrando es<strong> requerido </strong>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
                         <div class="col-6 mb-3">
                             <label for="userName" class="control-label">Nombre de usuario</label>
                             <input type="text" class="form-control mt-2" placeholder="Nombre de usuario" id="userName"
@@ -50,12 +102,13 @@
                             <label for="role" class="control-label">Roles</label>
                             <select name="role" formControlName="role" class="form-select mt-2" id="role">
                                 <option value="" disabled selected>Seleccione un rol</option>
-                                <option *ngFor="let i of roleList" value="{{i.roleId}}">{{i.name}}</option>
+                                <option *ngFor="let i of roleList" value="{{i.RoleId}}">{{i.Name}}</option>
                             </select>
                             <div>
                                 <span *ngIf="
                                     formEmployee.get('role')?.hasError('required') && 
-                                    formEmployee.get('role')?.touched" class="form-text m-2 text-danger"> Seleccionar un rol
+                                    formEmployee.get('role')?.touched" class="form-text m-2 text-danger"> Seleccionar
+                                    un rol
                                     es<strong> requerido </strong>
                                 </span>
                             </div>
@@ -69,36 +122,33 @@
                             <div>
                                 <span *ngIf="
                                     formEmployee.get('password')?.hasError('required') && 
-                                    formEmployee.get('password')?.touched" class="form-text m-2 text-danger"> El nombre
-                                    del nuevo ususario
-                                    es<strong> requerido </strong>
+                                    formEmployee.get('password')?.touched" class="form-text m-2 text-danger"> La
+                                    contraeña es<strong> requerida </strong>
                                 </span>
                             </div>
                         </div>
                         <div class="col-6">
                             <label for="repPassword" class="control-label">Repetir contraseña</label>
-                            <input type="text" class="form-control mt-2" placeholder="Repita la contraseña" id="repPassword"
-                                formControlName="repPassword">
+                            <input type="text" class="form-control mt-2" placeholder="Repita la contraseña"
+                                id="repPassword" formControlName="repPassword">
                             <div>
                                 <span *ngIf="
                                     formEmployee.get('repPassword')?.hasError('required') && 
-                                    formEmployee.get('repPassword')?.touched" class="form-text m-2 text-danger"> El nombre
-                                    del nuevo ususario
-                                    es<strong> requerido </strong>
+                                    formEmployee.get('repPassword')?.touched" class="form-text m-2 text-danger"> Repetir la contraseña es<strong> requerido </strong>
                                 </span>
                             </div>
                             <div>
                                 <span *ngIf="
                                     formEmployee.get('repPassword')?.value !== formEmployee.get('password')?.value"
-                                   class="form-text m-2 text-danger">
+                                    class="form-text m-2 text-danger">
                                     <strong>Las contraseñas no son iguales</strong>
                                 </span>
                             </div>
                         </div>
                     </div>
                     <div class="text-center mt-5">
-                        <button [disabled]="formEmployee.invalid || formEmployee.hasError('passwordsMismatch')" type="submit"
-                            class="btn btn-success w-25">Aceptar</button>
+                        <button [disabled]="formEmployee.invalid || formEmployee.hasError('passwordsMismatch')"
+                            type="submit" class="btn btn-success w-25" (click)="CreateOrEdit()">Aceptar</button>
                         <button class="btn btn-secondary w-25 ms-2" type="button"
                             routerLink="/config/employee">Volver</button>
                     </div>

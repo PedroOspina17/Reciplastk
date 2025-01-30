@@ -5,9 +5,6 @@ namespace RecuperApp.Domain.Models.EntityModels;
 
 public class WeightControlDetail : BaseEntity
 {
-    [Key]
-    public int WeightControlDetailId { get; set; }
-
     public int WeightControlId { get; set; }
     public virtual WeightControl WeightControl { get; set; }
 

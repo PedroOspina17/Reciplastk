@@ -5,9 +5,6 @@ namespace RecuperApp.Domain.Models.EntityModels;
 
 public class WeightControlType : BaseEntity
 {
-    [Key]
-    public int WeightControlTypeId { get; set; }
-
     [Required]
     [StringLength(50)]
     public string Name { get; set; }

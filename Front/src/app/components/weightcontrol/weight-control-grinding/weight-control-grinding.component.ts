@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { WeightControlService } from '../../../services/weight-control-service';
-import { WeightControlGrindingModel } from '../../../models/WeightControlGrindingModel';
+import { WeightControlGrindingRequest } from '../../../models/Requests/WeightControlGrindingRequest';
 import {
   FormBuilder,
   FormControl,
@@ -13,7 +13,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import {  } from '../../shared/loader/loader.component';
 import { ToastrService } from 'ngx-toastr';
 import { ProductsService } from '../../../services/products.service';
-import { ProductModel } from '../../../models/ProductModel';
+import { ProductsRequest } from '../../../models/Requests/ProductsRequest';
 
 
 @Component({
@@ -57,9 +57,9 @@ export class WeightControlGrindingComponent {
   FormSelection: FormGroup;
   FormRemaining: FormGroup;
   todaysProductList: any[] = [];
-  generalProductList: ProductModel[] = [];
-  specificProductList: ProductModel[] = [];
-  filterProductList: ProductModel[] = [];
+  generalProductList: ProductsRequest[] = [];
+  specificProductList: ProductsRequest[] = [];
+  filterProductList: ProductsRequest[] = [];
   formattedDate: string | null = '';
   ngOnInit(): void {
     this.getProducts();
@@ -69,7 +69,7 @@ export class WeightControlGrindingComponent {
     const selectElement = value.target;
     this.productid = selectElement.value;
     this.filterProductList = this.specificProductList.filter(
-      (p) => p.parentid == this.productid
+      (p) => p.ParentId == this.productid
     );
     this.FormSelection.get('ColorSelection')?.enable();
   }
@@ -83,14 +83,14 @@ export class WeightControlGrindingComponent {
     }
   }
   SaveRemainig() {
-    const remainingModel: WeightControlGrindingModel = {
-      productId: this.specificproductid,
-      packageCount: this.FormRemaining.value.Package,
-      remainig: this.FormRemaining.value.Spare,
+    const remainingModel: WeightControlGrindingRequest = {
+      Id: this.specificproductid,
+      PackageCount: this.FormRemaining.value.Package,
+      Remainig: this.FormRemaining.value.Spare,
     };
     this.weightControlService.CreateGrinding(remainingModel).subscribe((p) => {
-      if (p.wasSuccessful == true) {
-        this.toastr.success(p.statusMessage);
+      if (p.WasSuccessful == true) {
+        this.toastr.success(p.StatusMessage);
         this.ClearForm();
         this.GetTodaysDetails();
       } else {
@@ -109,15 +109,15 @@ export class WeightControlGrindingComponent {
   }
   getProducts() {
     this.products.GetMain().subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.generalProductList = r.data;
+      if (r.WasSuccessful == true) {
+        this.generalProductList = r.Data;
       } else {
         this.toastr.info('No se encontro ningun producto general');
       }
     });
     this.products.GetSpecificProducts().subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.specificProductList = r.data;
+      if (r.WasSuccessful == true) {
+        this.specificProductList = r.Data;
       } else {
         this.toastr.info('No se encontro ningun producto general');
       }
@@ -126,23 +126,23 @@ export class WeightControlGrindingComponent {
   GetTodaysDetails() {
     this.totalweight = 0;
     this.weightControlService.GetGroundProducts().subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.todaysProductList = r.data;
+      if (r.WasSuccessful == true) {
+        this.todaysProductList = r.Data;
         this.todaysProductList.forEach((element) => {
           this.totalweight += element.weight;
         });
       } else {
-        this.toastr.error(r.statusMessage);
+        this.toastr.error(r.StatusMessage);
       }
     });
   }
   DeleteRemaining(id: number) {
     this.weightControlService.Delete(id).subscribe((r) => {
-      if (r.wasSuccessful == true) {
+      if (r.WasSuccessful == true) {
         this.toastr.info('Elemento eliminado con exito');
         this.GetTodaysDetails();
       } else {
-        this.toastr.info(r.statusMessage);
+        this.toastr.info(r.StatusMessage);
       }
     });
   }

@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RecuperApp.Common.Models;
+using RecuperApp.Domain.Models.EntityModels;
 using RecuperApp.Domain.Models.Requests;
-using RecuperApp.Domain.Services;
+using RecuperApp.Domain.Services.Interfaces;
 
 namespace RecuperApp.Web.Gateway.Controllers
 {
@@ -9,36 +10,36 @@ namespace RecuperApp.Web.Gateway.Controllers
     [ApiController]
     public class WeightControlTypeController : ControllerBase
     {
-        private readonly WeightControlTypeService weightControlTypeService;
-        public WeightControlTypeController(WeightControlTypeService weightControlTypeService)
+        private readonly IApplicationService<WeightControlType, WeightControlTypeRequest> weightControlTypeService;
+        public WeightControlTypeController(IApplicationService<WeightControlType, WeightControlTypeRequest> weightControlTypeService)
         {
             this.weightControlTypeService = weightControlTypeService;
         }
         [HttpGet("GetAll")]                    
-        public HttpResponseModel GetAll(){
-            var response = weightControlTypeService.GetAll();
-            return response;
+        public async Task<HttpResponseModel> GetAll(){
+            var response = await weightControlTypeService.GetAll();
+            return new HttpResponseModel(response);
         }
         [HttpGet("GetById")]
-        public HttpResponseModel GetById(int id){
-            var response = weightControlTypeService.GetById(id);
-            return response;
+        public async Task<HttpResponseModel> GetById(int id){
+            var response = await weightControlTypeService.GetById(id);
+            return new HttpResponseModel(response);
         }
         [HttpPost("Create")]
-        public HttpResponseModel Create(WeightControlTypeRequest weightControlTypeModel)
+        public async Task<HttpResponseModel> Create(WeightControlTypeRequest weightControlTypeModel)
         {
-            var response = weightControlTypeService.Create(weightControlTypeModel);
-            return response;
+            var response = await weightControlTypeService.Create(weightControlTypeModel);
+            return new HttpResponseModel(response);
         }
         [HttpPost("Update")]
-        public HttpResponseModel Update(WeightControlTypeRequest weightControlTypeViewModel){
-            var response = weightControlTypeService.Update(weightControlTypeViewModel);
-            return response;
+        public async Task<HttpResponseModel> Update(WeightControlTypeRequest weightControlTypeViewModel){
+            var response = await weightControlTypeService.Update(weightControlTypeViewModel);
+            return new HttpResponseModel(response);
         }
         [HttpDelete("Delete")]
-        public HttpResponseModel Delete(int id){
-            var response = weightControlTypeService.Delete(id);
-            return response;
+        public async Task<HttpResponseModel> Delete(int id){
+            var response = await weightControlTypeService.Delete(id);
+            return new HttpResponseModel(response);
         
         }
     }

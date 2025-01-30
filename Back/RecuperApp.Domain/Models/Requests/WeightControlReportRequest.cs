@@ -6,7 +6,7 @@
         public DateTime? EndDate { get; set; }
         public int? ProductId { get; set; }
         public int? EmployeeId { get; set; }
-        public bool? Ispaid { get; set; }
+        public bool? IsPaid { get; set; }
         public int? Type { get; set; }
     }
 }

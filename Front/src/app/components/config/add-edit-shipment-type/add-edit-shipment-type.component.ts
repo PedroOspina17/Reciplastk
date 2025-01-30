@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ShipmentTypeViewModel } from '../../../models/ShipmentTypeViewModel';
+import { ShipmentTypeRequest } from '../../../models/Requests/ShipmentTypeRequest';
 import {
   FormBuilder,
   FormGroup,
@@ -49,45 +49,45 @@ export class AddEditShipmentTypeComponent {
 
   GetById(id: number) {
     this.shipmentTypeservice.GetById(id).subscribe((result) => {
-      if (result.wasSuccessful == true) {
+      if (result.WasSuccessful == true) {
         this.formShipment.setValue({
-          name: result.data.name,
-          description: result.data.description,
-          isactive: result.data.isactive
+          name: result.Data.name,
+          description: result.Data.description,
+          isactive: result.Data.isactive
         });
       } else {
-        this.toastr.error(result.data);
+        this.toastr.error(result.Data);
       }
     });
   }
   AddEditShipment() {
     this.loader = true;
-    const shipment : ShipmentTypeViewModel = {
-      name: this.formShipment.value.name,
-      description: this.formShipment.value.description,
-      isactive: this.formShipment.value.isactive
+    const shipment : ShipmentTypeRequest = {
+      Name: this.formShipment.value.name,
+      Description: this.formShipment.value.description,
+      IsActive: this.formShipment.value.isactive
     };
     if (this.id == 0) {
       this.shipmentTypeservice.Create(shipment).subscribe((result)=>{
-        if (result.wasSuccessful == true) {
+        if (result.WasSuccessful == true) {
           this.loader = false;
-          this.toastr.success(result.statusMessage)
+          this.toastr.success(result.StatusMessage)
           this.router.navigate(['/config/shipmenttype'])
         } else {
           this.loader = false;
-          this.toastr.error(result.statusMessage,'Error')
+          this.toastr.error(result.StatusMessage,'Error')
         }
       })
     } else {
-      shipment.shipmenttypeid = this.id;
+      shipment.Id = this.id;
       this.shipmentTypeservice.Update(shipment,this.id).subscribe((result)=>{
-        if (result.wasSuccessful == true) {
+        if (result.WasSuccessful == true) {
           this.loader = false;
-          this.toastr.success(result.statusMessage)
+          this.toastr.success(result.StatusMessage)
           this.router.navigate(['/config/shipmenttype'])
         } else {
           this.loader = false;
-          this.toastr.error(result.statusMessage,'Error')
+          this.toastr.error(result.StatusMessage,'Error')
           this.router.navigate(['/config/shipmenttype'])
         }
       })

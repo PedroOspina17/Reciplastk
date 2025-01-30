@@ -4,7 +4,7 @@ import { CustomerService } from '../../../services/customer.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ProductPriceModel } from '../../../models/ProductPriceModel';
+import { PriceTypeRequest } from '../../../models/Requests/PriceTypeRequest';
 import { ProductPriceInnerParams } from '../../../models/ProductPriceInnerParams';
 import { ProductPriceService } from '../../../services/product-price.service';
 import { PriceType } from '../../../models/Enums';
@@ -55,15 +55,15 @@ export class ProductPriceInnerComponent {
     this.filter();
   }
   filter() {
-    const productPriceModel: ProductPriceModel = {
-      pricetypeid: this.productPriceTypeId,
-      productid: this.productid,
-      customerid: this.customerid,
-      showHistory: this.value?.checked ?? false,
+    const productPriceModel: PriceTypeRequest = {
+      PriceTypeId: this.productPriceTypeId,
+      Id: this.productid,
+      CustomerId: this.customerid,
+      ShowHistory: this.value?.checked ?? false,
     }
     this.productPriceService.Filter(productPriceModel).subscribe(r => {
-      if (r.wasSuccessful) {
-        this.filterList = r.data;
+      if (r.WasSuccessful) {
+        this.filterList = r.Data;
       } else {
         this.toastr.info("No se encontraron productos con los filtros aplicados")
       }
@@ -72,16 +72,16 @@ export class ProductPriceInnerComponent {
   GetCustomers(id: number) {
     if (id == PriceType.Buy) {
       this.customerService.GetAllProviders().subscribe((r) => {
-        if (r.wasSuccessful) {
-          this.CustomerList = r.data;
+        if (r.WasSuccessful) {
+          this.CustomerList = r.Data;
         } else {
           this.toastr.info('No se encontro ningun proveedor');
         }
       });
     } else if (id == PriceType.Sell) {
       this.customerService.GetAllCustomer().subscribe((r) => {
-        if (r.wasSuccessful) {
-          this.CustomerList = r.data;
+        if (r.WasSuccessful) {
+          this.CustomerList = r.Data;
         } else {
           this.toastr.info('No se encontron ningun cliente');
         }
@@ -93,15 +93,15 @@ export class ProductPriceInnerComponent {
     this.filter();
   }
   CreateProductPrice() {
-    const productPriceModel: ProductPriceModel = {
-      pricetypeid: this.productPriceTypeId,
-      productid: this.productid,
-      customerid: this.isCreate == true ? this.customerid : undefined,
-      price: this.IsNegative && this.isCreate == false ? this.formSelects.value.price * -1 : this.formSelects.value.price
+    const productPriceModel: PriceTypeRequest = {
+      PriceTypeId: this.productPriceTypeId,
+      Id: this.productid,
+      CustomerId: this.isCreate == true ? this.customerid : undefined,
+      Price: this.IsNegative && this.isCreate == false ? this.formSelects.value.price * -1 : this.formSelects.value.price
     }
     this.productPriceService.CreateProductPrices(productPriceModel).subscribe(r => {
-      if (r.wasSuccessful) {
-        this.toastr.success(r.statusMessage)
+      if (r.WasSuccessful) {
+        this.toastr.success(r.StatusMessage)
         this.filter();
         this.formSelects.get('price')?.setValue('');
       } else {

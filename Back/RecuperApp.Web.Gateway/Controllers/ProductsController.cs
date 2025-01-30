@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Data;
+using Microsoft.AspNetCore.Mvc;
 using RecuperApp.Common.Models;
-using RecuperApp.Domain.Models.ViewModels;
-using RecuperApp.Domain.Services;
+using RecuperApp.Domain.Models.EntityModels;
+using RecuperApp.Domain.Models.Requests;
+using RecuperApp.Domain.Services.Interfaces;
 
 namespace RecuperApp.Web.Gateway.Controllers
 {
@@ -10,63 +12,75 @@ namespace RecuperApp.Web.Gateway.Controllers
     public class ProductsController : ControllerBase
     {
        
-        private readonly ProductsService productsService;
+        private readonly IProductsService productsService;
 
-        public ProductsController( ProductsService productsService)
+        public ProductsController( IProductsService productsService)
         {
             this.productsService = productsService;
         }
 
         [HttpGet("GetAll")]
 
-        public HttpResponseModel GetAll()
+        public async Task<HttpResponseModel> GetAll()
         {
-            return productsService.GetAll();
+            var result = await productsService.GetAll();
+            return new HttpResponseModel(result);
         }
 
         [HttpGet("GetMainProducts")]
 
-        public HttpResponseModel GetMainProducts()
+        public async Task<HttpResponseModel> GetMainProducts()
         {
-            return productsService.GetMainProducts();
+            var result = await productsService.GetMainProducts();
+            return new HttpResponseModel(result);
+
         }
 
         [HttpGet("GetSpecificProducts")]
-        public HttpResponseModel GetSpecificProducts() {
-            return productsService.GetSpecificProducts();
+        public async Task<HttpResponseModel> GetSpecificProducts() {
+            var result = await productsService.GetSpecificProducts();
+            return new HttpResponseModel(result);
+
         }
 
         [HttpGet("GetById")]
-        public HttpResponseModel GetById(int id)
+        public async Task<HttpResponseModel> GetById(int id)
         {
-            return productsService.GetById(id);
+            var result = await productsService.GetById(id);
+            return new HttpResponseModel(result);
+
         }
 
         [HttpGet("GetByParentid")]
 
-        public HttpResponseModel GetByParentid(int id)
+        public async Task<HttpResponseModel> GetByParentid(int id)
         {
-            return productsService.GetByParentid(id);
+            var result = await productsService.GetChildren(id);
+            return new HttpResponseModel(result);
+
         }
 
         [HttpPost("Create")]
 
-        public HttpResponseModel Create(ProductsViewModel productModel)
+        public async Task<HttpResponseModel> Create(ProductsRequest productModel)
         {
-            return productsService.Create(productModel);
+            var result = await productsService.Create(productModel);
+            return new HttpResponseModel(result, $"Se creó el producto {result.ShortName} exitosamente, con id #{result.Id}");
         }
-
         [HttpPut("Update")]
 
-        public HttpResponseModel Update(ProductsViewModel productModel)
+        public async Task<HttpResponseModel> Update(ProductsRequest productModel)
         {
-            return productsService.Update(productModel);
+            var result = await productsService.Update(productModel);
+            return new HttpResponseModel(result, $"Se modificó el producto ${result.ShortName} exitosamente");
         }
 
         [HttpDelete("Delete")]
-        public HttpResponseModel Delete(int id)
+        public async Task<HttpResponseModel> Delete(int id)
         {
-            return productsService.Delete(id);
+            var result = await productsService.Delete(id);
+            return new HttpResponseModel($"Se eliminó el producto ${result.ShortName} exitosamente");
+
         }
     }
 }

@@ -6,7 +6,7 @@ import { CustomerViewModel } from '../../../models/CustomerModel';
 import { CustomerService } from '../../../services/customer.service';
 import { CopyCustomerPricesViewModel } from '../../../models/CopyCustomerPricesViewModel';
 import { ProductPriceService } from '../../../services/product-price.service';
-import { ProductPriceModel } from '../../../models/ProductPriceModel';
+import { PriceTypeRequest } from '../../../models/Requests/PriceTypeRequest';
 import { ProductPriceInnerParams } from '../../../models/ProductPriceInnerParams';
 
 @Component({
@@ -32,22 +32,22 @@ export class CopyCustomerPricesComponent {
   }
   GetCustomers() {
     this.customerService.GetAll().subscribe((r) => {
-      if (r.wasSuccessful) {
-        this.CustomerList = r.data;
+      if (r.WasSuccessful) {
+        this.CustomerList = r.Data;
       } else {
         this.toastr.info('No se encontron ningun cliente');
       }
     });
   }
   Filter() {
-    const productPriceModel: ProductPriceModel = {
-      customerid: this.FormSelects.value.CustomerToCopyId
+    const productPriceModel: PriceTypeRequest = {
+      CustomerId: this.FormSelects.value.CustomerToCopyId
     }
     this.productPriceService.Filter(productPriceModel).subscribe(r => {
-      if (r.wasSuccessful) {
-        this.filterList = r.data;
+      if (r.WasSuccessful) {
+        this.filterList = r.Data;
       } else {
-        this.toastr.error(r.data);
+        this.toastr.error(r.Data);
       }
     })
   }
@@ -63,14 +63,14 @@ export class CopyCustomerPricesComponent {
         customerTo: this.FormSelects.value.CustomerToAssignId,
       }
       this.productPriceService.CopyPrices(copyCustomerPricesViewModel).subscribe(r => {
-        if (r.wasSuccessful) {
-          this.toastr.success(r.statusMessage);
+        if (r.WasSuccessful) {
+          this.toastr.success(r.StatusMessage);
           this.FormSelects.setValue({
             CustomerToCopyId: [-1,],
             CustomerToAssignId: [-1]
           })
         } else {
-          this.toastr.error(r.data);
+          this.toastr.error(r.Data);
         }
       });
     }

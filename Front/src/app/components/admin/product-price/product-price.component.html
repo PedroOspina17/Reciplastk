@@ -19,7 +19,7 @@
                         <select formControlName="productid" (change)="ProductChange($event)" class="form-select"
                             name="productid" id="productid">
                             <option value="-1">Seleccione el producto</option>
-                            <option *ngFor="let i of ProductsList" value="{{i.productid}}">{{i.name}}</option>
+                            <option *ngFor="let i of ProductsList" value="{{i.Id}}">{{i.Name}}</option>
                         </select>
                     </div>
                 </div>

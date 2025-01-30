@@ -32,14 +32,14 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let i of rolesList">
-                                <td>{{i.name}}</td>
+                                <td>{{i.Name}}</td>
                                 <td class="text-center">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-outline-warning" title="Editar producto">
                                             <i class="bi bi-pencil"></i>
                                         </button>
 
-                                        <button type="button" class="btn btn-outline-danger" (click)="Delete(i.roleId!)"
+                                        <button type="button" class="btn btn-outline-danger" (click)="Delete(i.RoleId!)"
                                             title="Eliminar producto">
                                             <i class="bi bi-trash"></i>
                                         </button>

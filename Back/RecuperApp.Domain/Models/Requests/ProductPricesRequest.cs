@@ -2,11 +2,11 @@
 {
     public class ProductPricesRequest
     {
-        public int productpriceid { get; set; }
-        public int productid { get; set; }
-        public int? customerid { get; set; }
-        public int pricetypeid { get; set; }
-        public int employeeid { get; set; }
-        public double price { get; set; }
+        public int ProductPriceId { get; set; }
+        public int ProductId { get; set; }
+        public int? CustomerId { get; set; }
+        public int PriceTypeId { get; set; }
+        public int EmployeeId { get; set; }
+        public double Price { get; set; }
     }
 }

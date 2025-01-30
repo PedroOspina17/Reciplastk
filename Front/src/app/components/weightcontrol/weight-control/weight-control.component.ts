@@ -12,7 +12,7 @@ import { WeightControlService } from '../../../services/weight-control-service';
 import { ProductsService } from '../../../services/products.service';
 import { WeightControlDetailComponent } from '../weight-control-detail/weight-control-detail.component';
 import Swal from 'sweetalert2';
-import { ProductModel } from '../../../models/ProductModel';
+import { ProductsRequest } from '../../../models/Requests/ProductsRequest';
 
 @Component({
   selector: 'app-weight-control',
@@ -37,7 +37,7 @@ export class WeightControlComponent {
   ) { }
   disable: boolean = true;
   employeeList: any[] = [];
-  generalProductList: ProductModel[] = [];
+  generalProductList: ProductsRequest[] = [];
   employeeid: number = -1;
   employeename: string = '';
   productid: number = -1;
@@ -50,8 +50,8 @@ export class WeightControlComponent {
   }
   GetEmployee() {
     this.weightControlService.GetEmployee().subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.employeeList = r.data;
+      if (r.WasSuccessful == true) {
+        this.employeeList = r.Data;
       } else {
         this.toastr.info('No se encontro ningun empleado');
       }
@@ -59,8 +59,8 @@ export class WeightControlComponent {
   }
   GetGeneralProducts() {
     this.productsService.GetMain().subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.generalProductList = r.data;
+      if (r.WasSuccessful == true) {
+        this.generalProductList = r.Data;
       } else {
         this.toastr.info('No se encontro ningun producto general');
       }

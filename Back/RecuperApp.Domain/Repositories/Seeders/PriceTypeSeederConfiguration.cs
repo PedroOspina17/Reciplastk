@@ -11,7 +11,7 @@ namespace RecuperApp.Domain.Repositories.Seeders
             builder.HasData
             (new PriceType
             {
-                PriceTypeId = 1,
+                Id = 1,
                 Name = "Compra",
                 CreatedDate = DateTime.Parse("01/22/2025 10:45:45"),
                 IsActive = true,
@@ -20,7 +20,7 @@ namespace RecuperApp.Domain.Repositories.Seeders
             },
             new PriceType
             {
-                PriceTypeId = 2,
+                Id = 2,
                 Name = "Venta",
                 CreatedDate = DateTime.Parse("01/22/2025 10:45:45"),
                 IsActive = true,

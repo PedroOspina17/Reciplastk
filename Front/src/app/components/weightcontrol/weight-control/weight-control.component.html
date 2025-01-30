@@ -33,7 +33,7 @@
                     <select [disabled]="employeeid == -1 || showDetail" class="form-select" id="GeneralProduct"
                         [(ngModel)]="productid" (change)="onProductChange($event)">
                         <option value="-1">Productos generales</option>
-                        <option *ngFor="let i of generalProductList" value="{{i.productid}}">{{i.name}}</option>
+                        <option *ngFor="let i of generalProductList" value="{{i.Id}}">{{i.Name}}</option>
                     </select>
                 </div>
             </div>

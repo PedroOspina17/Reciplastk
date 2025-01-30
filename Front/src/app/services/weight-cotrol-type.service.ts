@@ -4,7 +4,7 @@ import { appConfig } from '../app.config';
 import { AppConfig } from '../common/app-config';
 import { Observable } from 'rxjs';
 import { HttpResponseModel } from '../models/HttpResponseModel';
-import { WeightControlTypeModel } from '../models/WeightControlTypeModel';
+import { WeightControlTypeRequest } from '../models/Requests/WeightControlTypeRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -22,11 +22,11 @@ export class WeightCotrolTypeService {
     return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'GetById?id='+id)
   }
   
-  Create(controltype:WeightControlTypeModel):Observable<HttpResponseModel>{
+  Create(controltype:WeightControlTypeRequest):Observable<HttpResponseModel>{
     return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'Create',controltype)
   }
   
-  Update(controltype: WeightControlTypeModel):Observable<HttpResponseModel>{
+  Update(controltype: WeightControlTypeRequest):Observable<HttpResponseModel>{
     return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'Update',controltype)
   }
   

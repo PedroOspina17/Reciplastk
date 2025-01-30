@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RecuperApp.Common.Models;
+using RecuperApp.Domain.Models.EntityModels;
 using RecuperApp.Domain.Models.Requests;
-using RecuperApp.Domain.Services;
+using RecuperApp.Domain.Services.Interfaces;
 
 namespace RecuperApp.Web.Gateway.Controllers
 {
@@ -9,84 +10,78 @@ namespace RecuperApp.Web.Gateway.Controllers
     [ApiController]
     public class WeightControlController : ControllerBase
     {
-        private readonly WeightControlService weightControlService;
+        private readonly IWeightControlService weightControlService;
 
-        public WeightControlController(WeightControlService weightControlService)
+        public WeightControlController(IWeightControlService weightControlService)
         {
             this.weightControlService = weightControlService;
         }
 
         [HttpGet("GetAll")]
 
-        public HttpResponseModel GetAll()
+        public async Task<HttpResponseModel> GetAll()
         {
-            return weightControlService.GetAll();
+            var response = await weightControlService.GetAll();
+            return new HttpResponseModel(response);
         }
 
         [HttpGet("GetById")]
-        public HttpResponseModel GetById(int id)
+        public async Task<HttpResponseModel> GetById(int id)
         {
-            return weightControlService.GetById(id);
+            var response = await weightControlService.GetById(id);
+            return new HttpResponseModel(response);
         }
 
         [HttpPost("CreateSeparation")]
 
-        public HttpResponseModel Create(WeightControlRequest viewModel)
+        public async Task<HttpResponseModel> Create(WeightControlSeparationRequest viewModel)
         {
-            return weightControlService.CreateSeparation(viewModel);
+            var response = await weightControlService.CreateSeparation(viewModel);
+            return new HttpResponseModel(response, $"Se creó el registro de separación de peso exitosamente con id #{response.Id}");
         }
 
         [HttpPost("CreateGrinding")]
-        public HttpResponseModel CreateGrinding(GrindingRequest grindingViewModel)
+        public async Task<HttpResponseModel> CreateGrinding(WeightControlGrindingRequest grindingViewModel)
         {
-            return weightControlService.CreateGrinding(grindingViewModel);
+            var response = await weightControlService.CreateGrinding(grindingViewModel);
+            return new HttpResponseModel(response, $"Se creó el registro de material molidoexitosamente con id #{response.Id}");
         }
 
         [HttpPost("Update")]
-        public HttpResponseModel Update(WeightControlRequest viewModel)
+        public async Task<HttpResponseModel> Update(WeightControl viewModel)
         {
-            return weightControlService.Update(viewModel);
+            var response = await weightControlService.Update(viewModel);
+            return new HttpResponseModel(response);
         }
 
         [HttpDelete("Delete")]
-        public HttpResponseModel Delete(int id)
+        public async Task<HttpResponseModel> Delete(int id)
         {
-            return weightControlService.Delete(id);
+            var response = await weightControlService.Delete(id);
+            return new HttpResponseModel(response);
         }
 
         [HttpGet("GetGroundProducts")]
-        public HttpResponseModel GetGroundProducts()
+        public async Task<HttpResponseModel> GetGroundProducts()
         {
-            return weightControlService.GetGroundProducts();
+            var response = await weightControlService.GetGroundProducts();
+            return new HttpResponseModel(response);
         }
 
         [HttpPost("Filter")]
-        public HttpResponseModel Filter(WeightControlReportRequest weightControlReportParams)
+        public async Task<HttpResponseModel> Filter(WeightControlReportRequest weightControlReportParams)
         {
-            return weightControlService.Filter(weightControlReportParams);
+            var response = await weightControlService.Filter(weightControlReportParams);
+            return new HttpResponseModel(response);
         }
 
         [HttpGet("Remainings")]
-        public HttpResponseModel Remainings (bool ViewAll)
+        public async Task<HttpResponseModel> Remainings (bool ViewAll)
         {
-            return weightControlService.Remainings(ViewAll);
+            var response = await weightControlService.Remainings(ViewAll);
+            return new HttpResponseModel(response);
         }
 
-        [HttpPost("PayAndSave")]
-        public HttpResponseModel PayAndSave(PaymentReceiptRequest viewModel)
-        {
-            return weightControlService.PayAndSave(viewModel);
-        }
-
-        [HttpGet("GetAllReceipt")]
-        public HttpResponseModel GetAllReceipt() {
-            return weightControlService.GetAllReceipt();
-        }
-
-        [HttpGet("GetReceipt")]
-        public HttpResponseModel GetReceipt(int id)
-        {
-            return weightControlService.GetReceipt(id);
-        }
+       
     }
 }

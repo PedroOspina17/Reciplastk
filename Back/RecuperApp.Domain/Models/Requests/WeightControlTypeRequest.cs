@@ -2,9 +2,9 @@
 {
     public class WeightControlTypeRequest
     {
-        public int weightcontroltypeid { get; set; }
-        public string name { get; set; }
-        public string description { get; set; }
+        public int WeightControlTypeId { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
 
     }
 }

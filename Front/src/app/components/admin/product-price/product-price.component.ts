@@ -3,7 +3,7 @@ import { ProductPriceInnerComponent } from "../product-price-inner/product-price
 import { ProductPriceService } from '../../../services/product-price.service';
 import { ToastrService } from 'ngx-toastr';
 import { ProductsService } from '../../../services/products.service';
-import { ProductModel } from '../../../models/ProductModel';
+import { ProductsRequest } from '../../../models/Requests/ProductsRequest';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CustomerService } from '../../../services/customer.service';
@@ -27,7 +27,7 @@ export class ProductPriceComponent {
   }
   formSelects: FormGroup;
   PriceTypesList: any[] = []
-  ProductsList: ProductModel[] = [];
+  ProductsList: ProductsRequest[] = [];
   productPriceTypeId = -1;
   priceType = PriceType;
   @ViewChild(ProductPriceInnerComponent) child!: ProductPriceInnerComponent;
@@ -58,28 +58,28 @@ export class ProductPriceComponent {
 
   GetAllPriceTypes() {
     this.productPriceService.GetAllPriceTypes().subscribe(r => {
-      if (r.wasSuccessful) {
-        this.PriceTypesList = r.data;
+      if (r.WasSuccessful) {
+        this.PriceTypesList = r.Data;
       } else {
-        this.toastr.error(r.statusMessage)
+        this.toastr.error(r.StatusMessage)
       }
     });
   }
   GetProduct(id: number) {
     if (id == this.priceType.Buy) {
       this.productsService.GetMain().subscribe(r => {
-        if (r.wasSuccessful) {
-          this.ProductsList = r.data;
+        if (r.WasSuccessful) {
+          this.ProductsList = r.Data;
         } else {
-          this.toastr.error(r.statusMessage);
+          this.toastr.error(r.StatusMessage);
         }
       })
     } else {
       this.productsService.GetAll().subscribe(r => {
-        if (r.wasSuccessful) {
-          this.ProductsList = r.data;
+        if (r.WasSuccessful) {
+          this.ProductsList = r.Data;
         } else {
-          this.toastr.error(r.statusMessage);
+          this.toastr.error(r.StatusMessage);
         }
       })
     }

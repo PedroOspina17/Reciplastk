@@ -2,8 +2,8 @@
 {
     public class PriceTypeRequest
     {
-        public int pricetypeid { get; set; }
-        public string name { get; set; }
-        public string description { get; set; }
+        public int PriceTypeId { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
     }
 }

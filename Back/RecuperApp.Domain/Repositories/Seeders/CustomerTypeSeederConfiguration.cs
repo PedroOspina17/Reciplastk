@@ -11,7 +11,7 @@ namespace RecuperApp.Domain.Repositories.Seeders
             builder.HasData
             (new CustomerType
             {
-                CustomerTypeId = 1,
+                Id = 1,
                 Name = "Proveedor",
                 CreatedDate = DateTime.Parse("01/22/2025 10:45:45"),
                 IsActive = true,
@@ -20,7 +20,7 @@ namespace RecuperApp.Domain.Repositories.Seeders
             },
             new CustomerType
             {
-                CustomerTypeId = 2,
+                Id = 2,
                 Name = "Cliente",
                 CreatedDate = DateTime.Parse("01/22/2025 10:45:45"),
                 IsActive = true,

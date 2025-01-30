@@ -2,7 +2,7 @@
 {
     public class PaymentReceiptDetailRequest
     {
-        public int weightcontroldetailid { get; set; }
-        public int price { get; set; }
+        public int WeightControlDetailId { get; set; }
+        public int Price { get; set; }
     }
 }

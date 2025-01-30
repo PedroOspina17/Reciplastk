@@ -11,10 +11,10 @@ var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
-builder.Services.AddApplicationDataAccess(config);
 builder.Services.AddApplicationAutoMapper();
-builder.Services.AddApplicationServices();
+builder.Services.AddApplicationDataAccess(config);
 builder.Services.AddApplicationRepositories();
+builder.Services.AddApplicationServices();
 builder.Services.AddCors(options => options.AddPolicy("AllowWebApp", builder =>
                             builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).
@@ -33,6 +33,7 @@ builder.Services.AddControllers().AddJsonOptions(opt =>
 {
     opt.JsonSerializerOptions.ReferenceHandler =
         System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    opt.JsonSerializerOptions.PropertyNamingPolicy = null;
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

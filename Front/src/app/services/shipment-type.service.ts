@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AppConfig } from '../common/app-config';
 import { Observable } from 'rxjs';
 import { HttpResponseModel } from '../models/HttpResponseModel';
-import { ShipmentTypeViewModel } from '../models/ShipmentTypeViewModel';
+import { ShipmentTypeRequest } from '../models/Requests/ShipmentTypeRequest';
 
 
 @Injectable({
@@ -22,11 +22,11 @@ export class ShipmentTypeService {
     return this.http.get<HttpResponseModel>(this.ServiceEndpoint+'/GetById?shipmentTypeId='+id)
   }
 
-  Create(shipmenTypetModel: ShipmentTypeViewModel):Observable<HttpResponseModel>{
+  Create(shipmenTypetModel: ShipmentTypeRequest):Observable<HttpResponseModel>{
     return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/Create', shipmenTypetModel)
   }
 
-  Update(shipmenTypetModel: ShipmentTypeViewModel, id: number):Observable<HttpResponseModel>{
+  Update(shipmenTypetModel: ShipmentTypeRequest, id: number):Observable<HttpResponseModel>{
     return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/Update', shipmenTypetModel)
   }
 

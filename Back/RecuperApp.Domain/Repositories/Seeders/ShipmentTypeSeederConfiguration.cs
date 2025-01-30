@@ -11,7 +11,7 @@ namespace RecuperApp.Domain.Repositories.Seeders
             builder.HasData
             (new ShipmentType
             {
-                ShipmentTypeId = 1,
+                Id = 1,
                 Name = "Ingreso",
                 CreatedDate = DateTime.Parse("01/22/2025 10:45:45"),
                 IsActive = true,
@@ -20,7 +20,7 @@ namespace RecuperApp.Domain.Repositories.Seeders
             },
             new ShipmentType
             {
-                ShipmentTypeId = 2,
+                Id = 2,
                 Name = "Salida",
                 CreatedDate = DateTime.Parse("01/22/2025 10:45:45"),
                 IsActive = true,

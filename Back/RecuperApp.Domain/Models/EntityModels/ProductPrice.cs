@@ -5,8 +5,6 @@ namespace RecuperApp.Domain.Models.EntityModels;
 
 public class ProductPrice : BaseEntity
 {
-    [Key]
-    public int ProductPriceId { get; set; }
 
     public int ProductId { get; set; }
     public virtual Product Product { get; set; }

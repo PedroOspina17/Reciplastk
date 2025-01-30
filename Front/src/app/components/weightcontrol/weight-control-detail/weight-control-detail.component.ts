@@ -9,10 +9,10 @@ import {
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { ProductsService } from '../../../services/products.service';
-import { WeightControlModel } from '../../../models/WeightControlModel';
+import { WeightControlSeparationRequest } from '../../../models/Requests/WeightControlSeparationRequest';
 import { WeightControlDetailModel } from '../../../models/WeightControlDetailModel';
 import { WeightControlService } from '../../../services/weight-control-service';
-import { ProductModel } from '../../../models/ProductModel';
+import { ProductsRequest } from '../../../models/Requests/ProductsRequest';
 
 @Component({
   selector: 'app-weight-control-detail',
@@ -43,17 +43,17 @@ export class WeightControlDetailComponent {
   @Output() onComplete = new EventEmitter();
   weightcontroldetaillist: WeightControlDetailModel[] = [];
   weightDetailForm: FormGroup;
-  specificProducts: ProductModel[] = [];
-  filterProducts: ProductModel[] = [];
+  specificProducts: ProductsRequest[] = [];
+  filterProducts: ProductsRequest[] = [];
   ngOnInit(): void {
     this.GetSpecificProducts();
   }
   GetSpecificProducts() {
     this.productService.GetSpecificProducts().subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.specificProducts = r.data;
+      if (r.WasSuccessful == true) {
+        this.specificProducts = r.Data;
         this.filterProducts = this.specificProducts.filter(
-          (p) => p.parentid == this.productid
+          (p) => p.ParentId == this.productid
         );
       } else {
         this.toastr.info('No se encontraron los productos especificos');
@@ -65,8 +65,8 @@ export class WeightControlDetailComponent {
       productid: this.weightDetailForm.value.productid,
       name:
         this.specificProducts.find(
-          (p) => p.productid == this.weightDetailForm.value.productid
-        )?.name ?? '',
+          (p) => p.Id == this.weightDetailForm.value.productid
+        )?.Name ?? '',
       weight: this.weightDetailForm.value.weight,
     };
     this.weightcontroldetaillist.unshift(WeightDetail);
@@ -83,17 +83,17 @@ export class WeightControlDetailComponent {
     this.toastr.info('Producto eliminado con éxito');
   }
   SaveAll() {
-    const weightcontrol: WeightControlModel = {
-      employeeid: this.employeeid,
-      weightdetail: this.weightcontroldetaillist,
+    const weightcontrol: WeightControlSeparationRequest = {
+      EmployeeId: this.employeeid,
+      WeightDetail: this.weightcontroldetaillist,
     };
     this.weightControlService.CreateSeparation(weightcontrol).subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.toastr.success(r.statusMessage);
+      if (r.WasSuccessful == true) {
+        this.toastr.success(r.StatusMessage);
         this.weightcontroldetaillist = [];
         this.onComplete.emit();
       } else {
-        this.toastr.success(r.statusMessage);
+        this.toastr.success(r.StatusMessage);
       }
     });
   }

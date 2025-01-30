@@ -5,9 +5,6 @@ namespace RecuperApp.Domain.Models.EntityModels;
 
 public class ShipmentType : BaseEntity
 {
-    [Key]
-    public int ShipmentTypeId { get; set; }
-
     [Required]
     [StringLength(50)]
     public string Name { get; set; }

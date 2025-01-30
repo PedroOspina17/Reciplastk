@@ -5,9 +5,6 @@ using RecuperApp.Domain.Models.EntityModels.Base;
 namespace RecuperApp.Domain.Models.EntityModels;
 public class Customer : BaseEntity
 {
-    [Key]
-    public int CustomerId { get; set; }
-
     public int CustomerTypeId { get; set; }
     public virtual CustomerType CustomerType { get; set; }
 

@@ -22,8 +22,9 @@ export class ShowAllBillsComponent {
   }
   GetAllBills() {
     this.weightcontrolservice.GetAllReceipt().subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.BillsList = r.data;
+      if (r.WasSuccessful) {
+        this.BillsList = r.Data;
+        console.log(r.Data);
       } else {
         this.toastr.info('No se encontraron facturas de pago');
       }

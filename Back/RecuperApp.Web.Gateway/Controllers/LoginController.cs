@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RecuperApp.Common.Helpers;
+using RecuperApp.Common.Models;
 using RecuperApp.Domain.Models.Requests;
-using RecuperApp.Domain.Services;
+using RecuperApp.Domain.Services.Interfaces;
 using RecuperApp.Web.Gateway.Utils;
 
 namespace RecuperApp.Web.Gateway.Controllers
@@ -22,21 +23,12 @@ namespace RecuperApp.Web.Gateway.Controllers
 
         [HttpPost]
 
-        public async Task<IActionResult> ValidateUser(ValidateUserRequest userViewModel)
+        public async Task<HttpResponseModel> ValidateUser(ValidateUserRequest userViewModel)
         {
-            try
-            {
-                userViewModel.Password = Encrypt.EncryptPassword(userViewModel.Password);
-                var user = await _employeeService.ValidateLogIn(userViewModel.UserName, userViewModel.Password);
-                if (user == null) return BadRequest(new { Message = "usuario o contraseña Incorrectos" });
-                string tokenString = JwtConfigurator.GetToken(user, _configuration);
-                return Ok(new { token = tokenString });
-            }
-            catch (Exception ex)
-            {
+            var user = await _employeeService.ValidateLogIn(userViewModel);
+            string tokenString = JwtConfigurator.GetToken(user, _configuration);
+            return new HttpResponseModel(new { user, tokenString });
 
-                return BadRequest(ex.Message);
-            }
         }
     }
 }
