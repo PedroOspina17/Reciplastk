@@ -9,7 +9,7 @@
                             name="tipeid" id="tipeid">
                             <option value="-1">Seleccione un {{productPriceTypeId == PriceType.Buy ? 'proveedor':'cliente'}}
                             </option>
-                            <option *ngFor="let i of CustomerList" value="{{i.customerid}}">{{i.name}}</option>
+                            <option *ngFor="let i of CustomerList" value="{{i.Id}}">{{i.Name}}</option>
                         </select>
                     </div>
                 </div>
@@ -56,17 +56,19 @@
                     <tr>
                         <th>Fecha</th>                       
                         <th>{{productPriceTypeId == PriceType.Buy ? 'Proveedores':'Clientes'}}</th>
+                        <th>Producto</th>
                         <th>{{productPriceTypeId == PriceType.Buy ? 'Precio compra':'Precio venta'}}</th>
                         <th>Precio vigente</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let i of filterList">
-                        <td>{{i.date | date: 'MM/dd/yyyy' }}</td>                      
-                        <td>{{i.customer}}</td>
-                        <td>{{i.price | currency:'USD':'symbol':'1.0-0'}}</td>
+                        <td>{{i.Date | date: 'MM/dd/yyyy' }}</td>                      
+                        <td>{{i.Customer}}</td>
+                        <td>{{i.Product}}</td>
+                        <td>{{i.Price | currency:'USD':'symbol':'1.0-0'}}</td>
                         <td>
-                            <i *ngIf="i.iscurrentprice; else x" class="bi bi-check2 text-success ms-5"></i>
+                            <i *ngIf="i.IsCurrentPrice; else x" class="bi bi-check2 text-success ms-5"></i>
                             <ng-template #x>
                                 <i class="bi bi-x-lg text-danger ms-5"></i>
                             </ng-template>

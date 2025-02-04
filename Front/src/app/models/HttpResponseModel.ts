@@ -1,6 +1,6 @@
 export class HttpResponseModel {
-    statusCode: number = 200;
-    wasSuccessful: boolean = false;
-    statusMessage: string ="";
-    data: any;
+    StatusCodee: number = 200;
+    WasSuccessful: boolean = false;
+    StatusMessage: string ="";
+    Data: any;
 }

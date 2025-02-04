@@ -2,12 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { CustomerViewModel } from '../../../models/CustomerModel';
+import { CustomerViewModel } from '../../../models/ViewModel/CustomerViewModel';
 import { CustomerService } from '../../../services/customer.service';
-import { CopyCustomerPricesViewModel } from '../../../models/CopyCustomerPricesViewModel';
+import { CopyCustomerPricesViewModel } from '../../../models/ViewModel/CopyCustomerPricesViewModel';
 import { ProductPriceService } from '../../../services/product-price.service';
-import { ProductPriceModel } from '../../../models/ProductPriceModel';
-import { ProductPriceInnerParams } from '../../../models/ProductPriceInnerParams';
+import { PriceTypeRequest } from '../../../models/Requests/PriceTypeRequest';
+import { ProductPriceViewModel } from '../../../models/ViewModel/ProductPriceViewModel';
 
 @Component({
   selector: 'app-copy-customer-prices',
@@ -26,28 +26,28 @@ export class CopyCustomerPricesComponent {
   }
   FormSelects: FormGroup;
   CustomerList: CustomerViewModel[] = [];
-  filterList: ProductPriceInnerParams[] = [];
+  filterList: ProductPriceViewModel[] = [];
   ngOnInit(): void {
     this.GetCustomers();
   }
   GetCustomers() {
     this.customerService.GetAll().subscribe((r) => {
-      if (r.wasSuccessful) {
-        this.CustomerList = r.data;
+      if (r.WasSuccessful) {
+        this.CustomerList = r.Data;
       } else {
         this.toastr.info('No se encontron ningun cliente');
       }
     });
   }
   Filter() {
-    const productPriceModel: ProductPriceModel = {
-      customerid: this.FormSelects.value.CustomerToCopyId
+    const productPriceModel: PriceTypeRequest = {
+      CustomerId: this.FormSelects.value.CustomerToCopyId
     }
     this.productPriceService.Filter(productPriceModel).subscribe(r => {
-      if (r.wasSuccessful) {
-        this.filterList = r.data;
+      if (r.WasSuccessful) {
+        this.filterList = r.Data;
       } else {
-        this.toastr.error(r.data);
+        this.toastr.error(r.Data);
       }
     })
   }
@@ -59,18 +59,18 @@ export class CopyCustomerPricesComponent {
       });
     } else {
       const copyCustomerPricesViewModel: CopyCustomerPricesViewModel = {
-        customerFrom: this.FormSelects.value.CustomerToCopyId,
-        customerTo: this.FormSelects.value.CustomerToAssignId,
+        CustomerFrom: this.FormSelects.value.CustomerToCopyId,
+        CustomerTo: this.FormSelects.value.CustomerToAssignId,
       }
       this.productPriceService.CopyPrices(copyCustomerPricesViewModel).subscribe(r => {
-        if (r.wasSuccessful) {
-          this.toastr.success(r.statusMessage);
+        if (r.WasSuccessful) {
+          this.toastr.success(r.StatusMessage);
           this.FormSelects.setValue({
             CustomerToCopyId: [-1,],
             CustomerToAssignId: [-1]
           })
         } else {
-          this.toastr.error(r.data);
+          this.toastr.error(r.Data);
         }
       });
     }

@@ -1,7 +1,10 @@
 ﻿using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RecuperApp.Domain.Models.EntityModels;
+using RecuperApp.Domain.Repositories;
 using RecuperApp.Domain.Services;
+using RecuperApp.Domain.Services.Interfaces;
 
 namespace RecuperApp.Domain.Configurations
 {
@@ -15,12 +18,15 @@ namespace RecuperApp.Domain.Configurations
         }
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+            services.AddScoped(typeof(IApplicationService<>), typeof(ApplicationService<>));
+            services.AddScoped(typeof(IApplicationService<,>), typeof(ApplicationService<,>));
             services.AddScoped<ShipmentService>();
-            services.AddScoped<ShipmentTypeService>();
             services.AddScoped<CustomerService>();
             services.AddScoped<WeightControlTypeService>();
-            services.AddScoped<WeightControlService>();
-            services.AddScoped<ProductsService>();
+            services.AddScoped<IProductsService, ProductsService>();
+            services.AddScoped<IShipmentTypeService, ShipmentTypeService>();
+            services.AddScoped<IWeightControlService,WeightControlService>();
+            services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<CustomerTypeService>();

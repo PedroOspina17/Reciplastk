@@ -5,9 +5,6 @@ namespace RecuperApp.Domain.Models.EntityModels;
 
 public class PaymentDetail : BaseEntity
 {
-    [Key]
-    public int PaymentsDetailId { get; set; }
-
     public int PaymentId { get; set; }
     public virtual Payment Payment { get; set; }
 

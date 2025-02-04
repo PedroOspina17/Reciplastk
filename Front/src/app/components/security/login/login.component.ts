@@ -33,8 +33,8 @@ export class LoginComponent {
   Save(): void {
     
     const loginData: LoginModel = {
-      userName: this.loginForm.value.email,
-      password: this.loginForm.value.password
+      UserName: this.loginForm.value.email,
+      Password: this.loginForm.value.password
     };
 
     this.isLoading = true;
@@ -42,8 +42,8 @@ export class LoginComponent {
     this.securityService.LogIn(loginData).subscribe(result => {
       // Here i can place any code i want.      
       console.log("Login result", result);
-      if(result.wasSuccessful == true){
-        this.toastr.success(`Bienvenido, ${result.data.name} ${result.data.lastname} al sistema`, 'Bienvenido!');
+      if(result.WasSuccessful == true){
+        this.toastr.success(`Bienvenido, ${result.Data.name} ${result.Data.lastname} al sistema`, 'Bienvenido!');
         this.router.navigate(['/admin/dashboard']);
       }else{
         console.log("informacion incorrecta");

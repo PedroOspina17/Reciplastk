@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { PaymentReceipt } from '../../../models/PaymentReceipt';
+import { PaymentReceiptRequest } from '../../../models/Requests/PaymentReceiptRequest';
 import { CommonModule, DatePipe } from '@angular/common';
 import { WeightControlService } from '../../../services/weight-control-service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { PaymentsService } from '../../../services/payments.service';
 
 @Component({
   selector: 'app-payment-receipt',
@@ -15,21 +16,23 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 export class PaymentReceiptComponent {
   constructor(
     private weightcontrolservice: WeightControlService,
+        private paymentsService: PaymentsService,
+    
     private aRoute: ActivatedRoute,
   ) {
     this.id = Number(this.aRoute.snapshot.paramMap.get('id'));
   }
   fromBillList: boolean = false;
   id: number;
-  @Input() BillInfo!: PaymentReceipt;
+  @Input() BillInfo!: PaymentReceiptRequest;
   ngOnInit(): void {
     this.GetReceipt(this.id);
   }
   GetReceipt(id: number) {
-    this.weightcontrolservice.GetReceipt(id).subscribe((r) => {
-      if (r.wasSuccessful == true) {
+    this.paymentsService.GetReceipt(id).subscribe((r) => {
+      if (r.WasSuccessful == true) {
         this.fromBillList = true;
-        this.BillInfo = r.data;
+        this.BillInfo = r.Data;
       }
     });
   }

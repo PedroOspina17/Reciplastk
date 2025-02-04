@@ -23,6 +23,7 @@
         {
             Separation = 1,
             Grinding = 2,
+            Compacted = 3,
         }
     }
 }

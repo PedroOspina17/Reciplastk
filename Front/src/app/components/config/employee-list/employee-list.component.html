@@ -20,17 +20,17 @@
                     </thead>
                     <tbody>                        
                         <tr *ngFor="let i of employeeList" data-toggle="collapse" data-target="#demo1" class="accordion-toggle">
-                            <td>{{i.role}}</td>
-                            <td>{{i.name}}</td>
-                            <td>{{i.lastName}}</td>
-                            <td>{{i.userName}}</td>
+                            <td>{{i.Role}}</td>
+                            <td>{{i.Name}}</td>
+                            <td>{{i.LastName}}</td>
+                            <td>{{i.UserName}}</td>
                             <td class="text-center">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-outline-warning" routerLink="/config/editEmployee/{{i.employeeid}}" title="Editar empleado">
+                                    <button type="button" class="btn btn-outline-warning" routerLink="/config/editEmployee/{{i.Id}}" title="Editar empleado">
                                         <i class="bi bi-pencil"></i>
                                     </button>
 
-                                    <button type="button" class="btn btn-outline-danger" (click)="Delete(i.employeeid)" title="Eliminar empleado">
+                                    <button type="button" class="btn btn-outline-danger" (click)="Delete(i.Id)" title="Eliminar empleado">
                                         <i class="bi bi-trash"></i>
                                     </button>
                                 </div>

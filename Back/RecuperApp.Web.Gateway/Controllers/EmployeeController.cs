@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using RecuperApp.Common.Helpers;
 using RecuperApp.Common.Models;
-using RecuperApp.Domain.Models.ViewModels;
-using RecuperApp.Domain.Services;
+using RecuperApp.Domain.Models.Requests;
+using RecuperApp.Domain.Services.Interfaces;
 
 namespace RecuperApp.Web.Gateway.Controllers
 {
@@ -18,14 +18,14 @@ namespace RecuperApp.Web.Gateway.Controllers
             employeeService = _employeeService;
         }
 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<HttpResponseModel> GetAll()
         {
             var result = await employeeService.GetAll();
             return new HttpResponseModel(result);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("GetById")]
         public async Task<HttpResponseModel> GetById(int id)
         {
             var result = await employeeService.GetById(id);
@@ -33,27 +33,27 @@ namespace RecuperApp.Web.Gateway.Controllers
         }
 
 
-        [HttpPost]
-        public async Task<HttpResponseModel> Create([FromBody] EmployeeViewModel employeeViewModel)
+        [HttpPost("Create")]
+        public async Task<HttpResponseModel> Create(EmployeeRequest employeeViewModel)
         {
             var result = await employeeService.Create(employeeViewModel);
-            return new HttpResponseModel(result, $"El empleado ${result.Name} fué creado con exito, con el id #${result.EmployeeId}");
+            return new HttpResponseModel(result, $"El empleado {result.Name} fué creado con exito, con el id #${result.Id}");
         }
 
 
-        [HttpPut]
-        public async Task<HttpResponseModel> Update([FromBody] EmployeeViewModel employeeViewModel)
+        [HttpPut("Update")]
+        public async Task<HttpResponseModel> Update([FromBody] EmployeeRequest employeeViewModel)
         {
-            var result = await employeeService.Create(employeeViewModel);
-            return new HttpResponseModel(result, $"El empleado ${result.Name} fué modificado con exito");
+            var result = await employeeService.Update(employeeViewModel);
+            return new HttpResponseModel(result, $"El empleado {result.Name} fué modificado con exito");
         }
 
 
-        [HttpDelete("{id}")]
+        [HttpDelete("Delete")]
         public async Task<HttpResponseModel> Delete(int id)
         {
             var result = await employeeService.Delete(id);
-            return new HttpResponseModel(result, $"El empleado ${result.Name} fué eliminado con exito");
+            return new HttpResponseModel(result, $"El empleado {result.Name} fué eliminado con exito");
         }
     }
 }

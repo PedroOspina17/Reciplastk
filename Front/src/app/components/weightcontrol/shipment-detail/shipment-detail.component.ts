@@ -8,10 +8,10 @@ import {
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { ShipmentService } from '../../../services/shipment.service';
-import { ShipmentDetailModel } from '../../../models/ShipmentDetailModel';
-import { ShipmentModel } from '../../../models/ShipmentModel';
+import { ShipmentDetailRequest } from '../../../models/Requests/ShipmentDetailRequest';
+import { ShipmentRequest } from '../../../models/Requests/ShipmentRequest';
 import { ProductsService } from '../../../services/products.service';
-import { ProductModel } from '../../../models/ProductModel';
+import { ProductsRequest } from '../../../models/Requests/ProductsRequest';
 import { ProductPriceService } from '../../../services/product-price.service';
 import { ProductPriceInnerComponent } from "../../admin/product-price-inner/product-price-inner.component";
 
@@ -31,11 +31,11 @@ export class ShipmentDetailComponent {
   @Input() personname = '';
   @Input() personid = -1;
   @Output() onComplete = new EventEmitter();
-  shipmentDetailList: ShipmentDetailModel[] = [];
+  shipmentDetailList: ShipmentDetailRequest[] = [];
   formShipment: FormGroup;
   loader: boolean = false;
-  GeneralProductsList: ProductModel[] = [];
-  SpecificProductsList: ProductModel[] = [];
+  GeneralProductsList: ProductsRequest[] = [];
+  SpecificProductsList: ProductsRequest[] = [];
   shipmenttypeid: number = -1;
   productPrice: number = 0;
   subtotal: number = 0;
@@ -59,8 +59,8 @@ export class ShipmentDetailComponent {
     if (this.type == '1') {
       this.shipmenttypeid = 1;
       this.productPriceService.GetCurrentPrice(value.target.value, this.personid, this.shipmenttypeid).subscribe(r => {
-        if (r.wasSuccessful) {
-          this.productPrice = r.data;
+        if (r.WasSuccessful) {
+          this.productPrice = r.Data;
         } else {
           this.toastr.error('No se encontro el precio de venta');
         }
@@ -68,8 +68,8 @@ export class ShipmentDetailComponent {
     } else {
       this.shipmenttypeid = 2;
       this.productPriceService.GetCurrentPrice(value.target.value, this.personid, this.shipmenttypeid).subscribe(r => {
-        if (r.wasSuccessful) {
-          this.productPrice = r.data;
+        if (r.WasSuccessful) {
+          this.productPrice = r.Data;
         } else {
           this.toastr.error('No se encontro el precio de venta');
         }
@@ -77,15 +77,15 @@ export class ShipmentDetailComponent {
     }
   }
   SaveWeight() {
-    const shipmentDetail: ShipmentDetailModel = {
-      shipmenttypeid: this.shipmenttypeid,
-      productid: this.formShipment.value.productid,
-      productname: this.getProductName(this.formShipment.value.productid),
-      weight: this.formShipment.value.weight,
-      price: this.productPrice,
-      subtotal: this.productPrice * this.formShipment.value.weight
+    const shipmentDetail: ShipmentDetailRequest = {
+      Id: this.shipmenttypeid,
+      ProductId: this.formShipment.value.productid,
+      ProductName: this.getProductName(this.formShipment.value.productid),
+      Weight: this.formShipment.value.weight,
+      Price: this.productPrice,
+      SubTotal: this.productPrice * this.formShipment.value.weight
     };
-    this.TotalPrice += shipmentDetail.subtotal;
+    this.TotalPrice += shipmentDetail.SubTotal;
     this.shipmentDetailList.unshift(shipmentDetail);
     this.formShipment = this.fb.group({
       productid: ['-1', [Validators.required, Validators.min(0)]],
@@ -95,9 +95,9 @@ export class ShipmentDetailComponent {
   }
   getProductName(id: number): string {
     if (this.type == '1') {
-      return this.GeneralProductsList.find((p) => p.productid == id)?.name ?? '';
+      return this.GeneralProductsList.find((p) => p.Id == id)?.Name ?? '';
     } else {
-      return this.SpecificProductsList.find((p) => p.productid == id)?.name ?? '';
+      return this.SpecificProductsList.find((p) => p.Id == id)?.Name ?? '';
     }
   }
   ngOnInit(): void {
@@ -107,16 +107,16 @@ export class ShipmentDetailComponent {
     this.loader = true;
     if (this.type == '1') {
       this.productsService.GetMain().subscribe((GeneralResult) => {
-        if (GeneralResult.wasSuccessful == true) {
-          this.GeneralProductsList = GeneralResult.data;
+        if (GeneralResult.WasSuccessful == true) {
+          this.GeneralProductsList = GeneralResult.Data;
         } else {
           this.toastr.info('No se encontro ningun producto general');
         }
       });
     } else if (this.type == '2') {
       this.productsService.GetSpecificProducts().subscribe((SpecificResult) => {
-        if (SpecificResult.wasSuccessful == true) {
-          this.SpecificProductsList = SpecificResult.data;
+        if (SpecificResult.WasSuccessful == true) {
+          this.SpecificProductsList = SpecificResult.Data;
         } else {
           this.toastr.info('No se encontraron productos espesificos');
         }
@@ -125,25 +125,25 @@ export class ShipmentDetailComponent {
   }
   ShipmentDetailDelete(ShipmentDetailId: number) {
     this.loader = true;
-    const index = this.shipmentDetailList.findIndex((i) => i.productid === ShipmentDetailId);
+    const index = this.shipmentDetailList.findIndex((i) => i.ProductId === ShipmentDetailId);
     if (index !== -1) {
-      this.TotalPrice -= this.shipmentDetailList[index].subtotal;
+      this.TotalPrice -= this.shipmentDetailList[index].SubTotal;
       this.shipmentDetailList.splice(index, 1);
       this.toastr.info('Producto eliminado con éxito');
     }
     this.loader = false;
   }
   Save() {
-    const shipment: ShipmentModel = {
-      shipmenttypeid: this.shipmenttypeid,
-      customerid: Number(this.personid),
-      totalprice: this.TotalPrice,
-      details: this.shipmentDetailList,
+    const shipment: ShipmentRequest = {
+      ShipmentTypeId: this.shipmenttypeid,
+      CustomerId: Number(this.personid),
+      TotalPrice: this.TotalPrice,
+      Details: this.shipmentDetailList,
     };
     this.shipmentService.Create(shipment).subscribe((result) => {
-      if (result.wasSuccessful == true) {
+      if (result.WasSuccessful == true) {
         this.loader = false;
-        this.toastr.success(result.statusMessage, 'Felicitaciones');
+        this.toastr.success(result.StatusMessage, 'Felicitaciones');
         this.shipmentDetailList = [];
         this.onComplete.emit();
       } else {

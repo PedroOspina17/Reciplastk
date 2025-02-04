@@ -11,7 +11,7 @@
                         <select formControlName="Employee" class="form-select" name="" id="Employee"
                             (change)="Filter()">
                             <option value="-1">Seleccione a un empleado</option>
-                            <option *ngFor="let i of employeeList" value="{{i.employeeid}}">{{i.name}}</option>
+                            <option *ngFor="let i of employeeList" value="{{i.Id}}">{{i.Name}}</option>
                         </select>
                     </div>
                 </div>
@@ -23,7 +23,7 @@
                         <select formControlName="Product" class="form-select" name="" id="Product"
                             (change)="Filter()">
                             <option value="-1">Seleccione un producto</option>
-                            <option *ngFor="let i of SpecificProductsList" value="{{i.productid}}">{{i.shortname}}
+                            <option *ngFor="let i of MainProductsList" value="{{i.Id}}">{{i.ShortName}}
                             </option>
                         </select>
                     </div>
@@ -59,12 +59,12 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let i of payrollConfigList">
-                            <td>{{i.creationdate| date: 'MM/dd/yyyy'}}</td>
-                            <td>{{i.employee}}</td>
-                            <td>{{i.product}}</td>
-                            <td>{{i.buyPrice | currency:'USD':'symbol':'1.0-0'}}</td>
+                            <td>{{i.CreatedDate | date: 'MM/dd/yyyy'}}</td>
+                            <td>{{i.Employee}}</td>
+                            <td>{{i.Product}}</td>
+                            <td>{{i.PricePerKilo| currency:'USD':'symbol':'1.0-0'}}</td>
                             <td>
-                                <i *ngIf="i.isCurrentePrice; else x" class="bi bi-check2 text-success ms-5"></i>
+                                <i *ngIf="i.IsCurrentePrice; else x" class="bi bi-check2 text-success ms-5"></i>
                                 <ng-template #x>
                                     <i class="bi bi-x-lg text-danger ms-5"></i>
                                 </ng-template>

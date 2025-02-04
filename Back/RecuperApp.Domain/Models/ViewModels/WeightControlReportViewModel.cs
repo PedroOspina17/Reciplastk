@@ -2,12 +2,14 @@
 {
     public class WeightControlReportViewModel
     {
-        public int productid { get; set; }
-        public int weightcontroldetailid { get; set; }
-        public DateTime date { get; set; }
-        public string productName { get; set; }
-        public string employeeName { get; set; }
-        public double weight { get; set; }
-        public string type { get; set; }
+        public int ProductId { get; set; }
+        public int WeightControlDetailId { get; set; }
+        public DateTime Date { get; set; }
+        public string ProductName { get; set; }
+        public string EmployeeName { get; set; }
+        public double Weight { get; set; }
+        public string Type { get; set; }
+        public double Price { get; set; }
+        public double SubTotal { get; set; }
     }
 }

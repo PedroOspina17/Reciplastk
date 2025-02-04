@@ -12,7 +12,9 @@ import { WeightControlService } from '../../../services/weight-control-service';
 import { ProductsService } from '../../../services/products.service';
 import { WeightControlDetailComponent } from '../weight-control-detail/weight-control-detail.component';
 import Swal from 'sweetalert2';
-import { ProductModel } from '../../../models/ProductModel';
+import { ProductsRequest } from '../../../models/Requests/ProductsRequest';
+import { EmployeeService } from '../../../services/employee.service';
+import { EmployeeParams } from '../../../models/EmployeeParams';
 
 @Component({
   selector: 'app-weight-control',
@@ -33,11 +35,12 @@ export class WeightControlComponent {
     private http: HttpClient,
     private toastr: ToastrService,
     private weightControlService: WeightControlService,
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    private employeeService: EmployeeService,
   ) { }
   disable: boolean = true;
-  employeeList: any[] = [];
-  generalProductList: ProductModel[] = [];
+  employeeList: EmployeeParams[] = [];
+  generalProductList: ProductsRequest[] = [];
   employeeid: number = -1;
   employeename: string = '';
   productid: number = -1;
@@ -49,9 +52,10 @@ export class WeightControlComponent {
     this.GetGeneralProducts();
   }
   GetEmployee() {
-    this.weightControlService.GetEmployee().subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.employeeList = r.data;
+    this.employeeService.GetAll().subscribe((r) => {
+      if (r.WasSuccessful == true) {
+        this.employeeList = r.Data;
+        console.log(this.employeeList)
       } else {
         this.toastr.info('No se encontro ningun empleado');
       }
@@ -59,8 +63,8 @@ export class WeightControlComponent {
   }
   GetGeneralProducts() {
     this.productsService.GetMain().subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.generalProductList = r.data;
+      if (r.WasSuccessful == true) {
+        this.generalProductList = r.Data;
       } else {
         this.toastr.info('No se encontro ningun producto general');
       }

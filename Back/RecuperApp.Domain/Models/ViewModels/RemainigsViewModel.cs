@@ -2,7 +2,7 @@
 {
     public class RemainigsViewModel
     {
-        public string productName { get; set; }
-        public double weight { get; set; }
+        public string ProductName { get; set; }
+        public double Weight { get; set; }
     }
 }

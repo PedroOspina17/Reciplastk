@@ -16,15 +16,15 @@
             </thead>
             <tbody>
                 <tr *ngFor="let i of controlTypeList">
-                    <td>{{i.name}}</td>
-                    <td>{{i.description}}</td>
+                    <td>{{i.Name}}</td>
+                    <td>{{i.Description}}</td>
                     <td>
                         <div class="btn-group">
-                            <button routerLink="/config/EditWeightControlTypeComponent/{{i.weightcontroltypeid}}"
+                            <button routerLink="/config/EditWeightControlTypeComponent/{{i.WeightControlTypeId}}"
                                 type="button w-100" class="btn btn-outline-warning">
                                 <i class="bi bi-pencil fs-6"></i>
                             </button>
-                            <button (click)="Delete(i.weightcontroltypeid ?? -1)" type="button w-100"
+                            <button (click)="Delete(i.WeightControlTypeId ?? -1)" type="button w-100"
                                 class="btn btn-outline-danger">
                                 <i class="bi bi-trash fs-6"></i>
                             </button>

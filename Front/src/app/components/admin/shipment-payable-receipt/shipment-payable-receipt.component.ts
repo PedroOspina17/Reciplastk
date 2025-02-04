@@ -2,9 +2,9 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ReceivableModel } from '../../../models/ReceivableModel';
+import { RecivableViewModel } from '../../../models/ViewModel/RecivableViewModel';
 import { ShipmentService } from '../../../services/shipment.service';
-import { PriceType } from '../../../models/Enums';
+import { ShipmentMovementTypeEnum } from '../../../models/Enums';
 
 @Component({
   selector: 'app-shipment-payable-receipt',
@@ -18,18 +18,18 @@ export class ShipmentPayableReceiptComponent {
   constructor(private aRoute: ActivatedRoute, private shipmentService: ShipmentService, private toastr: ToastrService) {
     this.id = Number(this.aRoute.snapshot.paramMap.get('id'));
   }
-  Receivable: ReceivableModel = new ReceivableModel;
-  priceType = PriceType;
+  Receivable: RecivableViewModel = new RecivableViewModel;
+  ShipmentMovement = ShipmentMovementTypeEnum;
   id: number;
   ngOnInit(): void {
     this.GetById();
   }
   GetById() {
     this.shipmentService.GetReceivableReceiptInfo(this.id).subscribe(r => {
-      if (r.wasSuccessful) {
-        this.Receivable = r.data;
+      if (r.WasSuccessful) {
+        this.Receivable = r.Data;
       } else {
-        this.toastr.error(r.statusMessage)
+        this.toastr.error(r.StatusMessage)
       }
     })
   }

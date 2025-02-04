@@ -5,7 +5,7 @@ import { RouterLink } from '@angular/router';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { ToastrService } from 'ngx-toastr';
 import { WeightControlService } from '../../../services/weight-control-service';
-import { RemainingModel } from '../../../models/RemainigModel';
+import { RemainigsViewModel } from '../../../models/ViewModel/RemainigsViewModel';
 
 @Component({
   selector: 'app-remainig',
@@ -24,14 +24,14 @@ export class RemainigComponent {
     private fb: FormBuilder,
     private toastr: ToastrService
   ) {}
-  remaining: RemainingModel[] = [];
+  remaining: RemainigsViewModel[] = [];
   ngOnInit(): void {
     this.GetRemaining(false);
   }
   GetRemaining(viewAll: boolean) {
     this.weightControlService.Remainings(viewAll).subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.remaining = r.data;
+      if (r.WasSuccessful == true) {
+        this.remaining = r.Data;
       } else {
         this.toastr.error('No se encontraron los materiales restantes');
       }

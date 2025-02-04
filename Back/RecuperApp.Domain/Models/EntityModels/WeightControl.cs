@@ -6,9 +6,6 @@ namespace RecuperApp.Domain.Models.EntityModels;
 
 public class WeightControl : BaseEntity
 {
-    [Key]
-    public int WeightControlId { get; set; }
-
     public int EmployeeId { get; set; }
     public virtual Employee Employee { get; set; }
 
@@ -23,8 +20,8 @@ public class WeightControl : BaseEntity
     [Column(TypeName = "timestamp without time zone")]
     public DateTime DateEnd { get; set; }
 
-    //[InverseProperty("Weightcontrol")]
-    //public virtual ICollection<Weightcontroldetail> Weightcontroldetails { get; set; } = new List<Weightcontroldetail>();
+    [InverseProperty("WeightControl")]
+    public virtual ICollection<WeightControlDetail> WeightControlDetails { get; set; } = new List<WeightControlDetail>();
 
     //[InverseProperty("Weightcontrol")]
     //public virtual ICollection<Remaining> Remainings { get; set; } = new List<Remaining>();

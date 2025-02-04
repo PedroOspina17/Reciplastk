@@ -9,10 +9,10 @@ import {
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { ProductsService } from '../../../services/products.service';
-import { WeightControlModel } from '../../../models/WeightControlModel';
-import { WeightControlDetailModel } from '../../../models/WeightControlDetailModel';
+import { WeightControlSeparationRequest } from '../../../models/Requests/WeightControlSeparationRequest';
+import { WeightControlSeparationDetailRequest } from '../../../models/Requests/WeightControlSeparationDetailRequest';
 import { WeightControlService } from '../../../services/weight-control-service';
-import { ProductModel } from '../../../models/ProductModel';
+import { ProductsRequest } from '../../../models/Requests/ProductsRequest';
 
 @Component({
   selector: 'app-weight-control-detail',
@@ -41,19 +41,19 @@ export class WeightControlDetailComponent {
   @Input() productid = -1;
   @Input() productname = '';
   @Output() onComplete = new EventEmitter();
-  weightcontroldetaillist: WeightControlDetailModel[] = [];
+  weightcontroldetaillist: WeightControlSeparationDetailRequest[] = [];
   weightDetailForm: FormGroup;
-  specificProducts: ProductModel[] = [];
-  filterProducts: ProductModel[] = [];
+  specificProducts: ProductsRequest[] = [];
+  filterProducts: ProductsRequest[] = [];
   ngOnInit(): void {
     this.GetSpecificProducts();
   }
   GetSpecificProducts() {
     this.productService.GetSpecificProducts().subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.specificProducts = r.data;
+      if (r.WasSuccessful == true) {
+        this.specificProducts = r.Data;
         this.filterProducts = this.specificProducts.filter(
-          (p) => p.parentid == this.productid
+          (p) => p.ParentId == this.productid
         );
       } else {
         this.toastr.info('No se encontraron los productos especificos');
@@ -61,13 +61,13 @@ export class WeightControlDetailComponent {
     });
   }
   SaveDetail() {
-    const WeightDetail: WeightControlDetailModel = {
-      productid: this.weightDetailForm.value.productid,
-      name:
+    const WeightDetail: WeightControlSeparationDetailRequest = {
+      ProductId: this.weightDetailForm.value.productid,
+      Name:
         this.specificProducts.find(
-          (p) => p.productid == this.weightDetailForm.value.productid
-        )?.name ?? '',
-      weight: this.weightDetailForm.value.weight,
+          (p) => p.Id == this.weightDetailForm.value.productid
+        )?.Name ?? '',
+      Weight: this.weightDetailForm.value.weight,
     };
     this.weightcontroldetaillist.unshift(WeightDetail);
     this.weightDetailForm = this.fb.group({
@@ -83,17 +83,17 @@ export class WeightControlDetailComponent {
     this.toastr.info('Producto eliminado con éxito');
   }
   SaveAll() {
-    const weightcontrol: WeightControlModel = {
-      employeeid: this.employeeid,
-      weightdetail: this.weightcontroldetaillist,
+    const weightcontrol: WeightControlSeparationRequest = {
+      EmployeeId: this.employeeid,
+      WeightControlDetails: this.weightcontroldetaillist,
     };
     this.weightControlService.CreateSeparation(weightcontrol).subscribe((r) => {
-      if (r.wasSuccessful == true) {
-        this.toastr.success(r.statusMessage);
+      if (r.WasSuccessful == true) {
+        this.toastr.success(r.StatusMessage);
         this.weightcontroldetaillist = [];
         this.onComplete.emit();
       } else {
-        this.toastr.success(r.statusMessage);
+        this.toastr.success(r.StatusMessage);
       }
     });
   }

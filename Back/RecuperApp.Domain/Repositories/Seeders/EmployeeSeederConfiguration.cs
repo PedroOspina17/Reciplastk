@@ -10,7 +10,7 @@ namespace RecuperApp.Domain.Repositories.Seeders
         {
             builder.HasData(new Employee
             {
-                EmployeeId = 1,
+                Id = 1,
                 Name = "Super",
                 LastName = "Admin",
                 DateOfBirth = DateTime.Parse("01/22/2025 10:45:45"),

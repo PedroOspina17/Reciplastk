@@ -402,3 +402,4 @@ FodyWeavers.xsd
 reciplastk.pem
 Front/package-lock.json
 
+/Back/RecuperApp.Web.Gateway/appsettings.local.json

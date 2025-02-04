@@ -5,6 +5,7 @@ import { RouterLink, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { EmployeeService } from '../../../services/employee.service';
 import { EmployeeParams } from '../../../models/EmployeeParams';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-employee-list',
@@ -20,22 +21,46 @@ export class EmployeeListComponent {
     private employeeService: EmployeeService,
   ) { }
   employeeList: EmployeeParams[] = [];
+  DeletePopUp: boolean = false;
+  ngOnInit(): void {
+    this.GetAll();
+  }
   GetAll() {
     this.employeeService.GetAll().subscribe(r => {
-      if (r.wasSuccessful) {
-        this.employeeList = r.data;
+      if (r.WasSuccessful) {
+        this.employeeList = r.Data.map((info: any) => ({
+          ...info,
+          Role: info.Role?.Name || "Sin Rol"
+        }));
       } else {
-        this.toastr.error(r.statusMessage);
+        this.toastr.error(r.StatusMessage);
       }
     })
   }
-  Delete(employeeid: number){
-    this.employeeService.Delete(employeeid).subscribe(r => {
-      if (r.wasSuccessful) {
-        this.toastr.success(r.statusMessage);
+  Delete(employeeid: number) {
+
+    this.DeletePopUp = true
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Esto borrara todos los datos previamente almacenados en la tabla.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#FFA500 ',
+      cancelButtonColor: '#6c757d',
+      confirmButtonText: 'Sí, Eliminar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.employeeService.Delete(employeeid).subscribe(r => {
+          if (r.WasSuccessful) {
+            this.toastr.success(r.StatusMessage);
+          } else {
+            this.toastr.error(r.StatusMessage);
+          }
+        })
       } else {
-        this.toastr.error(r.statusMessage);
+        this.DeletePopUp = false;
       }
-    })
+    });
   }
 }

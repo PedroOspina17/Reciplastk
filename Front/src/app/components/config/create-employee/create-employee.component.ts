@@ -4,9 +4,9 @@ import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModu
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { RoleService } from '../../../services/role.service';
-import { EmployeeViewModel } from '../../../models/EmployeeViewModel';
+import { EmployeeRequest } from '../../../models/Requests/EmployeeRequest';
 import { EmployeeService } from '../../../services/employee.service';
-import { RoleViewModel } from '../../../models/RoleViewModel';
+import { RoleViewModel } from '../../../models/ViewModel/RoleViewModel';
 
 @Component({
   selector: 'app-create-employee',
@@ -30,12 +30,16 @@ export class CreateEmployeeComponent {
     private employeeService: EmployeeService
   ) {
     this.formEmployee = this.fb.group({
+      role: ['', Validators.required],
       name: ['', [Validators.required, Validators.maxLength(50)]],
       lastName: ['', [Validators.required, Validators.maxLength(50)]],
-      userName: ['', [Validators.required, Validators.maxLength(50)]],
-      password: ['', [Validators.required, Validators.maxLength(50)]],
-      repPassword: ['', [Validators.required, Validators.maxLength(50)]],
-      role: ['', Validators.required]
+      documentNumber: ['', [Validators.required, Validators.maxLength(15)]],
+      userName: ['', [Validators.required, Validators.maxLength(20)]],
+      password: ['', [Validators.required, Validators.maxLength(20)]],
+      repPassword: ['', [Validators.required, Validators.maxLength(20)]],
+      dateOfBirth: [, Validators.required],
+      dateOfJoin: [, Validators.required],
+      createdBy: [, Validators.required]
     },
       { validators: this.passwordsMatchValidator }
     )
@@ -52,6 +56,7 @@ export class CreateEmployeeComponent {
   isCreate: string = "";
   id: number;
   ngOnInit(): void {
+    this.GetAllRoles();
     if (this.id != 0) {
       this.isCreate = 'Editar';
     } else {
@@ -60,38 +65,42 @@ export class CreateEmployeeComponent {
   }
   GetAllRoles() {
     this.roleService.GetAll().subscribe(r => {
-      if (r.wasSuccessful) {
-        this.roleList = r.data;
+      if (r.WasSuccessful) {
+        this.roleList = r.Data;
       } else {
-        this.toastr.error(r.statusMessage);
+        this.toastr.error("No se encontraron roles disponibles");
       }
     })
   }
   CreateOrEdit() {
-    const model: EmployeeViewModel = {
-      roleid: this.formEmployee.value.role,
-      name: this.formEmployee.value.name,
-      lastName: this.formEmployee.value.lastName,
-      userName: this.formEmployee.value.userName,
-      password: this.formEmployee.value.password,
+    const model: EmployeeRequest = {
+      RoleId: this.formEmployee.value.role,
+      Name: this.formEmployee.value.name,
+      LastName: this.formEmployee.value.lastName,
+      DocumentNumber: this.formEmployee.value.documentNumber,
+      UserName: this.formEmployee.value.userName,
+      Password: this.formEmployee.value.password,
+      DateOfBirth: this.formEmployee.value.dateOfBirth,
+      DateOfJoin: this.formEmployee.value.dateOfJoin,
+      CreatedBy: this.formEmployee.value.createdBy,
     };
     if (this.id == null) {
       this.employeeService.Create(model).subscribe(r => {
-        if (r.wasSuccessful) {
-          this.toastr.success(r.statusMessage);
+        if (r.WasSuccessful) {
+          this.toastr.success(r.StatusMessage);
           this.router.navigate(['/comfig/employee']);
         } else {
-          this.toastr.success(r.statusMessage);
+          this.toastr.success(r.StatusMessage);
         }
       })
     } else {
-      model.employeeId = this.id;
+      model.Id = this.id;
       this.employeeService.Update(model).subscribe(r => {
-        if (r.wasSuccessful) {
-          this.toastr.success(r.statusMessage);
+        if (r.WasSuccessful) {
+          this.toastr.success(r.StatusMessage);
           this.router.navigate(['/comfig/employee']);
         } else {
-          this.toastr.success(r.statusMessage);
+          this.toastr.success(r.StatusMessage);
         }
       })
     }

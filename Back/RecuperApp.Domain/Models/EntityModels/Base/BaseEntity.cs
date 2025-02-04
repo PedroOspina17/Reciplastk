@@ -1,9 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RecuperApp.Domain.Models.EntityModels.Base
 {
     public class BaseEntity : IAuditableEntity, ISoftDeletableEntity
     {
+        [Key]
+        public int Id { get; set; }
         [Column(TypeName = "timestamp without time zone")]
         public DateTime CreatedDate { get; set; } = DateTime.Now;
         public string CreatedBy { get; set; }

@@ -8,7 +8,7 @@
                     <div class="col">
                         <select formControlName="CustomerToCopyId" (change)="Filter()" class="form-select" name="" id="CustomerToCopy">
                             <option value="-1">seleccione cliente a copiar</option>
-                            <option *ngFor="let i of CustomerList" value="{{i.customerid}}">{{i.name}}</option>
+                            <option *ngFor="let i of CustomerList" value="{{i.Id}}">{{i.Name}}</option>
                         </select>
                     </div>
                 </div>
@@ -19,7 +19,7 @@
                     <div class="col">
                         <select formControlName="CustomerToAssignId" class="form-select" name="" id="CustomerToAssign">
                             <option value="-1">Seleccione un cliente</option>
-                            <option *ngFor="let i of CustomerList" value="{{i.customerid}}">{{i.name}}</option>
+                            <option *ngFor="let i of CustomerList" value="{{i.Id}}">{{i.Name}}</option>
                         </select>
                     </div>
                 </div>
@@ -43,12 +43,12 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let i of filterList">
-                        <td>{{i.date | date: 'MM/dd/yyyy'}}</td>
-                        <td>{{i.product}}</td>
-                        <td>{{i.type}}</td>
-                        <td>{{i.price | currency:'USD':'symbol':'1.0-0'}}</td>
+                        <td>{{i.Date | date: 'MM/dd/yyyy'}}</td>
+                        <td>{{i.Product}}</td>
+                        <td>{{i.Type}}</td>
+                        <td>{{i.Price| currency:'USD':'symbol':'1.0-0'}}</td>
                         <td>
-                            <i *ngIf="i.iscurrentprice; else x" class="bi bi-check2 text-success ms-5"></i>
+                            <i *ngIf="i.IsCurrentPrice; else x" class="bi bi-check2 text-success ms-5"></i>
                             <ng-template #x>
                                 <i class="bi bi-x-lg text-danger ms-5"></i>
                             </ng-template>

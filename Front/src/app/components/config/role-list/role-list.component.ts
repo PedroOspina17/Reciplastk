@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { RoleService } from '../../../services/role.service';
-import { RoleViewModel } from '../../../models/RoleViewModel';
+import { RoleViewModel } from '../../../models/ViewModel/RoleViewModel';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-role-list',
@@ -18,55 +19,103 @@ export class RoleListComponent {
     private toastr: ToastrService,
     private roleService: RoleService,
   ) {
-    this.formRoles = this.fb.group({
-      role: ['',Validators.required]
+    this.FormRoles = this.fb.group({
+      role: ['', Validators.required]
     })
   }
-  formRoles: FormGroup;
-  rolesList: RoleViewModel[] = [];
-  showCreate: boolean = false;
+  FormRoles: FormGroup;
+  RolesList: RoleViewModel[] = [];
+  ShowCreate: boolean = false;
+  UpdateRole: boolean = false;
+  DeletePopUp: boolean = false;
+  Id: number = -1;
   ngOnInit(): void {
     this.GetAllRoles();
   }
   GetAllRoles() {
     this.roleService.GetAll().subscribe(r => {
-      if (r.wasSuccessful) {
-        this.rolesList = r.data;
+      if (r.WasSuccessful) {
+        this.RolesList = r.Data;
       } else {
-        this.toastr.info(r.statusMessage);
+        this.toastr.info(r.StatusMessage);
       }
     })
   }
   ShowRole() {
-    this.showCreate = true;
+    this.ShowCreate = true;
   }
   CancelRole() {
-    this.showCreate = false;
-    this.formRoles.reset();
+    this.ShowCreate = false;
+    this.FormRoles.reset();
   }
   SaveRole() {
-    const roleModel: RoleViewModel = {
-      name: this.formRoles.value.role,
+    const RoleModel: RoleViewModel = {
+      Name: this.FormRoles.value.role,
     }
-    this.roleService.Create(roleModel).subscribe(r => {
-      if (r.wasSuccessful) {
-        this.toastr.success(r.statusMessage);
-        this.formRoles.reset();
-        this.showCreate = false;
-        this.GetAllRoles();
+    if (this.UpdateRole) {
+      RoleModel.Id = this.Id;
+      this.roleService.Update(RoleModel).subscribe(r => {
+        if (r.WasSuccessful) {
+          this.toastr.success(r.StatusMessage);
+          this.GetAllRoles();
+          this.CancelRole();
+        } else {
+          this.toastr.success(r.StatusMessage)
+        }
+      })
+    } else {
+      this.roleService.Create(RoleModel).subscribe(r => {
+        if (r.WasSuccessful) {
+          this.toastr.success(r.StatusMessage);
+          this.FormRoles.reset();
+          this.ShowCreate = false;
+          this.GetAllRoles();
+        } else {
+          this.toastr.error(r.StatusMessage);
+        }
+      })
+    }
+  }
+  Update(Id: number) {
+    this.UpdateRole = true;
+    this.ShowRole();
+    this.Id = Id;
+    this.roleService.GetById(Id).subscribe(r => {
+      if (r.WasSuccessful) {
+        const role = r.Data;
+        this.FormRoles.patchValue({
+          role: role.Name,
+        });
       } else {
-        this.toastr.error(r.statusMessage);
+        this.toastr.error("No se encontro el rol seleccionado en la base de datos")
       }
     })
   }
-  Delete(roleId: number) {
-    this.roleService.Delete(roleId).subscribe(r => {
-      if (r.wasSuccessful) {
-        this.toastr.success(r.statusMessage);
-        this.GetAllRoles();
+  Delete(Id: number) {
+
+    this.DeletePopUp = true
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Esto borrara todos los datos previamente almacenados en la tabla.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#FFA500 ',
+      cancelButtonColor: '#6c757d',
+      confirmButtonText: 'Sí, Eliminar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.roleService.Delete(Id).subscribe(r => {
+          if (r.WasSuccessful) {
+            this.toastr.success(r.StatusMessage);
+            this.GetAllRoles();
+          } else {
+            this.toastr.error(r.StatusMessage);
+          }
+        })
       } else {
-        this.toastr.error(r.statusMessage);
+        this.DeletePopUp = false;
       }
-    })
+    });
   }
 }

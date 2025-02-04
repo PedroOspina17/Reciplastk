@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AppConfig } from '../common/app-config';
 import { HttpResponseModel } from '../models/HttpResponseModel';
 import { Observable } from 'rxjs/internal/Observable';
-import { EmployeeViewModel } from '../models/EmployeeViewModel';
+import { EmployeeRequest } from '../models/Requests/EmployeeRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -14,22 +14,22 @@ export class EmployeeService {
   ServiceEndpoint: string = `${AppConfig.API_URL}/api/Employee/`;
   
   GetAll(): Observable<HttpResponseModel> {
-    return this.http.get<HttpResponseModel>(this.ServiceEndpoint + 'GetAllEmployee')
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint + 'GetAll')
   }
 
   GetById(id: number): Observable<HttpResponseModel> {
-    return this.http.get<HttpResponseModel>(this.ServiceEndpoint + 'GetEmployeeById?Id=' + id)
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint + 'GetById?Id=' + id)
   }
 
-  Create(employeeModel: EmployeeViewModel): Observable<HttpResponseModel> {
-    return this.http.post<HttpResponseModel>(this.ServiceEndpoint + 'AddEmployee', employeeModel)
+  Create(Model: EmployeeRequest): Observable<HttpResponseModel> {
+    return this.http.post<HttpResponseModel>(this.ServiceEndpoint + 'Create', Model)
   }
 
-  Update(employeeModel: EmployeeViewModel): Observable<HttpResponseModel> {
-    return this.http.post<HttpResponseModel>(this.ServiceEndpoint + 'UpdateEmployee', employeeModel)
+  Update(Model: EmployeeRequest): Observable<HttpResponseModel> {
+    return this.http.post<HttpResponseModel>(this.ServiceEndpoint + 'Update', Model)
   }
 
   Delete(id: number): Observable<HttpResponseModel> {
-    return this.http.delete<HttpResponseModel>(this.ServiceEndpoint + 'DeleteEmployee?Id=' + id)
+    return this.http.delete<HttpResponseModel>(this.ServiceEndpoint + 'Delete?Id=' + id)
   }
 }

@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ReceivableModel } from '../../../models/ReceivableModel';
+import { RecivableViewModel } from '../../../models/ViewModel/RecivableViewModel';
 import { ShipmentService } from '../../../services/shipment.service';
-import { PriceType } from '../../../models/Enums';
+import { ShipmentMovementTypeEnum } from '../../../models/Enums';
 
 @Component({
   selector: 'app-shipment-payable',
@@ -18,17 +18,17 @@ export class ShipmentPayableComponent {
     this.id = Number(this.aRoute.snapshot.paramMap.get('id'));
   }
   id: number
-  ReceivableList: ReceivableModel[] = [];
-  priceType = PriceType;
+  ReceivableList: RecivableViewModel[] = [];
+  ShipmentMovement = ShipmentMovementTypeEnum;
   ngOnInit(): void {
     this.GetAllReceivables(this.id)
   }
   GetAllReceivables(id: number) {
     this.shipmentService.GetShipmentForPayments(id).subscribe(r => {
-      if (r.wasSuccessful) {
-        this.ReceivableList = r.data;
+      if (r.WasSuccessful) {
+        this.ReceivableList = r.Data;
       } else {
-        this.toastr.error(r.data)
+        this.toastr.error(r.Data)
       }
     })
   }

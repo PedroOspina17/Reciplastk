@@ -2,8 +2,8 @@
 {
     public class GroundProductViewModel
     {
-        public int detailId { get; set; }
-        public int controlId { get; set; }
+        public int Id { get; set; }
+        public int ControlId { get; set; }
         public string ProductName { get; set; }
         public double Weight { get; set; }
         public DateTime DateStart { get; set; }

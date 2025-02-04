@@ -25,9 +25,10 @@ namespace RecuperApp.Web.Gateway.Controllers
             return this.payrollConfigService.GetById(id);
         }
         [HttpPost("Create")]
-        public HttpResponseModel Create(PayrollConfigRequest payrollConfigViewModel)
+        public async Task<HttpResponseModel> Create(PayrollConfigRequest payrollConfigViewModel)
         {
-            return this.payrollConfigService.Create(payrollConfigViewModel);
+            await this.payrollConfigService.Create(payrollConfigViewModel);
+            return new HttpResponseModel("Se creo la configuracion correctamente");
         }
         [HttpPost("Filter")]
         public HttpResponseModel Filter(PayrollConfigRequest payrollConfigViewModel)

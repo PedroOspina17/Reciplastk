@@ -26,21 +26,20 @@
                   <i class="bi bi-eye-fill"></i>
                 </button>
               </td>
-              <td>{{ item.name }}</td>
-              <td>{{ item.shortname }}</td>
-              <td>{{ item.code }}</td>
+              <td>{{ item.Name }}</td>
+              <td>{{ item.ShortName }}</td>
+              <td>{{ item.Code }}</td>
               <td class="text-center">
                 <div class="btn-group">
-                  <button [routerLink]="['/config/editProduct', item.productid]" type="button"
+                  <button [routerLink]="['/config/editProduct', item.Id]" type="button"
                     class="btn btn-outline-warning " title="Editar producto">
                     <i class="bi bi-pencil"></i>
-                  </button>
-                  
-                  <button (click)="Delete(item.productid!)" type="button" class="btn btn-outline-danger"  title="Eliminar producto">
+                  </button>                  
+                  <button (click)="Delete(item.Id!)" type="button" class="btn btn-outline-danger"  title="Eliminar producto">
                     <i class="bi bi-trash"></i>
                   </button>
                   <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                    data-bs-target="#exampleModalCenter" (click)="ChangePrice(item.productid ?? -1)"  title="Cambiar precio de producto"> 
+                    data-bs-target="#exampleModalCenter" (click)="ChangePrice(item.Id ?? -1)"  title="Cambiar precio de producto"> 
                     <i class="bi bi-currency-dollar"></i>
                   </button>
                 </div>

@@ -24,12 +24,12 @@ namespace RecuperApp.Domain.Repositories.Migrations
 
             modelBuilder.Entity("RecuperApp.Domain.Models.EntityModels.Customer", b =>
                 {
-                    b.Property<int>("CustomerId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("customerid");
+                        .HasColumnName("id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CustomerId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
                         .HasMaxLength(50)
@@ -91,7 +91,7 @@ namespace RecuperApp.Domain.Repositories.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("updateddate");
 
-                    b.HasKey("CustomerId")
+                    b.HasKey("Id")
                         .HasName("pk_customers");
 
                     b.HasIndex("CustomerTypeId")
@@ -102,12 +102,12 @@ namespace RecuperApp.Domain.Repositories.Migrations
 
             modelBuilder.Entity("RecuperApp.Domain.Models.EntityModels.CustomerType", b =>
                 {
-                    b.Property<int>("CustomerTypeId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("customertypeid");
+                        .HasColumnName("id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CustomerTypeId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text")
@@ -140,7 +140,7 @@ namespace RecuperApp.Domain.Repositories.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("updateddate");
 
-                    b.HasKey("CustomerTypeId")
+                    b.HasKey("Id")
                         .HasName("pk_customertypes");
 
                     b.ToTable("customertypes", (string)null);
@@ -148,7 +148,7 @@ namespace RecuperApp.Domain.Repositories.Migrations
                     b.HasData(
                         new
                         {
-                            CustomerTypeId = 1,
+                            Id = 1,
                             CreatedBy = "Seeder",
                             CreatedDate = new DateTime(2025, 1, 22, 10, 45, 45, 0, DateTimeKind.Unspecified),
                             Description = "Personas a los que les compro material",
@@ -157,7 +157,7 @@ namespace RecuperApp.Domain.Repositories.Migrations
                         },
                         new
                         {
-                            CustomerTypeId = 2,
+                            Id = 2,
                             CreatedBy = "Seeder",
                             CreatedDate = new DateTime(2025, 1, 22, 10, 45, 45, 0, DateTimeKind.Unspecified),
                             Description = "Personas a los que les vendo mi material ya procesado",
@@ -168,12 +168,12 @@ namespace RecuperApp.Domain.Repositories.Migrations
 
             modelBuilder.Entity("RecuperApp.Domain.Models.EntityModels.Employee", b =>
                 {
-                    b.Property<int>("EmployeeId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("employeeid");
+                        .HasColumnName("id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("EmployeeId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text")
@@ -237,7 +237,7 @@ namespace RecuperApp.Domain.Repositories.Migrations
                         .HasColumnType("character varying(20)")
                         .HasColumnName("username");
 
-                    b.HasKey("EmployeeId")
+                    b.HasKey("Id")
                         .HasName("pk_employees");
 
                     b.HasIndex("RoleId")
@@ -248,7 +248,7 @@ namespace RecuperApp.Domain.Repositories.Migrations
                     b.HasData(
                         new
                         {
-                            EmployeeId = 1,
+                            Id = 1,
                             CreatedBy = "Seeder",
                             CreatedDate = new DateTime(2025, 1, 22, 10, 45, 45, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(2025, 1, 22, 10, 45, 45, 0, DateTimeKind.Unspecified),
@@ -265,12 +265,12 @@ namespace RecuperApp.Domain.Repositories.Migrations
 
             modelBuilder.Entity("RecuperApp.Domain.Models.EntityModels.Payment", b =>
                 {
-                    b.Property<int>("PaymentId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("paymentid");
+                        .HasColumnName("id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PaymentId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text")
@@ -308,7 +308,7 @@ namespace RecuperApp.Domain.Repositories.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("updateddate");
 
-                    b.HasKey("PaymentId")
+                    b.HasKey("Id")
                         .HasName("pk_payments");
 
                     b.HasIndex("EmployeeId")
@@ -319,12 +319,12 @@ namespace RecuperApp.Domain.Repositories.Migrations
 
             modelBuilder.Entity("RecuperApp.Domain.Models.EntityModels.PaymentDetail", b =>
                 {
-                    b.Property<int>("PaymentsDetailId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("paymentsdetailid");
+                        .HasColumnName("id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PaymentsDetailId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text")
@@ -358,7 +358,7 @@ namespace RecuperApp.Domain.Repositories.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("weightcontroldetailid");
 
-                    b.HasKey("PaymentsDetailId")
+                    b.HasKey("Id")
                         .HasName("pk_paymentdetails");
 
                     b.HasIndex("PaymentId")
@@ -372,12 +372,12 @@ namespace RecuperApp.Domain.Repositories.Migrations
 
             modelBuilder.Entity("RecuperApp.Domain.Models.EntityModels.PayrollConfig", b =>
                 {
-                    b.Property<int>("PayrollConfigId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("payrollconfigid");
+                        .HasColumnName("id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PayrollConfigId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text")
@@ -415,7 +415,7 @@ namespace RecuperApp.Domain.Repositories.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("updateddate");
 
-                    b.HasKey("PayrollConfigId")
+                    b.HasKey("Id")
                         .HasName("pk_payrollconfigs");
 
                     b.HasIndex("EmployeeId")
@@ -429,12 +429,12 @@ namespace RecuperApp.Domain.Repositories.Migrations
 
             modelBuilder.Entity("RecuperApp.Domain.Models.EntityModels.PriceType", b =>
                 {
-                    b.Property<int>("PriceTypeId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("pricetypeid");
+                        .HasColumnName("id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PriceTypeId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text")
@@ -468,7 +468,7 @@ namespace RecuperApp.Domain.Repositories.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("updateddate");
 
-                    b.HasKey("PriceTypeId")
+                    b.HasKey("Id")
                         .HasName("pk_pricetypes");
 
                     b.ToTable("pricetypes", (string)null);
@@ -476,7 +476,7 @@ namespace RecuperApp.Domain.Repositories.Migrations
                     b.HasData(
                         new
                         {
-                            PriceTypeId = 1,
+                            Id = 1,
                             CreatedBy = "Seeder",
                             CreatedDate = new DateTime(2025, 1, 22, 10, 45, 45, 0, DateTimeKind.Unspecified),
                             Description = "Precios de compra de los productos. Material que ingresa a la bodega y el valor que se paga a los proveedores.",
@@ -485,7 +485,7 @@ namespace RecuperApp.Domain.Repositories.Migrations
                         },
                         new
                         {
-                            PriceTypeId = 2,
+                            Id = 2,
                             CreatedBy = "Seeder",
                             CreatedDate = new DateTime(2025, 1, 22, 10, 45, 45, 0, DateTimeKind.Unspecified),
                             Description = "Precios de venta de los productos. Material que sale de la bodega y el valor que se le cobra a los clientes.",
@@ -496,12 +496,12 @@ namespace RecuperApp.Domain.Repositories.Migrations
 
             modelBuilder.Entity("RecuperApp.Domain.Models.EntityModels.Product", b =>
                 {
-                    b.Property<int>("ProductId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("productid");
+                        .HasColumnName("id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ProductId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Code")
                         .IsRequired()
@@ -555,7 +555,7 @@ namespace RecuperApp.Domain.Repositories.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("updateddate");
 
-                    b.HasKey("ProductId")
+                    b.HasKey("Id")
                         .HasName("pk_products");
 
                     b.HasIndex("ParentId")
@@ -566,12 +566,12 @@ namespace RecuperApp.Domain.Repositories.Migrations
 
             modelBuilder.Entity("RecuperApp.Domain.Models.EntityModels.ProductPrice", b =>
                 {
-                    b.Property<int>("ProductPriceId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("productpriceid");
+                        .HasColumnName("id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ProductPriceId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text")
@@ -617,7 +617,7 @@ namespace RecuperApp.Domain.Repositories.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("updateddate");
 
-                    b.HasKey("ProductPriceId")
+                    b.HasKey("Id")
                         .HasName("pk_productprices");
 
                     b.HasIndex("CustomerId")
@@ -637,12 +637,12 @@ namespace RecuperApp.Domain.Repositories.Migrations
 
             modelBuilder.Entity("RecuperApp.Domain.Models.EntityModels.Remaining", b =>
                 {
-                    b.Property<int>("RemainingId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("remainingid");
+                        .HasColumnName("id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("RemainingId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text")
@@ -676,7 +676,7 @@ namespace RecuperApp.Domain.Repositories.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("weightcontrolid");
 
-                    b.HasKey("RemainingId")
+                    b.HasKey("Id")
                         .HasName("pk_remainings");
 
                     b.HasIndex("ProductId")
@@ -690,12 +690,12 @@ namespace RecuperApp.Domain.Repositories.Migrations
 
             modelBuilder.Entity("RecuperApp.Domain.Models.EntityModels.Role", b =>
                 {
-                    b.Property<int>("RoleId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("roleid");
+                        .HasColumnName("id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("RoleId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text")
@@ -723,7 +723,7 @@ namespace RecuperApp.Domain.Repositories.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("updateddate");
 
-                    b.HasKey("RoleId")
+                    b.HasKey("Id")
                         .HasName("pk_roles");
 
                     b.ToTable("roles", (string)null);
@@ -731,7 +731,7 @@ namespace RecuperApp.Domain.Repositories.Migrations
                     b.HasData(
                         new
                         {
-                            RoleId = 1,
+                            Id = 1,
                             CreatedBy = "Seeder",
                             CreatedDate = new DateTime(2025, 1, 22, 10, 45, 45, 0, DateTimeKind.Unspecified),
                             IsActive = true,
@@ -741,12 +741,12 @@ namespace RecuperApp.Domain.Repositories.Migrations
 
             modelBuilder.Entity("RecuperApp.Domain.Models.EntityModels.Shipment", b =>
                 {
-                    b.Property<int>("ShipmentId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("shipmentid");
+                        .HasColumnName("id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ShipmentId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text")
@@ -800,7 +800,7 @@ namespace RecuperApp.Domain.Repositories.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("updateddate");
 
-                    b.HasKey("ShipmentId")
+                    b.HasKey("Id")
                         .HasName("pk_shipments");
 
                     b.HasIndex("CustomerId")
@@ -817,12 +817,12 @@ namespace RecuperApp.Domain.Repositories.Migrations
 
             modelBuilder.Entity("RecuperApp.Domain.Models.EntityModels.ShipmentDetail", b =>
                 {
-                    b.Property<int>("ShipmentDetailId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("shipmentdetailid");
+                        .HasColumnName("id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ShipmentDetailId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text")
@@ -868,7 +868,7 @@ namespace RecuperApp.Domain.Repositories.Migrations
                         .HasColumnType("double precision")
                         .HasColumnName("weight");
 
-                    b.HasKey("ShipmentDetailId")
+                    b.HasKey("Id")
                         .HasName("pk_shipmentdetails");
 
                     b.HasIndex("ProductId")
@@ -882,12 +882,12 @@ namespace RecuperApp.Domain.Repositories.Migrations
 
             modelBuilder.Entity("RecuperApp.Domain.Models.EntityModels.ShipmentType", b =>
                 {
-                    b.Property<int>("ShipmentTypeId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("shipmenttypeid");
+                        .HasColumnName("id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ShipmentTypeId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text")
@@ -920,7 +920,7 @@ namespace RecuperApp.Domain.Repositories.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("updateddate");
 
-                    b.HasKey("ShipmentTypeId")
+                    b.HasKey("Id")
                         .HasName("pk_shipmenttypes");
 
                     b.ToTable("shipmenttypes", (string)null);
@@ -928,7 +928,7 @@ namespace RecuperApp.Domain.Repositories.Migrations
                     b.HasData(
                         new
                         {
-                            ShipmentTypeId = 1,
+                            Id = 1,
                             CreatedBy = "Seeder",
                             CreatedDate = new DateTime(2025, 1, 22, 10, 45, 45, 0, DateTimeKind.Unspecified),
                             Description = "Material que ingresa a la bodega enviado por los proveedores. Compras",
@@ -937,7 +937,7 @@ namespace RecuperApp.Domain.Repositories.Migrations
                         },
                         new
                         {
-                            ShipmentTypeId = 2,
+                            Id = 2,
                             CreatedBy = "Seeder",
                             CreatedDate = new DateTime(2025, 1, 22, 10, 45, 45, 0, DateTimeKind.Unspecified),
                             Description = "Material que ingresa a la bodega enviado por los proveedores. Ventas",
@@ -948,12 +948,12 @@ namespace RecuperApp.Domain.Repositories.Migrations
 
             modelBuilder.Entity("RecuperApp.Domain.Models.EntityModels.WeightControl", b =>
                 {
-                    b.Property<int>("WeightControlId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("weightcontrolid");
+                        .HasColumnName("id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("WeightControlId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text")
@@ -995,7 +995,7 @@ namespace RecuperApp.Domain.Repositories.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("weightcontroltypeid");
 
-                    b.HasKey("WeightControlId")
+                    b.HasKey("Id")
                         .HasName("pk_weightcontrols");
 
                     b.HasIndex("EmployeeId")
@@ -1009,12 +1009,12 @@ namespace RecuperApp.Domain.Repositories.Migrations
 
             modelBuilder.Entity("RecuperApp.Domain.Models.EntityModels.WeightControlDetail", b =>
                 {
-                    b.Property<int>("WeightControlDetailId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("weightcontroldetailid");
+                        .HasColumnName("id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("WeightControlDetailId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text")
@@ -1048,7 +1048,7 @@ namespace RecuperApp.Domain.Repositories.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("weightcontrolid");
 
-                    b.HasKey("WeightControlDetailId")
+                    b.HasKey("Id")
                         .HasName("pk_weightcontroldetails");
 
                     b.HasIndex("ProductId")
@@ -1062,12 +1062,12 @@ namespace RecuperApp.Domain.Repositories.Migrations
 
             modelBuilder.Entity("RecuperApp.Domain.Models.EntityModels.WeightControlType", b =>
                 {
-                    b.Property<int>("WeightControlTypeId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("weightcontroltypeid");
+                        .HasColumnName("id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("WeightControlTypeId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text")
@@ -1078,8 +1078,8 @@ namespace RecuperApp.Domain.Repositories.Migrations
                         .HasColumnName("createddate");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
                         .HasColumnName("description");
 
                     b.Property<bool>("IsActive")
@@ -1100,10 +1100,39 @@ namespace RecuperApp.Domain.Repositories.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("updateddate");
 
-                    b.HasKey("WeightControlTypeId")
+                    b.HasKey("Id")
                         .HasName("pk_weightcontroltypes");
 
                     b.ToTable("weightcontroltypes", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedBy = "Seeder",
+                            CreatedDate = new DateTime(2025, 1, 22, 10, 45, 45, 0, DateTimeKind.Unspecified),
+                            Description = "Proceso en el que se separa el material",
+                            IsActive = true,
+                            Name = "Separacion"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedBy = "Seeder",
+                            CreatedDate = new DateTime(2025, 1, 22, 10, 45, 45, 0, DateTimeKind.Unspecified),
+                            Description = "Proceso en el que se muelen los materiales separados",
+                            IsActive = true,
+                            Name = "Molido"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedBy = "Seeder",
+                            CreatedDate = new DateTime(2025, 1, 22, 10, 45, 45, 0, DateTimeKind.Unspecified),
+                            Description = "Proceso en el que se compacta los materiales",
+                            IsActive = true,
+                            Name = "Compactado"
+                        });
                 });
 
             modelBuilder.Entity("RecuperApp.Domain.Models.EntityModels.Customer", b =>
@@ -1143,7 +1172,7 @@ namespace RecuperApp.Domain.Repositories.Migrations
             modelBuilder.Entity("RecuperApp.Domain.Models.EntityModels.PaymentDetail", b =>
                 {
                     b.HasOne("RecuperApp.Domain.Models.EntityModels.Payment", "Payment")
-                        .WithMany()
+                        .WithMany("PaymentDetails")
                         .HasForeignKey("PaymentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
@@ -1290,7 +1319,7 @@ namespace RecuperApp.Domain.Repositories.Migrations
                         .HasConstraintName("fk_shipmentdetails_products_productid");
 
                     b.HasOne("RecuperApp.Domain.Models.EntityModels.Shipment", "Shipment")
-                        .WithMany()
+                        .WithMany("ShipmentDetails")
                         .HasForeignKey("ShipmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
@@ -1332,7 +1361,7 @@ namespace RecuperApp.Domain.Repositories.Migrations
                         .HasConstraintName("fk_weightcontroldetails_products_productid");
 
                     b.HasOne("RecuperApp.Domain.Models.EntityModels.WeightControl", "WeightControl")
-                        .WithMany()
+                        .WithMany("WeightControlDetails")
                         .HasForeignKey("WeightControlId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
@@ -1343,9 +1372,24 @@ namespace RecuperApp.Domain.Repositories.Migrations
                     b.Navigation("WeightControl");
                 });
 
+            modelBuilder.Entity("RecuperApp.Domain.Models.EntityModels.Payment", b =>
+                {
+                    b.Navigation("PaymentDetails");
+                });
+
             modelBuilder.Entity("RecuperApp.Domain.Models.EntityModels.Product", b =>
                 {
                     b.Navigation("SubProducts");
+                });
+
+            modelBuilder.Entity("RecuperApp.Domain.Models.EntityModels.Shipment", b =>
+                {
+                    b.Navigation("ShipmentDetails");
+                });
+
+            modelBuilder.Entity("RecuperApp.Domain.Models.EntityModels.WeightControl", b =>
+                {
+                    b.Navigation("WeightControlDetails");
                 });
 #pragma warning restore 612, 618
         }

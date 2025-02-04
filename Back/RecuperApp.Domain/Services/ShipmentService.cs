@@ -43,21 +43,21 @@ namespace RecuperApp.Domain.Services
         public HttpResponseModel GetReceivableReceiptInfo(int id)
         {
             var response = new HttpResponseModel();
-            var query = db.Shipments.Where(x => x.ShipmentId == id).Select(z => new RecivableViewModel
+            var query = db.Shipments.Where(x => x.Id == id).Select(z => new RecivableViewModel
             {
-                shipmentid = z.ShipmentId,
-                shipmenttype = z.ShipmenttypeId,
-                shipmenttypename = z.Shipmenttype.Name,
-                employeename = z.Employee.Name,
-                customername = z.Customer.Name,
-                date = z.CreatedDate,
-                totalprice = z.TotalPrice,
-                details = db.ShipmentDetails.Where(sd=> sd.ShipmentId == z.ShipmentId).Select(x => new RecivableDetails
+                Id = z.Id,
+                ShipmentType = z.ShipmenttypeId,
+                ShipmentTypeName = z.Shipmenttype.Name,
+                EmployeeName = z.Employee.Name,
+                CustomerName = z.Customer.Name,
+                Date = z.CreatedDate,
+                TotalPrice = z.TotalPrice,
+                Details = db.ShipmentDetails.Where(sd=> sd.ShipmentId == z.Id).Select(x => new RecivableDetails
                 {
-                    productname = x.Product.Name,
-                    weight = x.Weight,
-                    productprice = x.ProductPrice,
-                    subtotal = x.Subtotal,
+                    ProductName = x.Product.Name,
+                    Weight = x.Weight,
+                    ProductPrice = x.ProductPrice,
+                    Subtotal = x.Subtotal,
                 }).ToList()
             }).FirstOrDefault();
             if (query != null)
@@ -73,7 +73,7 @@ namespace RecuperApp.Domain.Services
         }
         private Shipment Exist(int shipmentid)
         {
-            var shipment = db.Shipments.Where(x => x.ShipmentId == shipmentid && x.IsActive).FirstOrDefault();
+            var shipment = db.Shipments.Where(x => x.Id == shipmentid && x.IsActive).FirstOrDefault();
             return shipment;
         }
        
@@ -83,10 +83,10 @@ namespace RecuperApp.Domain.Services
 
             var newShipment = new Shipment
             {
-                CustomerId = shipmentViewModel.customerid,
-                EmployeeId = 29, // to do: obtener de usuario logeado
-                ShipmenttypeId = shipmentViewModel.shipmenttypeid,
-                TotalPrice = shipmentViewModel.totalprice,
+                CustomerId = shipmentViewModel.CustomerId,
+                EmployeeId = 1, // to do: obtener de usuario logeado
+                ShipmenttypeId = shipmentViewModel.ShipmentTypeId,
+                TotalPrice = shipmentViewModel.TotalPrice,
                 ShipmentStartDate = DateTime.Now,
                 ShipmentEndDate = DateTime.Now,
                 IsPaid = false,
@@ -94,15 +94,15 @@ namespace RecuperApp.Domain.Services
                 IsActive = true
             };
             db.Shipments.Add(newShipment);
-                foreach (var i in shipmentViewModel.details)
+                foreach (var i in shipmentViewModel.Details)
                 {
                 var detail = new ShipmentDetail
                 {
                     Shipment = newShipment,
-                    ProductId = i.productid,
-                    Weight = i.weight,
-                    ProductPrice = i.price,
-                    Subtotal = i.subtotal,
+                    ProductId = i.ProductId,
+                    Weight = i.Weight,
+                    ProductPrice = i.Price,
+                    Subtotal = i.Subtotal,
                     ShipmentDate = DateTime.Now
                 };
                 db.ShipmentDetails.Add(detail);
@@ -153,7 +153,7 @@ namespace RecuperApp.Domain.Services
             if (viewModel.Type != null && viewModel.Type != -1) {
                 query = query.Where(p => p.Shipment.ShipmenttypeId == viewModel.Type);
             }
-            var result = query.Select(p => new ShipmentReportsViewModel
+            var result = query.Select(p => new ShipmentReportViewModel
             {
                 ProductName = p.Product.Name,
                 EmployeeName = p.Shipment.Employee.Name,
@@ -169,19 +169,19 @@ namespace RecuperApp.Domain.Services
             var response = new HttpResponseModel();
             var query = db.Shipments.Where(x => x.IsPaid == false && x.ShipmenttypeId == id).Select(z => new RecivableViewModel
             {
-                shipmentid = z.ShipmentId,
-                shipmenttype = z.ShipmenttypeId,
-                shipmenttypename = z.Shipmenttype.Name,
-                employeename = z.Employee.Name,
-                customername = z.Customer.Name,
-                date = z.CreatedDate,
-                totalprice = z.TotalPrice,
-                details = db.ShipmentDetails.Where(sd => sd.ShipmentId == z.ShipmentId).Select(x => new RecivableDetails
+                Id = z.Id,
+                ShipmentType = z.ShipmenttypeId,
+                ShipmentTypeName = z.Shipmenttype.Name,
+                EmployeeName = z.Employee.Name,
+                CustomerName = z.Customer.Name,
+                Date = z.CreatedDate,
+                TotalPrice = z.TotalPrice,
+                Details = db.ShipmentDetails.Where(sd => sd.ShipmentId == z.Id).Select(x => new RecivableDetails
                 {
-                    productname = x.Product.Name,
-                    weight = x.Weight,
-                    productprice = x.ProductPrice,
-                    subtotal = x.Subtotal,
+                    ProductName = x.Product.Name,
+                    Weight = x.Weight,
+                    ProductPrice = x.ProductPrice,
+                    Subtotal = x.Subtotal,
                 }).ToList()
             }).ToList();
             if (query != null)
