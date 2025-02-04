@@ -7,7 +7,9 @@ import { WeightControlService } from '../../../services/weight-control-service';
 import { CommonModule } from '@angular/common';
 import { PayrollconfigService } from '../../../services/payrollconfig.service';
 import { PayrollConfigRequest } from '../../../models/Requests/PayrollConfigRequest';
-import { PayrollConfigParams } from '../../../models/PayrollConfigParams';
+import { PayrollConfigViewModel } from '../../../models/ViewModel/PayrollConfigViewModel';
+import { EmployeeService } from '../../../services/employee.service';
+import { EmployeeParams } from '../../../models/EmployeeParams';
 
 @Component({
   selector: 'app-material-processing-prices',
@@ -22,7 +24,8 @@ export class MaterialProcessingPricesComponent {
     private weightControlService: WeightControlService,
     private toastr: ToastrService,
     private productsService: ProductsService,
-    private payrollconfigService: PayrollconfigService
+    private payrollconfigService: PayrollconfigService,
+    private employeeService: EmployeeService,
   ) {
     this.formSelect = this.fb.group({
       Employee: [-1],
@@ -31,9 +34,9 @@ export class MaterialProcessingPricesComponent {
     })
   }
   formSelect: FormGroup;
-  SpecificProductsList: ProductsRequest[] = [];
-  payrollConfigList: PayrollConfigParams[] = [];
-  employeeList: any[] = [];
+  MainProductsList: ProductsRequest[] = [];
+  payrollConfigList: PayrollConfigViewModel[] = [];
+  employeeList: EmployeeParams[] = [];
   employeeId: number = -1;
   productId: number = -1;
   showAll?: boolean;
@@ -57,7 +60,7 @@ export class MaterialProcessingPricesComponent {
   Filter() {
     const payrollConfig: PayrollConfigRequest = {
       EmployeeId: this.formSelect.value.Employee,
-      Id: this.formSelect.value.Product,
+      ProductId: this.formSelect.value.Product,
       ShowAll: this.showAll
     };
     this.payrollconfigService.Filter(payrollConfig).subscribe(r => {
@@ -69,16 +72,16 @@ export class MaterialProcessingPricesComponent {
     })
   }
   GetProduct() {
-    this.productsService.GetSpecificProducts().subscribe(r => {
+    this.productsService.GetMain().subscribe(r => {
       if (r.WasSuccessful) {
-        this.SpecificProductsList = r.Data;
+        this.MainProductsList = r.Data;
       } else {
         this.toastr.info(r.StatusMessage);
       }
     })
   }
   GetEmployee() {
-    this.weightControlService.GetEmployee().subscribe((r) => {
+    this.employeeService.GetAll().subscribe((r) => {
       if (r.WasSuccessful == true) {
         this.employeeList = r.Data;
       } else {
@@ -88,7 +91,7 @@ export class MaterialProcessingPricesComponent {
   }
   saveConfig() {
     const model: PayrollConfigRequest = {
-      Id: this.formSelect.value.Product,
+      ProductId: this.formSelect.value.Product,
       EmployeeId: this.formSelect.value.Employee,
       PricePerKilo: this.formSelect.value.price,
     }

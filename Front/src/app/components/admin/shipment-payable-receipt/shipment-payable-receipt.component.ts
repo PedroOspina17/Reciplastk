@@ -2,7 +2,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ReceivableModel } from '../../../models/ReceivableModel';
+import { RecivableViewModel } from '../../../models/ViewModel/RecivableViewModel';
 import { ShipmentService } from '../../../services/shipment.service';
 import { ShipmentMovementTypeEnum } from '../../../models/Enums';
 
@@ -18,7 +18,7 @@ export class ShipmentPayableReceiptComponent {
   constructor(private aRoute: ActivatedRoute, private shipmentService: ShipmentService, private toastr: ToastrService) {
     this.id = Number(this.aRoute.snapshot.paramMap.get('id'));
   }
-  Receivable: ReceivableModel = new ReceivableModel;
+  Receivable: RecivableViewModel = new RecivableViewModel;
   ShipmentMovement = ShipmentMovementTypeEnum;
   id: number;
   ngOnInit(): void {

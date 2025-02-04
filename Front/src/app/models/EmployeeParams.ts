@@ -1,7 +1,7 @@
 export class EmployeeParams {
-    employeeid: number = -1;
-    role: string = "";
-    name: string = "";
-    lastName: string = "";
-    userName: string = "";
+    Id: number = -1;
+    Role: string = "";
+    Name: string = "";
+    LastName: string = "";
+    UserName: string = "";
 }

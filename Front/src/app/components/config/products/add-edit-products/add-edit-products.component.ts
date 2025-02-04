@@ -73,39 +73,40 @@ export class AddEditProductsComponent {
 
   GetById(id: number): void {
     this.productService.GetById(id).subscribe((result) => {
-      if (result.WasSuccessful == true) {
+      if (result.WasSuccessful) {
+        console.log("Result", result.Data);
+        this.formProduct.setValue({
+          shortname: result.Data.ShortName,
+          name: result.Data.Name,
+          description: result.Data.Description,
+          code: result.Data.Code,
+          issubtype: result.Data.SubProducts && result.Data.SubProducts.length > 0,
+          buyprice: 0,
+          sellprice: 0,
+        });
         this.productPriceService.GetProductCurrentBuySellPrices(id).subscribe(r => {
-
           if (r.WasSuccessful) {
             this.formProduct.controls['shortname'].disable();
             this.formProduct.controls['code'].disable();
-            this.formProduct.setValue({
-              shortname: result.Data.shortname,
-              name: result.Data.name,
-              description: result.Data.description,
-              code: result.Data.code,
-              issubtype: result.Data.subproducts.length > 0,
-              buyprice: r.Data.buy,
-              sellprice: r.Data.sell,
-            });
+            
+          } else {
+            this.toastr.error("No se encontraron precios de los preductos")
           }
         });
-
-
-        result.Data.subproducts.forEach((element: ProductsRequest) => {
-          this.productPriceService.GetProductCurrentPrice(element.Id!, PriceType.Sell).subscribe(r => {
-            if (r.WasSuccessful) {
-              const productPrice = r.Data;
-              const product = {
-                ...element,
-                sellprice: productPrice
-              };
-              this.listSubproduct.push(product);
-            }
+        if (result.Data.SubProducts && result.Data.SubProducts.length > 0) {
+          result.Data.SubProducts.forEach((element: ProductsRequest) => {
+            this.productPriceService.GetProductCurrentPrice(element.Id!, PriceType.Sell).subscribe(r => {
+              if (r.WasSuccessful) {
+                const productPrice = r.Data;
+                const product = {
+                  ...element,
+                  sellprice: productPrice
+                };
+                this.listSubproduct.push(product);
+              }
+            });
           });
-        });
-
-
+        }
       } else {
         this.toastr.error(result.StatusMessage);
       }

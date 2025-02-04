@@ -10,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { ProductsService } from '../../../services/products.service';
 import { WeightControlSeparationRequest } from '../../../models/Requests/WeightControlSeparationRequest';
-import { WeightControlDetailModel } from '../../../models/WeightControlDetailModel';
+import { WeightControlSeparationDetailRequest } from '../../../models/Requests/WeightControlSeparationDetailRequest';
 import { WeightControlService } from '../../../services/weight-control-service';
 import { ProductsRequest } from '../../../models/Requests/ProductsRequest';
 
@@ -41,7 +41,7 @@ export class WeightControlDetailComponent {
   @Input() productid = -1;
   @Input() productname = '';
   @Output() onComplete = new EventEmitter();
-  weightcontroldetaillist: WeightControlDetailModel[] = [];
+  weightcontroldetaillist: WeightControlSeparationDetailRequest[] = [];
   weightDetailForm: FormGroup;
   specificProducts: ProductsRequest[] = [];
   filterProducts: ProductsRequest[] = [];
@@ -61,13 +61,13 @@ export class WeightControlDetailComponent {
     });
   }
   SaveDetail() {
-    const WeightDetail: WeightControlDetailModel = {
-      productid: this.weightDetailForm.value.productid,
-      name:
+    const WeightDetail: WeightControlSeparationDetailRequest = {
+      ProductId: this.weightDetailForm.value.productid,
+      Name:
         this.specificProducts.find(
           (p) => p.Id == this.weightDetailForm.value.productid
         )?.Name ?? '',
-      weight: this.weightDetailForm.value.weight,
+      Weight: this.weightDetailForm.value.weight,
     };
     this.weightcontroldetaillist.unshift(WeightDetail);
     this.weightDetailForm = this.fb.group({
@@ -85,7 +85,7 @@ export class WeightControlDetailComponent {
   SaveAll() {
     const weightcontrol: WeightControlSeparationRequest = {
       EmployeeId: this.employeeid,
-      WeightDetail: this.weightcontroldetaillist,
+      WeightControlDetails: this.weightcontroldetaillist,
     };
     this.weightControlService.CreateSeparation(weightcontrol).subscribe((r) => {
       if (r.WasSuccessful == true) {

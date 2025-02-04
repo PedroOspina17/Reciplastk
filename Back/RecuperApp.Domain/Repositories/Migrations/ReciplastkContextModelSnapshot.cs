@@ -1078,8 +1078,8 @@ namespace RecuperApp.Domain.Repositories.Migrations
                         .HasColumnName("createddate");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
                         .HasColumnName("description");
 
                     b.Property<bool>("IsActive")
@@ -1104,6 +1104,35 @@ namespace RecuperApp.Domain.Repositories.Migrations
                         .HasName("pk_weightcontroltypes");
 
                     b.ToTable("weightcontroltypes", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedBy = "Seeder",
+                            CreatedDate = new DateTime(2025, 1, 22, 10, 45, 45, 0, DateTimeKind.Unspecified),
+                            Description = "Proceso en el que se separa el material",
+                            IsActive = true,
+                            Name = "Separacion"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedBy = "Seeder",
+                            CreatedDate = new DateTime(2025, 1, 22, 10, 45, 45, 0, DateTimeKind.Unspecified),
+                            Description = "Proceso en el que se muelen los materiales separados",
+                            IsActive = true,
+                            Name = "Molido"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedBy = "Seeder",
+                            CreatedDate = new DateTime(2025, 1, 22, 10, 45, 45, 0, DateTimeKind.Unspecified),
+                            Description = "Proceso en el que se compacta los materiales",
+                            IsActive = true,
+                            Name = "Compactado"
+                        });
                 });
 
             modelBuilder.Entity("RecuperApp.Domain.Models.EntityModels.Customer", b =>

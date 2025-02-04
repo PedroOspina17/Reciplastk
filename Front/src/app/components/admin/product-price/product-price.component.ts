@@ -7,8 +7,9 @@ import { ProductsRequest } from '../../../models/Requests/ProductsRequest';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CustomerService } from '../../../services/customer.service';
-import { ProductPriceInnerParams } from '../../../models/ProductPriceInnerParams';
+import { ProductPriceViewModel } from '../../../models/ViewModel/ProductPriceViewModel';
 import { PriceType } from '../../../models/Enums';
+import { PriceTypeViewModel } from '../../../models/ViewModel/PriceTypeViewModel';
 
 @Component({
   selector: 'app-product-price',
@@ -26,7 +27,7 @@ export class ProductPriceComponent {
     })
   }
   formSelects: FormGroup;
-  PriceTypesList: any[] = []
+  PriceTypesList: PriceTypeViewModel[] = []
   ProductsList: ProductsRequest[] = [];
   productPriceTypeId = -1;
   priceType = PriceType;
@@ -60,6 +61,7 @@ export class ProductPriceComponent {
     this.productPriceService.GetAllPriceTypes().subscribe(r => {
       if (r.WasSuccessful) {
         this.PriceTypesList = r.Data;
+        console.log(this.PriceTypesList)
       } else {
         this.toastr.error(r.StatusMessage)
       }

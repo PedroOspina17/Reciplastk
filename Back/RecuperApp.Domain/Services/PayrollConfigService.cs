@@ -3,15 +3,18 @@ using RecuperApp.Domain.Models.EntityModels;
 using RecuperApp.Domain.Models.Requests;
 using RecuperApp.Domain.Models.ViewModels;
 using RecuperApp.Domain.Repositories;
+using RecuperApp.Domain.Services.Interfaces;
 
 namespace RecuperApp.Domain.Services
 {
     public class PayrollConfigService
     {
-        private readonly ReciplastkContext db; 
+        private readonly ReciplastkContext db;
+        private readonly IProductsService productsService;
 
-        public PayrollConfigService(ReciplastkContext db)
+        public PayrollConfigService(ReciplastkContext db, IProductsService productsService)
         {
+            this.productsService = productsService;
             this.db = db;
         }
         public HttpResponseModel GetAll() 
@@ -22,7 +25,7 @@ namespace RecuperApp.Domain.Services
                 CreatedDate = x.CreatedDate,
                 Employee = x.Employee.UserName,
                 Product = x.Product.ShortName,
-                BuyPrice = x.PricePerKilo,
+                PricePerKilo = x.PricePerKilo,
                 IsCurrentePrice = x.IsCurrentPrice,
             }).ToList();
             response.Data = query;
@@ -35,15 +38,14 @@ namespace RecuperApp.Domain.Services
             response.Data = query;
             return response;
         }
-        public HttpResponseModel Create(PayrollConfigRequest payrollConfigViewModel) 
+        public async Task Create(PayrollConfigRequest payrollConfigViewModel)
         {
-            var response = new HttpResponseModel();
-            var query = db.PayrollConfigs.Where(x=> x.EmployeeId == payrollConfigViewModel.EmployeeId && x.ProductId == payrollConfigViewModel.ProductId && x.IsCurrentPrice == true).OrderByDescending(x=> x.CreatedDate).FirstOrDefault();
+            var query = db.PayrollConfigs.Where(x => x.EmployeeId == payrollConfigViewModel.EmployeeId && x.ProductId == payrollConfigViewModel.ProductId && x.IsCurrentPrice == true).OrderByDescending(x => x.CreatedDate).FirstOrDefault();
             if (query != null)
             {
                 query.IsCurrentPrice = false;
             }
-            var newPayrollConfig = new PayrollConfig
+            var newPayrollConfigParent = new PayrollConfig
             {
                 ProductId = payrollConfigViewModel.ProductId,
                 EmployeeId = payrollConfigViewModel.EmployeeId,
@@ -52,10 +54,26 @@ namespace RecuperApp.Domain.Services
                 CreatedDate = DateTime.Now,
                 IsActive = true
             };
-            db.PayrollConfigs.Add(newPayrollConfig);
+            db.PayrollConfigs.Add(newPayrollConfigParent);
+            //var children = await productsService.GetChildren(payrollConfigViewModel.ProductId);
+            //if (children != null)
+            //{
+            //    foreach (var product in children)
+            //    {
+            //        var newPayrollConfig = new PayrollConfig
+            //        {
+            //            ProductId = product.Id,
+            //            EmployeeId = payrollConfigViewModel.EmployeeId,
+            //            PricePerKilo = payrollConfigViewModel.PricePerKilo,
+            //            IsCurrentPrice = true,
+            //            CreatedDate = DateTime.Now,
+            //            IsActive = true
+            //        };
+
+            //        db.PayrollConfigs.Add(newPayrollConfig);
+            //    }
+            //}
             db.SaveChanges();
-            response.StatusMessage = "Se creo la configuracion correctamente";
-            return response;
         }
        public HttpResponseModel Filter(PayrollConfigRequest payrollConfigViewModel)
         {
@@ -80,7 +98,7 @@ namespace RecuperApp.Domain.Services
                 CreatedDate = x.CreatedDate,
                 Employee = x.Employee.Name +" "+ x.Employee.LastName,
                 Product = x.Product.ShortName,
-                BuyPrice = x.PricePerKilo,
+                PricePerKilo = x.PricePerKilo,
                 IsCurrentePrice = x.IsCurrentPrice,
             }).ToList();
             response.Data = result;

@@ -85,11 +85,11 @@
             </thead>
             <tbody>
                 <tr *ngFor="let i of todaysProductList">
-                    <td class="col-2">{{i.productName}}</td>
-                    <td class="col-2">{{i.weight/25}}</td> <!-- to do: replace with default configuration -->
-                    <td class="col-2">{{i.remaining}}</td>
+                    <td class="col-2">{{i.ProductName}}</td>
+                    <td class="col-2">{{i.Weight/25}}</td> <!-- to do: replace with default configuration -->
+                    <td class="col-2">{{i.Remaining}}</td>
                     <td class="col-2">
-                        <button (click)="DeleteRemaining(i.controlId)" type="button" class="btn btn-outline-danger">
+                        <button (click)="DeleteRemaining(i.ControlId)" type="button" class="btn btn-outline-danger">
                             <i class="bi bi-trash fs-6"></i>
                         </button>
                     </td>

@@ -4,7 +4,7 @@ import { AppConfig } from '../common/app-config';
 import { Observable } from 'rxjs';
 import { HttpResponseModel } from '../models/HttpResponseModel';
 import { ShipmentRequest } from '../models/Requests/ShipmentRequest';
-import { ShipmentReportParamsModel } from '../models/ShipmentReportParamsModel';
+import { ShipmentReportRequest } from '../models/Requests/ShipmentReportRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +28,7 @@ export class ShipmentService {
   Delete(id: number):Observable<HttpResponseModel>{
     return this.http.delete<HttpResponseModel>(this.ServiceEndpoint+'/Delete?shipmentid='+id)
   }
-  Filter(model: ShipmentReportParamsModel):Observable<HttpResponseModel>{
+  Filter(model: ShipmentReportRequest):Observable<HttpResponseModel>{
     return this.http.post<HttpResponseModel>(this.ServiceEndpoint+'/Filter', model)
   }
   GetShipmentForPayments(id:number): Observable<HttpResponseModel>{

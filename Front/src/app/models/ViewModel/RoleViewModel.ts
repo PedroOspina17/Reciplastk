@@ -1,4 +1,4 @@
 export class RoleViewModel {
-    RoleId?: number;
+    Id?: number;
     Name: string = "";
 }

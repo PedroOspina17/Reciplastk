@@ -9,5 +9,7 @@
         public string EmployeeName { get; set; }
         public double Weight { get; set; }
         public string Type { get; set; }
+        public double Price { get; set; }
+        public double SubTotal { get; set; }
     }
 }

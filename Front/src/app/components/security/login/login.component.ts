@@ -33,8 +33,8 @@ export class LoginComponent {
   Save(): void {
     
     const loginData: LoginModel = {
-      userName: this.loginForm.value.email,
-      password: this.loginForm.value.password
+      UserName: this.loginForm.value.email,
+      Password: this.loginForm.value.password
     };
 
     this.isLoading = true;

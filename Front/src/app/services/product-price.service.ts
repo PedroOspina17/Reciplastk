@@ -4,7 +4,7 @@ import { AppConfig } from '../common/app-config';
 import { Observable } from 'rxjs';
 import { HttpResponseModel } from '../models/HttpResponseModel';
 import { PriceTypeRequest } from '../models/Requests/PriceTypeRequest';
-import { CopyCustomerPricesViewModel } from '../models/CopyCustomerPricesViewModel';
+import { CopyCustomerPricesViewModel } from '../models/ViewModel/CopyCustomerPricesViewModel';
 
 @Injectable({
   providedIn: 'root'

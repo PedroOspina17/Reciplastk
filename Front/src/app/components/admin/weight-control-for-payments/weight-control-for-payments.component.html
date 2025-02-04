@@ -19,12 +19,13 @@
                     <label for="Employee">Empleado</label><br>
                     <select formControlName="Employee" class="mt-1 w-75 form-select" name="EmployeeId" id="Employee">
                         <option value="-1">Seleccione un empleado</option>
-                        <option *ngFor="let employee of EmployeeList" [ngValue]="employee">{{employee.name}}</option>
+                        <option *ngFor="let employee of EmployeeList" [ngValue]="employee">{{employee.Name}}</option>
                     </select>
                 </div>
             </div>
             <div class="offset-3">
-                <input [disabled]="FormPayments.invalid" (click)="Filter()" class="btn btn-primary w-50" type="button" value="Filtrar">
+                <input [disabled]="FormPayments.invalid" (click)="Filter()" class="btn btn-primary w-50" type="button"
+                    value="Filtrar">
             </div>
         </form>
     </div>
@@ -44,19 +45,21 @@
                     <th>Empleado</th>
                     <th>Producto</th>
                     <th>Peso</th>
+                    <th>Sub total</th>
                     <th>Fecha de inicio</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let i of Filtered">
                     <td>
-                        <input type="checkbox" [id]="i.weightcontroldetailid" [(ngModel)]="i.selected"
-                            (change)="onCheckboxChange($event, i.weightcontroldetailid, i.productName, i.weight)">
+                        <input type="checkbox" [id]="i.Id" [(ngModel)]="i.selected"
+                            (change)="onCheckboxChange($event, i.Id, i.ProductName, i.Weight, i.SubTotal)">
                     </td>
-                    <td>{{i.employeeName}}</td>
-                    <td>{{i.productName}}</td>
-                    <td>{{i.weight}}</td>
-                    <td>{{i.date}}</td>
+                    <td>{{i.EmployeeName}}</td>
+                    <td>{{i.ProductName}}</td>
+                    <td>{{i.Weight}}</td>
+                    <td>{{i.SubTotal | currency:'USD':'symbol':'1.0-0'}}</td> 
+                    <td>{{i.Date | date: 'MM/dd/yyyy'  }}</td>
                 </tr>
             </tbody>
         </table>

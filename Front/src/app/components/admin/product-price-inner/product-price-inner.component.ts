@@ -1,11 +1,11 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
-import { CustomerViewModel } from '../../../models/CustomerModel';
+import { CustomerViewModel } from '../../../models/ViewModel/CustomerViewModel';
 import { CustomerService } from '../../../services/customer.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { PriceTypeRequest } from '../../../models/Requests/PriceTypeRequest';
-import { ProductPriceInnerParams } from '../../../models/ProductPriceInnerParams';
+import { ProductPriceViewModel } from '../../../models/ViewModel/ProductPriceViewModel';
 import { ProductPriceService } from '../../../services/product-price.service';
 import { PriceType } from '../../../models/Enums';
 
@@ -31,7 +31,7 @@ export class ProductPriceInnerComponent {
   @Input() customerid?: number = -1;
   @Input() readOnly: boolean = false;
 
-  filterList: ProductPriceInnerParams[] = [];
+  filterList: ProductPriceViewModel[] = [];
   formSelects: FormGroup;
   CustomerList: CustomerViewModel[] = [];
   IsNegative: boolean = false;

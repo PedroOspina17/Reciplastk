@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CustomerService } from '../../../services/customer.service';
-import { CustomerViewModel } from '../../../models/CustomerModel';
+import { CustomerViewModel } from '../../../models/ViewModel/CustomerViewModel';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
@@ -33,6 +33,7 @@ export class CustomerListComponent {
     this.customerService.GetAll().subscribe((result) => {
       if (result.WasSuccessful == true) {
         this.CustomerList = result.Data;
+        console.log("All", this.CustomerList)
         this.loader = false;
       } else {
         this.toastr.info('No se encontro ningun cliente');

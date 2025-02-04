@@ -1,8 +1,8 @@
 <div class="border rounded shadow-sm px-4 py-2" id="elementIdToPrint">
-    <h3 class="text-center mb-4">{{Receivable.shipmenttype == ShipmentMovement.In ? 'Recibo de compra':'Recibo de venta'}} </h3>
+    <h3 class="text-center mb-4">{{Receivable.ShipmentType == ShipmentMovement.In ? 'Recibo de compra':'Recibo de venta'}} </h3>
     <div class="mb-3">
-        <p><strong>Tipo: </strong>{{Receivable.shipmenttypename}}</p>
-        <p><strong>{{Receivable.shipmenttype == ShipmentMovement.In ? 'Recibido de: ':'Enviado a: '}} </strong>{{Receivable.customername}}
+        <p><strong>Tipo: </strong>{{Receivable.ShipmentTypeName}}</p>
+        <p><strong>{{Receivable.ShipmentType == ShipmentMovement.In ? 'Recibido de: ':'Enviado a: '}} </strong>{{Receivable.CustomerName}}
         </p>
         <div>
             <table class="table table-bordered">
@@ -15,24 +15,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of Receivable.details">
-                        <td>{{item.productname}}</td>
-                        <td>{{item.productprice | currency:'USD':'symbol':'1.0-0'}}</td>
-                        <td>{{item.weight}}</td>
-                        <td>{{item.subtotal | currency:'USD':'symbol':'1.0-0'}}</td>
+                    <tr *ngFor="let item of Receivable.Details">
+                        <td>{{item.ProductName}}</td>
+                        <td>{{item.ProductPrice | currency:'USD':'symbol':'1.0-0'}}</td>
+                        <td>{{item.Weight}}</td>
+                        <td>{{item.SubTotal | currency:'USD':'symbol':'1.0-0'}}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="text-end me-3">
-            <p><strong class="fs-4">Total: {{Receivable.totalprice | currency:'USD':'symbol':'1.0-0'}}</strong></p>
+            <p><strong class="fs-4">Total: {{Receivable.TotalPrice | currency:'USD':'symbol':'1.0-0'}}</strong></p>
         </div>
     </div>
 </div>
 <div class="row">
     <div class="container mt-4 col-6">
         <button type="button" class="btn btn-secondary"
-            [routerLink]="Receivable.shipmenttype == ShipmentMovement.In ? ['/admin/ShipmentPayableComponent/1'] : ['/admin/ShipmentReceivablesComponent/2']">Volver</button>
+            [routerLink]="Receivable.ShipmentType == ShipmentMovement.In ? ['/admin/ShipmentPayableComponent/1'] : ['/admin/ShipmentReceivablesComponent/2']">Volver</button>
     </div>
     <div class="container mt-4 text-end col-6">
         <input class="btn btn-primary" type="button" value="Imprimir factura" (click)="print()">

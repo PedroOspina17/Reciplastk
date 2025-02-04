@@ -16,6 +16,7 @@ namespace RecuperApp.Domain.Repositories.Seeders
             modelBuilder.ApplyConfiguration(new PriceTypeSeederConfiguration());
             modelBuilder.ApplyConfiguration(new RolesSeederConfiguration());
             modelBuilder.ApplyConfiguration(new ShipmentTypeSeederConfiguration());
+            modelBuilder.ApplyConfiguration(new WeightControlTypeSeederConfiguration());
         }
     }
 }

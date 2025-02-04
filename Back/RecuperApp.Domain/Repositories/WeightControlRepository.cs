@@ -99,6 +99,11 @@ namespace RecuperApp.Domain.Repositories
                 EmployeeName = p.WeightControl.Employee.Name,
                 Weight = p.Weight,
                 Type = p.WeightControl.WeightControlType.Name,
+                SubTotal = p.Weight * db.PayrollConfigs.Where(x =>
+                                                    (x.ProductId == p.ProductId || x.ProductId == p.Product.ParentId) 
+                                                    && x.EmployeeId == p.WeightControl.EmployeeId 
+                                                    && x.IsCurrentPrice)
+                                                .Select(y=> y.PricePerKilo).FirstOrDefault(),                
             }).ToListAsync();
 
             return result;

@@ -19,6 +19,7 @@ namespace RecuperApp.Domain.Configurations
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped(typeof(IApplicationService<>), typeof(ApplicationService<>));
+            services.AddScoped(typeof(IApplicationService<,>), typeof(ApplicationService<,>));
             services.AddScoped<ShipmentService>();
             services.AddScoped<CustomerService>();
             services.AddScoped<WeightControlTypeService>();

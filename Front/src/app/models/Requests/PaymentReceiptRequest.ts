@@ -1,4 +1,4 @@
-import { PaymentReceiptDetail } from '../PaymentReceipDetail';
+import { PaymentReceiptDetailRequest } from './PaymentReceiptDetailRequest';
 
 export class PaymentReceiptRequest {
   EmployeeName: string = '';
@@ -6,5 +6,5 @@ export class PaymentReceiptRequest {
   Date: string = '';
   TotalWeight: number = 0;
   TotalToPay: number = 0;
-  Products: PaymentReceiptDetail[] = [];
+  Products: PaymentReceiptDetailRequest[] = [];
 }

@@ -1,4 +1,4 @@
-export class PaymentReceiptDetail {
+export class PaymentReceiptDetailRequest {
   WeightControlDetailId: number = -1;
   Name: string = '';
   Weight: number = 0;

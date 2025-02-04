@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { RoleService } from '../../../services/role.service';
 import { EmployeeRequest } from '../../../models/Requests/EmployeeRequest';
 import { EmployeeService } from '../../../services/employee.service';
-import { RoleViewModel } from '../../../models/RoleViewModel';
+import { RoleViewModel } from '../../../models/ViewModel/RoleViewModel';
 
 @Component({
   selector: 'app-create-employee',

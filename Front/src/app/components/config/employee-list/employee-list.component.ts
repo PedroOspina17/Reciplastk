@@ -22,10 +22,16 @@ export class EmployeeListComponent {
   ) { }
   employeeList: EmployeeParams[] = [];
   DeletePopUp: boolean = false;
+  ngOnInit(): void {
+    this.GetAll();
+  }
   GetAll() {
     this.employeeService.GetAll().subscribe(r => {
       if (r.WasSuccessful) {
-        this.employeeList = r.Data;
+        this.employeeList = r.Data.map((info: any) => ({
+          ...info,
+          Role: info.Role?.Name || "Sin Rol"
+        }));
       } else {
         this.toastr.error(r.StatusMessage);
       }

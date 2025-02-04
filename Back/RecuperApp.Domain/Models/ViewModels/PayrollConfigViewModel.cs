@@ -5,7 +5,7 @@
         public DateTime CreatedDate { get; set; }
         public string Employee { get; set; }
         public string Product { get; set; }
-        public double BuyPrice { get; set; }
+        public double PricePerKilo { get; set; }
         public bool IsCurrentePrice { get; set; }
     }
 }

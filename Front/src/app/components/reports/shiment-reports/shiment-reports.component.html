@@ -18,7 +18,7 @@
                     <select formControlName="EmployeeId" class="mt-1 w-75 form-select" name="EmployeeId"
                         id="EmployeeId">
                         <option value="-1">Seleccione un empleado</option>
-                        <option *ngFor="let i of EmployeeList" value="{{i.employeeid}}">{{i.name}}</option>
+                        <option *ngFor="let i of EmployeeList" value="{{i.Id}}">{{i.Name}}</option>
                     </select>
                 </div>
                 <div class="col-6">
@@ -61,11 +61,11 @@
             </thead>
             <tbody>
                 <tr *ngFor="let i of ShipmentReports">
-                    <td>{{i.employeeName}}</td>
-                    <td>{{i.productName}}</td>
-                    <td>{{i.weight}}</td>
-                    <td>{{i.type}}</td>
-                    <td>{{i.date | date:'MM/dd/yyyy'}}</td>
+                    <td>{{i.EmployeeName}}</td>
+                    <td>{{i.ProductName}}</td>
+                    <td>{{i.Weight}}</td>
+                    <td>{{i.Type}}</td>
+                    <td>{{i.Date | date:'MM/dd/yyyy'}}</td>
                 </tr>
             </tbody>
         </table>

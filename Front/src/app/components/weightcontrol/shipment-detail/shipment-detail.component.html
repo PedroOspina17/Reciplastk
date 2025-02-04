@@ -39,17 +39,17 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let i of shipmentDetailList">
-                            <td>{{i.productname}}</td>
-                            <td>{{i.weight}}</td>
-                            <td>{{i.price | currency:'USD':'symbol':'1.0-0'}}
+                            <td>{{i.ProductName}}</td>
+                            <td>{{i.Weight}}</td>
+                            <td>{{i.Price | currency:'USD':'symbol':'1.0-0'}}
                                 <button type="button" class="btn btn-sm btn-outline-success ms-3" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModalCenter" (click)="ChangePrice(i.productid)">
+                                    data-bs-target="#exampleModalCenter" (click)="ChangePrice(i.ProductId)">
                                     <i class="bi bi-currency-dollar"></i>
                                 </button>
                             </td>
-                            <td>{{i.subtotal | currency:'USD':'symbol':'1.0-0'}}</td>
+                            <td>{{i.SubTotal | currency:'USD':'symbol':'1.0-0'}}</td>
                             <td>
-                                <button (click)="ShipmentDetailDelete(i.productid)" type="button"
+                                <button (click)="ShipmentDetailDelete(i.ProductId)" type="button"
                                     class="btn btn-outline-danger">
                                     <i class="bi bi-trash fs-6"></i>
                                 </button>
@@ -76,7 +76,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">Cambio de precios</h5>
                 <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close">
-                   
+
                 </button>
             </div>
             <div class="modal-body">

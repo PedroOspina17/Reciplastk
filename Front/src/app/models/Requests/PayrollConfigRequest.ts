@@ -1,5 +1,5 @@
 export class PayrollConfigRequest {
-    Id?: number;
+    ProductId?: number;
     EmployeeId?: number;
     PricePerKilo?: number;
     ShowAll?: boolean

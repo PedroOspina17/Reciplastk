@@ -4,7 +4,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { CustomerViewModel } from '../../../models/CustomerModel';
+import { CustomerViewModel } from '../../../models/ViewModel/CustomerViewModel';
 import { CustomerService } from '../../../services/customer.service';
 import { ToastrService } from 'ngx-toastr';
 import { ShipmentDetailComponent } from '../shipment-detail/shipment-detail.component';
@@ -89,8 +89,8 @@ export class ProviderCustomerSelectionComponent {
     this.edit = false;
 
     this.personname = this.CustomerList.find(
-      (p) => p.customerid == this.id
-    )?.name;
+      (p) => p.Id == this.id
+    )?.Name;
 
     if (this.id != -1) {
       this.showShipmentDetail = true;

@@ -32,15 +32,17 @@ namespace RecuperApp.Domain.Services
                 IsPaid = false
             };
 
-
-            foreach (var i in model.WeightControlDetails)
+            if (model.WeightControlDetails != null)
             {
-                var detail = new WeightControlDetail
+                foreach (var i in model.WeightControlDetails)
                 {
-                    ProductId = i.ProductId,
-                    Weight = i.Weight
-                };
-                newWeightControl.WeightControlDetails.Add(detail);
+                    var detail = new WeightControlDetail
+                    {
+                        ProductId = i.ProductId,
+                        Weight = i.Weight
+                    };
+                    newWeightControl.WeightControlDetails.Add(detail);
+                }                
             }
             await weightControlRepository.CreateAsync(newWeightControl);
             return newWeightControl;
@@ -50,7 +52,7 @@ namespace RecuperApp.Domain.Services
             var response = new HttpResponseModel();
             var newWeightControl = new WeightControl
             {
-                EmployeeId = 29, // To do: replace with confing value
+                EmployeeId = 1, // To do: replace with confing value
                 WeightControlTypeId = WeightControlTypeTypeEnum.Grinding.GetHashCode(), // To do: replace with confing value
                 DateStart = DateTime.Now,
                 IsPaid = false

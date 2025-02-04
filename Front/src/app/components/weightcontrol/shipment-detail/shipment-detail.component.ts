@@ -8,7 +8,7 @@ import {
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { ShipmentService } from '../../../services/shipment.service';
-import { ShipmentDetailModel } from '../../../models/ShipmentDetailModel';
+import { ShipmentDetailRequest } from '../../../models/Requests/ShipmentDetailRequest';
 import { ShipmentRequest } from '../../../models/Requests/ShipmentRequest';
 import { ProductsService } from '../../../services/products.service';
 import { ProductsRequest } from '../../../models/Requests/ProductsRequest';
@@ -31,7 +31,7 @@ export class ShipmentDetailComponent {
   @Input() personname = '';
   @Input() personid = -1;
   @Output() onComplete = new EventEmitter();
-  shipmentDetailList: ShipmentDetailModel[] = [];
+  shipmentDetailList: ShipmentDetailRequest[] = [];
   formShipment: FormGroup;
   loader: boolean = false;
   GeneralProductsList: ProductsRequest[] = [];
@@ -77,15 +77,15 @@ export class ShipmentDetailComponent {
     }
   }
   SaveWeight() {
-    const shipmentDetail: ShipmentDetailModel = {
-      shipmenttypeid: this.shipmenttypeid,
-      productid: this.formShipment.value.productid,
-      productname: this.getProductName(this.formShipment.value.productid),
-      weight: this.formShipment.value.weight,
-      price: this.productPrice,
-      subtotal: this.productPrice * this.formShipment.value.weight
+    const shipmentDetail: ShipmentDetailRequest = {
+      Id: this.shipmenttypeid,
+      ProductId: this.formShipment.value.productid,
+      ProductName: this.getProductName(this.formShipment.value.productid),
+      Weight: this.formShipment.value.weight,
+      Price: this.productPrice,
+      SubTotal: this.productPrice * this.formShipment.value.weight
     };
-    this.TotalPrice += shipmentDetail.subtotal;
+    this.TotalPrice += shipmentDetail.SubTotal;
     this.shipmentDetailList.unshift(shipmentDetail);
     this.formShipment = this.fb.group({
       productid: ['-1', [Validators.required, Validators.min(0)]],
@@ -125,9 +125,9 @@ export class ShipmentDetailComponent {
   }
   ShipmentDetailDelete(ShipmentDetailId: number) {
     this.loader = true;
-    const index = this.shipmentDetailList.findIndex((i) => i.productid === ShipmentDetailId);
+    const index = this.shipmentDetailList.findIndex((i) => i.ProductId === ShipmentDetailId);
     if (index !== -1) {
-      this.TotalPrice -= this.shipmentDetailList[index].subtotal;
+      this.TotalPrice -= this.shipmentDetailList[index].SubTotal;
       this.shipmentDetailList.splice(index, 1);
       this.toastr.info('Producto eliminado con éxito');
     }

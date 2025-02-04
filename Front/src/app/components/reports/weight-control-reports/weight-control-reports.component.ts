@@ -11,8 +11,10 @@ import { CommonModule } from '@angular/common';
 import { WeightControlService } from '../../../services/weight-control-service';
 import { ProductsService } from '../../../services/products.service';
 import { WeightCotrolTypeService } from '../../../services/weight-cotrol-type.service';
-import { WeightControlReport } from '../../../models/WeightControlReport';
 import { ProductsRequest } from '../../../models/Requests/ProductsRequest';
+import { WeightControlReportViewModel } from '../../../models/ViewModel/WeightControlReportViewModel';
+import { EmployeeService } from '../../../services/employee.service';
+import { EmployeeParams } from '../../../models/EmployeeParams';
 
 @Component({
   selector: 'app-weight-control-reports',
@@ -31,7 +33,8 @@ export class WeightControlReportsComponent {
     private toastr: ToastrService,
     private weightControlService: WeightControlService,
     private productsService: ProductsService,
-    private weightControloTypeService: WeightCotrolTypeService
+    private weightControloTypeService: WeightCotrolTypeService,
+    private employeeService: EmployeeService,
   ) {
     this.FormGroupControl = this.fb.group({
       StartDate: [],
@@ -47,10 +50,10 @@ export class WeightControlReportsComponent {
   ProductValue: string = '';
   TypeValue: string = '';
   ShowTable: boolean = false;
-  weightControlReport: WeightControlReport[] = [];
+  weightControlReport: WeightControlReportViewModel[] = [];
   ProductList: ProductsRequest[] = [];
   WeightControlTypeList: any[] = [];
-  EmployeeList: any[] = [];
+  EmployeeList: EmployeeParams[] = [];
   typeList: any[] = [];
   ngOnInit(): void {
     this.GetInfo();
@@ -74,7 +77,7 @@ export class WeightControlReportsComponent {
     });
   }
   GetInfo() {
-    this.weightControlService.GetEmployee().subscribe((r) => {
+    this.employeeService.GetAll().subscribe((r) => {
       if (r.WasSuccessful == true) {
         this.EmployeeList = r.Data;
       } else {

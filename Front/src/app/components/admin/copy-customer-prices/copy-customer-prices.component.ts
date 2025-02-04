@@ -2,12 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { CustomerViewModel } from '../../../models/CustomerModel';
+import { CustomerViewModel } from '../../../models/ViewModel/CustomerViewModel';
 import { CustomerService } from '../../../services/customer.service';
-import { CopyCustomerPricesViewModel } from '../../../models/CopyCustomerPricesViewModel';
+import { CopyCustomerPricesViewModel } from '../../../models/ViewModel/CopyCustomerPricesViewModel';
 import { ProductPriceService } from '../../../services/product-price.service';
 import { PriceTypeRequest } from '../../../models/Requests/PriceTypeRequest';
-import { ProductPriceInnerParams } from '../../../models/ProductPriceInnerParams';
+import { ProductPriceViewModel } from '../../../models/ViewModel/ProductPriceViewModel';
 
 @Component({
   selector: 'app-copy-customer-prices',
@@ -26,7 +26,7 @@ export class CopyCustomerPricesComponent {
   }
   FormSelects: FormGroup;
   CustomerList: CustomerViewModel[] = [];
-  filterList: ProductPriceInnerParams[] = [];
+  filterList: ProductPriceViewModel[] = [];
   ngOnInit(): void {
     this.GetCustomers();
   }
@@ -59,8 +59,8 @@ export class CopyCustomerPricesComponent {
       });
     } else {
       const copyCustomerPricesViewModel: CopyCustomerPricesViewModel = {
-        customerFrom: this.FormSelects.value.CustomerToCopyId,
-        customerTo: this.FormSelects.value.CustomerToAssignId,
+        CustomerFrom: this.FormSelects.value.CustomerToCopyId,
+        CustomerTo: this.FormSelects.value.CustomerToAssignId,
       }
       this.productPriceService.CopyPrices(copyCustomerPricesViewModel).subscribe(r => {
         if (r.WasSuccessful) {

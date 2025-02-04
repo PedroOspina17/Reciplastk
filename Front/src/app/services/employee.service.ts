@@ -14,22 +14,22 @@ export class EmployeeService {
   ServiceEndpoint: string = `${AppConfig.API_URL}/api/Employee/`;
   
   GetAll(): Observable<HttpResponseModel> {
-    return this.http.get<HttpResponseModel>(this.ServiceEndpoint + 'GetAllEmployee')
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint + 'GetAll')
   }
 
   GetById(id: number): Observable<HttpResponseModel> {
-    return this.http.get<HttpResponseModel>(this.ServiceEndpoint + 'GetEmployeeById?Id=' + id)
+    return this.http.get<HttpResponseModel>(this.ServiceEndpoint + 'GetById?Id=' + id)
   }
 
   Create(Model: EmployeeRequest): Observable<HttpResponseModel> {
-    return this.http.post<HttpResponseModel>(this.ServiceEndpoint + 'AddEmployee', Model)
+    return this.http.post<HttpResponseModel>(this.ServiceEndpoint + 'Create', Model)
   }
 
   Update(Model: EmployeeRequest): Observable<HttpResponseModel> {
-    return this.http.post<HttpResponseModel>(this.ServiceEndpoint + 'UpdateEmployee', Model)
+    return this.http.post<HttpResponseModel>(this.ServiceEndpoint + 'Update', Model)
   }
 
   Delete(id: number): Observable<HttpResponseModel> {
-    return this.http.delete<HttpResponseModel>(this.ServiceEndpoint + 'DeleteEmployee?Id=' + id)
+    return this.http.delete<HttpResponseModel>(this.ServiceEndpoint + 'Delete?Id=' + id)
   }
 }

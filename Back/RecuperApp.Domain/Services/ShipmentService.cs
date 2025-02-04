@@ -84,7 +84,7 @@ namespace RecuperApp.Domain.Services
             var newShipment = new Shipment
             {
                 CustomerId = shipmentViewModel.CustomerId,
-                EmployeeId = 29, // to do: obtener de usuario logeado
+                EmployeeId = 1, // to do: obtener de usuario logeado
                 ShipmenttypeId = shipmentViewModel.ShipmentTypeId,
                 TotalPrice = shipmentViewModel.TotalPrice,
                 ShipmentStartDate = DateTime.Now,

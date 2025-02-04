@@ -24,7 +24,8 @@ namespace RecuperApp.Domain.Services
         public async Task<List<Product>> GetMainProducts()
         {
             var parentProducts = await applicationRepository.GetByParamAsync(p => p.ParentId != null);
-            var productsMain = await applicationRepository.GetByParamAsync(p => parentProducts.Any(x => x.ParentId == p.Id));
+            var parentProductIds = parentProducts.Select(x=> x.ParentId).Distinct().ToList();
+            var productsMain = await applicationRepository.GetByParamAsync(p => parentProductIds.Contains(p.Id));
             return productsMain;
         }
         public async Task<List<Product>> GetSpecificProducts()

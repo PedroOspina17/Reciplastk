@@ -7,12 +7,14 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { ShipmentReportParamsModel } from '../../../models/ShipmentReportParamsModel';
+import { ShipmentReportRequest } from '../../../models/Requests/ShipmentReportRequest';
 import { WeightControlService } from '../../../services/weight-control-service';
 import { ProductsService } from '../../../services/products.service';
 import { ShipmentTypeService } from '../../../services/shipment-type.service';
-import { ShipmentReports } from '../../../models/ShipmentReports';
+import { ShipmentReportViewModel } from '../../../models/ViewModel/ShipmentReportViewModel';
 import { ShipmentService } from '../../../services/shipment.service';
+import { EmployeeService } from '../../../services/employee.service';
+import { EmployeeParams } from '../../../models/EmployeeParams';
 
 @Component({
   selector: 'app-shiment-reports',
@@ -32,7 +34,9 @@ export class ShimentReportsComponent {
     private weightControlService: WeightControlService,
     private productService: ProductsService,
     private shipmentTypeService: ShipmentTypeService,
-    private shipmentService: ShipmentService
+    private shipmentService: ShipmentService,
+    private employeeService: EmployeeService,
+
   ) {
     this.FormShipment = this.fb.group({
       StartDate: [],
@@ -45,18 +49,18 @@ export class ShimentReportsComponent {
   }
   isVisible: boolean = false;
   FormShipment: FormGroup;
-  EmployeeList: any[] = [];
+  EmployeeList: EmployeeParams[] = [];
   ProductList: any[] = [];
   ShipmentTypeList: any[] = [];
-  ShipmentReports: ShipmentReports[] = [];
+  ShipmentReports: ShipmentReportViewModel[] = [];
   Filter() {
-    const Model: ShipmentReportParamsModel = {
-      startDate: this.FormShipment.value.StartDate,
-      endDate: this.FormShipment.value.EndDate,
-      employeeId: this.FormShipment.value.EmployeeId,
-      productId: this.FormShipment.value.ProductId,
-      isPaid: this.FormShipment.value.IsPaid,
-      type: this.FormShipment.value.TypeId,
+    const Model: ShipmentReportRequest = {
+      StartDate: this.FormShipment.value.StartDate,
+      EndDate: this.FormShipment.value.EndDate,
+      EmployeeId: this.FormShipment.value.EmployeeId,
+      ProductId: this.FormShipment.value.ProductId,
+      IsPaid: this.FormShipment.value.IsPaid,
+      Type: this.FormShipment.value.TypeId,
     };
     this.shipmentService.Filter(Model).subscribe((r) => {
       if (r.WasSuccessful) {
@@ -73,7 +77,7 @@ export class ShimentReportsComponent {
     this.GetInfo();
   }
   GetInfo() {
-    this.weightControlService.GetEmployee().subscribe((r) => {
+    this.employeeService.GetAll().subscribe((r) => {
       if (r.WasSuccessful == true) {
         this.EmployeeList = r.Data;
       } else {

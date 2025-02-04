@@ -10,10 +10,13 @@ import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { WeightControlService } from '../../../services/weight-control-service';
 import { WeightControlReportRequest } from '../../../models/Requests/WeightControlReportRequest';
-import { WeightControlReport } from '../../../models/WeightControlReport';
+import { WeightControlReportViewModel } from '../../../models/ViewModel/WeightControlReportViewModel';
 import { DatePipe } from '@angular/common';
 import { PaymentReceiptRequest } from '../../../models/Requests/PaymentReceiptRequest';
 import { PaymentReceiptComponent } from '../payment-receipt/payment-receipt.component';
+import { PaymentsService } from '../../../services/payments.service';
+import { EmployeeService } from '../../../services/employee.service';
+import { EmployeeParams } from '../../../models/EmployeeParams';
 
 @Component({
   selector: 'app-weight-control-for-payments',
@@ -33,7 +36,9 @@ export class WeightControlForPaymentsComponent {
     private fb: FormBuilder,
     private toastr: ToastrService,
     private weightControlService: WeightControlService,
+    private paymentsService: PaymentsService,
     private datePipe: DatePipe,
+    private employeeService: EmployeeService,
   ) {
     this.FormPayments = this.fb.group({
       StartDate: [],
@@ -44,8 +49,8 @@ export class WeightControlForPaymentsComponent {
   }
 
   FormPayments: FormGroup;
-  EmployeeList: any[] = [];
-  Filtered: (WeightControlReport & { selected: boolean })[] = [];
+  EmployeeList: EmployeeParams[] = [];
+  Filtered: (WeightControlReportViewModel & { selected: boolean })[] = [];
   isVisible: boolean = false;
   BillInfo: PaymentReceiptRequest;
   ShowBill: boolean = false;
@@ -55,7 +60,7 @@ export class WeightControlForPaymentsComponent {
   }
 
   GetEmployee() {
-    this.weightControlService.GetEmployee().subscribe((r) => {
+    this.employeeService.GetAll().subscribe((r) => {
       if (r.WasSuccessful) {
         this.EmployeeList = r.Data;
       } else {
@@ -77,15 +82,14 @@ export class WeightControlForPaymentsComponent {
     this.weightControlService.Filter(Model).subscribe((r) => {
       this.BillInfo.Date = this.datePipe.transform(new Date(), 'MM/dd/yyyy') || '';
       if (r.WasSuccessful) {
-        this.Filtered = r.Data.map((item: WeightControlReport) => ({
+        this.Filtered = r.Data.map((item: WeightControlReportViewModel) => ({
           ...item,
-          date: this.datePipe.transform(item.date, 'short') || '',
           selected: false,
         }));
         const selectedEmployee = this.EmployeeList.find(
-          (employee) => employee.id === Model.EmployeeId
+          (employee) => employee.Id === Model.EmployeeId
         );
-        this.BillInfo.EmployeeName = selectedEmployee.name;
+        this.BillInfo.EmployeeName = selectedEmployee?.Name ?? "";
       } else {
         this.toastr.error(
           'No se encontraron los detalles con los filtros aplicados'
@@ -103,17 +107,20 @@ export class WeightControlForPaymentsComponent {
 
     if (isChecked) {
       this.BillInfo.Products = this.Filtered.map((item) => ({
-        WeightControlDetailId: item.weightcontroldetailid,
-        Name: item.productName,
-        Weight: item.weight,
-        Price: item.weight * 150, // To do: replace for a config value
+        WeightControlDetailId: item.Id,
+        Name: item.ProductName,
+        Weight: item.Weight,
+        Price: item.SubTotal
       }));
 
       this.BillInfo.TotalWeight = this.BillInfo.Products.reduce(
         (sum, product) => sum + product.Weight,
         0
       );
-      this.BillInfo.TotalToPay = this.BillInfo.TotalWeight * 150; // To do: replace for a config value
+      this.BillInfo.TotalToPay = this.BillInfo.Products.reduce(
+        (sum, product) => sum + product.Price,
+        0
+      );
     } else {
       this.BillInfo.Products = [];
       this.BillInfo.TotalWeight = 0;
@@ -125,7 +132,8 @@ export class WeightControlForPaymentsComponent {
     event: Event,
     weightcontroldetailid: number,
     productName: string,
-    weight: number
+    weight: number,
+    subTotal: number
   ) {
     const checkbox = event.target as HTMLInputElement;
     if (checkbox.checked) {
@@ -133,21 +141,22 @@ export class WeightControlForPaymentsComponent {
         WeightControlDetailId: weightcontroldetailid,
         Name: productName,
         Weight: weight,
-        Price: weight * 150, // To do: replace for a config value
+        Price: subTotal,
       });
       this.BillInfo.TotalWeight += weight;
+      this.BillInfo.TotalToPay += subTotal;
     } else {
       this.BillInfo.Products = this.BillInfo.Products.filter(
         (product) => product.WeightControlDetailId !== weightcontroldetailid
       );
       this.BillInfo.TotalWeight -= weight;
+      this.BillInfo.TotalToPay -= subTotal;
     }
-    this.BillInfo.TotalToPay = this.BillInfo.TotalWeight * 150; // To do: replace for a config value
   }
 
   PayAndSave() {
     if (this.BillInfo.Products.length > 0) {
-      this.weightControlService.PayAndSave(this.BillInfo).subscribe((r) => {
+      this.paymentsService.PayAndSave(this.BillInfo).subscribe((r) => {
         if (r.WasSuccessful) {
           this.toastr.success('Se modificaron los pagos correctamente');
           this.Filter();

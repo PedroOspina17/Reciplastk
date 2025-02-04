@@ -14,6 +14,7 @@ import {  } from '../../shared/loader/loader.component';
 import { ToastrService } from 'ngx-toastr';
 import { ProductsService } from '../../../services/products.service';
 import { ProductsRequest } from '../../../models/Requests/ProductsRequest';
+import { GroundProductViewModel } from '../../../models/ViewModel/GroundProductViewModel';
 
 
 @Component({
@@ -56,7 +57,7 @@ export class WeightControlGrindingComponent {
   isVisible: boolean = false;
   FormSelection: FormGroup;
   FormRemaining: FormGroup;
-  todaysProductList: any[] = [];
+  todaysProductList: GroundProductViewModel[] = [];
   generalProductList: ProductsRequest[] = [];
   specificProductList: ProductsRequest[] = [];
   filterProductList: ProductsRequest[] = [];
@@ -84,7 +85,7 @@ export class WeightControlGrindingComponent {
   }
   SaveRemainig() {
     const remainingModel: WeightControlGrindingRequest = {
-      Id: this.specificproductid,
+      ProductId: this.specificproductid,
       PackageCount: this.FormRemaining.value.Package,
       Remainig: this.FormRemaining.value.Spare,
     };
@@ -129,7 +130,7 @@ export class WeightControlGrindingComponent {
       if (r.WasSuccessful == true) {
         this.todaysProductList = r.Data;
         this.todaysProductList.forEach((element) => {
-          this.totalweight += element.weight;
+          this.totalweight += element.Weight;
         });
       } else {
         this.toastr.error(r.StatusMessage);

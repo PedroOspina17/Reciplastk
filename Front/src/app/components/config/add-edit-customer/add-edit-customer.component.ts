@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CustomerService } from '../../../services/customer.service';
-import { CustomerViewModel } from '../../../models/CustomerModel';
+import { CustomerViewModel } from '../../../models/ViewModel/CustomerViewModel';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { ToastrService } from 'ngx-toastr';
 import { CustomerTypeRequest } from '../../../models/Requests/CustomerTypeRequest';
@@ -119,24 +119,24 @@ export class AddEditCustomerComponent {
   AddEditCustomer() {
     this.loader = true;
     const customer: CustomerViewModel = {
-      nit: this.formCustomer.value.nit,
-      customertypeid: this.formCustomer.value.customertypeid,
-      name: this.formCustomer.value.name,
-      lastname: this.formCustomer.value.lastname,
-      address: this.formCustomer.value.address,
-      cell: this.formCustomer.value.cell,
-      needspickup: this.formCustomer.value.needspickup,
-      clientsince: this.formCustomer.value.clientsince,
+      Nit: this.formCustomer.value.nit,
+      CustomerTypeId: this.formCustomer.value.customertypeid,
+      Name: this.formCustomer.value.name,
+      LastName: this.formCustomer.value.lastname,
+      Address: this.formCustomer.value.address,
+      Cell: this.formCustomer.value.cell,
+      NeedsPickUp: this.formCustomer.value.needspickup,
+      ClientSince: this.formCustomer.value.clientsince,
     };
     if (this.id != 0) {
-      customer.customerid = this.id;
+      customer.Id = this.id;
       this.customerServises
         .Update(customer, this.id)
         .subscribe((result) => {
           if (result.WasSuccessful == true) {
             this.loader = false;
             this.toastr.success(
-              `El cliente ${customer.name} fue modificado exitosamente`,
+              `El cliente ${customer.Name} fue modificado exitosamente`,
               'Felicitaciones'
             );
             this.router.navigate(['/config/customer']);

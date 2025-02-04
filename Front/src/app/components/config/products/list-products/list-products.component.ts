@@ -32,12 +32,12 @@ export class ListProductsComponent {
   }
 
   ngOnInit(id: number) {
-    this.GetMain();
+    this.GetAll();
   };
   ChangePrice(productid: number) {
     this.producttochangeprice = productid
   }
-  GetMain() {
+  GetAll() {
     this.loading = true;
     this.productService.GetAll().subscribe(result => {
       if (result.WasSuccessful == true) {
@@ -77,7 +77,7 @@ export class ListProductsComponent {
           } else {
             this.toastr.error('El producto no fue eliminado.', 'Error.');
           }
-          this.GetMain();
+          this.GetAll();
         })
       } else {
         this.DeletePopUp = false;

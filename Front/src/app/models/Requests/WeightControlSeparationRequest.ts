@@ -1,7 +1,7 @@
-import { WeightControlDetailModel } from '../WeightControlDetailModel';
+import { WeightControlSeparationDetailRequest } from './WeightControlSeparationDetailRequest';
 
 export class WeightControlSeparationRequest {
   Id?: number;
   EmployeeId: number = -1;
-  WeightDetail: WeightControlDetailModel[] = [];
+  WeightControlDetails: WeightControlSeparationDetailRequest[] = [];
 }
